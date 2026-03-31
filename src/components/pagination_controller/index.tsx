@@ -7,11 +7,11 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "../pagination";
-import type { Pagination as PaginationType } from "@/types";
+import type { PaginationState } from "@/types";
 
 interface Props {
   setPage: (page: number) => void;
-  pagination: PaginationType;
+  pagination: PaginationState;
 }
 
 export const PaginationController: React.FC<Props> = ({

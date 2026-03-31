@@ -1,73 +1,136 @@
-# React + TypeScript + Vite
+# arxatec-ui
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+React component kit for **Arxatec** products: primitives built on **Radix UI**, styling with **Tailwind CSS v4**, animations, and ready-made pieces for forms, data, maps, and more.
 
-Currently, two official plugins are available:
+## Requirements
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **React** 18 or 19 (`react` and `react-dom` are *peer dependencies*).
+- A bundler that supports **ESM** (recommended: **Vite**).
+- **Tailwind CSS v4** and the **`@tailwindcss/vite`** plugin (or an equivalent pipeline that processes the library stylesheet).
 
-## React Compiler
+## Installation
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install arxatec-ui
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Make sure React is installed in your app:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install react react-dom
 ```
+
+## Global styles
+
+The package exposes a single stylesheet (theme tokens, Tailwind, shadcn-style utilities):
+
+```ts
+// e.g. in main.tsx or App.tsx
+import "arxatec-ui/styles.css";
+```
+
+That CSS uses Tailwind v4 features (`@import "tailwindcss"`, `@theme`, etc.). Your build **must process** it with Tailwind (serving the raw file without compiling is not enough).
+
+### Vite + Tailwind v4
+
+1. Install Tailwind and the official Vite plugin:
+
+   ```bash
+   npm install tailwindcss @tailwindcss/vite
+   ```
+
+2. In `vite.config.ts`:
+
+   ```ts
+   import tailwindcss from "@tailwindcss/vite";
+   import { defineConfig } from "vite";
+
+   export default defineConfig({
+     plugins: [tailwindcss()],
+   });
+   ```
+
+3. If production builds **drop classes** that only appear inside `node_modules/arxatec-ui`, point Tailwind at the library’s compiled JS, for example in your entry CSS (Tailwind v4):
+
+   ```css
+   @source "../../node_modules/arxatec-ui/dist/**/*.js";
+   ```
+
+   Adjust the path relative to your CSS file.
+
+### Dark mode
+
+The theme expects a **`.dark`** ancestor (e.g. `className="dark"` on `<html>`).
+
+## Basic usage
+
+```tsx
+import { Button, Card, CardHeader, CardTitle, CardContent } from "arxatec-ui";
+
+export function Example() {
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle>Hello</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <Button>Action</Button>
+      </CardContent>
+    </Card>
+  );
+}
+```
+
+Patterns follow **shadcn**-style APIs (compound components with named exports).
+
+## Package exports
+
+### Components (overview)
+
+- **Forms & text:** `Button`, `Input`, `Textarea`, `Label`, `Checkbox`, `RadioGroup`, `Select`, `Slider`, `Toggle`, `InputOTP`, `FileDropZone`, `LocationInput`, `DateRangePicker`, `Calendar`, `AsyncSelect`, and more.
+- **Surfaces & navigation:** `Card`, `Dialog`, `Sheet`, `Drawer`, `Popover`, `Tooltip`, `DropdownMenu`, `ContextMenu`, `Tabs`, `Breadcrumb`, `Pagination`, `PaginationController`, `Sidebar`, `Command`, `Collapsible`, and more.
+- **Data & feedback:** `Table`, `Badge`, `Skeleton`, `Progress`, `StatusMessage`, `AsyncBoundary`, `AsyncCommandList`, `Chart`, `Carousel`, and more.
+- **Maps:** `MapView`, `MapPicker`.
+- **Extras:** `Toaster` (Sonner), `IconPicker`, `EmojiPicker`, brand icons, animated icons, etc.
+
+The full list matches the `export *` entries in [`src/index.ts`](./src/index.ts).
+
+### Hooks
+
+- **`useDebounce`**
+
+### Types
+
+- **`PaginationState`**: `{ page, limit, total, total_pages }` (useful with `PaginationController`).
+
+### Utilities
+
+- **`cn`**: class merging (`clsx` + `tailwind-merge`).
+- Image crop helpers for `ImageCropDialog`.
+- **`classNameControl`**: optional **Storybook** control metadata.
+
+## Toasts (Sonner)
+
+Render **`Toaster`** once near the app root and call `toast(...)` per the **sonner** docs.
+
+## Maps (Leaflet)
+
+```ts
+import "leaflet/dist/leaflet.css";
+```
+
+## Developing this repo
+
+| Command | Description |
+|--------|-------------|
+| `npm run dev` | Vite playground (style guide). |
+| `npm run storybook` | Storybook on port 6006. |
+| `npm run build:lib` | Build `dist/` for npm. |
+| `npm run build` | Playground production build. |
+| `npm run lint` | ESLint. |
+
+Publishing to npm requires **2FA**; use `npm publish --otp=...` when prompted.
+
+## License
+
+MIT. See [LICENSE](./LICENSE).

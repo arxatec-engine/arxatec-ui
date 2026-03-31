@@ -20,12 +20,12 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/table";
-import type { Pagination as PaginationType } from "@/types";
+import type { PaginationState } from "@/types";
 
 import { ShowcaseBlock } from "../showcase_block";
 
 interface Props {
-  pagination: PaginationType;
+  pagination: PaginationState;
   onSetPage: (page: number) => void;
 }
 

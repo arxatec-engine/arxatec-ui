@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import { useState } from 'react'
 
-import type { Pagination as PaginationState } from '@/types'
+import type { PaginationState } from '@/types'
 import { PaginationController } from './index'
 
 type PaginationControllerStoryArgs = {

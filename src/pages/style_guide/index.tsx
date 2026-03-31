@@ -5,7 +5,7 @@ import type { LocationData } from "@/components/map_picker";
 import { Toaster } from "@/components/sonner";
 import { TooltipProvider } from "@/components/tooltip";
 import type { ChartConfig } from "@/components/chart";
-import type { Pagination as PaginationType } from "@/types";
+import type { PaginationState } from "@/types";
 
 import {
   BrandingFeedbackSection,
@@ -33,7 +33,7 @@ function StyleGuide() {
     lng: -99.1332,
     address: "Ciudad de Mexico, CDMX",
   });
-  const [pagination, setPagination] = useState<PaginationType>({
+  const [pagination, setPagination] = useState<PaginationState>({
     page: 2,
     limit: 10,
     total: 87,
