@@ -1,33 +1,48 @@
-import type { Meta, StoryObj } from '@storybook/react-vite'
+import type { Meta, StoryObj } from "@storybook/react-vite";
+import type { ComponentProps } from "react";
 
-import { classNameControl } from '@/utilities/storybook_controls'
+import { classNameControl } from "@/utilities/storybook";
 import {
   InputOTP,
   InputOTPGroup,
   InputOTPSeparator,
   InputOTPSlot,
-} from './index'
+} from "./index";
+
+type InputOTPStoryArgs = Pick<
+  ComponentProps<typeof InputOTP>,
+  "className" | "containerClassName" | "maxLength" | "disabled"
+>;
 
 const meta = {
-  title: 'Components/InputOTP',
-  component: InputOTP,
-  parameters: { layout: 'centered' },
-  tags: ['autodocs'],
+  title: "Components/InputOTP",
+  parameters: { layout: "centered" },
+  tags: ["autodocs"],
   argTypes: {
     ...classNameControl,
-    maxLength: { control: { type: 'number', min: 4, max: 8 } },
-    disabled: { control: 'boolean' },
+    maxLength: { control: { type: "number", min: 4, max: 8 } },
+    disabled: { control: "boolean" },
   },
-} satisfies Meta
+} satisfies Meta<InputOTPStoryArgs>;
 
-export default meta
+export default meta;
 
-type Story = StoryObj<typeof meta>
+type Story = StoryObj<InputOTPStoryArgs>;
 
 export const Default: Story = {
   args: { maxLength: 6, disabled: false },
-  render: ({ maxLength = 6, disabled, ...root }) => (
-    <InputOTP maxLength={maxLength} disabled={disabled} {...root}>
+  render: ({
+    maxLength = 6,
+    disabled,
+    className,
+    containerClassName,
+  }) => (
+    <InputOTP
+      maxLength={maxLength}
+      disabled={disabled}
+      className={className}
+      containerClassName={containerClassName}
+    >
       <InputOTPGroup>
         <InputOTPSlot index={0} />
         <InputOTPSlot index={1} />
@@ -41,4 +56,4 @@ export const Default: Story = {
       </InputOTPGroup>
     </InputOTP>
   ),
-}
+};

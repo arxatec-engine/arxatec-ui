@@ -1,7 +1,13 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
+import type { ComponentProps } from 'react'
 
 import { Button } from '../button'
 import { Tooltip, TooltipContent, TooltipTrigger } from './index'
+
+type TooltipStoryArgs = ComponentProps<typeof Tooltip> & {
+  textoDisparador?: string
+  textoAyuda?: string
+}
 
 const meta = {
   title: 'Components/Tooltip',
@@ -12,11 +18,11 @@ const meta = {
     textoDisparador: { control: 'text', name: 'Texto del botón' },
     textoAyuda: { control: 'text', name: 'Texto del tooltip' },
   },
-} satisfies Meta
+} satisfies Meta<TooltipStoryArgs>
 
 export default meta
 
-type Story = StoryObj<typeof meta>
+type Story = StoryObj<TooltipStoryArgs>
 
 export const Default: Story = {
   args: {

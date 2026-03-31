@@ -1,13 +1,13 @@
-import type { Meta, StoryObj } from '@storybook/react-vite'
+import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import { classNameControl } from '@/utilities/storybook_controls'
-import { Input } from './index'
+import { classNameControl } from "@/utilities/storybook";
+import { Input } from "./index";
 
 const meta = {
-  title: 'Components/Input',
+  title: "Components/Input",
   component: Input,
-  parameters: { layout: 'centered' },
-  tags: ['autodocs'],
+  parameters: { layout: "centered" },
+  tags: ["autodocs"],
   decorators: [
     (Story) => (
       <div className="w-72">
@@ -17,45 +17,45 @@ const meta = {
   ],
   argTypes: {
     ...classNameControl,
-    size: { control: 'select', options: ['default', 'sm'] },
+    size: { control: "select", options: ["default", "sm"] },
     type: {
-      control: 'select',
-      options: ['text', 'password', 'email', 'search', 'number', 'tel', 'url'],
+      control: "select",
+      options: ["text", "password", "email", "search", "number", "tel", "url"],
     },
-    disabled: { control: 'boolean' },
-    readOnly: { control: 'boolean' },
-    placeholder: { control: 'text' },
-    value: { control: 'text' },
+    disabled: { control: "boolean" },
+    readOnly: { control: "boolean" },
+    placeholder: { control: "text" },
+    value: { control: "text" },
   },
-} satisfies Meta<typeof Input>
+} satisfies Meta<typeof Input>;
 
-export default meta
+export default meta;
 
-type Story = StoryObj<typeof meta>
+type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    placeholder: 'Escribe algo…',
+    placeholder: "Escribe algo…",
   },
-}
+};
 
 export const Pequeño: Story = {
   args: {
-    size: 'sm',
-    placeholder: 'Tamaño sm',
+    size: "sm",
+    placeholder: "Tamaño sm",
   },
-}
+};
 
 export const Password: Story = {
   args: {
-    type: 'password',
-    placeholder: 'Contraseña',
+    type: "password",
+    placeholder: "Contraseña",
   },
-}
+};
 
 export const Deshabilitado: Story = {
   args: {
     disabled: true,
-    placeholder: 'No editable',
+    placeholder: "No editable",
   },
-}
+};

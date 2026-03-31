@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
+import type { ComponentProps } from 'react'
 
 import {
   ContextMenu,
@@ -7,6 +8,13 @@ import {
   ContextMenuSeparator,
   ContextMenuTrigger,
 } from './index'
+
+type ContextMenuStoryArgs = ComponentProps<typeof ContextMenu> & {
+  textoZona?: string
+  item1?: string
+  item2?: string
+  item3?: string
+}
 
 const meta = {
   title: 'Components/ContextMenu',
@@ -19,11 +27,11 @@ const meta = {
     item2: { control: 'text' },
     item3: { control: 'text' },
   },
-} satisfies Meta
+} satisfies Meta<ContextMenuStoryArgs>
 
 export default meta
 
-type Story = StoryObj<typeof meta>
+type Story = StoryObj<ContextMenuStoryArgs>
 
 export const Default: Story = {
   args: {

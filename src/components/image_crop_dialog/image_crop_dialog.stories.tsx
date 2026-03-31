@@ -4,6 +4,11 @@ import { useState } from 'react'
 import { Button } from '../button'
 import { ImageCropDialog } from './index'
 
+type ImageCropDialogStoryArgs = {
+  imageSrc?: string
+  textoBoton?: string
+}
+
 const meta = {
   title: 'Components/ImageCropDialog',
   parameters: { layout: 'centered' },
@@ -12,11 +17,11 @@ const meta = {
     imageSrc: { control: 'text' },
     textoBoton: { control: 'text', name: 'Texto del botón' },
   },
-} satisfies Meta
+} satisfies Meta<ImageCropDialogStoryArgs>
 
 export default meta
 
-type Story = StoryObj<typeof meta>
+type Story = StoryObj<ImageCropDialogStoryArgs>
 
 export const Default: Story = {
   args: {
@@ -33,7 +38,7 @@ export const Default: Story = {
         <ImageCropDialog
           isOpen={open}
           onClose={() => setOpen(false)}
-          imageSrc={imageSrc}
+          imageSrc={imageSrc ?? ''}
           onCropComplete={() => setOpen(false)}
         />
       </>

@@ -14,6 +14,11 @@ import {
   UsersIcon,
 } from './index'
 
+type AnimatedIconsStoryArgs = {
+  gap?: string
+  classNameFila?: string
+}
+
 const meta = {
   title: 'Components/AnimatedIcons',
   parameters: { layout: 'centered' },
@@ -25,11 +30,11 @@ const meta = {
       description: 'Clases del contenedor flex',
     },
   },
-} satisfies Meta
+} satisfies Meta<AnimatedIconsStoryArgs>
 
 export default meta
 
-type Story = StoryObj<typeof meta>
+type Story = StoryObj<AnimatedIconsStoryArgs>
 
 export const Galeria: Story = {
   args: {

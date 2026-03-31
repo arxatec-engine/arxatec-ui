@@ -7,6 +7,10 @@ import {
   OneDriveIcon,
 } from './index'
 
+type IconsStoryArgs = {
+  classNameIcono?: string
+}
+
 const meta = {
   title: 'Components/Icons',
   parameters: { layout: 'centered' },
@@ -17,11 +21,11 @@ const meta = {
       description: 'Clases aplicadas a cada icono',
     },
   },
-} satisfies Meta
+} satisfies Meta<IconsStoryArgs>
 
 export default meta
 
-type Story = StoryObj<typeof meta>
+type Story = StoryObj<IconsStoryArgs>
 
 export const Marcas: Story = {
   args: {

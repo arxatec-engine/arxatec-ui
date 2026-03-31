@@ -9,6 +9,12 @@ import {
   BreadcrumbSeparator,
 } from './index'
 
+type BreadcrumbStoryArgs = {
+  segmento1?: string
+  segmento2?: string
+  paginaActual?: string
+}
+
 const meta = {
   title: 'Components/Breadcrumb',
   parameters: { layout: 'centered' },
@@ -18,11 +24,11 @@ const meta = {
     segmento2: { control: 'text', name: 'Segundo segmento' },
     paginaActual: { control: 'text', name: 'Página actual' },
   },
-} satisfies Meta
+} satisfies Meta<BreadcrumbStoryArgs>
 
 export default meta
 
-type Story = StoryObj<typeof meta>
+type Story = StoryObj<BreadcrumbStoryArgs>
 
 export const Default: Story = {
   args: {

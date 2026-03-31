@@ -1,20 +1,20 @@
-import type { Meta, StoryObj } from '@storybook/react-vite'
+import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import { classNameControl } from '@/utilities/storybook_controls'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from './index'
+import { classNameControl } from "@/utilities/storybook";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "./index";
 
 const meta = {
-  title: 'Components/Tabs',
+  title: "Components/Tabs",
   component: Tabs,
-  parameters: { layout: 'centered' },
-  tags: ['autodocs'],
+  parameters: { layout: "centered" },
+  tags: ["autodocs"],
   argTypes: {
     ...classNameControl,
     defaultValue: {
-      control: 'text',
-      description: 'Pestaña activa al inicio',
+      control: "text",
+      description: "Pestaña activa al inicio",
     },
-    orientation: { control: 'select', options: ['horizontal', 'vertical'] },
+    orientation: { control: "select", options: ["horizontal", "vertical"] },
   },
   decorators: [
     (Story) => (
@@ -23,16 +23,16 @@ const meta = {
       </div>
     ),
   ],
-} satisfies Meta<typeof Tabs>
+} satisfies Meta<typeof Tabs>;
 
-export default meta
+export default meta;
 
-type Story = StoryObj<typeof meta>
+type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    defaultValue: 'uno',
-    orientation: 'horizontal',
+    defaultValue: "uno",
+    orientation: "horizontal",
   },
   render: (args) => (
     <Tabs {...args}>
@@ -48,4 +48,4 @@ export const Default: Story = {
       </TabsContent>
     </Tabs>
   ),
-}
+};

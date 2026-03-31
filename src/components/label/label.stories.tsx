@@ -1,18 +1,18 @@
-import type { Meta, StoryObj } from '@storybook/react-vite'
+import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import { classNameControl } from '@/utilities/storybook_controls'
-import { Input } from '../input'
-import { Label } from './index'
+import { classNameControl } from "@/utilities/storybook";
+import { Input } from "../input";
+import { Label } from "./index";
 
 const meta = {
-  title: 'Components/Label',
+  title: "Components/Label",
   component: Label,
-  parameters: { layout: 'centered' },
-  tags: ['autodocs'],
+  parameters: { layout: "centered" },
+  tags: ["autodocs"],
   argTypes: {
     ...classNameControl,
-    htmlFor: { control: 'text' },
-    children: { control: 'text', name: 'Texto de la etiqueta' },
+    htmlFor: { control: "text" },
+    children: { control: "text", name: "Texto de la etiqueta" },
   },
   decorators: [
     (Story) => (
@@ -21,16 +21,16 @@ const meta = {
       </div>
     ),
   ],
-} satisfies Meta<typeof Label>
+} satisfies Meta<typeof Label>;
 
-export default meta
+export default meta;
 
-type Story = StoryObj<typeof meta>
+type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    htmlFor: 'email',
-    children: 'Correo',
+    htmlFor: "email",
+    children: "Correo",
   },
   render: (args) => (
     <>
@@ -38,4 +38,4 @@ export const Default: Story = {
       <Input id={args.htmlFor} type="email" placeholder="tu@correo.com" />
     </>
   ),
-}
+};

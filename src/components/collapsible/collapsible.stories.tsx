@@ -1,25 +1,27 @@
-import type { Meta, StoryObj } from '@storybook/react-vite'
-import { ChevronDown } from 'lucide-react'
+import type { Meta, StoryObj } from "@storybook/react-vite";
+import type { ComponentProps } from "react";
+import { ChevronDown } from "lucide-react";
 
-import { classNameControl } from '@/utilities/storybook_controls'
-import { Button } from '../button'
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from './index'
+import { classNameControl } from "@/utilities/storybook";
+import { Button } from "../button";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "./index";
+
+type CollapsibleStoryArgs = ComponentProps<typeof Collapsible> & {
+  textoDisparador?: string;
+  textoContenido?: string;
+};
 
 const meta = {
-  title: 'Components/Collapsible',
+  title: "Components/Collapsible",
   component: Collapsible,
-  parameters: { layout: 'centered' },
-  tags: ['autodocs'],
+  parameters: { layout: "centered" },
+  tags: ["autodocs"],
   argTypes: {
     ...classNameControl,
-    defaultOpen: { control: 'boolean' },
-    disabled: { control: 'boolean' },
-    textoDisparador: { control: 'text', name: 'Texto del disparador' },
-    textoContenido: { control: 'text', name: 'Contenido' },
+    defaultOpen: { control: "boolean" },
+    disabled: { control: "boolean" },
+    textoDisparador: { control: "text", name: "Texto del disparador" },
+    textoContenido: { control: "text", name: "Contenido" },
   },
   decorators: [
     (Story) => (
@@ -28,18 +30,18 @@ const meta = {
       </div>
     ),
   ],
-} satisfies Meta
+} satisfies Meta<CollapsibleStoryArgs>;
 
-export default meta
+export default meta;
 
-type Story = StoryObj<typeof meta>
+type Story = StoryObj<CollapsibleStoryArgs>;
 
 export const Default: Story = {
   args: {
     defaultOpen: false,
-    textoDisparador: 'Mostrar más',
+    textoDisparador: "Mostrar más",
     textoContenido:
-      'Contenido colapsable que se muestra u oculta al pulsar el disparador.',
+      "Contenido colapsable que se muestra u oculta al pulsar el disparador.",
   },
   render: ({ textoDisparador, textoContenido, ...root }) => (
     <Collapsible {...root}>
@@ -54,4 +56,4 @@ export const Default: Story = {
       </CollapsibleContent>
     </Collapsible>
   ),
-}
+};

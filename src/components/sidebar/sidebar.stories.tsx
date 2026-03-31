@@ -16,6 +16,15 @@ import {
   SidebarTrigger,
 } from './index'
 
+type SidebarStoryArgs = {
+  tituloCabecera?: string
+  etiquetaGrupo?: string
+  item1?: string
+  item2?: string
+  textoPrincipal?: string
+  textoSecundario?: string
+}
+
 const meta = {
   title: 'Components/Sidebar',
   parameters: { layout: 'fullscreen' },
@@ -28,11 +37,11 @@ const meta = {
     textoPrincipal: { control: 'text', name: 'Texto zona principal' },
     textoSecundario: { control: 'text', name: 'Párrafo contenido' },
   },
-} satisfies Meta
+} satisfies Meta<SidebarStoryArgs>
 
 export default meta
 
-type Story = StoryObj<typeof meta>
+type Story = StoryObj<SidebarStoryArgs>
 
 export const Default: Story = {
   args: {

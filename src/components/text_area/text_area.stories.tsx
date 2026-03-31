@@ -1,19 +1,19 @@
-import type { Meta, StoryObj } from '@storybook/react-vite'
+import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import { classNameControl } from '@/utilities/storybook_controls'
-import { Textarea } from './index'
+import { classNameControl } from "@/utilities/storybook";
+import { Textarea } from "./index";
 
 const meta = {
-  title: 'Components/Textarea',
+  title: "Components/Textarea",
   component: Textarea,
-  parameters: { layout: 'centered' },
-  tags: ['autodocs'],
+  parameters: { layout: "centered" },
+  tags: ["autodocs"],
   argTypes: {
     ...classNameControl,
-    placeholder: { control: 'text' },
-    rows: { control: 'number' },
-    disabled: { control: 'boolean' },
-    readOnly: { control: 'boolean' },
+    placeholder: { control: "text" },
+    rows: { control: "number" },
+    disabled: { control: "boolean" },
+    readOnly: { control: "boolean" },
   },
   decorators: [
     (Story) => (
@@ -22,22 +22,22 @@ const meta = {
       </div>
     ),
   ],
-} satisfies Meta<typeof Textarea>
+} satisfies Meta<typeof Textarea>;
 
-export default meta
+export default meta;
 
-type Story = StoryObj<typeof meta>
+type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    placeholder: 'Escribe un comentario…',
+    placeholder: "Escribe un comentario…",
     rows: 4,
   },
-}
+};
 
 export const Deshabilitado: Story = {
   args: {
     disabled: true,
-    placeholder: 'No editable',
+    placeholder: "No editable",
   },
-}
+};

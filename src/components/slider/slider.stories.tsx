@@ -1,20 +1,20 @@
-import type { Meta, StoryObj } from '@storybook/react-vite'
+import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import { classNameControl } from '@/utilities/storybook_controls'
-import { Slider } from './index'
+import { classNameControl } from "@/utilities/storybook";
+import { Slider } from "./index";
 
 const meta = {
-  title: 'Components/Slider',
+  title: "Components/Slider",
   component: Slider,
-  parameters: { layout: 'centered' },
-  tags: ['autodocs'],
+  parameters: { layout: "centered" },
+  tags: ["autodocs"],
   argTypes: {
     ...classNameControl,
-    min: { control: 'number' },
-    max: { control: 'number' },
-    step: { control: 'number' },
-    disabled: { control: 'boolean' },
-    orientation: { control: 'select', options: ['horizontal', 'vertical'] },
+    min: { control: "number" },
+    max: { control: "number" },
+    step: { control: "number" },
+    disabled: { control: "boolean" },
+    orientation: { control: "select", options: ["horizontal", "vertical"] },
   },
   decorators: [
     (Story) => (
@@ -23,11 +23,11 @@ const meta = {
       </div>
     ),
   ],
-} satisfies Meta<typeof Slider>
+} satisfies Meta<typeof Slider>;
 
-export default meta
+export default meta;
 
-type Story = StoryObj<typeof meta>
+type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
@@ -35,7 +35,7 @@ export const Default: Story = {
     max: 100,
     step: 1,
   },
-}
+};
 
 export const Rango: Story = {
   args: {
@@ -43,4 +43,4 @@ export const Rango: Story = {
     max: 100,
     step: 1,
   },
-}
+};

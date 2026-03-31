@@ -1,6 +1,14 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
+import type { ComponentProps } from 'react'
 
 import { AsyncBoundary } from './index'
+
+type AsyncBoundaryStoryArgs = ComponentProps<typeof AsyncBoundary> & {
+  textoLoading?: string
+  textoError?: string
+  textoDatos?: string
+  textoVacio?: string
+}
 
 const meta = {
   title: 'Components/AsyncBoundary',
@@ -13,11 +21,11 @@ const meta = {
     textoDatos: { control: 'text', name: 'Mensaje con datos' },
     textoVacio: { control: 'text', name: 'Texto lista vacía' },
   },
-} satisfies Meta
+} satisfies Meta<AsyncBoundaryStoryArgs>
 
 export default meta
 
-type Story = StoryObj<typeof meta>
+type Story = StoryObj<AsyncBoundaryStoryArgs>
 
 export const ConDatos: Story = {
   args: {
@@ -27,7 +35,7 @@ export const ConDatos: Story = {
     <AsyncBoundary
       isLoading={false}
       isError={false}
-      data={{ mensaje: textoDatos }}
+      data={{ mensaje: textoDatos ?? '' }}
       LoadingComponent={<p>Cargando…</p>}
       ErrorComponent={<p>Error</p>}
     >
@@ -47,7 +55,9 @@ export const Cargando: Story = {
       isLoading
       isError={false}
       data={undefined}
-      LoadingComponent={<p className="text-muted-foreground">{textoLoading}</p>}
+      LoadingComponent={
+        <p className="text-muted-foreground">{textoLoading ?? 'Cargando…'}</p>
+      }
       ErrorComponent={<p>Error</p>}
     >
       {(d: { mensaje: string }) => <p>{d.mensaje}</p>}
@@ -66,7 +76,9 @@ export const Error: Story = {
       data={undefined}
       LoadingComponent={<p>Cargando…</p>}
       ErrorComponent={
-        <p className="text-destructive text-sm">{textoError}</p>
+        <p className="text-destructive text-sm">
+          {textoError ?? 'No se pudo cargar'}
+        </p>
       }
     >
       {(d: { mensaje: string }) => <p>{d.mensaje}</p>}
@@ -83,7 +95,11 @@ export const ListaVacia: Story = {
       isLoading={false}
       isError={false}
       data={[]}
-      EmptyComponent={<p className="text-muted-foreground text-sm">{textoVacio}</p>}
+      EmptyComponent={
+        <p className="text-muted-foreground text-sm">
+          {textoVacio ?? 'Sin elementos'}
+        </p>
+      }
       LoadingComponent={<p>Cargando…</p>}
       ErrorComponent={<p>Error</p>}
     >

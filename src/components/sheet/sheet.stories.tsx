@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
+import type { ComponentProps } from 'react'
 
 import { Button } from '../button'
 import {
@@ -10,6 +11,12 @@ import {
   SheetTrigger,
 } from './index'
 
+type SheetStoryArgs = ComponentProps<typeof Sheet> & {
+  textoDisparador?: string
+  titulo?: string
+  descripcion?: string
+}
+
 const meta = {
   title: 'Components/Sheet',
   component: Sheet,
@@ -20,11 +27,11 @@ const meta = {
     titulo: { control: 'text' },
     descripcion: { control: 'text' },
   },
-} satisfies Meta
+} satisfies Meta<SheetStoryArgs>
 
 export default meta
 
-type Story = StoryObj<typeof meta>
+type Story = StoryObj<SheetStoryArgs>
 
 export const Derecha: Story = {
   args: {

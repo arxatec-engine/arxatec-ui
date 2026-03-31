@@ -7,6 +7,11 @@ import {
 } from '../command'
 import { AsyncCommandList } from './index'
 
+type AsyncCommandListStoryArgs = {
+  placeholder?: string
+  emptyMessage?: string
+}
+
 const meta = {
   title: 'Components/AsyncCommandList',
   parameters: { layout: 'centered' },
@@ -15,11 +20,11 @@ const meta = {
     placeholder: { control: 'text' },
     emptyMessage: { control: 'text' },
   },
-} satisfies Meta
+} satisfies Meta<AsyncCommandListStoryArgs>
 
 export default meta
 
-type Story = StoryObj<typeof meta>
+type Story = StoryObj<AsyncCommandListStoryArgs>
 
 type Item = { id: string; name: string }
 

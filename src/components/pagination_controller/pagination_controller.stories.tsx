@@ -4,6 +4,12 @@ import { useState } from 'react'
 import type { Pagination as PaginationState } from '@/types'
 import { PaginationController } from './index'
 
+type PaginationControllerStoryArgs = {
+  page?: number
+  limit?: number
+  total?: number
+}
+
 const meta = {
   title: 'Components/PaginationController',
   parameters: { layout: 'centered' },
@@ -13,11 +19,11 @@ const meta = {
     limit: { control: 'number' },
     total: { control: 'number' },
   },
-} satisfies Meta
+} satisfies Meta<PaginationControllerStoryArgs>
 
 export default meta
 
-type Story = StoryObj<typeof meta>
+type Story = StoryObj<PaginationControllerStoryArgs>
 
 function Stateful(initial: PaginationState) {
   const [pagination, setPagination] = useState(initial)
@@ -45,7 +51,7 @@ export const Default: Story = {
     limit: 10,
     total: 87,
   },
-  render: ({ page, limit, total }) => {
+  render: ({ page = 1, limit = 10, total = 0 }) => {
     const total_pages = Math.max(1, Math.ceil(total / limit))
     return (
       <Stateful

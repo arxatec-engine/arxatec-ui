@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
+import type { ComponentProps } from 'react'
 
 import {
   Pagination,
@@ -9,6 +10,13 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from './index'
+
+type PaginationStoryArgs = ComponentProps<typeof Pagination> & {
+  paginaActiva?: string
+  pagina2?: string
+  pagina3?: string
+  mostrarElipsis?: boolean
+}
 
 const meta = {
   title: 'Components/Pagination',
@@ -21,11 +29,11 @@ const meta = {
     pagina3: { control: 'text' },
     mostrarElipsis: { control: 'boolean', name: 'Mostrar elipsis' },
   },
-} satisfies Meta
+} satisfies Meta<PaginationStoryArgs>
 
 export default meta
 
-type Story = StoryObj<typeof meta>
+type Story = StoryObj<PaginationStoryArgs>
 
 export const Default: Story = {
   args: {

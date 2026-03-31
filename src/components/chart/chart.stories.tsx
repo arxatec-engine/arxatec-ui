@@ -1,31 +1,33 @@
-import type { Meta, StoryObj } from '@storybook/react-vite'
-import { Bar, BarChart, CartesianGrid, XAxis } from 'recharts'
+import type { Meta, StoryObj } from "@storybook/react-vite";
+import { Bar, BarChart, CartesianGrid, XAxis } from "recharts";
 
-import { classNameControl } from '@/utilities/storybook_controls'
-import {
-  ChartContainer,
-  ChartTooltip,
-  ChartTooltipContent,
-} from './index'
+import { classNameControl } from "@/utilities/storybook";
+import { ChartContainer, ChartTooltip, ChartTooltipContent } from "./index";
 
 const config = {
   total: {
-    label: 'Total',
-    color: 'var(--chart-1)',
+    label: "Total",
+    color: "var(--chart-1)",
   },
-}
+};
+
+type ChartStoryArgs = {
+  className?: string;
+  alturaMinima?: string;
+  radioBarras?: number;
+};
 
 const meta = {
-  title: 'Components/Chart',
-  parameters: { layout: 'centered' },
-  tags: ['autodocs'],
+  title: "Components/Chart",
+  parameters: { layout: "centered" },
+  tags: ["autodocs"],
   argTypes: {
     ...classNameControl,
     alturaMinima: {
-      control: 'text',
-      description: 'Clase min-height del contenedor (ej. min-h-[220px])',
+      control: "text",
+      description: "Clase min-height del contenedor (ej. min-h-[220px])",
     },
-    radioBarras: { control: { type: 'range', min: 0, max: 16 } },
+    radioBarras: { control: { type: "range", min: 0, max: 16 } },
   },
   decorators: [
     (Story) => (
@@ -34,28 +36,28 @@ const meta = {
       </div>
     ),
   ],
-} satisfies Meta
+} satisfies Meta<ChartStoryArgs>;
 
-export default meta
+export default meta;
 
-type Story = StoryObj<typeof meta>
+type Story = StoryObj<ChartStoryArgs>;
 
 const datosDefault = [
-  { mes: 'Ene', total: 120 },
-  { mes: 'Feb', total: 200 },
-  { mes: 'Mar', total: 150 },
-  { mes: 'Abr', total: 280 },
-]
+  { mes: "Ene", total: 120 },
+  { mes: "Feb", total: 200 },
+  { mes: "Mar", total: 150 },
+  { mes: "Abr", total: 280 },
+];
 
 export const Barras: Story = {
   args: {
-    alturaMinima: 'min-h-[220px]',
+    alturaMinima: "min-h-[220px]",
     radioBarras: 4,
   },
   render: ({ alturaMinima, radioBarras = 4, className }) => (
     <ChartContainer
       config={config}
-      className={`${alturaMinima} w-full ${className ?? ''}`}
+      className={`${alturaMinima} w-full ${className ?? ""}`}
     >
       <BarChart accessibilityLayer data={datosDefault}>
         <CartesianGrid vertical={false} />
@@ -70,4 +72,4 @@ export const Barras: Story = {
       </BarChart>
     </ChartContainer>
   ),
-}
+};

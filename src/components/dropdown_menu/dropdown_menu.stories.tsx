@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
+import type { ComponentProps } from 'react'
 
 import { Button } from '../button'
 import {
@@ -9,6 +10,14 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from './index'
+
+type DropdownMenuStoryArgs = ComponentProps<typeof DropdownMenu> & {
+  textoDisparador?: string
+  etiqueta?: string
+  item1?: string
+  item2?: string
+  itemDestructivo?: string
+}
 
 const meta = {
   title: 'Components/DropdownMenu',
@@ -22,11 +31,11 @@ const meta = {
     item2: { control: 'text', name: 'Ítem 2' },
     itemDestructivo: { control: 'text', name: 'Ítem destructivo' },
   },
-} satisfies Meta
+} satisfies Meta<DropdownMenuStoryArgs>
 
 export default meta
 
-type Story = StoryObj<typeof meta>
+type Story = StoryObj<DropdownMenuStoryArgs>
 
 export const Default: Story = {
   args: {

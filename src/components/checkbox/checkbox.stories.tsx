@@ -1,26 +1,26 @@
-import type { Meta, StoryObj } from '@storybook/react-vite'
+import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import { classNameControl } from '@/utilities/storybook_controls'
-import { Label } from '../label'
-import { Checkbox } from './index'
+import { classNameControl } from "@/utilities/storybook";
+import { Label } from "../label";
+import { Checkbox } from "./index";
 
 const meta = {
-  title: 'Components/Checkbox',
+  title: "Components/Checkbox",
   component: Checkbox,
-  parameters: { layout: 'centered' },
-  tags: ['autodocs'],
+  parameters: { layout: "centered" },
+  tags: ["autodocs"],
   argTypes: {
     ...classNameControl,
-    checked: { control: 'boolean' },
-    defaultChecked: { control: 'boolean' },
-    disabled: { control: 'boolean' },
-    required: { control: 'boolean' },
+    checked: { control: "boolean" },
+    defaultChecked: { control: "boolean" },
+    disabled: { control: "boolean" },
+    required: { control: "boolean" },
   },
-} satisfies Meta<typeof Checkbox>
+} satisfies Meta<typeof Checkbox>;
 
-export default meta
+export default meta;
 
-type Story = StoryObj<typeof meta>
+type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   render: (args) => (
@@ -29,7 +29,7 @@ export const Default: Story = {
       <Label htmlFor="t1">Aceptar términos</Label>
     </div>
   ),
-}
+};
 
 export const Checked: Story = {
   args: { defaultChecked: true },
@@ -39,7 +39,7 @@ export const Checked: Story = {
       <Label htmlFor="t2">Marcado</Label>
     </div>
   ),
-}
+};
 
 export const Indeterminate: Story = {
   render: () => (
@@ -48,7 +48,7 @@ export const Indeterminate: Story = {
       <Label htmlFor="t3">Indeterminado</Label>
     </div>
   ),
-}
+};
 
 export const Disabled: Story = {
   args: { disabled: true },
@@ -58,4 +58,4 @@ export const Disabled: Story = {
       <Label htmlFor="t4">Deshabilitado</Label>
     </div>
   ),
-}
+};

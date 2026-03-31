@@ -1,6 +1,7 @@
-import type { Meta, StoryObj } from '@storybook/react-vite'
+import type { Meta, StoryObj } from "@storybook/react-vite";
+import type { ComponentProps } from "react";
 
-import { classNameControl } from '@/utilities/storybook_controls'
+import { classNameControl } from "@/utilities/storybook";
 import {
   Command,
   CommandEmpty,
@@ -10,23 +11,34 @@ import {
   CommandList,
   CommandSeparator,
   CommandShortcut,
-} from './index'
+} from "./index";
+
+type CommandStoryArgs = ComponentProps<typeof Command> & {
+  placeholder?: string;
+  vacio?: string;
+  grupo1titulo?: string;
+  grupo2titulo?: string;
+  item1?: string;
+  item2?: string;
+  item3?: string;
+  atajo?: string;
+};
 
 const meta = {
-  title: 'Components/Command',
+  title: "Components/Command",
   component: Command,
-  parameters: { layout: 'centered' },
-  tags: ['autodocs'],
+  parameters: { layout: "centered" },
+  tags: ["autodocs"],
   argTypes: {
     ...classNameControl,
-    placeholder: { control: 'text' },
-    vacio: { control: 'text', name: 'Texto sin resultados' },
-    grupo1titulo: { control: 'text', name: 'Título grupo 1' },
-    grupo2titulo: { control: 'text', name: 'Título grupo 2' },
-    item1: { control: 'text' },
-    item2: { control: 'text' },
-    item3: { control: 'text' },
-    atajo: { control: 'text' },
+    placeholder: { control: "text" },
+    vacio: { control: "text", name: "Texto sin resultados" },
+    grupo1titulo: { control: "text", name: "Título grupo 1" },
+    grupo2titulo: { control: "text", name: "Título grupo 2" },
+    item1: { control: "text" },
+    item2: { control: "text" },
+    item3: { control: "text" },
+    atajo: { control: "text" },
   },
   decorators: [
     (Story) => (
@@ -35,22 +47,22 @@ const meta = {
       </div>
     ),
   ],
-} satisfies Meta
+} satisfies Meta<CommandStoryArgs>;
 
-export default meta
+export default meta;
 
-type Story = StoryObj<typeof meta>
+type Story = StoryObj<CommandStoryArgs>;
 
 export const Paleta: Story = {
   args: {
-    placeholder: 'Buscar comando…',
-    vacio: 'Sin resultados.',
-    grupo1titulo: 'Sugerencias',
-    grupo2titulo: 'Más',
-    item1: 'Calendario',
-    item2: 'Buscar',
-    item3: 'Configuración',
-    atajo: '⌘C',
+    placeholder: "Buscar comando…",
+    vacio: "Sin resultados.",
+    grupo1titulo: "Sugerencias",
+    grupo2titulo: "Más",
+    item1: "Calendario",
+    item2: "Buscar",
+    item3: "Configuración",
+    atajo: "⌘C",
   },
   render: ({
     placeholder,
@@ -81,4 +93,4 @@ export const Paleta: Story = {
       </CommandList>
     </Command>
   ),
-}
+};

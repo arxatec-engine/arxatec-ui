@@ -1,7 +1,13 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
+import type { ComponentProps } from 'react'
 
 import { Button } from '../button'
 import { Popover, PopoverContent, PopoverTrigger } from './index'
+
+type PopoverStoryArgs = ComponentProps<typeof Popover> & {
+  textoBoton?: string
+  textoContenido?: string
+}
 
 const meta = {
   title: 'Components/Popover',
@@ -12,11 +18,11 @@ const meta = {
     textoBoton: { control: 'text', name: 'Texto del botón' },
     textoContenido: { control: 'text', name: 'Contenido' },
   },
-} satisfies Meta
+} satisfies Meta<PopoverStoryArgs>
 
 export default meta
 
-type Story = StoryObj<typeof meta>
+type Story = StoryObj<PopoverStoryArgs>
 
 export const Default: Story = {
   args: {

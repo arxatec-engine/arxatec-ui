@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
+import type { ComponentProps } from 'react'
 
 import { Button } from '../button'
 import {
@@ -10,6 +11,14 @@ import {
   DialogTitle,
   DialogTrigger,
 } from './index'
+
+type DialogStoryArgs = ComponentProps<typeof Dialog> & {
+  textoDisparador?: string
+  titulo?: string
+  descripcion?: string
+  textoCancelar?: string
+  textoConfirmar?: string
+}
 
 const meta = {
   title: 'Components/Dialog',
@@ -23,11 +32,11 @@ const meta = {
     textoCancelar: { control: 'text', name: 'Cancelar' },
     textoConfirmar: { control: 'text', name: 'Confirmar' },
   },
-} satisfies Meta
+} satisfies Meta<DialogStoryArgs>
 
 export default meta
 
-type Story = StoryObj<typeof meta>
+type Story = StoryObj<DialogStoryArgs>
 
 export const Default: Story = {
   args: {

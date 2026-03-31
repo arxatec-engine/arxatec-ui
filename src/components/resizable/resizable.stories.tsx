@@ -6,6 +6,13 @@ import {
   ResizablePanelGroup,
 } from './index'
 
+type ResizableStoryArgs = {
+  direction?: 'horizontal' | 'vertical'
+  panelAText?: string
+  panelBText?: string
+  defaultSizeA?: number
+}
+
 const meta = {
   title: 'Components/Resizable',
   parameters: { layout: 'centered' },
@@ -23,11 +30,11 @@ const meta = {
       </div>
     ),
   ],
-} satisfies Meta
+} satisfies Meta<ResizableStoryArgs>
 
 export default meta
 
-type Story = StoryObj<typeof meta>
+type Story = StoryObj<ResizableStoryArgs>
 
 export const Horizontal: Story = {
   args: {
@@ -36,7 +43,12 @@ export const Horizontal: Story = {
     panelBText: 'Panel B',
     defaultSizeA: 40,
   },
-  render: ({ direction, panelAText, panelBText, defaultSizeA = 40 }) => (
+  render: ({
+    direction = 'horizontal',
+    panelAText,
+    panelBText,
+    defaultSizeA = 40,
+  }) => (
     <ResizablePanelGroup direction={direction} className="h-full">
       <ResizablePanel defaultSize={defaultSizeA} minSize={20}>
         <div className="bg-muted/50 flex h-full items-center justify-center text-sm">

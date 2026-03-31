@@ -1,23 +1,23 @@
-import type { Meta, StoryObj } from '@storybook/react-vite'
+import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import { classNameControl } from '@/utilities/storybook_controls'
-import { Separator } from './index'
+import { classNameControl } from "@/utilities/storybook";
+import { Separator } from "./index";
 
 const meta = {
-  title: 'Components/Separator',
+  title: "Components/Separator",
   component: Separator,
-  parameters: { layout: 'centered' },
-  tags: ['autodocs'],
+  parameters: { layout: "centered" },
+  tags: ["autodocs"],
   argTypes: {
     ...classNameControl,
-    orientation: { control: 'select', options: ['horizontal', 'vertical'] },
-    decorative: { control: 'boolean' },
+    orientation: { control: "select", options: ["horizontal", "vertical"] },
+    decorative: { control: "boolean" },
   },
-} satisfies Meta<typeof Separator>
+} satisfies Meta<typeof Separator>;
 
-export default meta
+export default meta;
 
-type Story = StoryObj<typeof meta>
+type Story = StoryObj<typeof meta>;
 
 export const Horizontal: Story = {
   render: () => (
@@ -27,10 +27,10 @@ export const Horizontal: Story = {
       <p className="text-sm">Abajo</p>
     </div>
   ),
-}
+};
 
 export const Vertical: Story = {
-  args: { orientation: 'vertical' },
+  args: { orientation: "vertical" },
   render: (args) => (
     <div className="flex h-10 items-center gap-2">
       <span className="text-sm">Izq</span>
@@ -38,4 +38,4 @@ export const Vertical: Story = {
       <span className="text-sm">Der</span>
     </div>
   ),
-}
+};

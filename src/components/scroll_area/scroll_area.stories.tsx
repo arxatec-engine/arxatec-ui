@@ -1,19 +1,24 @@
-import type { Meta, StoryObj } from '@storybook/react-vite'
+import type { Meta, StoryObj } from "@storybook/react-vite";
+import type { ComponentProps } from "react";
 
-import { classNameControl } from '@/utilities/storybook_controls'
-import { ScrollArea } from './index'
+import { classNameControl } from "@/utilities/storybook";
+import { ScrollArea } from "./index";
+
+type ScrollAreaStoryArgs = ComponentProps<typeof ScrollArea> & {
+  itemCount?: number;
+};
 
 const meta = {
-  title: 'Components/ScrollArea',
+  title: "Components/ScrollArea",
   component: ScrollArea,
-  parameters: { layout: 'centered' },
-  tags: ['autodocs'],
+  parameters: { layout: "centered" },
+  tags: ["autodocs"],
   argTypes: {
     ...classNameControl,
     itemCount: {
-      control: 'number',
-      description: 'Número de filas de ejemplo',
-      name: 'Elementos',
+      control: "number",
+      description: "Número de filas de ejemplo",
+      name: "Elementos",
     },
   },
   decorators: [
@@ -23,11 +28,11 @@ const meta = {
       </div>
     ),
   ],
-} satisfies Meta
+} satisfies Meta<ScrollAreaStoryArgs>;
 
-export default meta
+export default meta;
 
-type Story = StoryObj<typeof meta>
+type Story = StoryObj<ScrollAreaStoryArgs>;
 
 export const Default: Story = {
   args: { itemCount: 24 },
@@ -42,4 +47,4 @@ export const Default: Story = {
       </div>
     </ScrollArea>
   ),
-}
+};

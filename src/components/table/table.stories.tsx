@@ -8,6 +8,18 @@ import {
   TableRow,
 } from './index'
 
+type TableStoryArgs = {
+  h1?: string
+  h2?: string
+  h3?: string
+  r1a?: string
+  r1b?: string
+  r1c?: string
+  r2a?: string
+  r2b?: string
+  r2c?: string
+}
+
 const meta = {
   title: 'Components/Table',
   parameters: { layout: 'centered' },
@@ -30,11 +42,11 @@ const meta = {
       </div>
     ),
   ],
-} satisfies Meta
+} satisfies Meta<TableStoryArgs>
 
 export default meta
 
-type Story = StoryObj<typeof meta>
+type Story = StoryObj<TableStoryArgs>
 
 export const Default: Story = {
   args: {

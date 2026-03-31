@@ -10,6 +10,13 @@ import {
   CardTitle,
 } from './index'
 
+type CardStoryArgs = {
+  titulo?: string
+  descripcion?: string
+  cuerpo?: string
+  etiquetaBoton?: string
+}
+
 const meta = {
   title: 'Components/Card',
   parameters: { layout: 'centered' },
@@ -27,11 +34,11 @@ const meta = {
       </div>
     ),
   ],
-} satisfies Meta
+} satisfies Meta<CardStoryArgs>
 
 export default meta
 
-type Story = StoryObj<typeof meta>
+type Story = StoryObj<CardStoryArgs>
 
 export const Default: Story = {
   args: {

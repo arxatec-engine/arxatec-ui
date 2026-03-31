@@ -1,26 +1,26 @@
-import type { Meta, StoryObj } from '@storybook/react-vite'
+import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import { classNameControl } from '@/utilities/storybook_controls'
-import { Kbd, KbdGroup } from './index'
+import { classNameControl } from "@/utilities/storybook";
+import { Kbd, KbdGroup } from "./index";
 
 const meta = {
-  title: 'Components/Kbd',
+  title: "Components/Kbd",
   component: Kbd,
-  parameters: { layout: 'centered' },
-  tags: ['autodocs'],
+  parameters: { layout: "centered" },
+  tags: ["autodocs"],
   argTypes: {
     ...classNameControl,
-    children: { control: 'text', description: 'Texto de la tecla' },
+    children: { control: "text", description: "Texto de la tecla" },
   },
-} satisfies Meta<typeof Kbd>
+} satisfies Meta<typeof Kbd>;
 
-export default meta
+export default meta;
 
-type Story = StoryObj<typeof meta>
+type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
-  args: { children: '⌘' },
-}
+  args: { children: "⌘" },
+};
 
 export const Atajo: Story = {
   render: () => (
@@ -30,4 +30,4 @@ export const Atajo: Story = {
       <Kbd>K</Kbd>
     </KbdGroup>
   ),
-}
+};

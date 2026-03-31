@@ -19,7 +19,6 @@ const meta = {
     showAllOption: { control: 'boolean' },
     isLoading: { control: 'boolean' },
     isError: { control: 'boolean' },
-    disabled: { control: 'boolean' },
     options: { control: 'object' },
     value: { table: { disable: true } },
     onChange: { table: { disable: true } },
@@ -31,11 +30,11 @@ const meta = {
       </div>
     ),
   ],
-} satisfies Meta<typeof AsyncSelect>
+} satisfies Meta<ComponentProps<typeof AsyncSelect>>
 
 export default meta
 
-type Story = StoryObj<typeof meta>
+type Story = StoryObj<ComponentProps<typeof AsyncSelect>>
 
 function Stateful(args: ComponentProps<typeof AsyncSelect>) {
   const [value, setValue] = useState<string | undefined>(args.value)

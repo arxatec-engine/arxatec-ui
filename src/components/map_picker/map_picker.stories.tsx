@@ -11,6 +11,13 @@ import {
 } from '../dialog'
 import { MapPicker } from './index'
 
+type MapPickerStoryArgs = {
+  textoBoton?: string
+  titulo?: string
+  altoMapa?: string
+  classNameMapa?: string
+}
+
 const meta = {
   title: 'Components/MapPicker',
   parameters: { layout: 'centered' },
@@ -28,11 +35,11 @@ const meta = {
       </div>
     ),
   ],
-} satisfies Meta
+} satisfies Meta<MapPickerStoryArgs>
 
 export default meta
 
-type Story = StoryObj<typeof meta>
+type Story = StoryObj<MapPickerStoryArgs>
 
 export const EnDialogo: Story = {
   args: {

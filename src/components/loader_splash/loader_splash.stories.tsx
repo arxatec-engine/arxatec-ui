@@ -1,5 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
+import type { ComponentProps } from 'react'
+
 import { LoaderSplash } from './index'
+
+type LoaderSplashStoryArgs = ComponentProps<typeof LoaderSplash> & {
+  classNameContenedor?: string
+}
 
 const meta = {
   title: 'Components/LoaderSplash',
@@ -21,11 +27,11 @@ const meta = {
       description: 'Clases del contenedor alrededor del splash (solo Storybook)',
     },
   },
-} satisfies Meta
+} satisfies Meta<LoaderSplashStoryArgs>
 
 export default meta
 
-type Story = StoryObj<typeof meta>
+type Story = StoryObj<LoaderSplashStoryArgs>
 
 export const Default: Story = {
   args: {

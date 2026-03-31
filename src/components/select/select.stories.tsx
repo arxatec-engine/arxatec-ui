@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
+import type { ComponentProps } from 'react'
 
 import {
   Select,
@@ -7,6 +8,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from './index'
+
+type SelectStoryArgs = ComponentProps<typeof Select> & {
+  placeholder?: string
+}
 
 const meta = {
   title: 'Components/Select',
@@ -25,11 +30,11 @@ const meta = {
       </div>
     ),
   ],
-} satisfies Meta
+} satisfies Meta<SelectStoryArgs>
 
 export default meta
 
-type Story = StoryObj<typeof meta>
+type Story = StoryObj<SelectStoryArgs>
 
 export const Default: Story = {
   args: {

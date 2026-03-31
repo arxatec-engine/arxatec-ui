@@ -4,6 +4,23 @@ import { toast } from 'sonner'
 import { Button } from '../button'
 import { Toaster } from './index'
 
+type SonnerStoryArgs = {
+  position?:
+    | 'top-left'
+    | 'top-center'
+    | 'top-right'
+    | 'bottom-left'
+    | 'bottom-center'
+    | 'bottom-right'
+  expand?: boolean
+  closeButton?: boolean
+  richColors?: boolean
+  mensajeExito?: string
+  mensajeError?: string
+  mensajeInfo?: string
+  mensajeAviso?: string
+}
+
 const meta = {
   title: 'Components/Sonner',
   parameters: { layout: 'centered' },
@@ -44,11 +61,11 @@ const meta = {
       )
     },
   ],
-} satisfies Meta
+} satisfies Meta<SonnerStoryArgs>
 
 export default meta
 
-type Story = StoryObj<typeof meta>
+type Story = StoryObj<SonnerStoryArgs>
 
 export const Variantes: Story = {
   args: {

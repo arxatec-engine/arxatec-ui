@@ -12,9 +12,15 @@ import {
   DrawerTrigger,
 } from './index'
 
+type DrawerStoryArgs = {
+  textoDisparador?: string
+  titulo?: string
+  descripcion?: string
+  textoCerrar?: string
+}
+
 const meta = {
   title: 'Components/Drawer',
-  component: Drawer,
   parameters: { layout: 'centered' },
   tags: ['autodocs'],
   argTypes: {
@@ -23,11 +29,11 @@ const meta = {
     descripcion: { control: 'text' },
     textoCerrar: { control: 'text', name: 'Cerrar' },
   },
-} satisfies Meta
+} satisfies Meta<DrawerStoryArgs>
 
 export default meta
 
-type Story = StoryObj<typeof meta>
+type Story = StoryObj<DrawerStoryArgs>
 
 export const Default: Story = {
   args: {
@@ -36,14 +42,8 @@ export const Default: Story = {
     descripcion: 'Contenido deslizable desde el borde inferior.',
     textoCerrar: 'Cerrar',
   },
-  render: ({
-    textoDisparador,
-    titulo,
-    descripcion,
-    textoCerrar,
-    ...root
-  }) => (
-    <Drawer {...root}>
+  render: ({ textoDisparador, titulo, descripcion, textoCerrar }) => (
+    <Drawer>
       <DrawerTrigger asChild>
         <Button variant="outline">{textoDisparador}</Button>
       </DrawerTrigger>

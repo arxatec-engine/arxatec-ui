@@ -1,24 +1,32 @@
-import type { Meta, StoryObj } from '@storybook/react-vite'
+import type { Meta, StoryObj } from "@storybook/react-vite";
+import type { ComponentProps } from "react";
 
-import { classNameControl } from '@/utilities/storybook_controls'
+import { classNameControl } from "@/utilities/storybook";
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-} from './index'
+} from "./index";
+
+type CarouselStoryArgs = ComponentProps<typeof Carousel> & {
+  itemCount?: number;
+};
 
 const meta = {
-  title: 'Components/Carousel',
+  title: "Components/Carousel",
   component: Carousel,
-  parameters: { layout: 'centered' },
-  tags: ['autodocs'],
+  parameters: { layout: "centered" },
+  tags: ["autodocs"],
   argTypes: {
     ...classNameControl,
-    opts: { control: 'object', description: 'Opciones de embla-carousel (opts)' },
-    itemCount: { control: { type: 'number', min: 1, max: 8 } },
-    orientation: { control: 'select', options: ['horizontal', 'vertical'] },
+    opts: {
+      control: "object",
+      description: "Opciones de embla-carousel (opts)",
+    },
+    itemCount: { control: { type: "number", min: 1, max: 8 } },
+    orientation: { control: "select", options: ["horizontal", "vertical"] },
   },
   decorators: [
     (Story) => (
@@ -27,16 +35,16 @@ const meta = {
       </div>
     ),
   ],
-} satisfies Meta
+} satisfies Meta<CarouselStoryArgs>;
 
-export default meta
+export default meta;
 
-type Story = StoryObj<typeof meta>
+type Story = StoryObj<CarouselStoryArgs>;
 
 export const Default: Story = {
   args: {
     itemCount: 3,
-    orientation: 'horizontal',
+    orientation: "horizontal",
   },
   render: ({ itemCount = 3, orientation, ...root }) => (
     <Carousel orientation={orientation} {...root}>
@@ -53,4 +61,4 @@ export const Default: Story = {
       <CarouselNext />
     </Carousel>
   ),
-}
+};
