@@ -1,15 +1,26 @@
 {
   "name": "arxatec-ui",
   "version": "0.1.1",
-  "description": "Kit de componentes React (Tailwind v4, Radix) para productos Arxatec.",
+  "description": "React component library for building Arxatec product UIs—built on established ecosystem libraries for a consistent, efficient workflow. More at https://arxatec.net.",
   "license": "MIT",
   "type": "module",
   "keywords": [
     "react",
-    "components",
+    "react-components",
     "ui",
-    "tailwind",
+    "design-system",
+    "component-library",
+    "tailwindcss",
+    "tailwind-v4",
+    "shadcn",
+    "shadcn-ui",
     "radix",
+    "radix-ui",
+    "accessible",
+    "typescript",
+    "esm",
+    "lucide-react",
+    "cva",
     "arxatec"
   ],
   "repository": {
@@ -19,7 +30,7 @@
   "bugs": {
     "url": "https://github.com/arxatec-engine/arxatec-ui/issues"
   },
-  "homepage": "https://github.com/arxatec-engine/arxatec-ui#readme",
+  "homepage": "https://arxatec.net",
   "sideEffects": [
     "**/*.css"
   ],
