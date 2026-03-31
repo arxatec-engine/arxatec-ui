@@ -1,6 +1,6 @@
 {
   "name": "arxatec-ui",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Kit de componentes React (Tailwind v4, Radix) para productos Arxatec.",
   "license": "MIT",
   "type": "module",
