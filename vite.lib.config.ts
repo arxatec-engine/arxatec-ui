@@ -19,7 +19,9 @@ const bundleableDependencyIds = [
 ];
 
 function isDependencyModule(id: string) {
-  return bundleableDependencyIds.some((dep) => id === dep || id.startsWith(`${dep}/`));
+  return bundleableDependencyIds.some(
+    (dep) => id === dep || id.startsWith(`${dep}/`)
+  );
 }
 
 export default defineConfig({
@@ -45,12 +47,15 @@ export default defineConfig({
   },
   build: {
     lib: {
-      entry: path.resolve(dirname, "src/index.ts"),
+      entry: {
+        index: path.resolve(dirname, "src/exports/index.ts"),
+        sidebar: path.resolve(dirname, "src/exports/sidebar.ts"),
+      },
       formats: ["es"],
-      fileName: "index",
     },
     rollupOptions: {
-      external: (id) => !id.startsWith(".") && !path.isAbsolute(id) && isDependencyModule(id),
+      external: (id) =>
+        !id.startsWith(".") && !path.isAbsolute(id) && isDependencyModule(id),
     },
     outDir: "dist",
     emptyOutDir: true,
