@@ -14,11 +14,9 @@ import {
   DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuTrigger,
-  Button,
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "arxatec-ui";
+} from "@/components/dropdown_menu";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/tooltip";
+import { Button } from "@/components/button";
 import { useToolbar } from "../toolbar_provider";
 
 export const AlignmentToolbar = () => {

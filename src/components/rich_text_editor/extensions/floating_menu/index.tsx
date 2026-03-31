@@ -22,8 +22,8 @@ import {
   CommandGroup,
   CommandItem,
   CommandList,
-  ScrollArea,
-} from "arxatec-ui";
+} from "@/components/command";
+import { ScrollArea } from "@/components/scroll_area";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { cn } from "@/utilities";
 import type { Editor } from "@tiptap/core";

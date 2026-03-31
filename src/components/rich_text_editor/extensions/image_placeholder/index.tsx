@@ -1,11 +1,6 @@
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-  Button,
-  Input,
-} from "arxatec-ui";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/tabs";
+import { Button } from "@/components/button";
+import { Input } from "@/components/input";
 import { NODE_HANDLES_SELECTED_STYLE_CLASSNAME, isValidUrl } from "@/utilities";
 import {
   type CommandProps,
