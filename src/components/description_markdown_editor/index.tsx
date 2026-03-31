@@ -1,5 +1,4 @@
 import {
-  Button,
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuLabel,
@@ -7,8 +6,9 @@ import {
   DropdownMenuRadioItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-  Separator,
-} from "arxatec-ui";
+} from "@/components/dropdown_menu";
+import { Button } from "@/components/button";
+import { Separator } from "@/components/separator";
 import { cn } from "@/utilities";
 import type { Editor } from "@tiptap/core";
 import Placeholder from "@tiptap/extension-placeholder";
