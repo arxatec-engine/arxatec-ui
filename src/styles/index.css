@@ -1,0 +1,375 @@
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap");
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-serif: "Cormorant Garamond", serif;
+  --font-sans: "Source Sans 3", sans-serif;
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  /* Status colors toast and messages */
+  --color-status-background-error: var(--status-background-error);
+  --color-status-foreground-error: var(--status-foreground-error);
+  --color-status-background-success: var(--status-background-success);
+  --color-status-foreground-success: var(--status-foreground-success);
+  --color-status-background-warning: var(--status-background-warning);
+  --color-status-foreground-warning: var(--status-foreground-warning);
+  --color-status-background-info: var(--status-background-info);
+  --color-status-foreground-info: var(--status-foreground-info);
+  --color-status-background-loading: var(--status-background-loading);
+  --color-status-foreground-loading: var(--status-foreground-loading);
+
+  /* Status colors card */
+  --color-status-card-background-error: var(--status-card-background-error);
+  --color-status-card-foreground-error: var(--status-card-foreground-error);
+  --color-status-card-background-icon-error: var(--status-card-background-icon-error);
+  --color-status-card-background-empty: var(--status-card-background-empty);
+  --color-status-card-foreground-empty: var(--status-card-foreground-empty);
+  --color-status-card-background-icon-empty: var(--status-card-background-icon-empty);
+
+  /* Calendar colors */
+  --color-calendar-color-gray: var(--calendar-color-gray);
+  --color-calendar-color-red: var(--calendar-color-red);
+  --color-calendar-color-yellow: var(--calendar-color-yellow);
+  --color-calendar-color-orange: var(--calendar-color-orange);
+  --color-calendar-color-purple: var(--calendar-color-purple);
+  --color-calendar-color-blue: var(--calendar-color-blue);
+  --color-calendar-color-indigo: var(--calendar-color-indigo);
+  --color-calendar-color-sky: var(--calendar-color-sky);
+  --color-calendar-color-green: var(--calendar-color-green);
+  --color-calendar-color-lime: var(--calendar-color-lime);
+
+
+  /* Case urgency colors*/
+  --color-case-urgency-high-background: var(--case-urgency-high-background);
+  --color-case-urgency-high-foreground: var(--case-urgency-high-foreground);
+  --color-case-urgency-medium-background: var(--case-urgency-medium-background);
+  --color-case-urgency-medium-foreground: var(--case-urgency-medium-foreground);
+  --color-case-urgency-low-background: var(--case-urgency-low-background);
+  --color-case-urgency-low-foreground: var(--case-urgency-low-foreground);
+  --color-case-urgency-critical-background: var(--case-urgency-critical-background);
+  --color-case-urgency-critical-foreground: var(--case-urgency-critical-foreground);
+
+  /* Case status colors */
+  --color-case-status-open-background: var(--case-status-open-background);
+  --color-case-status-open-foreground: var(--case-status-open-foreground);
+  --color-case-status-in-progress-background: var(--case-status-in-progress-background);
+  --color-case-status-in-progress-foreground: var(--case-status-in-progress-foreground);
+  --color-case-status-closed-background: var(--case-status-closed-background);
+  --color-case-status-closed-foreground: var(--case-status-closed-foreground);
+  --color-case-status-archived-background: var(--case-status-archived-background);
+  --color-case-status-archived-foreground: var(--case-status-archived-foreground);
+  --color-case-status-under-negotiation-background: var(--case-status-under-negotiation-background);
+  --color-case-status-under-negotiation-foreground: var(--case-status-under-negotiation-foreground);
+  --color-case-status-waiting-for-customer-background: var(--case-status-waiting-for-customer-background);
+  --color-case-status-waiting-for-customer-foreground: var(--case-status-waiting-for-customer-foreground);
+  --color-case-status-awaiting-trial-background: var(--case-status-awaiting-trial-background);
+  --color-case-status-awaiting-trial-foreground: var(--case-status-awaiting-trial-foreground);
+  --color-case-status-waiting-background: var(--case-status-waiting-background);
+  --color-case-status-waiting-foreground: var(--case-status-waiting-foreground);
+
+  /* Documents selector colors */
+  --color-selector-rectangle: var(--selector-rectangle);
+  --color-selector-background: var(--selector-background);
+  --color-selector-foreground: var(--selector-foreground);
+
+  /* License status colors */
+  --color-license-valid-foreground: var(--license-valid-foreground);
+  --color-license-valid-background: var(--license-valid-background);
+  --color-license-invalid-foreground: var(--license-invalid-foreground);
+  --color-license-invalid-background: var(--license-invalid-background);
+  --color-license-no-config-foreground: var(--license-no-config-foreground);
+  --color-license-no-config-background: var(--license-no-config-background);
+
+  /* Finances type colors */
+  --color-finance-type-income-background: var(--finance-type-income-background);
+  --color-finance-type-income-foreground: var(--finance-type-income-foreground);
+  --color-finance-type-expense-background: var(--finance-type-expense-background);
+  --color-finance-type-expense-foreground: var(--finance-type-expense-foreground);
+}
+
+:root {
+  --radius: 0.6rem;
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+  --card: oklch(98.5% 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  --primary: oklch(0.205 0 0);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+  --accent: oklch(0.97 0 0);
+  --accent-foreground: oklch(0.205 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.922 0 0);
+  --input: oklch(0.922 0 0);
+  --ring: oklch(0.708 0 0);
+  --chart-1: oklch(0.646 0.222 41.116);
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-primary: oklch(0.205 0 0);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-ring: oklch(0.708 0 0);
+
+  /* Status colors for toast an messages*/
+  --status-background-error: oklch(94.1% 0.03 12.58);
+  --status-foreground-error: oklch(64.5% 0.246 16.439);
+  --status-background-success: oklch(96.2% 0.044 156.743);
+  --status-foreground-success: oklch(72.3% 0.219 149.579);
+  --status-background-warning: oklch(97.3% 0.071 103.193);
+  --status-foreground-warning: oklch(79.5% 0.184 86.047);
+  --status-background-info: oklch(95.1% 0.026 236.824);
+  --status-foreground-info: oklch(68.5% 0.169 237.323);
+  --status-background-loading: oklch(0.97 0 0);
+  --status-foreground-loading: oklch(0.205 0 0);
+
+  /* Status colors for card */
+  --status-card-background-error: oklch(94.1% 0.03 12.58);
+  --status-card-foreground-error: oklch(64.5% 0.246 16.439);
+  --status-card-background-icon-error: oklch(90.1% 0.05 12.58);
+  --status-card-background-empty: oklch(0.97 0 0);
+  --status-card-foreground-empty: oklch(0.205 0 0);
+  --status-card-background-icon-empty: oklch(0.93 0 0);
+
+  /* Calendar colors */
+  --calendar-color-gray: oklch(55.6% 0 0);
+  --calendar-color-red: oklch(57.7% 0.245 27.325);
+  --calendar-color-yellow: oklch(76.9% 0.188 70.08) ;
+  --calendar-color-orange: oklch(70.5% 0.213 47.604);
+  --calendar-color-purple: oklch(55.8% 0.288 302.321);
+  --calendar-color-blue: oklch(62.3% 0.214 259.815);
+  --calendar-color-indigo: oklch(51.1% 0.262 276.966);
+  --calendar-color-sky: oklch(58.8% 0.158 241.966);
+  --calendar-color-green: oklch(39.3% 0.095 152.535);
+  --calendar-color-lime: oklch(62.7% 0.194 149.214);
+
+  /* Case urgency colors */
+  --case-urgency-critical-background: oklch(95% 0.01 260);
+  --case-urgency-critical-foreground: oklch(25% 0.01 260);
+  --case-urgency-high-background: oklch(90% 0.01 260);
+  --case-urgency-high-foreground: oklch(30% 0.01 260);
+  --case-urgency-medium-background: oklch(85% 0.01 260);
+  --case-urgency-medium-foreground: oklch(35% 0.01 260);
+  --case-urgency-low-background: oklch(80% 0.01 260);
+  --case-urgency-low-foreground: oklch(40% 0.01 260);
+
+  /* Case status colors */
+  --case-status-open-background: oklch(88% 0.01 260);
+  --case-status-open-foreground: oklch(32% 0.01 260);
+  --case-status-in-progress-background: oklch(92% 0.01 260);
+  --case-status-in-progress-foreground: oklch(28% 0.01 260);
+  --case-status-closed-background: oklch(85% 0.01 260);
+  --case-status-closed-foreground: oklch(38% 0.01 260);
+  --case-status-archived-background: oklch(75% 0.01 260);
+  --case-status-archived-foreground: oklch(25% 0.01 260);
+  --case-status-under-negotiation-background: oklch(87% 0.01 260);
+  --case-status-under-negotiation-foreground: oklch(34% 0.01 260);
+  --case-status-waiting-for-customer-background: oklch(89% 0.01 260);
+  --case-status-waiting-for-customer-foreground: oklch(31% 0.01 260);
+  --case-status-awaiting-trial-background: oklch(91% 0.01 260);
+  --case-status-awaiting-trial-foreground: oklch(29% 0.01 260);
+  --case-status-waiting-background: oklch(86% 0.01 260);
+  --case-status-waiting-foreground: oklch(33% 0.01 260); 
+
+  /* Documents selector colors */
+  --selector-rectangle: oklch(90.1% 0.058 230.902);
+  --selector-background: oklch(95.1% 0.026 236.824);
+  --selector-foreground: oklch(50% 0.134 242.749);
+
+  /* License status colors */
+  --license-valid-foreground: oklch(0.205 0 0);
+  --license-valid-background:oklch(0.97 0 0);
+  --license-invalid-foreground: oklch(64.5% 0.246 16.439);
+  --license-invalid-background: oklch(94.1% 0.03 12.58);
+  --license-no-config-foreground: oklch(68.5% 0.169 237.323);
+  --license-no-config-background:oklch(95.1% 0.026 236.824);
+
+  /* Finances type colors */
+  --finance-type-income-background: oklch(96.2% 0.044 156.743);
+  --finance-type-income-foreground: oklch(62.7% 0.194 149.214);
+  --finance-type-expense-background: oklch(93.6% 0.032 17.717);
+  --finance-type-expense-foreground: oklch(57.7% 0.245 27.325);
+}
+
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.205 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.205 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.922 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.708 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.556 0 0);
+  --chart-1: oklch(0.488 0.243 264.376);
+  --chart-2: oklch(0.696 0.17 162.48);
+  --chart-3: oklch(0.769 0.188 70.08);
+  --chart-4: oklch(0.627 0.265 303.9);
+  --chart-5: oklch(0.645 0.246 16.439);
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.556 0 0);
+
+  /* Status colors for toast and messages */
+  --status-background-error: oklch(27.1% 0.105 12.094);
+  --status-foreground-error: oklch(64.5% 0.246 16.439);
+  --status-background-success: oklch(26.6% 0.065 152.934);
+  --status-foreground-success: oklch(72.3% 0.219 149.579);
+  --status-background-warning: oklch(28.6% 0.066 53.813);
+  --status-foreground-warning: oklch(79.5% 0.184 86.047);
+  --status-background-info: oklch(29.3% 0.066 243.157);
+  --status-foreground-info: oklch(68.5% 0.169 237.323);
+  --status-background-loading:  oklch(0.269 0 0);
+  --status-foreground-loading: oklch(0.985 0 0);
+
+  /* Status colors for card */
+  --status-card-background-error:  oklch(27.1% 0.105 12.094);
+  --status-card-foreground-error: oklch(64.5% 0.246 16.439);
+  --status-card-background-icon-error:oklch(33.1% 0.105 12.094);
+  --status-card-background-empty: oklch(0.269 0 0);
+  --status-card-foreground-empty: oklch(0.985 0 0);
+  --status-card-background-icon-empty: oklch(0.320 0 0);;
+
+  /* Calendar colors */
+  --calendar-color-gray: oklch(55.6% 0 0);
+  --calendar-color-red: oklch(25.8% 0.092 26.042);
+  --calendar-color-yellow: oklch(42.1% 0.095 57.708) ;
+  --calendar-color-orange: oklch(47% 0.157 37.304);
+  --calendar-color-purple: oklch(38.1% 0.176 304.987);
+  --calendar-color-blue: oklch(37.9% 0.146 265.522);
+  --calendar-color-indigo: oklch(35.9% 0.144 278.697);
+  --calendar-color-sky: oklch(39.1% 0.09 240.876);
+  --calendar-color-green: oklch(39.3% 0.095 152.535);
+  --calendar-color-lime: oklch(40.5% 0.101 131.063);
+
+  /* Case urgency colors */
+  --case-urgency-critical-background: oklch(25% 0.01 260);
+  --case-urgency-critical-foreground: oklch(95% 0.01 260);
+  --case-urgency-high-background: oklch(30% 0.01 260);
+  --case-urgency-high-foreground: oklch(90% 0.01 260);
+  --case-urgency-medium-background: oklch(35% 0.01 260);
+  --case-urgency-medium-foreground: oklch(85% 0.01 260);
+  --case-urgency-low-background: oklch(40% 0.01 260);
+  --case-urgency-low-foreground: oklch(80% 0.01 260);
+
+  /* Case status colors */
+  --case-status-open-background: oklch(32% 0.01 260);
+  --case-status-open-foreground: oklch(88% 0.01 260);
+  --case-status-in-progress-background: oklch(28% 0.01 260);
+  --case-status-in-progress-foreground: oklch(92% 0.01 260);
+  --case-status-closed-background: oklch(38% 0.01 260);
+  --case-status-closed-foreground: oklch(85% 0.01 260);
+  --case-status-archived-background: oklch(25% 0.01 260);
+  --case-status-archived-foreground: oklch(75% 0.01 260);
+  --case-status-under-negotiation-background: oklch(34% 0.01 260);
+  --case-status-under-negotiation-foreground: oklch(87% 0.01 260);
+  --case-status-waiting-for-customer-background: oklch(31% 0.01 260);
+  --case-status-waiting-for-customer-foreground: oklch(89% 0.01 260);
+  --case-status-awaiting-trial-background: oklch(29% 0.01 260);
+  --case-status-awaiting-trial-foreground: oklch(91% 0.01 260);
+  --case-status-waiting-background: oklch(33% 0.01 260);
+  --case-status-waiting-foreground: oklch(86% 0.01 260);
+
+  /* Documents selector colors */
+  --selector-rectangle: oklch(39.1% 0.09 240.876);
+  --selector-background: oklch(29.3% 0.066 243.157);
+  --selector-foreground: oklch(50% 0.134 242.749);
+
+  /* License status colors */
+  --license-valid-foreground: oklch(0.708 0 0);
+  --license-valid-background: oklch(0.269 0 0);
+  --license-invalid-foreground: oklch(64.5% 0.246 16.439);
+  --license-invalid-background: oklch(27.1% 0.105 12.094);
+  --license-no-config-background: oklch(29.3% 0.066 243.157);
+  --license-no-config-foreground: oklch(68.5% 0.169 237.323);
+
+  /* Finances type colors */
+  --finance-type-income-background: oklch(26.6% 0.065 152.934);
+  --finance-type-income-foreground: oklch(62.7% 0.194 149.214);
+  --finance-type-expense-background: oklch(25.8% 0.092 26.042);
+  --finance-type-expense-foreground: oklch(57.7% 0.245 27.325);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+.EmojiPickerReact {
+  --epr-text-color: var(--muted-foreground) !important;
+  --epr-emoji-size: 24px !important;
+  font-family: "Source Sans 3", sans-serif !important;
+  font-size: 14px !important;
+  font-weight: 400 !important;
+}
+.epr-emoji-category-label {
+  font-size: 14px !important;
+  font-weight: 700 !important;
+}

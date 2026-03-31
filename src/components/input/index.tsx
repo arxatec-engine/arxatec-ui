@@ -1,0 +1,67 @@
+/* eslint-disable react-refresh/only-export-components */
+import * as React from "react";
+import { cva, type VariantProps } from "class-variance-authority";
+
+import { cn } from "@/utilities/index";
+import { EyeIcon, EyeOffIcon } from "lucide-react";
+
+const inputVariants = cva(
+  "file:text-foreground placeholder:text-muted-foreground dark:bg-input/30 border-input flex w-full min-w-0 rounded-md border bg-card px-3 py-1 text-sm shadow-xs transition-[color,box-shadow] outline-none file:inline-flex file:h-7 file:border-0 file:bg-card file:text-sm file:font-medium disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive",
+  {
+    variants: {
+      size: {
+        default: "h-9",
+        sm: "h-8",
+      },
+    },
+    defaultVariants: {
+      size: "default",
+    },
+  }
+);
+
+function Input({
+  className,
+  type,
+  size,
+  ref,
+  ...props
+}: Omit<React.ComponentProps<"input">, "size"> &
+  VariantProps<typeof inputVariants>) {
+  const [showPassword, setShowPassword] = React.useState(false);
+
+  if (type === "password") {
+    return (
+      <div className="relative">
+        <input
+          type={showPassword ? "text" : "password"}
+          className={cn(inputVariants({ size, className }))}
+          ref={ref}
+          {...props}
+        />
+        <button
+          type="button"
+          className="absolute inset-y-0 right-0 flex items-center justify-center w-10 text-muted-foreground focus:outline-none"
+          onClick={() => setShowPassword(!showPassword)}
+        >
+          {showPassword ? (
+            <EyeIcon className="w-4 h-4" />
+          ) : (
+            <EyeOffIcon className="w-4 h-4" />
+          )}
+        </button>
+      </div>
+    );
+  }
+  return (
+    <input
+      type={type}
+      data-slot="input"
+      className={cn(inputVariants({ size, className }))}
+      ref={ref}
+      {...props}
+    />
+  );
+}
+
+export { Input, inputVariants };
