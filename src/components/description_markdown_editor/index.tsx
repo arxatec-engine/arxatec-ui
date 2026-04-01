@@ -133,9 +133,7 @@ export const DescriptionMarkdownEditor = forwardRef<
     editable: !disabled,
     onSelectionUpdate: bumpToolbar,
     editorProps: {
-      attributes: {
-        class: styles.editorContent,
-      },
+      attributes: {},
       handleKeyDown: (_, event) => {
         if (event.key === "Escape") {
           event.preventDefault();

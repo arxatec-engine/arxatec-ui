@@ -4,7 +4,7 @@ React component kit for **Arxatec** products: primitives built on **Radix UI**, 
 
 ## Requirements
 
-- **React** 18 or 19 (`react` and `react-dom` are *peer dependencies*).
+- **React** 18 or 19 (`react` and `react-dom` are _peer dependencies_).
 - A bundler that supports **ESM** (recommended: **Vite**).
 - **Tailwind CSS v4** and the **`@tailwindcss/vite`** plugin (or an equivalent pipeline that processes the library stylesheet).
 
@@ -30,6 +30,8 @@ import "arxatec-ui/styles.css";
 ```
 
 That CSS uses Tailwind v4 features (`@import "tailwindcss"`, `@theme`, etc.). Your build **must process** it with Tailwind (serving the raw file without compiling is not enough).
+
+The same stylesheet **also appends** CSS extracted from the library build (TipTap / `RichTextEditor`, hashed classes from **CSS modules** such as `DescriptionMarkdownEditor`, etc.). You do **not** import those files separately; `arxatec-ui/styles.css` is the one entry for consumers.
 
 ### Vite + Tailwind v4
 
@@ -87,7 +89,7 @@ Patterns follow **shadcn**-style APIs (compound components with named exports).
 
 ### Components (overview)
 
-- **Forms & text:** `Button`, `Input`, `Textarea`, `Label`, `Checkbox`, `RadioGroup`, `Select`, `Slider`, `Toggle`, `InputOTP`, `FileDropZone`, `LocationInput`, `DateRangePicker`, `Calendar`, `AsyncSelect`, and more.
+- **Forms & text:** `Button`, `Input`, `Textarea`, `Label`, `Checkbox`, `RadioGroup`, `Select`, `Slider`, `Toggle`, `InputOTP`, `FileDropZone`, `LocationInput`, `DateRangePicker`, `Calendar`, `AsyncSelect`, `DescriptionMarkdownEditor`, `RichTextEditor`, and more.
 - **Surfaces & navigation:** `Card`, `Dialog`, `Sheet`, `Drawer`, `Popover`, `Tooltip`, `DropdownMenu`, `ContextMenu`, `Tabs`, `Breadcrumb`, `Pagination`, `PaginationController`, `Sidebar`, `Command`, `Collapsible`, and more.
 - **Data & feedback:** `Table`, `Badge`, `Skeleton`, `Progress`, `StatusMessage`, `AsyncBoundary`, `AsyncCommandList`, `Chart`, `Carousel`, and more.
 - **Maps:** `MapView`, `MapPicker`.
@@ -121,13 +123,13 @@ import "leaflet/dist/leaflet.css";
 
 ## Developing this repo
 
-| Command | Description |
-|--------|-------------|
-| `npm run dev` | Vite playground (style guide). |
-| `npm run storybook` | Storybook on port 6006. |
-| `npm run build:lib` | Build `dist/` for npm. |
-| `npm run build` | Playground production build. |
-| `npm run lint` | ESLint. |
+| Command             | Description                    |
+| ------------------- | ------------------------------ |
+| `npm run dev`       | Vite playground (style guide). |
+| `npm run storybook` | Storybook on port 6006.        |
+| `npm run build:lib` | Build `dist/` for npm.         |
+| `npm run build`     | Playground production build.   |
+| `npm run lint`      | ESLint.                        |
 
 Publishing to npm requires **2FA**; use `npm publish --otp=...` when prompted.
 

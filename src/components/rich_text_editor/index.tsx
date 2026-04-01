@@ -1,4 +1,3 @@
-import "./tiptap.css";
 import { cn } from "@/utilities/index";
 import {
   ImageExtension,
