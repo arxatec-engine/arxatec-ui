@@ -41,6 +41,7 @@ export function getUrlFromString(str: string) {
 }
 
 export function absoluteUrl(path: string) {
+  // @ts-ignore
   return `${process.env.NEXT_PUBLIC_APP_URL}${path}`;
 }
 
