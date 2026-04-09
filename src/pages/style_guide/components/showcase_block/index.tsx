@@ -1,6 +1,5 @@
 import type { ReactNode } from "react";
-
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/exports";
 
 export function ShowcaseBlock({
   title,
@@ -19,7 +18,9 @@ export function ShowcaseBlock({
           <p className="min-w-0 text-sm text-muted-foreground">{description}</p>
         ) : null}
       </CardHeader>
-      <CardContent className="min-w-0 overflow-x-hidden">{children}</CardContent>
+      <CardContent className="min-w-0 overflow-x-hidden">
+        {children}
+      </CardContent>
     </Card>
   );
 }

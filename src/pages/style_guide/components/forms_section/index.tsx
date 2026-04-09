@@ -1,38 +1,34 @@
-import { Bold, Plus } from "lucide-react";
-
-import { AsyncSelect } from "@/components/async_select";
-import { Button } from "@/components/button";
+import { Bold } from "lucide-react";
 import {
+  AsyncSelect,
+  Button,
   ButtonGroup,
   ButtonGroupSeparator,
   ButtonGroupText,
-} from "@/components/button_group";
-import { Checkbox } from "@/components/checkbox";
-import { CustomHeader } from "@/components/custom_header";
-import { DateRangePicker } from "@/components/date_range_picker";
-import { InfoTooltip } from "@/components/info_tooltip";
-import { Input } from "@/components/input";
-import {
+  Checkbox,
+  DateRangePicker,
+  InfoTooltip,
+  Input,
   InputOTP,
   InputOTPGroup,
   InputOTPSeparator,
   InputOTPSlot,
-} from "@/components/input_otp";
-import { Kbd, KbdGroup } from "@/components/kbd";
-import { Label } from "@/components/label";
-import { Progress } from "@/components/progress";
-import { RadioGroup, RadioGroupItem } from "@/components/radio_group";
-import {
+  Kbd,
+  KbdGroup,
+  Label,
+  Progress,
+  RadioGroup,
+  RadioGroupItem,
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/select";
-import { Slider } from "@/components/slider";
-import { Textarea } from "@/components/text_area";
-import { Toggle } from "@/components/toggle";
-
+  Slider,
+  Textarea,
+  Toggle,
+  Separator,
+} from "@/exports";
 import type { StyleGuideDemoItem } from "../types";
 import { ShowcaseBlock } from "../showcase_block";
 
@@ -58,73 +54,83 @@ export function FormsSection({
   return (
     <ShowcaseBlock
       title="Inputs y Formularios"
-      description="Controles de captura, seleccion y validacion visual."
+      description="Controles de captura, selección y validación visual."
     >
-      <div className="grid min-w-0 gap-6 lg:grid-cols-2">
-        <div className="min-w-0 space-y-4 rounded-xl border p-4">
-          <CustomHeader
-            title="Formulario tecnico"
-            description="Ejemplo de composicion con etiquetas, ayudas y acciones."
-            button={{ label: "Nuevo", url: "#", icon: Plus }}
-          />
-          <div className="grid min-w-0 gap-3">
-            <Label htmlFor="name">Nombre</Label>
-            <Input id="name" placeholder="Escribe un nombre" />
+      <div className="grid min-w-0 grid-cols-1 gap-5 md:grid-cols-2">
+        <div className="flex flex-col gap-4 rounded-md border border-border/60 bg-card/20 p-5">
+          <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground/60">
+            Información Básica
+          </p>
+          <div className="space-y-4">
+            <div className="space-y-2">
+              <Label htmlFor="name">Nombre Completo</Label>
+              <Input id="name" placeholder="Ej. Juan Pérez" />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="bio">Descripción Corta</Label>
+              <Textarea
+                id="bio"
+                rows={2}
+                placeholder="Detalles del perfil..."
+              />
+            </div>
+            <div className="flex items-center gap-2 pt-2">
+              <Checkbox id="terms" defaultChecked />
+              <Label htmlFor="terms" className="cursor-pointer text-sm">
+                Aceptar términos
+              </Label>
+            </div>
+          </div>
+        </div>
 
-            <Label htmlFor="bio">Descripcion</Label>
-            <Textarea id="bio" rows={3} placeholder="Detalle de contexto..." />
-
+        <div className="flex flex-col gap-4 rounded-md border border-border/60 bg-card/20 p-5">
+          <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground/60">
+            Planificación y Asignación
+          </p>
+          <div className="space-y-4">
             <DateRangePicker
-              label="Periodo"
+              label="Rango de Fechas"
               optional
               startDate={startDate}
               dueDate={dueDate}
               onStartDateChange={onStartDateChange}
               onDueDateChange={onDueDateChange}
             />
-
             <AsyncSelect
-              label="Proyecto"
+              label="Vincular Proyecto"
               value={asyncValue}
               onChange={onAsyncValueChange}
-              placeholder="Selecciona un proyecto"
+              placeholder="Buscar proyecto..."
               options={asyncOptions}
             />
-
-            <div className="flex items-center gap-2">
-              <Checkbox id="terms" defaultChecked />
-              <Label htmlFor="terms">Aceptar terminos</Label>
+            <div className="space-y-2 pt-1 border-t">
+              <Label className="text-xs">Prioridad de Entrega</Label>
+              <RadioGroup defaultValue="a" className="flex items-center gap-6">
+                <div className="flex items-center gap-2">
+                  <RadioGroupItem value="a" id="r-a" />
+                  <Label htmlFor="r-a" className="cursor-pointer">
+                    Alta
+                  </Label>
+                </div>
+                <div className="flex items-center gap-2">
+                  <RadioGroupItem value="b" id="r-b" />
+                  <Label htmlFor="r-b" className="cursor-pointer">
+                    Baja
+                  </Label>
+                </div>
+              </RadioGroup>
             </div>
-
-            <RadioGroup defaultValue="a">
-              <div className="flex items-center gap-2">
-                <RadioGroupItem value="a" id="r-a" />
-                <Label htmlFor="r-a">Prioridad alta</Label>
-              </div>
-              <div className="flex items-center gap-2">
-                <RadioGroupItem value="b" id="r-b" />
-                <Label htmlFor="r-b">Prioridad baja</Label>
-              </div>
-            </RadioGroup>
           </div>
         </div>
 
-        <div className="min-w-0 space-y-4 rounded-xl border p-4">
-          <div className="grid min-w-0 gap-3">
-            <Label>Entrada con componentes avanzados</Label>
-            <ButtonGroup className="min-w-0 max-w-full flex-wrap">
-              <ButtonGroupText>Accion</ButtonGroupText>
-              <ButtonGroupSeparator />
-              <Button variant="outline" size="sm">
-                Guardar
-              </Button>
-              <Button variant="outline" size="sm">
-                Publicar
-              </Button>
-            </ButtonGroup>
-
-            <div className="w-full min-w-0 overflow-x-auto py-1">
-              <InputOTP maxLength={6} containerClassName="w-fit min-w-min">
+        <div className="flex flex-col gap-4 rounded-md border border-border/60 bg-card/20 p-5">
+          <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground/60">
+            Acciones y Validación
+          </p>
+          <div className="space-y-5">
+            <div className="space-y-3">
+              <Label className="text-xs">Código de Seguridad</Label>
+              <InputOTP maxLength={6} containerClassName="w-fit">
                 <InputOTPGroup>
                   <InputOTPSlot index={0} />
                   <InputOTPSlot index={1} />
@@ -138,36 +144,62 @@ export function FormsSection({
                 </InputOTPGroup>
               </InputOTP>
             </div>
-
-            <div className="space-y-2">
-              <Label>Select nativo</Label>
-              <Select defaultValue="mx">
-                <SelectTrigger>
-                  <SelectValue placeholder="Pais" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="mx">Mexico</SelectItem>
-                  <SelectItem value="co">Colombia</SelectItem>
-                  <SelectItem value="es">Espana</SelectItem>
-                </SelectContent>
-              </Select>
+            <div className="space-y-2 border-t pt-4">
+              <Label className="text-xs">Acción de Grupo</Label>
+              <ButtonGroup className="w-full">
+                <ButtonGroupText>Opciones</ButtonGroupText>
+                <ButtonGroupSeparator />
+                <Button variant="outline" size="sm" className="flex-1">
+                  Guardar
+                </Button>
+                <Button variant="outline" size="sm" className="flex-1">
+                  Publicar
+                </Button>
+              </ButtonGroup>
             </div>
+          </div>
+        </div>
 
-            <div className="space-y-2">
-              <Label>Slider y progreso</Label>
+        <div className="flex flex-col gap-4 rounded-md border border-border/60 bg-card/20 p-5">
+          <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground/60">
+            Ajustes y Parámetros
+          </p>
+          <div className="space-y-5">
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label className="text-xs">País</Label>
+                <Select defaultValue="mx">
+                  <SelectTrigger className="h-9">
+                    <SelectValue placeholder="País" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="mx">México</SelectItem>
+                    <SelectItem value="co">Colombia</SelectItem>
+                    <SelectItem value="es">España</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="flex items-center gap-2 self-end pb-1 justify-center border rounded-md h-9 bg-background/50">
+                <Toggle aria-label="Negrita" size="sm">
+                  <Bold className="size-4" />
+                </Toggle>
+                <Separator orientation="vertical" className="h-4" />
+                <InfoTooltip info="Configuración avanzada" />
+                <Separator orientation="vertical" className="h-4" />
+                <KbdGroup>
+                  <Kbd className="text-[10px]">K</Kbd>
+                </KbdGroup>
+              </div>
+            </div>
+            <div className="space-y-3 border-t pt-4">
+              <div className="flex justify-between items-center">
+                <Label className="text-xs">Nivel de Proceso</Label>
+                <span className="text-[10px] font-mono text-muted-foreground">
+                  62%
+                </span>
+              </div>
               <Slider defaultValue={[62]} />
-              <Progress value={62} />
-            </div>
-
-            <div className="flex items-center gap-2">
-              <Toggle aria-label="Negrita">
-                <Bold className="size-4" />
-              </Toggle>
-              <InfoTooltip info="Este campo es visible solo para administradores." />
-              <KbdGroup>
-                <Kbd>cmd</Kbd>
-                <Kbd>K</Kbd>
-              </KbdGroup>
+              <Progress value={62} className="h-1" />
             </div>
           </div>
         </div>
