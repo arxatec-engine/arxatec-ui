@@ -1,7 +1,6 @@
 export * from "./hooks";
 export * from "./types";
 export * from "./utilities";
-
 export * from "./components/animated_icons";
 export * from "./components/async_boundary";
 export * from "./components/async_command_list";
@@ -66,3 +65,4 @@ export * from "./components/form_input";
 export * from "./components/form_textarea";
 export * from "./components/form_select";
 export * from "./components/description_markdown_editor";
+export * from "./components/sidebar";

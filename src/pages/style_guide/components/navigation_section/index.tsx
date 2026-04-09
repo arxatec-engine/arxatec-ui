@@ -1,5 +1,5 @@
 import { Inbox, Sparkles } from "lucide-react";
-
+import { cn } from "@/utilities/index";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -7,62 +7,37 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from "@/components/breadcrumb";
-import { Button } from "@/components/button";
-import { Card, CardContent } from "@/components/card";
-import {
+  Button,
   ContextMenu,
   ContextMenuContent,
   ContextMenuItem,
-  ContextMenuSeparator,
   ContextMenuTrigger,
-} from "@/components/context_menu";
-import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/dialog";
-import {
   Drawer,
-  DrawerClose,
   DrawerContent,
-  DrawerDescription,
-  DrawerFooter,
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
-} from "@/components/drawer";
-import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/dropdown_menu";
-import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/popover";
-import {
   Sheet,
   SheetContent,
-  SheetDescription,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "@/components/sheet";
-import {
   Sidebar,
   SidebarContent,
   SidebarGroup,
-  SidebarGroupContent,
-  SidebarGroupLabel,
   SidebarHeader,
   SidebarInset,
   SidebarMenu,
@@ -70,197 +45,264 @@ import {
   SidebarMenuItem,
   SidebarProvider,
   SidebarTrigger,
-} from "@/components/sidebar";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/tabs";
-import {
+  useSidebar,
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from "@/components/tooltip";
+} from "@/exports";
 
 import { ShowcaseBlock } from "../showcase_block";
 
 export function NavigationSection() {
   return (
     <ShowcaseBlock
-      title="Navegacion y Superficies"
-      description="Estructuras de layout, paneles emergentes y jerarquia de contenido."
+      title="Navegación y Superficies"
+      description="Estructuras de layout, paneles emergentes y jerarquía de contenido."
     >
-      <div className="grid min-w-0 gap-6 xl:grid-cols-3">
-        <div className="min-w-0 space-y-4 rounded-xl border p-4 xl:col-span-2">
-          <Breadcrumb className="min-w-0">
-            <BreadcrumbList className="flex-wrap gap-1">
-              <BreadcrumbItem>
-                <BreadcrumbLink href="#">Inicio</BreadcrumbLink>
-              </BreadcrumbItem>
-              <BreadcrumbSeparator />
-              <BreadcrumbItem>
-                <BreadcrumbLink href="#">UI</BreadcrumbLink>
-              </BreadcrumbItem>
-              <BreadcrumbSeparator />
-              <BreadcrumbItem>
-                <BreadcrumbPage>Style Guide</BreadcrumbPage>
-              </BreadcrumbItem>
-            </BreadcrumbList>
-          </Breadcrumb>
+      <div className="grid min-w-0 grid-cols-1 gap-5 md:grid-cols-2">
+        <div className="flex flex-col gap-4 rounded-md border border-border/60 bg-card/20 p-5">
+          <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground/60">
+            Jerarquía de Navegación
+          </p>
+          <div className="space-y-6">
+            <Breadcrumb className="min-w-0">
+              <BreadcrumbList className="flex-wrap gap-1">
+                <BreadcrumbItem>
+                  <BreadcrumbLink href="#">Inicio</BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbPage>Style Guide</BreadcrumbPage>
+                </BreadcrumbItem>
+              </BreadcrumbList>
+            </Breadcrumb>
 
-          <Tabs defaultValue="overview" className="min-w-0">
-            <TabsList className="grid h-auto w-full min-w-0 grid-cols-3 gap-1">
-              <TabsTrigger value="overview">Overview</TabsTrigger>
-              <TabsTrigger value="dialogs">Dialogs</TabsTrigger>
-              <TabsTrigger value="menus">Menus</TabsTrigger>
-            </TabsList>
-            <TabsContent value="overview" className="space-y-3">
-              <Card>
-                <CardContent className="pt-5">
-                  <p className="text-sm text-muted-foreground">
-                    Composicion base para vistas operativas.
-                  </p>
-                </CardContent>
-              </Card>
-            </TabsContent>
-            <TabsContent value="dialogs" className="min-w-0 space-y-3">
-              <div className="flex min-w-0 flex-wrap gap-2">
-                <Dialog>
-                  <DialogTrigger asChild>
-                    <Button variant="outline">Dialog</Button>
-                  </DialogTrigger>
-                  <DialogContent>
-                    <DialogHeader>
-                      <DialogTitle>Confirmar cambios</DialogTitle>
-                      <DialogDescription>
-                        Esta accion actualiza la configuracion activa.
-                      </DialogDescription>
-                    </DialogHeader>
-                    <DialogFooter>
-                      <Button variant="outline">Cancelar</Button>
-                      <Button>Confirmar</Button>
-                    </DialogFooter>
-                  </DialogContent>
-                </Dialog>
-
-                <Sheet>
-                  <SheetTrigger asChild>
-                    <Button variant="outline">Sheet</Button>
-                  </SheetTrigger>
-                  <SheetContent>
-                    <SheetHeader>
-                      <SheetTitle>Panel lateral</SheetTitle>
-                      <SheetDescription>
-                        Vista contextual para acciones rapidas.
-                      </SheetDescription>
-                    </SheetHeader>
-                  </SheetContent>
-                </Sheet>
-
-                <Drawer>
-                  <DrawerTrigger asChild>
-                    <Button variant="outline">Drawer</Button>
-                  </DrawerTrigger>
-                  <DrawerContent>
-                    <DrawerHeader>
-                      <DrawerTitle>Detalle inferior</DrawerTitle>
-                      <DrawerDescription>
-                        Ideal para mobile y acciones paso a paso.
-                      </DrawerDescription>
-                    </DrawerHeader>
-                    <DrawerFooter>
-                      <DrawerClose asChild>
-                        <Button variant="outline">Cerrar</Button>
-                      </DrawerClose>
-                    </DrawerFooter>
-                  </DrawerContent>
-                </Drawer>
-              </div>
-            </TabsContent>
-            <TabsContent value="menus" className="min-w-0 space-y-3">
-              <div className="flex min-w-0 flex-wrap gap-2">
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <Button variant="outline">Dropdown</Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent className="w-48">
-                    <DropdownMenuLabel>Cuenta</DropdownMenuLabel>
-                    <DropdownMenuSeparator />
-                    <DropdownMenuItem>Perfil</DropdownMenuItem>
-                    <DropdownMenuItem>Configuracion</DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
-
-                <Popover>
-                  <PopoverTrigger asChild>
-                    <Button variant="outline">Popover</Button>
-                  </PopoverTrigger>
-                  <PopoverContent className="text-sm">
-                    Contenido tecnico contextual.
-                  </PopoverContent>
-                </Popover>
-
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <Button variant="outline">Tooltip</Button>
-                  </TooltipTrigger>
-                  <TooltipContent>Atajo rapido del sistema</TooltipContent>
-                </Tooltip>
-              </div>
-
-              <ContextMenu>
-                <ContextMenuTrigger className="flex h-24 items-center justify-center rounded-md border border-dashed text-sm text-muted-foreground">
-                  Clic derecho aqui
-                </ContextMenuTrigger>
-                <ContextMenuContent>
-                  <ContextMenuItem>Duplicar</ContextMenuItem>
-                  <ContextMenuItem>Compartir</ContextMenuItem>
-                  <ContextMenuSeparator />
-                  <ContextMenuItem variant="destructive">Eliminar</ContextMenuItem>
-                </ContextMenuContent>
-              </ContextMenu>
-            </TabsContent>
-          </Tabs>
+            <Tabs defaultValue="overview" className="w-full">
+              <TabsList className="grid h-9 w-full grid-cols-2 gap-1 p-1">
+                <TabsTrigger value="overview" className="text-xs">
+                  Overview
+                </TabsTrigger>
+                <TabsTrigger value="config" className="text-xs">
+                  Configuración
+                </TabsTrigger>
+              </TabsList>
+              <TabsContent value="overview">
+                <div className="rounded-md border border-dashed border-border/80 p-4 text-center text-xs text-muted-foreground bg-background/30">
+                  Panel de control principal de la vista
+                </div>
+              </TabsContent>
+              <TabsContent value="config">
+                <div className="rounded-md border border-dashed border-border/80 p-4 text-center text-xs text-muted-foreground bg-background/30">
+                  Ajustes de visibilidad y filtros
+                </div>
+              </TabsContent>
+            </Tabs>
+          </div>
         </div>
 
-        <div className="min-w-0 space-y-4 rounded-xl border p-4">
-          <h3 className="font-serif text-2xl">Sidebar</h3>
-          <div className="isolate h-72 min-h-0 w-full min-w-0 overflow-hidden rounded-md border">
-            <SidebarProvider className="h-full !min-h-0 max-h-full min-w-0 max-w-full">
-              <Sidebar>
-                <SidebarHeader className="border-b px-3 py-2">Navegacion</SidebarHeader>
-                <SidebarContent>
-                  <SidebarGroup>
-                    <SidebarGroupLabel>Principal</SidebarGroupLabel>
-                    <SidebarGroupContent>
-                      <SidebarMenu>
-                        <SidebarMenuItem>
-                          <SidebarMenuButton asChild>
-                            <a href="#" className="flex items-center gap-2">
-                              <Sparkles className="size-4" />
-                              Inicio
-                            </a>
-                          </SidebarMenuButton>
-                        </SidebarMenuItem>
-                        <SidebarMenuItem>
-                          <SidebarMenuButton asChild>
-                            <a href="#" className="flex items-center gap-2">
-                              <Inbox className="size-4" />
-                              Bandeja
-                            </a>
-                          </SidebarMenuButton>
-                        </SidebarMenuItem>
-                      </SidebarMenu>
-                    </SidebarGroupContent>
-                  </SidebarGroup>
-                </SidebarContent>
-              </Sidebar>
-              <SidebarInset>
-                <header className="flex h-10 items-center gap-2 border-b px-3">
-                  <SidebarTrigger />
-                  <p className="text-xs text-muted-foreground">Workspace</p>
-                </header>
-              </SidebarInset>
+        <div className="flex flex-col gap-4 rounded-md border border-border/60 bg-card/20 p-5">
+          <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground/60">
+            Navegación Lateral (Sidebar)
+          </p>
+          <div className="isolate h-48 w-full overflow-hidden rounded-md border bg-background/50">
+            <SidebarProvider className="h-full !min-h-0">
+              <SidebarLocalPreview />
             </SidebarProvider>
+          </div>
+        </div>
+
+        <div className="flex flex-col gap-4 rounded-md border border-border/60 bg-card/20 p-5">
+          <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground/60">
+            Overlays y Diálogos
+          </p>
+          <div className="grid grid-cols-3 gap-3">
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button variant="outline" size="sm" className="w-full text-xs">
+                  Dialog
+                </Button>
+              </DialogTrigger>
+              <DialogContent>
+                <DialogHeader>
+                  <DialogTitle>Confirmar</DialogTitle>
+                </DialogHeader>
+                <DialogFooter>
+                  <Button size="sm">Cerrar</Button>
+                </DialogFooter>
+              </DialogContent>
+            </Dialog>
+
+            <Sheet>
+              <SheetTrigger asChild>
+                <Button variant="outline" size="sm" className="w-full text-xs">
+                  Sheet
+                </Button>
+              </SheetTrigger>
+              <SheetContent>
+                <SheetHeader>
+                  <SheetTitle>Panel Lateral</SheetTitle>
+                </SheetHeader>
+              </SheetContent>
+            </Sheet>
+
+            <Drawer>
+              <DrawerTrigger asChild>
+                <Button variant="outline" size="sm" className="w-full text-xs">
+                  Drawer
+                </Button>
+              </DrawerTrigger>
+              <DrawerContent>
+                <DrawerHeader>
+                  <DrawerTitle>Detalle</DrawerTitle>
+                </DrawerHeader>
+              </DrawerContent>
+            </Drawer>
+          </div>
+          <p className="text-[10px] text-muted-foreground mt-auto italic">
+            Interfaces modales para interacción enfocada.
+          </p>
+        </div>
+
+        <div className="flex flex-col gap-4 rounded-md border border-border/60 bg-card/20 p-5">
+          <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground/60">
+            Herramientas Contextuales
+          </p>
+          <div className="space-y-4">
+            <div className="flex flex-wrap gap-2">
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="outline" size="sm" className="text-xs">
+                    Dropdown
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="text-xs">
+                  <DropdownMenuItem>Opción 1</DropdownMenuItem>
+                  <DropdownMenuItem>Opción 2</DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+
+              <Popover>
+                <PopoverTrigger asChild>
+                  <Button variant="outline" size="sm" className="text-xs">
+                    Popover
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="text-xs w-48">
+                  Contenido desplegable.
+                </PopoverContent>
+              </Popover>
+
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button variant="outline" size="sm" className="text-xs">
+                    Tooltip
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent className="text-[10px]">
+                  Ayuda rápida
+                </TooltipContent>
+              </Tooltip>
+            </div>
+
+            <ContextMenu>
+              <ContextMenuTrigger className="flex h-16 items-center justify-center rounded-md border border-dashed border-border/80 bg-background/40 text-xs text-muted-foreground transition-colors hover:bg-background/20">
+                Clic derecho aquí (Contexto)
+              </ContextMenuTrigger>
+              <ContextMenuContent className="text-xs">
+                <ContextMenuItem>Copiar</ContextMenuItem>
+                <ContextMenuItem>Mover</ContextMenuItem>
+              </ContextMenuContent>
+            </ContextMenu>
           </div>
         </div>
       </div>
     </ShowcaseBlock>
+  );
+}
+
+function SidebarLocalPreview() {
+  const { state } = useSidebar();
+  const isCollapsed = state === "collapsed";
+
+  return (
+    <div className="flex h-full w-full">
+      <Sidebar
+        collapsible="none"
+        className={cn(
+          "h-full border-r bg-card/30 transition-all duration-300 ease-in-out !min-w-0",
+          isCollapsed ? "!w-12" : "!w-28",
+        )}
+      >
+        <SidebarHeader
+          className={cn(
+            "border-b py-2 transition-all duration-300 flex flex-col",
+            isCollapsed ? "items-center px-0" : "items-start px-3",
+          )}
+        >
+          {!isCollapsed ? (
+            <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/80">
+              Menú
+            </p>
+          ) : (
+            <div className="size-4 rounded-full bg-primary/20" />
+          )}
+        </SidebarHeader>
+        <SidebarContent className="overflow-hidden">
+          <SidebarGroup className="p-1">
+            <SidebarMenu>
+              <SidebarMenuItem>
+                <SidebarMenuButton
+                  size="sm"
+                  tooltip="Dashboard"
+                  className={cn(
+                    "transition-all duration-300",
+                    isCollapsed ? "justify-center px-0" : "gap-2 px-2",
+                  )}
+                >
+                  <Sparkles className="size-3.5 shrink-0" />
+                  {!isCollapsed && (
+                    <span className="text-xs truncate">Inicio</span>
+                  )}
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+              <SidebarMenuItem>
+                <SidebarMenuButton
+                  size="sm"
+                  tooltip="Inbox"
+                  className={cn(
+                    "transition-all duration-300",
+                    isCollapsed ? "justify-center px-0" : "gap-2 px-2",
+                  )}
+                >
+                  <Inbox className="size-3.5 shrink-0" />
+                  {!isCollapsed && (
+                    <span className="text-xs truncate">Inbox</span>
+                  )}
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            </SidebarMenu>
+          </SidebarGroup>
+        </SidebarContent>
+      </Sidebar>
+      <SidebarInset className="!bg-transparent flex-1">
+        <header className="flex h-8 items-center border-b px-2">
+          <SidebarTrigger className="size-6" />
+        </header>
+        <div className="p-2">
+          <div
+            className={cn(
+              "h-24 rounded-md bg-muted/10 border border-dashed border-border/40 transition-all duration-300",
+              "flex items-center justify-center text-[10px] text-muted-foreground",
+            )}
+          >
+            Content Area
+          </div>
+        </div>
+      </SidebarInset>
+    </div>
   );
 }
