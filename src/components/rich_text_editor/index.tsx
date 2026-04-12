@@ -88,11 +88,12 @@ export const RichTextEditor = forwardRef<
   {
     className?: string;
     fileId?: string;
+    initialContent?: JSONContent;
     /** Si se define, el botón "Guardar" persistirá el documento vía este callback. */
     onSave?: (schema: JSONContent) => Promise<void>;
     onSaveSuccess?: () => void;
   }
->(({ className, fileId, onSave, onSaveSuccess }, ref) => {
+>(({ className, fileId, initialContent, onSave, onSaveSuccess }, ref) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [isLocalSaving, setIsLocalSaving] = useState(false);
   const [isDirty, setIsDirty] = useState(false);
@@ -100,13 +101,25 @@ export const RichTextEditor = forwardRef<
   const editor = useEditor({
     immediatelyRender: false,
     extensions: extensions as Extension[],
-    content,
+    content: initialContent || content,
     editorProps: {
       attributes: {
         class: "max-w-full focus:outline-none",
       },
     },
   });
+
+  useEffect(() => {
+    if (editor && initialContent) {
+      const currentJSONStr = JSON.stringify(editor.getJSON());
+      const initialContentStr = JSON.stringify(initialContent);
+
+      if (currentJSONStr !== initialContentStr) {
+        editor.commands.setContent(initialContent);
+        setIsDirty(false);
+      }
+    }
+  }, [initialContent, editor]);
 
   useEffect(() => {
     if (!editor) return;
@@ -155,7 +168,7 @@ export const RichTextEditor = forwardRef<
     <div
       className={cn(
         "relative flex flex-col h-full w-full overflow-hidden bg-background",
-        className
+        className,
       )}
     >
       <EditorToolbar
@@ -190,7 +203,7 @@ export const RichTextEditor = forwardRef<
       <div
         className={cn(
           "flex-1 overflow-y-auto transition-all duration-300 ease-in-out scroll-smooth",
-          !isExpanded ? "bg-muted/30 p-4 md:p-8" : "bg-card"
+          !isExpanded ? "bg-muted/30 p-4 md:p-8" : "bg-card",
         )}
       >
         <div
@@ -198,7 +211,7 @@ export const RichTextEditor = forwardRef<
             "mx-auto transition-all duration-300 ease-in-out relative",
             !isExpanded
               ? "max-w-212.5 bg-card rounded-md border min-h-275 mb-10"
-              : "max-w-262.5 w-full"
+              : "max-w-262.5 w-full",
           )}
         >
           <FloatingToolbar editor={editor} />
@@ -207,7 +220,7 @@ export const RichTextEditor = forwardRef<
             editor={editor}
             className={cn(
               "cursor-text transition-all duration-300",
-              !isExpanded ? "p-8 md:p-12 lg:p-16" : "p-8 md:p-10 is-expanded"
+              !isExpanded ? "p-8 md:p-12 lg:p-16" : "p-8 md:p-10 is-expanded",
             )}
             onMouseDown={() => {
               if (!editor.isFocused) editor.chain().focus().run();
