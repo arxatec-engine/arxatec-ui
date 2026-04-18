@@ -25,7 +25,7 @@
 .wrapper :global(.ProseMirror) strong,
 .wrapper :global(.ProseMirror) em,
 .wrapper :global(.ProseMirror) u {
-  font-size: 0.8rem;
+  font-size: 0.9rem;
   line-height: 1rem;
   margin: 0.5rem 0;
 }
@@ -96,5 +96,5 @@
   height: 0;
   pointer-events: none;
   color: var(--color-muted-foreground);
-  font-size: 0.8rem;
+  font-size: 0.9rem;
 }
