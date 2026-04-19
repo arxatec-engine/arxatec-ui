@@ -17,6 +17,7 @@ export * from "./components/carousel";
 export * from "./components/chart";
 export * from "./components/checkbox";
 export * from "./components/collapsible";
+export * from "./components/color_picker";
 export * from "./components/command";
 export * from "./components/context_menu";
 export * from "./components/custom_header";

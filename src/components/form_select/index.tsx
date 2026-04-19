@@ -18,7 +18,8 @@ import {
 
 interface FormSelectProps {
   name: string;
-  label: string;
+  label?: string;
+  optional?: boolean;
   control: Control<any & FieldValues>;
   options: { value: string; label: string }[];
   placeholder?: string;
@@ -32,6 +33,7 @@ interface FormSelectProps {
 export const FormSelect: React.FC<FormSelectProps> = ({
   name,
   label,
+  optional = false,
   control,
   options = [],
   placeholder = "Selecciona una opción",
@@ -49,8 +51,15 @@ export const FormSelect: React.FC<FormSelectProps> = ({
   });
 
   return (
-    <div className={`grid gap-2 ${className}`}>
-      <Label htmlFor={name}>{label}</Label>
+    <div className={className}>
+      {label && (
+        <Label className="mb-2 flex items-center gap-2" htmlFor={name}>
+          {label}
+          {optional && (
+            <span className="text-xs text-muted-foreground"> (Opcional)</span>
+          )}
+        </Label>
+      )}
       <Select
         key={`${name}-${
           typeof field.value === "string" ? field.value : "empty"
@@ -64,6 +73,7 @@ export const FormSelect: React.FC<FormSelectProps> = ({
         onValueChange={field.onChange}
       >
         <SelectTrigger
+          id={name}
           size={size}
           className={cn(
             "w-full",
@@ -86,7 +96,7 @@ export const FormSelect: React.FC<FormSelectProps> = ({
         </SelectContent>
       </Select>
       {errors?.[name] && (
-        <p className="text-sm text-rose-500">
+        <p className="text-sm text-rose-500 mt-2">
           {errors[name]?.message as string}
         </p>
       )}

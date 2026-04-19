@@ -18,7 +18,8 @@ const COUNTRY_OPTIONS = [
 
 type FormSelectStoryProps = {
   name: keyof StoryForm & string;
-  label: string;
+  label?: string;
+  optional?: boolean;
   options: { value: string; label: string }[];
   placeholder?: string;
   className?: string;
@@ -75,6 +76,7 @@ const meta = {
     name: { control: false },
     options: { control: "object" },
     label: { control: "text" },
+    optional: { control: "boolean" },
     placeholder: { control: "text" },
     size: { control: "select", options: ["default", "sm"] },
     renderItem: { table: { disable: true } },
