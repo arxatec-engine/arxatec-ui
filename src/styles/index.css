@@ -329,47 +329,47 @@
   --editor-shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
 
   /* Task tag colors */
-  --task-tag-foreground-gray: oklch(92% 0.01 260);
-  --task-tag-background-gray: oklch(32% 0.018 260);
+  --task-tag-foreground-gray: oklch(32% 0.018 260);
+  --task-tag-background-gray: oklch(92% 0.01 260);
 
-  --task-tag-foreground-red: oklch(88% 0.06 25);
-  --task-tag-background-red: oklch(30% 0.09 26);
+  --task-tag-foreground-red: oklch(30% 0.09 26);
+  --task-tag-background-red: oklch(88% 0.06 25);
 
-  --task-tag-foreground-yellow: oklch(90% 0.07 95);
-  --task-tag-background-yellow: oklch(36% 0.08 58);
+  --task-tag-foreground-yellow: oklch(36% 0.08 58);
+  --task-tag-background-yellow: oklch(90% 0.07 95);
 
-  --task-tag-foreground-orange: oklch(90% 0.07 50);
-  --task-tag-background-orange: oklch(36% 0.11 42);
+  --task-tag-foreground-orange: oklch(36% 0.11 42);
+  --task-tag-background-orange: oklch(90% 0.07 50);
 
-  --task-tag-foreground-purple: oklch(90% 0.08 302);
-  --task-tag-background-purple: oklch(32% 0.14 305);
+  --task-tag-foreground-purple: oklch(32% 0.14 305);
+  --task-tag-background-purple: oklch(90% 0.08 302);
 
-  --task-tag-foreground-blue: oklch(88% 0.08 260);
-  --task-tag-background-blue: oklch(32% 0.12 265);
+  --task-tag-foreground-blue: oklch(32% 0.12 265);
+  --task-tag-background-blue: oklch(88% 0.08 260);
 
-  --task-tag-foreground-indigo: oklch(88% 0.08 277);
-  --task-tag-background-indigo: oklch(30% 0.12 278);
+  --task-tag-foreground-indigo: oklch(30% 0.12 278);
+  --task-tag-background-indigo: oklch(88% 0.08 277);
 
-  --task-tag-foreground-sky: oklch(88% 0.06 241);
-  --task-tag-background-sky: oklch(30% 0.08 241);
+  --task-tag-foreground-sky: oklch(30% 0.08 241);
+  --task-tag-background-sky: oklch(88% 0.06 241);
 
-  --task-tag-foreground-green: oklch(86% 0.07 152);
-  --task-tag-background-green: oklch(28% 0.065 152.934);
+  --task-tag-foreground-green: oklch(28% 0.065 152.934);
+  --task-tag-background-green: oklch(86% 0.07 152);
 
-  --task-tag-foreground-lime: oklch(90% 0.08 130);
-  --task-tag-background-lime: oklch(32% 0.08 131);
+  --task-tag-foreground-lime: oklch(32% 0.08 131);
+  --task-tag-background-lime: oklch(90% 0.08 130);
 
-  --task-priority-foreground-low: oklch(86% 0.07 152);
-  --task-priority-background-low: oklch(28% 0.065 152.934);
+  --task-priority-foreground-low: oklch(28% 0.065 152.934);
+  --task-priority-background-low: oklch(86% 0.07 152);
 
-  --task-priority-foreground-medium: oklch(88% 0.08 85);
-  --task-priority-background-medium: oklch(30% 0.07 53.813);
+  --task-priority-foreground-medium: oklch(30% 0.07 53.813);
+  --task-priority-background-medium: oklch(88% 0.08 85);
 
-  --task-priority-foreground-high: oklch(88% 0.07 35);
-  --task-priority-background-high: oklch(32% 0.1 32);
+  --task-priority-foreground-high: oklch(32% 0.1 32);
+  --task-priority-background-high: oklch(88% 0.07 35);
 
-  --task-priority-foreground-critical: oklch(90% 0.09 22);
-  --task-priority-background-critical: oklch(28% 0.12 22);
+  --task-priority-foreground-critical: oklch(28% 0.12 22);
+  --task-priority-background-critical: oklch(90% 0.09 22);
 }
 
 .dark {
@@ -512,47 +512,47 @@
   --editor-border-strong: hsl(240 5% 64.9%);
 
   /* Task colors */
-  --task-tag-foreground-gray: oklch(92% 0.01 260);
-  --task-tag-background-gray: oklch(32% 0.018 260);
+  --task-tag-foreground-gray: oklch(32% 0.018 260);
+  --task-tag-background-gray: oklch(92% 0.01 260);
 
-  --task-tag-foreground-red: oklch(88% 0.06 25);
-  --task-tag-background-red: oklch(30% 0.09 26);
+  --task-tag-foreground-red: oklch(30% 0.09 26);
+  --task-tag-background-red: oklch(88% 0.06 25);
 
-  --task-tag-foreground-yellow: oklch(90% 0.07 95);
-  --task-tag-background-yellow: oklch(36% 0.08 58);
+  --task-tag-foreground-yellow: oklch(36% 0.08 58);
+  --task-tag-background-yellow: oklch(90% 0.07 95);
 
-  --task-tag-foreground-orange: oklch(90% 0.07 50);
-  --task-tag-background-orange: oklch(36% 0.11 42);
+  --task-tag-foreground-orange: oklch(36% 0.11 42);
+  --task-tag-background-orange: oklch(90% 0.07 50);
 
-  --task-tag-foreground-purple: oklch(90% 0.08 302);
-  --task-tag-background-purple: oklch(32% 0.14 305);
+  --task-tag-foreground-purple: oklch(32% 0.14 305);
+  --task-tag-background-purple: oklch(90% 0.08 302);
 
-  --task-tag-foreground-blue: oklch(88% 0.08 260);
-  --task-tag-background-blue: oklch(32% 0.12 265);
+  --task-tag-foreground-blue: oklch(32% 0.12 265);
+  --task-tag-background-blue: oklch(88% 0.08 260);
 
-  --task-tag-foreground-indigo: oklch(88% 0.08 277);
-  --task-tag-background-indigo: oklch(30% 0.12 278);
+  --task-tag-foreground-indigo: oklch(30% 0.12 278);
+  --task-tag-background-indigo: oklch(88% 0.08 277);
 
-  --task-tag-foreground-sky: oklch(88% 0.06 241);
-  --task-tag-background-sky: oklch(30% 0.08 241);
+  --task-tag-foreground-sky: oklch(30% 0.08 241);
+  --task-tag-background-sky: oklch(88% 0.06 241);
 
-  --task-tag-foreground-green: oklch(86% 0.07 152);
-  --task-tag-background-green: oklch(28% 0.065 152.934);
+  --task-tag-foreground-green: oklch(28% 0.065 152.934);
+  --task-tag-background-green: oklch(86% 0.07 152);
 
-  --task-tag-foreground-lime: oklch(90% 0.08 130);
-  --task-tag-background-lime: oklch(32% 0.08 131);
+  --task-tag-foreground-lime: oklch(32% 0.08 131);
+  --task-tag-background-lime: oklch(90% 0.08 130);
 
-  --task-priority-foreground-low: oklch(86% 0.07 152);
-  --task-priority-background-low: oklch(28% 0.065 152.934);
+  --task-priority-foreground-low: oklch(28% 0.065 152.934);
+  --task-priority-background-low: oklch(86% 0.07 152);
 
-  --task-priority-foreground-medium: oklch(88% 0.08 85);
-  --task-priority-background-medium: oklch(30% 0.07 53.813);
+  --task-priority-foreground-medium: oklch(30% 0.07 53.813);
+  --task-priority-background-medium: oklch(88% 0.08 85);
 
-  --task-priority-foreground-high: oklch(88% 0.07 35);
-  --task-priority-background-high: oklch(32% 0.1 32);
+  --task-priority-foreground-high: oklch(32% 0.1 32);
+  --task-priority-background-high: oklch(88% 0.07 35);
 
-  --task-priority-foreground-critical: oklch(90% 0.09 22);
-  --task-priority-background-critical: oklch(28% 0.12 22);
+  --task-priority-foreground-critical: oklch(28% 0.12 22);
+  --task-priority-background-critical: oklch(90% 0.09 22);
 }
 
 @layer base {
