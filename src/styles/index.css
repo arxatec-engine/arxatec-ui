@@ -128,47 +128,47 @@
 
   /* Task tag colors */
 
-  --task-tag-foreground-gray: oklch(92% 0.01 260);
-  --task-tag-background-gray: oklch(32% 0.018 260);
+  --color-task-tag-foreground-gray: var(--task-tag-foreground-gray);
+  --color-task-tag-background-gray: var(--task-tag-background-gray);
 
-  --task-tag-foreground-red: oklch(88% 0.06 25);
-  --task-tag-background-red: oklch(30% 0.09 26);
+  --color-task-tag-foreground-red: var(--task-tag-foreground-red);
+  --color-task-tag-background-red: var(--task-tag-background-red);
 
-  --task-tag-foreground-yellow: oklch(90% 0.07 95);
-  --task-tag-background-yellow: oklch(36% 0.08 58);
+  --color-task-tag-foreground-yellow: var(--task-tag-foreground-yellow);
+  --color-task-tag-background-yellow: var(--task-tag-background-yellow);
 
-  --task-tag-foreground-orange: oklch(90% 0.07 50);
-  --task-tag-background-orange: oklch(36% 0.11 42);
+  --color-task-tag-foreground-orange: var(--task-tag-foreground-orange);
+  --color-task-tag-background-orange: var(--task-tag-background-orange);
 
-  --task-tag-foreground-purple: oklch(90% 0.08 302);
-  --task-tag-background-purple: oklch(32% 0.14 305);
+  --color-task-tag-foreground-purple: var(--task-tag-foreground-purple);
+  --color-task-tag-background-purple: var(--task-tag-background-purple);
 
-  --task-tag-foreground-blue: oklch(88% 0.08 260);
-  --task-tag-background-blue: oklch(32% 0.12 265);
+  --color-task-tag-foreground-blue: var(--task-tag-foreground-blue);
+  --color-task-tag-background-blue: var(--task-tag-background-blue);
 
-  --task-tag-foreground-indigo: oklch(88% 0.08 277);
-  --task-tag-background-indigo: oklch(30% 0.12 278);
+  --color-task-tag-foreground-indigo: var(--task-tag-foreground-indigo);
+  --color-task-tag-background-indigo: var(--task-tag-background-indigo);
 
-  --task-tag-foreground-sky: oklch(88% 0.06 241);
-  --task-tag-background-sky: oklch(30% 0.08 241);
+  --color-task-tag-foreground-sky: var(--task-tag-foreground-sky);
+  --color-task-tag-background-sky: var(--task-tag-background-sky);
 
-  --task-tag-foreground-green: oklch(86% 0.07 152);
-  --task-tag-background-green: oklch(28% 0.065 152.934);
+  --color-task-tag-foreground-green: var(--task-tag-foreground-green);
+  --color-task-tag-background-green: var(--task-tag-background-green);
 
-  --task-tag-foreground-lime: oklch(90% 0.08 130);
-  --task-tag-background-lime: oklch(32% 0.08 131);
+  --color-task-tag-foreground-lime: var(--task-tag-foreground-lime);
+  --color-task-tag-background-lime: var(--task-tag-background-lime);
 
-  --task-priority-foreground-low: oklch(86% 0.07 152);
-  --task-priority-background-low: oklch(28% 0.065 152.934);
+  --color-task-priority-foreground-low: var(--task-priority-foreground-low);
+  --color-task-priority-background-low: var(--task-priority-background-low);
 
-  --task-priority-foreground-medium: oklch(88% 0.08 85);
-  --task-priority-background-medium: oklch(30% 0.07 53.813);
+  --color-task-priority-foreground-medium: var(--task-priority-foreground-medium);
+  --color-task-priority-background-medium: var(--task-priority-background-medium);
 
-  --task-priority-foreground-high: oklch(88% 0.07 35);
-  --task-priority-background-high: oklch(32% 0.1 32);
+  --color-task-priority-foreground-high: var(--task-priority-foreground-high);
+  --color-task-priority-background-high: var(--task-priority-background-high);
 
-  --task-priority-foreground-critical: oklch(90% 0.09 22);
-  --task-priority-background-critical: oklch(28% 0.12 22);
+  --color-task-priority-foreground-critical: var(--task-priority-foreground-critical);
+  --color-task-priority-background-critical: var(--task-priority-background-critical);
 }
 
 :root {
