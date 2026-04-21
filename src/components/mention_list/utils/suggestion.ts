@@ -8,7 +8,7 @@ import {
   type ComputePositionConfig
 } from "@floating-ui/dom";
 import type { SuggestionProps } from "@tiptap/suggestion";
-import { MentionList } from "../index.tsx";
+import { MentionList } from "../mentionList";
 import type { MentionItem, MentionListRef } from "../types";
 
 export const createMentionSuggestion = (getItems: (query: string) => MentionItem[] | Promise<MentionItem[]>) => {
