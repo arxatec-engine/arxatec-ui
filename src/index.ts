@@ -67,3 +67,4 @@ export * from "./components/form_textarea";
 export * from "./components/form_select";
 export * from "./components/description_markdown_editor";
 export * from "./components/sidebar";
+export * from "./components/mention_list";
