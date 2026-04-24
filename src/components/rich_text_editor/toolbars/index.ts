@@ -10,6 +10,7 @@ export * from "./hard_break";
 export * from "./headings";
 export * from "./horizontal_rule";
 export * from "./image_placeholder_toolbar";
+export * from "./magic_ai";
 export * from "./italic";
 export * from "./link";
 export * from "./mobile_toolbar_group";
