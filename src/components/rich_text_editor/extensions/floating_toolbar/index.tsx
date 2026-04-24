@@ -9,6 +9,7 @@ import {
   HeadingsToolbar,
   BulletListToolbar,
   OrderedListToolbar,
+  MagicAiToolbar,
 } from "../../toolbars";
 import { useMediaQuery } from "@/hooks";
 import { ScrollArea, ScrollBar } from "@/components/scroll_area";
@@ -17,7 +18,13 @@ import { FloatingElement } from "../../ui/floating-element";
 import { isSelectionValid } from "../../lib/tiptap-utils";
 import { cn } from "@/utilities";
 
-export function FloatingToolbar({ editor }: { editor: Editor | null }) {
+export function FloatingToolbar({
+  editor,
+  onOpenAiModal,
+}: {
+  editor: Editor | null;
+  onOpenAiModal?: () => void;
+}) {
   const isMobile = useMediaQuery("(max-width: 640px)");
   const [isVisible, setIsVisible] = useState(false);
 
@@ -53,7 +60,7 @@ export function FloatingToolbar({ editor }: { editor: Editor | null }) {
     const handleBlur = () => {
       setTimeout(() => {
         const isPopOverOpen = document.querySelector(
-          '[data-radix-popper-content-wrapper], [role="dialog"]'
+          '[data-radix-popper-content-wrapper], [role="dialog"]',
         );
         const shouldStillShow =
           (editor.isFocused || isChildFocused || !!isPopOverOpen) &&
@@ -84,7 +91,7 @@ export function FloatingToolbar({ editor }: { editor: Editor | null }) {
       <div
         className={cn(
           "shadow-lg border rounded-lg bg-card overflow-hidden tiptap-floating-toolbar",
-          isMobile ? "w-[calc(100vw-2rem)] mx-4" : "w-fit"
+          isMobile ? "w-[calc(100vw-2rem)] mx-4" : "w-fit",
         )}
         onWheel={(e) => e.stopPropagation()}
         onTouchMove={(e) => e.stopPropagation()}
@@ -95,6 +102,16 @@ export function FloatingToolbar({ editor }: { editor: Editor | null }) {
           <TooltipProvider>
             <ScrollArea className="h-fit">
               <div className="flex items-center p-1 gap-0.5">
+                <MagicAiToolbar
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    onOpenAiModal?.();
+                  }}
+                />
+
+                <div className="w-px h-4 bg-border mx-1" />
+
                 {/* Primary formatting */}
                 <BoldToolbar />
                 <ItalicToolbar />

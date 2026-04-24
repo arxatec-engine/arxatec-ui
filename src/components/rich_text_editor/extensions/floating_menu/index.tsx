@@ -14,6 +14,7 @@ import {
   AlignRight,
   CodeSquare,
   SearchXIcon,
+  Sparkles,
 } from "lucide-react";
 import { FloatingElement } from "../../ui/floating-element";
 import {
@@ -44,6 +45,22 @@ type CommandGroupType = {
 };
 
 const groups: CommandGroupType[] = [
+  {
+    group: "INTELIGENCIA ARTIFICIAL",
+    items: [
+      {
+        title: "Escribir con IA",
+        description: "Usa la IA para redactar, editar o mejorar texto",
+        icon: Sparkles,
+        keywords: "ai ia magic artificial inteligencia escribir write",
+        command: (editor) => {
+          editor.commands.focus();
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          (editor as any).options.onOpenAiModal?.();
+        },
+      },
+    ],
+  },
   {
     group: "BLOQUES BÁSICOS",
     items: [
@@ -188,16 +205,16 @@ export function TipTapFloatingMenu({ editor }: { editor: Editor }) {
                 .includes(debouncedSearch.toLowerCase()) ||
               item.keywords
                 .toLowerCase()
-                .includes(debouncedSearch.toLowerCase())
+                .includes(debouncedSearch.toLowerCase()),
           ),
         }))
         .filter((group) => group.items.length > 0),
-    [debouncedSearch]
+    [debouncedSearch],
   );
 
   const flatFilteredItems = useMemo(
     () => filteredGroups.flatMap((g) => g.items),
-    [filteredGroups]
+    [filteredGroups],
   );
 
   const executeCommand = useCallback(
@@ -226,7 +243,7 @@ export function TipTapFloatingMenu({ editor }: { editor: Editor }) {
         setSelectedIndex(-1);
       }
     },
-    [editor, search]
+    [editor, search],
   );
 
   const handleKeyDown = useCallback(
@@ -272,7 +289,7 @@ export function TipTapFloatingMenu({ editor }: { editor: Editor }) {
           break;
       }
     },
-    [isOpen, selectedIndex, flatFilteredItems, executeCommand, editor]
+    [isOpen, selectedIndex, flatFilteredItems, executeCommand, editor],
   );
 
   useEffect(() => {
@@ -283,12 +300,12 @@ export function TipTapFloatingMenu({ editor }: { editor: Editor }) {
 
     (editorElement as HTMLElement).addEventListener(
       "keydown",
-      handleEditorKeyDown
+      handleEditorKeyDown,
     );
     return () =>
       (editorElement as HTMLElement).removeEventListener(
         "keydown",
-        handleEditorKeyDown
+        handleEditorKeyDown,
       );
   }, [handleKeyDown, editor]);
 
@@ -322,7 +339,7 @@ export function TipTapFloatingMenu({ editor }: { editor: Editor }) {
         0,
         $from.parentOffset,
         "\n",
-        " "
+        " ",
       );
 
       const isSlashCommand =
@@ -346,7 +363,7 @@ export function TipTapFloatingMenu({ editor }: { editor: Editor }) {
     const handleBlur = () => {
       setTimeout(() => {
         const isPopOverOpen = document.querySelector(
-          '[data-radix-popper-content-wrapper], [role="dialog"]'
+          '[data-radix-popper-content-wrapper], [role="dialog"]',
         );
         const shouldStillShow =
           editor.isFocused || isChildFocused || !!isPopOverOpen;
@@ -420,7 +437,7 @@ export function TipTapFloatingMenu({ editor }: { editor: Editor }) {
                       onSelect={() => executeCommand(item.command)}
                       className={cn(
                         "gap-3 aria-selected:bg-accent/50",
-                        flatIndex === selectedIndex ? "bg-accent/50" : ""
+                        flatIndex === selectedIndex ? "bg-accent/50" : "",
                       )}
                       aria-selected={flatIndex === selectedIndex}
                       ref={(el) => {
