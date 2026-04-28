@@ -22,9 +22,18 @@ import {
   useImperativeHandle,
   useRef,
 } from "react";
-import { EditorContent, type Extension, useEditor } from "@tiptap/react";
+import {
+  EditorContent,
+  type Extension,
+  useEditor,
+  type Editor,
+} from "@tiptap/react";
 import type { JSONContent } from "@tiptap/core";
 import StarterKit from "@tiptap/starter-kit";
+import { Table } from "@tiptap/extension-table";
+import { TableRow } from "@tiptap/extension-table-row";
+import { TableCell } from "@tiptap/extension-table-cell";
+import { TableHeader } from "@tiptap/extension-table-header";
 import { EditorToolbar } from "./toolbars";
 import Placeholder from "@tiptap/extension-placeholder";
 import { Loader2, Save } from "lucide-react";
@@ -81,9 +90,16 @@ const extensions = [
   ImagePlaceholder,
   SearchAndReplace,
   Typography,
+  Table.configure({
+    resizable: true,
+  }),
+  TableRow,
+  TableHeader,
+  TableCell,
 ];
 
 export interface RichTextEditorRef {
+  editor: Editor | null;
   save: () => Promise<void>;
   isDirty: boolean;
   fileId: string | undefined;
@@ -98,6 +114,7 @@ export const RichTextEditor = forwardRef<
     /** Si se define, el botón "Guardar" persistirá el documento vía este callback. */
     onSave?: (schema: JSONContent) => Promise<void>;
     onSaveSuccess?: () => void;
+    documentName?: string;
     onAiCommand?: (
       payload: { prompt: string; content: string },
       onChunk: (chunk: string) => void,
@@ -105,7 +122,15 @@ export const RichTextEditor = forwardRef<
   }
 >(
   (
-    { className, fileId, initialContent, onSave, onSaveSuccess, onAiCommand },
+    {
+      className,
+      fileId,
+      initialContent,
+      onSave,
+      onSaveSuccess,
+      onAiCommand,
+      documentName,
+    },
     ref,
   ) => {
     const [isExpanded, setIsExpanded] = useState(false);
@@ -158,6 +183,7 @@ export const RichTextEditor = forwardRef<
     };
 
     useImperativeHandle(ref, () => ({
+      editor,
       save: handleSaveInternal,
       isDirty,
       fileId,
@@ -237,6 +263,7 @@ export const RichTextEditor = forwardRef<
         <EditorToolbar
           editor={editor}
           isExpanded={isExpanded}
+          documentName={documentName}
           onToggleExpand={() => {
             setIsExpanded(!isExpanded);
             setTimeout(() => {
@@ -293,7 +320,7 @@ export const RichTextEditor = forwardRef<
             <EditorContent
               editor={editor}
               className={cn(
-                "cursor-text transition-all duration-300",
+                "cursor-text transition-all duration-300 prose dark:prose-invert max-w-none",
                 !isExpanded ? "p-8 md:p-12 lg:p-16" : "p-8 md:p-10 is-expanded",
               )}
               onMouseDown={() => {
