@@ -5,7 +5,7 @@ import { Button } from "@/components/button";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/tooltip";
 import { ToolbarProvider } from "../toolbar_provider";
 import { Editor } from "@tiptap/core";
-import { Maximize2, Minimize2 } from "lucide-react";
+import { Maximize2, Minimize2, FileText } from "lucide-react";
 import {
   CodeToolbar,
   BoldToolbar,
@@ -25,6 +25,7 @@ import {
   ColorHighlightToolbar,
   SearchAndReplaceToolbar,
   CodeBlockToolbar,
+  TableToolbar,
 } from "../";
 
 export const EditorToolbar = ({
@@ -32,11 +33,13 @@ export const EditorToolbar = ({
   isExpanded,
   onToggleExpand,
   rightContent,
+  documentName,
 }: {
   editor: Editor;
   isExpanded?: boolean;
   onToggleExpand?: () => void;
   rightContent?: React.ReactNode;
+  documentName?: string;
 }) => {
   return (
     <div className="sticky top-0 z-100 w-full border-b bg-background hidden sm:block">
@@ -75,6 +78,7 @@ export const EditorToolbar = ({
                 <div className="flex items-center gap-1">
                   <BulletListToolbar />
                   <OrderedListToolbar />
+                  <TableToolbar />
                   <HorizontalRuleToolbar />
                 </div>
                 <Separator orientation="vertical" className="mx-1 h-7" />
@@ -119,6 +123,14 @@ export const EditorToolbar = ({
                     </span>
                   </TooltipContent>
                 </Tooltip>
+                {documentName && (
+                  <div className="flex items-center gap-2 px-3 py-1.5 bg-muted/50 rounded-md border max-w-[200px] ml-2">
+                    <FileText className="w-3.5 h-3.5 text-muted-foreground shrink-0" />
+                    <span className="text-xs font-medium truncate text-muted-foreground">
+                      {documentName}
+                    </span>
+                  </div>
+                )}
                 {rightContent}
               </div>
             </div>
