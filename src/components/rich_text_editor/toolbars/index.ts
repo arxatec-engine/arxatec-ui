@@ -21,3 +21,4 @@ export * from "./strikethrough";
 export * from "./toolbar_provider";
 export * from "./underline";
 export * from "./undo";
+export * from "./table";
