@@ -18,16 +18,18 @@ import Underline from "@tiptap/extension-underline";
 import { useEffect, useState, forwardRef, useImperativeHandle } from "react";
 import {
   EditorContent,
-  type Extension,
+  Extension,
   useEditor,
   type Editor,
+  type JSONContent,
 } from "@tiptap/react";
-import type { JSONContent } from "@tiptap/core";
 import StarterKit from "@tiptap/starter-kit";
 import { Table } from "@tiptap/extension-table";
 import { TableRow } from "@tiptap/extension-table-row";
 import { TableCell } from "@tiptap/extension-table-cell";
 import { TableHeader } from "@tiptap/extension-table-header";
+
+export type { Editor, JSONContent };
 import { EditorToolbar } from "./toolbars";
 import Placeholder from "@tiptap/extension-placeholder";
 import { Loader2, Save, ChevronDown, FileDown, Sparkles } from "lucide-react";
