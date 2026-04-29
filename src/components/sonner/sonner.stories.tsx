@@ -71,7 +71,7 @@ export const Variantes: Story = {
   args: {
     position: 'bottom-right',
     expand: false,
-    closeButton: false,
+    closeButton: true,
     richColors: false,
     mensajeExito: 'Guardado correctamente',
     mensajeError: 'Algo salió mal',

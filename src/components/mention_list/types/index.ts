@@ -13,4 +13,5 @@ export interface MentionListProps {
   items: MentionItem[];
   command: (props: { id: string; label: string }) => void;
   selectedIndex?: number;
+  query?: string;
 }

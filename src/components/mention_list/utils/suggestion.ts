@@ -5,13 +5,15 @@ import {
   shift,
   offset,
   autoUpdate,
-  type ComputePositionConfig
+  type ComputePositionConfig,
 } from "@floating-ui/dom";
 import type { SuggestionProps } from "@tiptap/suggestion";
-import { MentionList } from "../mentionList";
+import { MentionList } from "..";
 import type { MentionItem, MentionListRef } from "../types";
 
-export const createMentionSuggestion = (getItems: (query: string) => MentionItem[] | Promise<MentionItem[]>) => {
+export const createMentionSuggestion = (
+  getItems: (query: string) => MentionItem[] | Promise<MentionItem[]>
+) => {
   return {
     items: ({ query }: { query: string }) => {
       return getItems(query);
@@ -33,12 +35,12 @@ export const createMentionSuggestion = (getItems: (query: string) => MentionItem
             return;
           }
 
-          popupElement = document.createElement('div');
-          popupElement.style.width = 'max-content';
-          popupElement.style.position = 'absolute';
-          popupElement.style.top = '0';
-          popupElement.style.left = '0';
-          popupElement.style.zIndex = '999';
+          popupElement = document.createElement("div");
+          popupElement.style.width = "max-content";
+          popupElement.style.position = "absolute";
+          popupElement.style.top = "0";
+          popupElement.style.left = "0";
+          popupElement.style.zIndex = "999";
           popupElement.appendChild(component.element);
           document.body.appendChild(popupElement);
 
@@ -50,22 +52,20 @@ export const createMentionSuggestion = (getItems: (query: string) => MentionItem
             if (!props.clientRect || !popupElement) return;
 
             const config: ComputePositionConfig = {
-              placement: 'top-start',
-              middleware: [
-                offset(10),
-                flip(),
-                shift({ padding: 10 }),
-              ],
+              placement: "top-start",
+              middleware: [offset(10), flip(), shift({ padding: 10 })],
             };
 
-            computePosition(virtualElement, popupElement, config).then(({ x, y }) => {
-              if (popupElement) {
-                Object.assign(popupElement.style, {
-                  left: `${x}px`,
-                  top: `${y}px`,
-                });
+            computePosition(virtualElement, popupElement, config).then(
+              ({ x, y }) => {
+                if (popupElement) {
+                  Object.assign(popupElement.style, {
+                    left: `${x}px`,
+                    top: `${y}px`,
+                  });
+                }
               }
-            });
+            );
           };
 
           cleanup = autoUpdate(virtualElement, popupElement, updatePosition);
@@ -83,12 +83,8 @@ export const createMentionSuggestion = (getItems: (query: string) => MentionItem
           } as Element;
 
           computePosition(virtualElement, popupElement, {
-            placement: 'top-start',
-            middleware: [
-              offset(10),
-              flip(),
-              shift({ padding: 10 }),
-            ],
+            placement: "top-start",
+            middleware: [offset(10), flip(), shift({ padding: 10 })],
           }).then(({ x, y }) => {
             if (popupElement) {
               Object.assign(popupElement.style, {
@@ -101,7 +97,7 @@ export const createMentionSuggestion = (getItems: (query: string) => MentionItem
 
         onKeyDown(props: { event: KeyboardEvent }) {
           if (props.event.key === "Escape") {
-            if (popupElement) popupElement.style.display = 'none';
+            if (popupElement) popupElement.style.display = "none";
             return true;
           }
 
