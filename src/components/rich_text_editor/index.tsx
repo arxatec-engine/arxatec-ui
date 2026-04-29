@@ -15,13 +15,7 @@ import TextAlign from "@tiptap/extension-text-align";
 import { TextStyle } from "@tiptap/extension-text-style";
 import Typography from "@tiptap/extension-typography";
 import Underline from "@tiptap/extension-underline";
-import {
-  useEffect,
-  useState,
-  forwardRef,
-  useImperativeHandle,
-  useRef,
-} from "react";
+import { useEffect, useState, forwardRef, useImperativeHandle } from "react";
 import {
   EditorContent,
   type Extension,
@@ -36,10 +30,16 @@ import { TableCell } from "@tiptap/extension-table-cell";
 import { TableHeader } from "@tiptap/extension-table-header";
 import { EditorToolbar } from "./toolbars";
 import Placeholder from "@tiptap/extension-placeholder";
-import { Loader2, Save } from "lucide-react";
+import { Loader2, Save, ChevronDown, FileDown, Sparkles } from "lucide-react";
 import { Button } from "@/components/button";
 import { toast } from "sonner";
-import { AiCommandModal } from "./components/ai_modal";
+// import { AiCommandModal } from "./components/ai_modal";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/dropdown_menu";
 
 const extensions = [
   StarterKit.configure({
@@ -115,10 +115,9 @@ export const RichTextEditor = forwardRef<
     onSave?: (schema: JSONContent) => Promise<void>;
     onSaveSuccess?: () => void;
     documentName?: string;
-    onAiCommand?: (
-      payload: { prompt: string; content: string },
-      onChunk: (chunk: string) => void,
-    ) => Promise<void>;
+    onExportPdf?: () => void;
+    onExportWord?: () => void;
+    onOpenChatbot?: () => void;
   }
 >(
   (
@@ -128,17 +127,20 @@ export const RichTextEditor = forwardRef<
       initialContent,
       onSave,
       onSaveSuccess,
-      onAiCommand,
       documentName,
+      onExportPdf,
+      onExportWord,
+      onOpenChatbot,
     },
     ref,
   ) => {
     const [isExpanded, setIsExpanded] = useState(false);
     const [isLocalSaving, setIsLocalSaving] = useState(false);
     const [isDirty, setIsDirty] = useState(false);
-    const [isAiModalOpen, setIsAiModalOpen] = useState(false);
-    const [isAiLoading, setIsAiLoading] = useState(false);
-    const abortControllerRef = useRef<AbortController | null>(null);
+    // AI Modals and states commented out as requested
+    // const [isAiModalOpen, setIsAiModalOpen] = useState(false);
+    // const [isAiLoading, setIsAiLoading] = useState(false);
+    // const abortControllerRef = useRef<AbortController | null>(null);
 
     const editor = useEditor({
       immediatelyRender: false,
@@ -148,8 +150,6 @@ export const RichTextEditor = forwardRef<
         attributes: {
           class: "max-w-full focus:outline-none",
         },
-        // @ts-expect-error - Custom property used by extensions
-        onOpenAiModal: () => setIsAiModalOpen(true),
       },
     });
 
@@ -209,50 +209,6 @@ export const RichTextEditor = forwardRef<
       }
     };
 
-    const handleAiCommand = async (
-      prompt: string,
-      selectionContent: string,
-    ) => {
-      if (!onAiCommand || !editor) {
-        toast.error("Servicio de IA no disponible para este editor.");
-        return;
-      }
-
-      setIsAiLoading(true);
-      abortControllerRef.current = new AbortController();
-
-      try {
-        const { from, to } = editor.state.selection;
-        let hasStartedTyping = false;
-
-        await onAiCommand({ prompt, content: selectionContent }, (chunk) => {
-          if (!hasStartedTyping) {
-            editor.chain().focus().deleteRange({ from, to }).run();
-            hasStartedTyping = true;
-          }
-          editor.chain().focus().insertContent(chunk).run();
-        });
-
-        toast.success("Edición completada");
-        setIsAiModalOpen(false);
-      } catch (err: unknown) {
-        const error = err instanceof Error ? err : new Error(String(err));
-        if (error.name === "AbortError") {
-          toast.info("Generación cancelada");
-        } else {
-          toast.error("Error al procesar con IA");
-          console.error(err);
-        }
-      } finally {
-        setIsAiLoading(false);
-        abortControllerRef.current = null;
-      }
-    };
-
-    const handleCancelAi = () => {
-      abortControllerRef.current?.abort();
-    };
-
     return (
       <div
         className={cn(
@@ -272,20 +228,55 @@ export const RichTextEditor = forwardRef<
           }}
           rightContent={
             onSave && (
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={handleSave}
-                disabled={isLocalSaving}
-                className="ml-2 gap-2"
-              >
-                {isLocalSaving ? (
-                  <Loader2 className="w-4 h-4 animate-spin" />
-                ) : (
-                  <Save className="w-4 h-4" />
-                )}
-                {isLocalSaving ? "Guardando..." : "Guardar"}
-              </Button>
+              <div className="flex items-center gap-2">
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      disabled={isLocalSaving}
+                      className="ml-2 gap-2"
+                    >
+                      {isLocalSaving ? (
+                        <Loader2 className="w-4 h-4 animate-spin" />
+                      ) : (
+                        <Save className="w-4 h-4" />
+                      )}
+                      {isLocalSaving ? "Guardando..." : "Guardar"}
+                      <ChevronDown className="w-3 h-3 ml-1 opacity-50" />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end" className="w-48">
+                    <DropdownMenuItem
+                      onClick={handleSave}
+                      disabled={isLocalSaving}
+                    >
+                      <Save className="w-4 h-4 mr-2" />
+                      Guardar cambios
+                    </DropdownMenuItem>
+                    {(onExportPdf || onExportWord) && (
+                      <>
+                        <div className="h-px bg-muted my-1" />
+                        <div className="px-2 py-1.5 text-xs font-semibold text-muted-foreground">
+                          Exportar como
+                        </div>
+                        {onExportPdf && (
+                          <DropdownMenuItem onClick={onExportPdf}>
+                            <FileDown className="w-4 h-4 mr-2" />
+                            PDF (.pdf)
+                          </DropdownMenuItem>
+                        )}
+                        {onExportWord && (
+                          <DropdownMenuItem onClick={onExportWord}>
+                            <FileDown className="w-4 h-4 mr-2" />
+                            Word (.docx)
+                          </DropdownMenuItem>
+                        )}
+                      </>
+                    )}
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </div>
             )
           }
         />
@@ -304,19 +295,16 @@ export const RichTextEditor = forwardRef<
                 : "max-w-262.5 w-full",
             )}
           >
-            <FloatingToolbar
-              editor={editor}
-              onOpenAiModal={() => setIsAiModalOpen(true)}
-            />
+            <FloatingToolbar editor={editor} />
             <TipTapFloatingMenu editor={editor} />
-            <AiCommandModal
+            {/* <AiCommandModal
               editor={editor}
               isOpen={isAiModalOpen}
               onClose={() => setIsAiModalOpen(false)}
               onCommand={handleAiCommand}
               isLoading={isAiLoading}
               onCancel={handleCancelAi}
-            />
+            /> */}
             <EditorContent
               editor={editor}
               className={cn(
@@ -327,6 +315,16 @@ export const RichTextEditor = forwardRef<
                 if (!editor.isFocused) editor.chain().focus().run();
               }}
             />
+            {onOpenChatbot && (
+              <div className="absolute bottom-6 right-6 z-10 hidden sm:block">
+                <Button
+                  onClick={onOpenChatbot}
+                  className="rounded-full h-12 w-12 shadow-xl border-2 border-primary bg-background text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-300"
+                >
+                  <Sparkles className="size-6" />
+                </Button>
+              </div>
+            )}
           </div>
         </div>
       </div>

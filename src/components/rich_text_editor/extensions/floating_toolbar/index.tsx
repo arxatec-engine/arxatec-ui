@@ -9,7 +9,6 @@ import {
   HeadingsToolbar,
   BulletListToolbar,
   OrderedListToolbar,
-  MagicAiToolbar,
 } from "../../toolbars";
 import { useMediaQuery } from "@/hooks";
 import { ScrollArea, ScrollBar } from "@/components/scroll_area";
@@ -18,13 +17,7 @@ import { FloatingElement } from "../../ui/floating-element";
 import { isSelectionValid } from "../../lib/tiptap-utils";
 import { cn } from "@/utilities";
 
-export function FloatingToolbar({
-  editor,
-  onOpenAiModal,
-}: {
-  editor: Editor | null;
-  onOpenAiModal?: () => void;
-}) {
+export function FloatingToolbar({ editor }: { editor: Editor | null }) {
   const isMobile = useMediaQuery("(max-width: 640px)");
   const [isVisible, setIsVisible] = useState(false);
 
@@ -102,7 +95,7 @@ export function FloatingToolbar({
           <TooltipProvider>
             <ScrollArea className="h-fit">
               <div className="flex items-center p-1 gap-0.5">
-                <MagicAiToolbar
+                {/* <MagicAiToolbar
                   onClick={(e) => {
                     e.preventDefault();
                     e.stopPropagation();
@@ -110,7 +103,7 @@ export function FloatingToolbar({
                   }}
                 />
 
-                <div className="w-px h-4 bg-border mx-1" />
+                <div className="w-px h-4 bg-border mx-1" /> */}
 
                 {/* Primary formatting */}
                 <BoldToolbar />
