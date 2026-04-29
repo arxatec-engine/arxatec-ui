@@ -202,10 +202,8 @@ export const RichTextEditor = forwardRef<
       setIsLocalSaving(true);
       try {
         await handleSaveInternal();
-        toast.success("Documento guardado");
         onSaveSuccess?.();
-      } catch {
-        toast.error("Error al guardar");
+      } catch (error) {
       } finally {
         setIsLocalSaving(false);
       }
@@ -254,24 +252,24 @@ export const RichTextEditor = forwardRef<
                       disabled={isLocalSaving}
                     >
                       <Save className="w-4 h-4 mr-2" />
-                      Guardar cambios
+                      Guardar
                     </DropdownMenuItem>
                     {(onExportPdf || onExportWord) && (
                       <>
                         <div className="h-px bg-muted my-1" />
                         <div className="px-2 py-1.5 text-xs font-semibold text-muted-foreground">
-                          Exportar como
+                          Guardar como
                         </div>
                         {onExportPdf && (
                           <DropdownMenuItem onClick={onExportPdf}>
                             <FileDown className="w-4 h-4 mr-2" />
-                            PDF (.pdf)
+                            PDF
                           </DropdownMenuItem>
                         )}
                         {onExportWord && (
                           <DropdownMenuItem onClick={onExportWord}>
                             <FileDown className="w-4 h-4 mr-2" />
-                            Word (.docx)
+                            Word
                           </DropdownMenuItem>
                         )}
                       </>
@@ -317,18 +315,19 @@ export const RichTextEditor = forwardRef<
                 if (!editor.isFocused) editor.chain().focus().run();
               }}
             />
-            {onOpenChatbot && (
-              <div className="absolute bottom-6 right-6 z-10 hidden sm:block">
-                <Button
-                  onClick={onOpenChatbot}
-                  className="rounded-full h-12 w-12 shadow-xl border-2 border-primary bg-background text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-300"
-                >
-                  <Sparkles className="size-6" />
-                </Button>
-              </div>
-            )}
           </div>
         </div>
+        {onOpenChatbot && (
+          <div className="absolute bottom-8 right-12 z-50 hidden sm:flex">
+            <Button
+              onClick={onOpenChatbot}
+              className="h-14 w-14 rounded-2xl shadow-2xl border border-border bg-foreground text-background hover:bg-primary hover:text-primary-foreground transition-all duration-300 flex items-center justify-center p-0 hover:scale-105 active:scale-95"
+              title="Abrir Asistente IA"
+            >
+              <Sparkles className="size-[26px]" />
+            </Button>
+          </div>
+        )}
       </div>
     );
   },
