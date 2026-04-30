@@ -322,11 +322,11 @@ const IconPicker = React.forwardRef<
           className={cn(
             "size-7 p-1.5 rounded-md transition-all duration-200",
             "flex items-center justify-center",
-            "hover:bg-accent/50",
+            "hover:bg-accent",
             "active:scale-90",
             (value || selectedIcon) === icon.name
-              ? "bg-primary text-primary-foreground shadow-sm"
-              : "text-foreground hover:shadow-md"
+              ? "bg-primary text-primary-foreground"
+              : "text-foreground"
           )}
           onClick={() => handleIconClick(icon.name as IconName)}
           title={icon.name}

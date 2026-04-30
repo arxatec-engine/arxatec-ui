@@ -1,6 +1,5 @@
 import React, { type FormEvent } from "react";
-import { PopoverClose } from "@radix-ui/react-popover";
-import { Trash2, X } from "lucide-react";
+import { LinkIcon, Trash2 } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/tooltip";
 import { Button } from "@/components/button";
 import { Input } from "@/components/input";
@@ -39,19 +38,16 @@ const LinkToolbar = React.forwardRef<
           >
             <Button
               variant="ghost"
-              size="sm"
+              size="icon"
               className={cn(
-                "h-8 w-max px-3 font-normal",
+                "size-7",
                 editor?.isActive("link") && "bg-accent",
                 className
               )}
               ref={ref}
               {...props}
             >
-              <p className="mr-2 text-base">↗</p>
-              <p className={"underline decoration-gray-7 underline-offset-4"}>
-                Enlace
-              </p>
+              <LinkIcon className="h-4 w-4" />
             </Button>
           </PopoverTrigger>
         </TooltipTrigger>
@@ -68,29 +64,27 @@ const LinkToolbar = React.forwardRef<
         className="relative px-3 py-2.5"
       >
         <div className="relative">
-          <PopoverClose className="absolute right-3 top-3">
-            <X className="h-4 w-4" />
-          </PopoverClose>
           <form onSubmit={handleSubmit}>
             <Label>Enlace</Label>
-            <p className="text-sm text-gray-11">
+            <p className="text-sm text-muted-foreground">
               Adjunta un enlace al texto seleccionado
             </p>
-            <div className="mt-3 flex flex-col items-end justify-end gap-3">
+            <div className="mt-2 flex flex-col items-end justify-end gap-2">
               <Input
                 value={link}
                 onChange={(e) => {
                   setLink(e.target.value);
                 }}
+                size="sm"
                 className="w-full"
                 placeholder="https://ejemplo.com"
               />
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-2">
                 {editor?.getAttributes("link").href && (
                   <Button
                     type="reset"
                     size="sm"
-                    className="h-8 text-gray-11"
+                    className="h-8"
                     variant="ghost"
                     onClick={() => {
                       editor?.chain().focus().unsetLink().run();

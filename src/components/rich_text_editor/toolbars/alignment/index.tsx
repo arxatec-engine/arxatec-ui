@@ -4,7 +4,6 @@ import {
   AlignLeft,
   AlignRight,
   Check,
-  ChevronDown,
 } from "lucide-react";
 import { useMediaQuery } from "@/hooks";
 import { MobileToolbarGroup, MobileToolbarItem } from "../mobile_toolbar_group";
@@ -99,12 +98,8 @@ export const AlignmentToolbar = () => {
       <Tooltip>
         <TooltipTrigger asChild>
           <DropdownMenuTrigger disabled={isDisabled} asChild>
-            <Button variant="ghost" size="sm" className="h-8 w-max font-normal">
-              <span className="mr-2">
-                {alignmentOptions[findIndex(currentTextAlign())]?.icon}
-              </span>
-              {alignmentOptions[findIndex(currentTextAlign())]?.name}
-              <ChevronDown className="ml-2 h-4 w-4" />
+            <Button variant="ghost" size="icon" className="size-7">
+              {alignmentOptions[findIndex(currentTextAlign())]?.icon}
             </Button>
           </DropdownMenuTrigger>
         </TooltipTrigger>

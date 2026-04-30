@@ -4,18 +4,13 @@ import { Separator } from "@/components/separator";
 import { Button } from "@/components/button";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/tooltip";
 import { ToolbarProvider } from "../toolbar_provider";
+import { FormattingStylesPopoverToolbar } from "../formatting_styles_popover";
 import { Editor } from "@tiptap/core";
-import { Maximize2, Minimize2, FileText } from "lucide-react";
+import { Maximize2, Minimize2, FileText, Sparkles } from "lucide-react";
 import {
-  CodeToolbar,
-  BoldToolbar,
   UndoToolbar,
   RedoToolbar,
   HeadingsToolbar,
-  BlockquoteToolbar,
-  ItalicToolbar,
-  UnderlineToolbar,
-  StrikeThroughToolbar,
   LinkToolbar,
   BulletListToolbar,
   OrderedListToolbar,
@@ -24,7 +19,6 @@ import {
   ImagePlaceholderToolbar,
   ColorHighlightToolbar,
   SearchAndReplaceToolbar,
-  CodeBlockToolbar,
   TableToolbar,
 } from "../";
 
@@ -34,12 +28,14 @@ export const EditorToolbar = ({
   onToggleExpand,
   rightContent,
   documentName,
+  onOpenChatbot,
 }: {
   editor: Editor;
   isExpanded?: boolean;
   onToggleExpand?: () => void;
   rightContent?: React.ReactNode;
   documentName?: string;
+  onOpenChatbot?: () => void;
 }) => {
   return (
     <div className="sticky top-0 z-100 w-full border-b bg-background hidden sm:block">
@@ -55,36 +51,22 @@ export const EditorToolbar = ({
                 </div>
                 <Separator orientation="vertical" className="mx-1 h-7" />
 
-                {/* Text Structure Group */}
+                {/* Estructura, estilos de texto y enlace */}
                 <div className="flex items-center gap-1">
                   <HeadingsToolbar />
-                  <BlockquoteToolbar />
-                  <CodeToolbar />
-                  <CodeBlockToolbar />
-                </div>
-                <Separator orientation="vertical" className="mx-1 h-7" />
-
-                {/* Basic Formatting Group */}
-                <div className="flex items-center gap-1">
-                  <BoldToolbar />
-                  <ItalicToolbar />
-                  <UnderlineToolbar />
-                  <StrikeThroughToolbar />
-                  <LinkToolbar />
+                  <FormattingStylesPopoverToolbar />
+                  <AlignmentToolbar />
                 </div>
                 <Separator orientation="vertical" className="mx-1 h-7" />
 
                 {/* Lists & Structure Group */}
                 <div className="flex items-center gap-1">
+                  <LinkToolbar />
                   <BulletListToolbar />
                   <OrderedListToolbar />
                   <TableToolbar />
                   <HorizontalRuleToolbar />
                 </div>
-                <Separator orientation="vertical" className="mx-1 h-7" />
-
-                {/* Alignment Group */}
-                <AlignmentToolbar />
                 <Separator orientation="vertical" className="mx-1 h-7" />
 
                 {/* Media & Styling Group */}
@@ -107,7 +89,7 @@ export const EditorToolbar = ({
                     <Button
                       variant="ghost"
                       size="icon"
-                      className="h-9 w-9"
+                      className="size-7"
                       onClick={onToggleExpand}
                     >
                       {isExpanded ? (
@@ -130,6 +112,22 @@ export const EditorToolbar = ({
                       {documentName}
                     </span>
                   </div>
+                )}
+                {onOpenChatbot && (
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        size="icon"
+                        className="size-7 shrink-0"
+                        onClick={onOpenChatbot}
+                      >
+                        <Sparkles className="h-[18px] w-[18px]" />
+                      </Button>
+                    </TooltipTrigger>
+                    <TooltipContent>Abrir asistente IA</TooltipContent>
+                  </Tooltip>
                 )}
                 {rightContent}
               </div>

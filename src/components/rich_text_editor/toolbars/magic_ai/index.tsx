@@ -20,7 +20,7 @@ const MagicAiToolbar = React.forwardRef<HTMLButtonElement, MagicAiToolbarProps>(
             variant="ghost"
             size="icon"
             className={cn(
-              "h-8 w-8 p-0 sm:h-9 sm:w-9 text-primary hover:text-primary hover:bg-primary/10",
+              "size-7 text-primary hover:text-primary hover:bg-primary/10",
               isActive && "bg-primary/20",
               className,
             )}

@@ -60,10 +60,10 @@ export function TiptapImage(props: NodeViewProps) {
         }
         return blobUrl;
       },
-      onUpload: (url) => {
+      onUpload: (url, file) => {
         updateAttributes({
           src: url,
-          alt: altText || fileInputRef.current?.files?.[0]?.name,
+          alt: altText || file.name,
         });
         handleRemove();
         setOpenedMore(false);

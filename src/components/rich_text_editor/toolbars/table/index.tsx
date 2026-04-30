@@ -32,7 +32,7 @@ export const TableToolbar = () => {
           <Button
             variant="ghost"
             size="icon"
-            className={`h-9 w-9 ${isActive ? "bg-accent text-accent-foreground" : ""}`}
+            className={`size-7 ${isActive ? "bg-accent text-accent-foreground" : ""}`}
             onClick={insertTable}
           >
             <TableIcon className="h-4 w-4" />
@@ -46,7 +46,7 @@ export const TableToolbar = () => {
       {isActive && (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="ghost" size="icon" className="h-9 w-5 px-0">
+            <Button variant="ghost" size="icon" className="h-7 w-5 px-0">
               <ChevronDown className="h-3 w-3" />
             </Button>
           </DropdownMenuTrigger>

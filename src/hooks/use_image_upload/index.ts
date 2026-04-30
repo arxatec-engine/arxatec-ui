@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 
 interface UseImageUploadProps {
-  onUpload?: (url: string) => void;
+  onUpload?: (url: string, file: File) => void;
   uploadFn: (file: File) => Promise<string>;
 }
 
@@ -17,33 +17,40 @@ export function useImageUpload({ onUpload, uploadFn }: UseImageUploadProps) {
     fileInputRef.current?.click();
   }, []);
 
-  const handleFileChange = useCallback(
-    async (event: React.ChangeEvent<HTMLInputElement>) => {
-      const file = event.target.files?.[0];
-      if (file) {
-        setFileName(file.name);
-        const localUrl = URL.createObjectURL(file);
-        setPreviewUrl(localUrl);
-        previewRef.current = localUrl;
-        setUploading(true);
-        setError(null);
+  const processFile = useCallback(
+    async (file: File) => {
+      setFileName(file.name);
+      const localUrl = URL.createObjectURL(file);
+      setPreviewUrl(localUrl);
+      previewRef.current = localUrl;
+      setUploading(true);
+      setError(null);
 
-        try {
-          const uploadedUrl = await uploadFn(file);
-          onUpload?.(uploadedUrl);
-        } catch (err) {
-          URL.revokeObjectURL(localUrl);
-          setPreviewUrl(null);
-          setFileName(null);
-          const errorMessage = err instanceof Error ? err.message : "Error al subir la imagen";
-          setError(errorMessage);
-          console.error(err);
-        } finally {
-          setUploading(false);
-        }
+      try {
+        const uploadedUrl = await uploadFn(file);
+        onUpload?.(uploadedUrl, file);
+      } catch (err) {
+        URL.revokeObjectURL(localUrl);
+        setPreviewUrl(null);
+        setFileName(null);
+        const errorMessage = err instanceof Error ? err.message : "Error al subir la imagen";
+        setError(errorMessage);
+        console.error(err);
+      } finally {
+        setUploading(false);
       }
     },
     [onUpload, uploadFn],
+  );
+
+  const handleFileChange = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      const file = event.target.files?.[0];
+      if (file) {
+        void processFile(file);
+      }
+    },
+    [processFile],
   );
 
   const handleRemove = useCallback(() => {
@@ -73,6 +80,7 @@ export function useImageUpload({ onUpload, uploadFn }: UseImageUploadProps) {
     fileInputRef,
     handleThumbnailClick,
     handleFileChange,
+    processFile,
     handleRemove,
     uploading,
     error,

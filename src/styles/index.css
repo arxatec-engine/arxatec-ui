@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap");
 @import "tailwindcss";
 @source ".";
 @import "tw-animate-css";
@@ -10,6 +11,7 @@
 @theme inline {
   --font-serif: "Cormorant Garamond", serif;
   --font-sans: "Source Sans 3", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -61,10 +63,14 @@
   /* Status colors card */
   --color-status-card-background-error: var(--status-card-background-error);
   --color-status-card-foreground-error: var(--status-card-foreground-error);
-  --color-status-card-background-icon-error: var(--status-card-background-icon-error);
+  --color-status-card-background-icon-error: var(
+    --status-card-background-icon-error
+  );
   --color-status-card-background-empty: var(--status-card-background-empty);
   --color-status-card-foreground-empty: var(--status-card-foreground-empty);
-  --color-status-card-background-icon-empty: var(--status-card-background-icon-empty);
+  --color-status-card-background-icon-empty: var(
+    --status-card-background-icon-empty
+  );
 
   /* Calendar colors */
   --color-calendar-color-gray: var(--calendar-color-gray);
@@ -78,7 +84,6 @@
   --color-calendar-color-green: var(--calendar-color-green);
   --color-calendar-color-lime: var(--calendar-color-lime);
 
-
   /* Case urgency colors*/
   --color-case-urgency-high-background: var(--case-urgency-high-background);
   --color-case-urgency-high-foreground: var(--case-urgency-high-foreground);
@@ -86,24 +91,48 @@
   --color-case-urgency-medium-foreground: var(--case-urgency-medium-foreground);
   --color-case-urgency-low-background: var(--case-urgency-low-background);
   --color-case-urgency-low-foreground: var(--case-urgency-low-foreground);
-  --color-case-urgency-critical-background: var(--case-urgency-critical-background);
-  --color-case-urgency-critical-foreground: var(--case-urgency-critical-foreground);
+  --color-case-urgency-critical-background: var(
+    --case-urgency-critical-background
+  );
+  --color-case-urgency-critical-foreground: var(
+    --case-urgency-critical-foreground
+  );
 
   /* Case status colors */
   --color-case-status-open-background: var(--case-status-open-background);
   --color-case-status-open-foreground: var(--case-status-open-foreground);
-  --color-case-status-in-progress-background: var(--case-status-in-progress-background);
-  --color-case-status-in-progress-foreground: var(--case-status-in-progress-foreground);
+  --color-case-status-in-progress-background: var(
+    --case-status-in-progress-background
+  );
+  --color-case-status-in-progress-foreground: var(
+    --case-status-in-progress-foreground
+  );
   --color-case-status-closed-background: var(--case-status-closed-background);
   --color-case-status-closed-foreground: var(--case-status-closed-foreground);
-  --color-case-status-archived-background: var(--case-status-archived-background);
-  --color-case-status-archived-foreground: var(--case-status-archived-foreground);
-  --color-case-status-under-negotiation-background: var(--case-status-under-negotiation-background);
-  --color-case-status-under-negotiation-foreground: var(--case-status-under-negotiation-foreground);
-  --color-case-status-waiting-for-customer-background: var(--case-status-waiting-for-customer-background);
-  --color-case-status-waiting-for-customer-foreground: var(--case-status-waiting-for-customer-foreground);
-  --color-case-status-awaiting-trial-background: var(--case-status-awaiting-trial-background);
-  --color-case-status-awaiting-trial-foreground: var(--case-status-awaiting-trial-foreground);
+  --color-case-status-archived-background: var(
+    --case-status-archived-background
+  );
+  --color-case-status-archived-foreground: var(
+    --case-status-archived-foreground
+  );
+  --color-case-status-under-negotiation-background: var(
+    --case-status-under-negotiation-background
+  );
+  --color-case-status-under-negotiation-foreground: var(
+    --case-status-under-negotiation-foreground
+  );
+  --color-case-status-waiting-for-customer-background: var(
+    --case-status-waiting-for-customer-background
+  );
+  --color-case-status-waiting-for-customer-foreground: var(
+    --case-status-waiting-for-customer-foreground
+  );
+  --color-case-status-awaiting-trial-background: var(
+    --case-status-awaiting-trial-background
+  );
+  --color-case-status-awaiting-trial-foreground: var(
+    --case-status-awaiting-trial-foreground
+  );
   --color-case-status-waiting-background: var(--case-status-waiting-background);
   --color-case-status-waiting-foreground: var(--case-status-waiting-foreground);
 
@@ -123,8 +152,12 @@
   /* Finances type colors */
   --color-finance-type-income-background: var(--finance-type-income-background);
   --color-finance-type-income-foreground: var(--finance-type-income-foreground);
-  --color-finance-type-expense-background: var(--finance-type-expense-background);
-  --color-finance-type-expense-foreground: var(--finance-type-expense-foreground);
+  --color-finance-type-expense-background: var(
+    --finance-type-expense-background
+  );
+  --color-finance-type-expense-foreground: var(
+    --finance-type-expense-foreground
+  );
 
   /* Task tag colors */
 
@@ -161,14 +194,22 @@
   --color-task-priority-foreground-low: var(--task-priority-foreground-low);
   --color-task-priority-background-low: var(--task-priority-background-low);
 
-  --color-task-priority-foreground-medium: var(--task-priority-foreground-medium);
-  --color-task-priority-background-medium: var(--task-priority-background-medium);
+  --color-task-priority-foreground-medium: var(
+    --task-priority-foreground-medium
+  );
+  --color-task-priority-background-medium: var(
+    --task-priority-background-medium
+  );
 
   --color-task-priority-foreground-high: var(--task-priority-foreground-high);
   --color-task-priority-background-high: var(--task-priority-background-high);
 
-  --color-task-priority-foreground-critical: var(--task-priority-foreground-critical);
-  --color-task-priority-background-critical: var(--task-priority-background-critical);
+  --color-task-priority-foreground-critical: var(
+    --task-priority-foreground-critical
+  );
+  --color-task-priority-background-critical: var(
+    --task-priority-background-critical
+  );
 }
 
 :root {
@@ -228,7 +269,7 @@
   /* Calendar colors */
   --calendar-color-gray: oklch(55.6% 0 0);
   --calendar-color-red: oklch(57.7% 0.245 27.325);
-  --calendar-color-yellow: oklch(76.9% 0.188 70.08) ;
+  --calendar-color-yellow: oklch(76.9% 0.188 70.08);
   --calendar-color-orange: oklch(70.5% 0.213 47.604);
   --calendar-color-purple: oklch(55.8% 0.288 302.321);
   --calendar-color-blue: oklch(62.3% 0.214 259.815);
@@ -263,7 +304,7 @@
   --case-status-awaiting-trial-background: oklch(91% 0.01 260);
   --case-status-awaiting-trial-foreground: oklch(29% 0.01 260);
   --case-status-waiting-background: oklch(86% 0.01 260);
-  --case-status-waiting-foreground: oklch(33% 0.01 260); 
+  --case-status-waiting-foreground: oklch(33% 0.01 260);
 
   /* Documents selector colors */
   --selector-rectangle: oklch(90.1% 0.058 230.902);
@@ -272,11 +313,11 @@
 
   /* License status colors */
   --license-valid-foreground: oklch(0.205 0 0);
-  --license-valid-background:oklch(0.97 0 0);
+  --license-valid-background: oklch(0.97 0 0);
   --license-invalid-foreground: oklch(64.5% 0.246 16.439);
   --license-invalid-background: oklch(94.1% 0.03 12.58);
   --license-no-config-foreground: oklch(68.5% 0.169 237.323);
-  --license-no-config-background:oklch(95.1% 0.026 236.824);
+  --license-no-config-background: oklch(95.1% 0.026 236.824);
 
   /* Finances type colors */
   --finance-type-income-background: oklch(96.2% 0.044 156.743);
@@ -318,15 +359,19 @@
   --editor-spacing-8: 2rem;
   --editor-spacing-12: 3rem;
   --editor-spacing-16: 4rem;
-  --editor-font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  --editor-font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  --editor-font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, "Helvetica Neue", Arial, sans-serif;
+  --editor-font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    monospace;
   --editor-font-serif: Georgia, Cambria, "Times New Roman", Times, serif;
   --editor-transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
   --editor-transition-normal: 200ms cubic-bezier(0.4, 0, 0.2, 1);
   --editor-transition-slow: 300ms cubic-bezier(0.4, 0, 0.2, 1);
   --editor-shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-  --editor-shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-  --editor-shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --editor-shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1),
+    0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --editor-shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1),
+    0 4px 6px -4px rgb(0 0 0 / 0.1);
 
   /* Task tag colors */
   --task-tag-foreground-gray: oklch(32% 0.018 260);
@@ -414,21 +459,21 @@
   --status-foreground-warning: oklch(79.5% 0.184 86.047);
   --status-background-info: oklch(29.3% 0.066 243.157);
   --status-foreground-info: oklch(68.5% 0.169 237.323);
-  --status-background-loading:  oklch(0.269 0 0);
+  --status-background-loading: oklch(0.269 0 0);
   --status-foreground-loading: oklch(0.985 0 0);
 
   /* Status colors for card */
-  --status-card-background-error:  oklch(27.1% 0.105 12.094);
+  --status-card-background-error: oklch(27.1% 0.105 12.094);
   --status-card-foreground-error: oklch(64.5% 0.246 16.439);
-  --status-card-background-icon-error:oklch(33.1% 0.105 12.094);
+  --status-card-background-icon-error: oklch(33.1% 0.105 12.094);
   --status-card-background-empty: oklch(0.269 0 0);
   --status-card-foreground-empty: oklch(0.985 0 0);
-  --status-card-background-icon-empty: oklch(0.320 0 0);;
+  --status-card-background-icon-empty: oklch(0.32 0 0);
 
   /* Calendar colors */
   --calendar-color-gray: oklch(55.6% 0 0);
   --calendar-color-red: oklch(25.8% 0.092 26.042);
-  --calendar-color-yellow: oklch(42.1% 0.095 57.708) ;
+  --calendar-color-yellow: oklch(42.1% 0.095 57.708);
   --calendar-color-orange: oklch(47% 0.157 37.304);
   --calendar-color-purple: oklch(38.1% 0.176 304.987);
   --calendar-color-blue: oklch(37.9% 0.146 265.522);
@@ -600,20 +645,21 @@
   text-decoration: underline;
 }
 
-.prose [style*="text-align: center"], 
+.prose [style*="text-align: center"],
 .prose .text-center {
   text-align: center !important;
 }
-.prose [style*="text-align: right"], 
+.prose [style*="text-align: right"],
 .prose .text-right {
   text-align: right !important;
 }
-.prose [style*="text-align: justify"], 
+.prose [style*="text-align: justify"],
 .prose .text-justify {
   text-align: justify !important;
 }
 
-.prose ul, .prose ol {
+.prose ul,
+.prose ol {
   padding-left: 1.5rem !important;
   margin-top: 1rem !important;
   margin-bottom: 1rem !important;
@@ -681,6 +727,8 @@
 .prose .tableWrapper {
   margin: 1.5rem 0;
   overflow-x: auto;
+  border: 1px solid color-mix(in srgb, var(--color-border), transparent 55%);
+  border-radius: 8px;
 }
 
 .prose.resize-cursor {
@@ -710,6 +758,23 @@
 .ProseMirror:focus {
   outline: none;
   box-shadow: none;
+}
+
+/* Resaltado al arrastrar / seleccionar nodo de bloque (drag handle) */
+.ProseMirror-selectednode,
+.ProseMirror-selectednoderange {
+  position: relative;
+}
+
+.ProseMirror-selectednode::before,
+.ProseMirror-selectednoderange::before {
+  content: "";
+  position: absolute;
+  inset: -2px -4px;
+  border-radius: 6px;
+  background-color: color-mix(in srgb, var(--editor-highlight-blue), transparent 60%);
+  pointer-events: none;
+  z-index: 0;
 }
 
 .ProseMirror .selection,
@@ -858,6 +923,20 @@
 
 .ProseMirror ol ol ol {
   list-style-type: lower-roman;
+}
+
+.ProseMirror .tableWrapper {
+  margin: var(--editor-spacing-6) 0;
+  max-width: 100%;
+  overflow-x: auto;
+  border: 1px solid color-mix(in srgb, var(--editor-border-default), transparent 50%);
+  border-radius: 8px;
+}
+
+.ProseMirror .tableWrapper > table {
+  margin: 0;
+  border: none;
+  border-radius: 0;
 }
 
 .ProseMirror table {

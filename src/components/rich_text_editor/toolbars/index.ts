@@ -6,6 +6,7 @@ export * from "./code";
 export * from "./code_block";
 export * from "./color_and_highlight";
 export * from "./editor_toolbar";
+export * from "./formatting_styles_popover";
 export * from "./hard_break";
 export * from "./headings";
 export * from "./horizontal_rule";

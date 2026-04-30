@@ -14,7 +14,6 @@ import {
   AlignRight,
   CodeSquare,
   SearchXIcon,
-  Sparkles,
 } from "lucide-react";
 import { FloatingElement } from "../../ui/floating-element";
 import {
@@ -45,7 +44,7 @@ type CommandGroupType = {
 };
 
 const groups: CommandGroupType[] = [
-  {
+  /* {
     group: "INTELIGENCIA ARTIFICIAL",
     items: [
       {
@@ -60,7 +59,7 @@ const groups: CommandGroupType[] = [
         },
       },
     ],
-  },
+  }, */
   {
     group: "BLOQUES BÁSICOS",
     items: [
@@ -187,8 +186,10 @@ export function TipTapFloatingMenu({ editor }: { editor: Editor }) {
   const debouncedSearch = useDebounce(search, 300);
   const commandRef = useRef<HTMLDivElement>(null);
   const [selectedIndex, setSelectedIndex] = useState(-1);
+  const selectedIndexRef = useRef(-1);
   const [isChildFocused, setIsChildFocused] = useState(false);
   const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const lastSlashQueryRef = useRef<string | null>(null);
 
   const filteredGroups = useMemo(
     () =>
@@ -205,17 +206,23 @@ export function TipTapFloatingMenu({ editor }: { editor: Editor }) {
                 .includes(debouncedSearch.toLowerCase()) ||
               item.keywords
                 .toLowerCase()
-                .includes(debouncedSearch.toLowerCase()),
+                .includes(debouncedSearch.toLowerCase())
           ),
         }))
         .filter((group) => group.items.length > 0),
-    [debouncedSearch],
+    [debouncedSearch]
   );
 
   const flatFilteredItems = useMemo(
     () => filteredGroups.flatMap((g) => g.items),
-    [filteredGroups],
+    [filteredGroups]
   );
+
+  const highlightIndex = useMemo(() => {
+    const len = flatFilteredItems.length;
+    if (len === 0 || selectedIndex < 0) return -1;
+    return Math.min(selectedIndex, len - 1);
+  }, [flatFilteredItems.length, selectedIndex]);
 
   const executeCommand = useCallback(
     (commandFn: (editor: Editor) => void) => {
@@ -241,91 +248,113 @@ export function TipTapFloatingMenu({ editor }: { editor: Editor }) {
         setIsOpen(false);
         setSearch("");
         setSelectedIndex(-1);
+        selectedIndexRef.current = -1;
       }
     },
-    [editor, search],
+    [editor, search]
   );
 
-  const handleKeyDown = useCallback(
-    (e: KeyboardEvent) => {
-      if (!isOpen || !editor) return;
+  useEffect(() => {
+    if (highlightIndex >= 0 && itemRefs.current[highlightIndex]) {
+      itemRefs.current[highlightIndex]?.scrollIntoView({ block: "nearest" });
+    }
+  }, [highlightIndex]);
 
-      const preventDefault = () => {
+  const focusContextAllowsSlashKeys = useCallback(() => {
+    if (!editor?.options.element) return false;
+    const editorEl = editor.options.element as HTMLElement;
+    const active = document.activeElement;
+    return (active != null && editorEl.contains(active)) || isChildFocused;
+  }, [editor, isChildFocused]);
+
+  useEffect(() => {
+    if (!isOpen || !editor) return;
+
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (!focusContextAllowsSlashKeys()) return;
+
+      const len = flatFilteredItems.length;
+      const stop = () => {
         e.preventDefault();
-        e.stopImmediatePropagation();
+        e.stopPropagation();
       };
 
       switch (e.key) {
-        case "ArrowDown":
-          preventDefault();
+        case "ArrowDown": {
+          if (len === 0) return;
+          stop();
           setSelectedIndex((prev) => {
-            if (prev === -1) return 0;
-            return prev < flatFilteredItems.length - 1 ? prev + 1 : 0;
+            const cur = prev === -1 ? -1 : Math.min(prev, len - 1);
+            const next = cur === -1 ? 0 : cur < len - 1 ? cur + 1 : 0;
+            selectedIndexRef.current = next;
+            return next;
           });
           break;
-
-        case "ArrowUp":
-          preventDefault();
+        }
+        case "ArrowUp": {
+          if (len === 0) return;
+          stop();
           setSelectedIndex((prev) => {
-            if (prev === -1) return flatFilteredItems.length - 1;
-            return prev > 0 ? prev - 1 : flatFilteredItems.length - 1;
+            const cur = prev === -1 ? -1 : Math.min(prev, len - 1);
+            const next = cur === -1 ? len - 1 : cur > 0 ? cur - 1 : len - 1;
+            selectedIndexRef.current = next;
+            return next;
           });
           break;
-
-        case "Enter": {
-          preventDefault();
-          const targetIndex =
-            selectedIndex === -1 ? 0 : (selectedIndex as number);
-          if (flatFilteredItems[targetIndex]) {
-            executeCommand(flatFilteredItems[targetIndex].command);
+        }
+        case "Tab": {
+          if (len === 0) return;
+          stop();
+          if (e.shiftKey) {
+            setSelectedIndex((prev) => {
+              const cur = prev === -1 ? -1 : Math.min(prev, len - 1);
+              const next = cur === -1 ? len - 1 : cur > 0 ? cur - 1 : len - 1;
+              selectedIndexRef.current = next;
+              return next;
+            });
+          } else {
+            setSelectedIndex((prev) => {
+              const cur = prev === -1 ? -1 : Math.min(prev, len - 1);
+              const next = cur === -1 ? 0 : cur < len - 1 ? cur + 1 : 0;
+              selectedIndexRef.current = next;
+              return next;
+            });
           }
           break;
         }
-
-        case "Escape":
-          preventDefault();
+        case "Enter": {
+          if (len === 0) return;
+          stop();
+          const idx =
+            selectedIndexRef.current === -1
+              ? 0
+              : Math.min(selectedIndexRef.current, len - 1);
+          const item = flatFilteredItems[idx];
+          if (item) executeCommand(item.command);
+          break;
+        }
+        case "Escape": {
+          stop();
           setIsOpen(false);
+          setSearch("");
           setSelectedIndex(-1);
+          selectedIndexRef.current = -1;
+          break;
+        }
+        default:
           break;
       }
-    },
-    [isOpen, selectedIndex, flatFilteredItems, executeCommand, editor],
-  );
+    };
 
-  useEffect(() => {
-    if (!editor?.options.element) return;
-
-    const editorElement = editor.options.element;
-    const handleEditorKeyDown = (e: Event) => handleKeyDown(e as KeyboardEvent);
-
-    (editorElement as HTMLElement).addEventListener(
-      "keydown",
-      handleEditorKeyDown,
-    );
-    return () =>
-      (editorElement as HTMLElement).removeEventListener(
-        "keydown",
-        handleEditorKeyDown,
-      );
-  }, [handleKeyDown, editor]);
-
-  // Add new effect for resetting selectedIndex
-  useEffect(() => {
-    setSelectedIndex(-1);
-  }, [search]);
-
-  useEffect(() => {
-    if (selectedIndex >= 0 && itemRefs.current[selectedIndex]) {
-      itemRefs.current[selectedIndex]?.focus();
-    }
-  }, [selectedIndex]);
-
-  // Reset state when menu closes
-  useEffect(() => {
-    if (!isOpen) {
-      setSelectedIndex(-1);
-    }
-  }, [isOpen]);
+    window.addEventListener("keydown", onKeyDown, true);
+    return () => window.removeEventListener("keydown", onKeyDown, true);
+  }, [
+    isOpen,
+    editor,
+    flatFilteredItems,
+    executeCommand,
+    focusContextAllowsSlashKeys,
+  ]);
 
   // Slash command detection logic
   useEffect(() => {
@@ -339,7 +368,7 @@ export function TipTapFloatingMenu({ editor }: { editor: Editor }) {
         0,
         $from.parentOffset,
         "\n",
-        " ",
+        " "
       );
 
       const isSlashCommand =
@@ -350,9 +379,15 @@ export function TipTapFloatingMenu({ editor }: { editor: Editor }) {
 
       if (isSlashCommand) {
         const query = currentLineText.slice(1).trim();
+        if (lastSlashQueryRef.current !== query) {
+          lastSlashQueryRef.current = query;
+          setSelectedIndex(-1);
+          selectedIndexRef.current = -1;
+        }
         setSearch(query);
         setIsOpen(true);
       } else {
+        lastSlashQueryRef.current = null;
         setIsOpen(false);
       }
     };
@@ -363,7 +398,7 @@ export function TipTapFloatingMenu({ editor }: { editor: Editor }) {
     const handleBlur = () => {
       setTimeout(() => {
         const isPopOverOpen = document.querySelector(
-          '[data-radix-popper-content-wrapper], [role="dialog"]',
+          '[data-radix-popper-content-wrapper], [role="dialog"]'
         );
         const shouldStillShow =
           editor.isFocused || isChildFocused || !!isPopOverOpen;
@@ -437,13 +472,13 @@ export function TipTapFloatingMenu({ editor }: { editor: Editor }) {
                       onSelect={() => executeCommand(item.command)}
                       className={cn(
                         "gap-3 aria-selected:bg-accent/50",
-                        flatIndex === selectedIndex ? "bg-accent/50" : "",
+                        flatIndex === highlightIndex ? "bg-accent/50" : ""
                       )}
-                      aria-selected={flatIndex === selectedIndex}
+                      aria-selected={flatIndex === highlightIndex}
                       ref={(el) => {
                         itemRefs.current[flatIndex] = el;
                       }}
-                      tabIndex={flatIndex === selectedIndex ? 0 : -1}
+                      tabIndex={-1}
                     >
                       <div className="flex h-9 w-9 items-center justify-center rounded-md border bg-background">
                         <item.icon className="h-4 w-4" />
