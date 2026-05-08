@@ -1,21 +1,9 @@
 import { cn, content } from "@/utilities";
 import {
-  ImageExtension,
-  ImagePlaceholder,
   TipTapFloatingMenu,
   FloatingToolbar,
   BlockDragHandle,
 } from "./extensions";
-import SearchAndReplace from "./extensions/search_and_replace";
-import { Color } from "@tiptap/extension-color";
-import Highlight from "@tiptap/extension-highlight";
-import Link from "@tiptap/extension-link";
-import Subscript from "@tiptap/extension-subscript";
-import Superscript from "@tiptap/extension-superscript";
-import TextAlign from "@tiptap/extension-text-align";
-import { TextStyle } from "@tiptap/extension-text-style";
-import Typography from "@tiptap/extension-typography";
-import Underline from "@tiptap/extension-underline";
 import {
   useEffect,
   useState,
@@ -30,16 +18,9 @@ import {
   type Editor,
   type JSONContent,
 } from "@tiptap/react";
-import StarterKit from "@tiptap/starter-kit";
-import { Table } from "@tiptap/extension-table";
-import { TableRow } from "@tiptap/extension-table-row";
-import { TableCell } from "@tiptap/extension-table-cell";
-import { TableHeader } from "@tiptap/extension-table-header";
-import Collaboration from "@tiptap/extension-collaboration";
-import { NodeRange } from "@tiptap/extension-node-range";
 import * as Y from "yjs";
 import { EditorToolbar } from "./toolbars";
-import Placeholder from "@tiptap/extension-placeholder";
+import { createRichTextEditorExtensions } from "./lib/editor_extensions";
 import { Loader2, Save, ChevronDown, FileDown } from "lucide-react";
 import { Button } from "@/components/button";
 import { toast } from "sonner";
@@ -52,69 +33,6 @@ import {
 } from "@/components/dropdown_menu";
 
 export type { Editor, JSONContent };
-
-function createRichTextEditorExtensions(ydoc: Y.Doc) {
-  return [
-    Collaboration.configure({
-      document: ydoc,
-    }),
-    NodeRange,
-    StarterKit.configure({
-      undoRedo: false,
-      orderedList: {
-        HTMLAttributes: {
-          class: "list-decimal",
-        },
-      },
-      bulletList: {
-        HTMLAttributes: {
-          class: "list-disc",
-        },
-      },
-      heading: {
-        levels: [1, 2, 3, 4],
-      },
-    }),
-    Placeholder.configure({
-      emptyNodeClass: "is-editor-empty",
-      placeholder: ({ node }) => {
-        switch (node.type.name) {
-          case "heading":
-            return `Encabezado ${node.attrs.level}`;
-          case "detailsSummary":
-            return "Título de sección";
-          case "codeBlock":
-            return "";
-          default:
-            return "Escribe algo, escribe '/' para comandos";
-        }
-      },
-      includeChildren: false,
-    }),
-    TextAlign.configure({
-      types: ["heading", "paragraph"],
-    }),
-    TextStyle,
-    Subscript,
-    Superscript,
-    Underline,
-    Link,
-    Color,
-    Highlight.configure({
-      multicolor: true,
-    }),
-    ImageExtension,
-    ImagePlaceholder,
-    SearchAndReplace,
-    Typography,
-    Table.configure({
-      resizable: true,
-    }),
-    TableRow,
-    TableHeader,
-    TableCell,
-  ];
-}
 
 export interface RichTextEditorRef {
   editor: Editor | null;

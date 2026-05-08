@@ -5,6 +5,8 @@ export * from "./bullet_list";
 export * from "./code";
 export * from "./code_block";
 export * from "./color_and_highlight";
+export * from "./font_family";
+export * from "./font_size";
 export * from "./editor_toolbar";
 export * from "./formatting_styles_popover";
 export * from "./hard_break";

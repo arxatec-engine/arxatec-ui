@@ -62,6 +62,14 @@ export * from "./components/text_area";
 export * from "./components/toggle";
 export * from "./components/tooltip";
 export * from "./components/rich_text_editor";
+export {
+  createRichTextEditorExtensions,
+  createRichTextEditorImportExtensions,
+} from "./components/rich_text_editor/lib/editor_extensions";
+export { htmlToTiptapJson } from "./components/rich_text_editor/lib/html_importer";
+export { FloatingToolbar } from "./components/rich_text_editor/extensions/floating_toolbar";
+export type { FloatingToolbarProps } from "./components/rich_text_editor/extensions/floating_toolbar";
+export { createAnnotationEditorExtensions } from "./components/rich_text_editor/lib/annotation_editor_extensions";
 export * from "./components/form_input";
 export * from "./components/form_textarea";
 export * from "./components/form_select";
