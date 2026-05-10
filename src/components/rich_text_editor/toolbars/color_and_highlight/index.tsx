@@ -52,12 +52,12 @@ const ColorHighlightButton = ({
 }: ColorHighlightButtonProps) => (
   <button
     onClick={onClick}
-    className="flex w-full items-center justify-between rounded-sm px-2 py-1 text-sm hover:bg-gray-3"
+    className="flex w-full items-center justify-between rounded-sm px-2 py-1 text-sm hover:bg-muted cursor-pointer"
     type="button"
   >
-    <div className="flex items-center space-x-2">
+    <div className="flex items-center space-x-2 ">
       <div
-        className="rounded-sm border px-1 py-px font-medium"
+        className="rounded-sm border size-5 font-medium"
         style={isHighlight ? { backgroundColor: color } : { color }}
       >
         A
@@ -162,37 +162,43 @@ export const ColorHighlightToolbar = () => {
 
         <PopoverContent
           align="start"
-          className="w-56 p-1 dark:bg-gray-2"
+          className="w-56 p-0! dark:bg-gray-2"
           onWheel={(e) => e.stopPropagation()}
           onTouchMove={(e) => e.stopPropagation()}
         >
-          <ScrollArea className="h-80 pr-2">
-            <div className="mb-2.5 mt-2 px-2 text-xs text-gray-11">Color</div>
-            {TEXT_COLORS.map(({ name, color }) => (
-              <ColorHighlightButton
-                key={name}
-                name={name}
-                color={color}
-                isActive={currentColor === color}
-                onClick={() => handleSetColor(color)}
-              />
-            ))}
+          <ScrollArea className="h-80 pb-2">
+            <div className="mb-1 mt-2 px-2 text-xs text-muted-foreground uppercase">
+              Color
+            </div>
+            <div className="px-2">
+              {TEXT_COLORS.map(({ name, color }) => (
+                <ColorHighlightButton
+                  key={name}
+                  name={name}
+                  color={color}
+                  isActive={currentColor === color}
+                  onClick={() => handleSetColor(color)}
+                />
+              ))}
+            </div>
 
             <Separator className="my-3" />
 
-            <div className="mb-2.5 w-full px-2 pr-3 text-xs text-gray-11">
+            <div className="mb-1 w-full px-2 text-xs text-muted-foreground uppercase">
               Fondo (Resaltado)
             </div>
-            {HIGHLIGHT_COLORS.map(({ name, color }) => (
-              <ColorHighlightButton
-                key={name}
-                name={name}
-                color={color}
-                isActive={currentHighlight === color}
-                onClick={() => handleSetHighlight(color)}
-                isHighlight
-              />
-            ))}
+            <div className="px-2">
+              {HIGHLIGHT_COLORS.map(({ name, color }) => (
+                <ColorHighlightButton
+                  key={name}
+                  name={name}
+                  color={color}
+                  isActive={currentHighlight === color}
+                  onClick={() => handleSetHighlight(color)}
+                  isHighlight
+                />
+              ))}
+            </div>
           </ScrollArea>
         </PopoverContent>
       </div>

@@ -53,7 +53,7 @@ export function FloatingToolbar({ editor }: { editor: Editor | null }) {
     const handleBlur = () => {
       setTimeout(() => {
         const isPopOverOpen = document.querySelector(
-          '[data-radix-popper-content-wrapper], [role="dialog"]',
+          '[data-radix-popper-content-wrapper], [role="dialog"]'
         );
         const shouldStillShow =
           (editor.isFocused || isChildFocused || !!isPopOverOpen) &&
@@ -84,7 +84,7 @@ export function FloatingToolbar({ editor }: { editor: Editor | null }) {
       <div
         className={cn(
           "shadow-lg border rounded-lg bg-card overflow-hidden tiptap-floating-toolbar",
-          isMobile ? "w-[calc(100vw-2rem)] mx-4" : "w-fit",
+          isMobile ? "w-[calc(100vw-2rem)] mx-4" : "w-fit"
         )}
         onWheel={(e) => e.stopPropagation()}
         onTouchMove={(e) => e.stopPropagation()}
@@ -94,7 +94,7 @@ export function FloatingToolbar({ editor }: { editor: Editor | null }) {
         <ToolbarProvider editor={editor}>
           <TooltipProvider>
             <ScrollArea className="h-fit">
-              <div className="flex items-center p-1 gap-0.5">
+              <div className="flex items-center  gap-0.5">
                 {/* <MagicAiToolbar
                   onClick={(e) => {
                     e.preventDefault();

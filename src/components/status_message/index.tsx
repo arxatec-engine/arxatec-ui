@@ -17,12 +17,14 @@ const colorVariants = {
     backgroundCardIcon: "bg-status-card-background-icon-error",
     textPrimary: "text-status-card-foreground-error",
     textSecondary: "text-status-card-foreground-error opacity-60",
+    border: "border-status-card-border-error",
   },
   white: {
     background: "bg-status-card-background-empty",
     backgroundCardIcon: "bg-status-card-background-icon-empty",
     textPrimary: "text-status-card-foreground-empty",
     textSecondary: "text-status-card-foreground-emtpy opacity-60",
+    border: "border-status-card-border-empty",
   },
 };
 
@@ -40,10 +42,11 @@ export const StatusMessage: React.FC<Props> = ({
   return (
     <div
       className={cn(
-        " rounded-md flex items-center flex-wrap",
+        " rounded-md flex items-center flex-wrap border",
         size === "sm" ? "p-4 gap-2" : "p-6 gap-4",
         classNameCard,
-        colorVariants[color].background
+        colorVariants[color].background,
+        colorVariants[color].border
       )}
     >
       {Icon && (

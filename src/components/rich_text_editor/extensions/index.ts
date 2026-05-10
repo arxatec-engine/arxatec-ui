@@ -4,3 +4,4 @@ export * from "./block_drag_handle";
 export * from "./image";
 export * from "./image_placeholder";
 export * from "./search_and_replace";
+export * from "./table_side_controls";
