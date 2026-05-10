@@ -218,7 +218,7 @@
   --radius: 0.5rem;
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
-  --card: oklch(99% 0 0);
+  --card: oklch(98.5% 0 0);
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.145 0 0);
@@ -231,8 +231,8 @@
   --accent: oklch(0.97 0 0);
   --accent-foreground: oklch(0.205 0 0);
   --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.98 0 0);
-  --input: oklch(0.952 0 0);
+  --border: oklch(0.922 0 0);
+  --input: oklch(0.922 0 0);
   --ring: oklch(0.708 0 0);
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
@@ -245,7 +245,7 @@
   --sidebar-primary-foreground: oklch(0.985 0 0);
   --sidebar-accent: oklch(0.97 0 0);
   --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.962 0 0);
+  --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
 
   /* Status colors for toast an messages*/
@@ -264,11 +264,9 @@
   --status-card-background-error: oklch(94.1% 0.03 12.58);
   --status-card-foreground-error: oklch(64.5% 0.246 16.439);
   --status-card-background-icon-error: oklch(90.1% 0.05 12.58);
-  --status-card-border-error: oklch(94.1% 0.06 12.58);
   --status-card-background-empty: oklch(0.97 0 0);
   --status-card-foreground-empty: oklch(0.205 0 0);
   --status-card-background-icon-empty: oklch(0.93 0 0);
-  --status-card-border-empty: oklch(0.95 0 0);
 
   /* Calendar colors */
   --calendar-color-gray: oklch(55.6% 0 0);
@@ -422,36 +420,36 @@
 }
 
 .dark {
-  --background: oklch(0.116 0 0);
+  --background: oklch(0.145 0 0);
   --foreground: oklch(0.985 0 0);
-  --card: oklch(0.172 0 0);
+  --card: oklch(0.205 0 0);
   --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.164 0 0);
+  --popover: oklch(0.205 0 0);
   --popover-foreground: oklch(0.985 0 0);
   --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.164 0 0);
-  --secondary: oklch(0.215 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
   --secondary-foreground: oklch(0.708 0 0);
-  --muted: oklch(0.215 0 0);
+  --muted: oklch(0.269 0 0);
   --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.215 0 0);
+  --accent: oklch(0.269 0 0);
   --accent-foreground: oklch(0.985 0 0);
   --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 2.4%);
-  --input: oklch(1 0 0 / 12%);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
   --ring: oklch(0.556 0 0);
   --chart-1: oklch(0.488 0.243 264.376);
   --chart-2: oklch(0.696 0.17 162.48);
   --chart-3: oklch(0.769 0.188 70.08);
   --chart-4: oklch(0.627 0.265 303.9);
   --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.12 0 0);
+  --sidebar: oklch(0.205 0 0);
   --sidebar-foreground: oklch(0.985 0 0);
   --sidebar-primary: oklch(0.488 0.243 264.376);
   --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.215 0 0);
+  --sidebar-accent: oklch(0.269 0 0);
   --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 5.4%);
+  --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
 
   /* Status colors for toast and messages */
@@ -463,18 +461,16 @@
   --status-foreground-warning: oklch(79.5% 0.184 86.047);
   --status-background-info: oklch(29.3% 0.066 243.157);
   --status-foreground-info: oklch(68.5% 0.169 237.323);
-  --status-background-loading: oklch(0.215 0 0);
+  --status-background-loading: oklch(0.269 0 0);
   --status-foreground-loading: oklch(0.985 0 0);
 
   /* Status colors for card */
   --status-card-background-error: oklch(27.1% 0.105 12.094);
   --status-card-foreground-error: oklch(64.5% 0.246 16.439);
   --status-card-background-icon-error: oklch(33.1% 0.105 12.094);
-  --status-card-border-error: oklch(30.1% 0.105 12.594);
-  --status-card-background-empty: oklch(0.215 0 0);
+  --status-card-background-empty: oklch(0.269 0 0);
   --status-card-foreground-empty: oklch(0.985 0 0);
-  --status-card-background-icon-empty: oklch(0.256 0 0);
-  --status-card-border-empty: oklch(0.24 0 0);
+  --status-card-background-icon-empty: oklch(0.32 0 0);
 
   /* Calendar colors */
   --calendar-color-gray: oklch(55.6% 0 0);
@@ -523,7 +519,7 @@
 
   /* License status colors */
   --license-valid-foreground: oklch(0.708 0 0);
-  --license-valid-background: oklch(0.215 0 0);
+  --license-valid-background: oklch(0.269 0 0);
   --license-invalid-foreground: oklch(64.5% 0.246 16.439);
   --license-invalid-background: oklch(27.1% 0.105 12.094);
   --license-no-config-background: oklch(29.3% 0.066 243.157);
@@ -546,21 +542,21 @@
   --editor-text-purple: hsl(269 97% 85%);
   --editor-text-pink: hsl(336 80% 58%);
   --editor-text-red: hsl(0 84% 60%);
-  --editor-bg-default: hsl(240 10% 3.1%);
-  --editor-bg-subtle: hsl(240 3.7% 12.7%);
-  --editor-bg-muted: hsl(240 5% 20.8%);
-  --editor-highlight-default: hsl(240 3.7% 12.7%);
-  --editor-highlight-gray: hsl(240 5% 20.8%);
-  --editor-highlight-brown: hsl(43 96% 8%);
-  --editor-highlight-orange: hsl(33 100% 8%);
-  --editor-highlight-yellow: hsl(54 100% 8%);
-  --editor-highlight-green: hsl(142 71% 8%);
-  --editor-highlight-blue: hsl(217 91% 8%);
-  --editor-highlight-purple: hsl(269 97% 8%);
-  --editor-highlight-pink: hsl(336 80% 8%);
-  --editor-highlight-red: hsl(0 84% 8%);
-  --editor-border-default: hsl(240 5% 20.8%);
-  --editor-border-strong: hsl(240 5% 51.9%);
+  --editor-bg-default: hsl(240 10% 3.9%);
+  --editor-bg-subtle: hsl(240 3.7% 15.9%);
+  --editor-bg-muted: hsl(240 5% 26%);
+  --editor-highlight-default: hsl(240 3.7% 15.9%);
+  --editor-highlight-gray: hsl(240 5% 26%);
+  --editor-highlight-brown: hsl(43 96% 10%);
+  --editor-highlight-orange: hsl(33 100% 10%);
+  --editor-highlight-yellow: hsl(54 100% 10%);
+  --editor-highlight-green: hsl(142 71% 10%);
+  --editor-highlight-blue: hsl(217 91% 10%);
+  --editor-highlight-purple: hsl(269 97% 10%);
+  --editor-highlight-pink: hsl(336 80% 10%);
+  --editor-highlight-red: hsl(0 84% 10%);
+  --editor-border-default: hsl(240 5% 26%);
+  --editor-border-strong: hsl(240 5% 64.9%);
 
   /* Task colors */
   --task-tag-foreground-gray: oklch(92% 0.01 260);
