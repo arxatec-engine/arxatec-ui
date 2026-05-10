@@ -40,7 +40,7 @@ export const StatusMessage: React.FC<Props> = ({
   return (
     <div
       className={cn(
-        " rounded-md flex items-center flex-wrap border",
+        " rounded-md flex items-center flex-wrap",
         size === "sm" ? "p-4 gap-2" : "p-6 gap-4",
         classNameCard,
         colorVariants[color].background
