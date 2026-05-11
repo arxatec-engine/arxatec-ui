@@ -41,7 +41,10 @@ export function FormInput<T extends FieldValues>({
         <Label className="mb-2 flex items-center gap-2" htmlFor={name}>
           {label}
           {optional && (
-            <span className="text-xs text-muted-foreground"> (Opcional)</span>
+            <span className="text-xs text-muted-foreground font-normal">
+              {" "}
+              (Opcional)
+            </span>
           )}
         </Label>
       )}

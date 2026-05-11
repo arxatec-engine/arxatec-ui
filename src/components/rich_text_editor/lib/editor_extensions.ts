@@ -12,8 +12,9 @@ import Underline from "@tiptap/extension-underline";
 import StarterKit from "@tiptap/starter-kit";
 import { Table } from "@tiptap/extension-table";
 import { TableRow } from "@tiptap/extension-table-row";
-import { TableCell } from "@tiptap/extension-table-cell";
-import { TableHeader } from "@tiptap/extension-table-header";
+import { TableCell as BaseTableCell } from "@tiptap/extension-table-cell";
+import { TableHeader as BaseTableHeader } from "@tiptap/extension-table-header";
+import { TableSideControls } from "../extensions/table_side_controls";
 import Collaboration from "@tiptap/extension-collaboration";
 import { NodeRange } from "@tiptap/extension-node-range";
 import * as Y from "yjs";
@@ -86,6 +87,50 @@ const starterKitExtension = StarterKit.configure({
   },
 });
 
+const TableCell = BaseTableCell.extend({
+  addAttributes() {
+    return {
+      ...this.parent?.(),
+      color: {
+        default: null,
+        parseHTML: (element) => element.style.color || null,
+        renderHTML: (attributes) =>
+          attributes.color ? { style: `color: ${attributes.color}` } : {},
+      },
+      backgroundColor: {
+        default: null,
+        parseHTML: (element) => element.style.backgroundColor || null,
+        renderHTML: (attributes) =>
+          attributes.backgroundColor
+            ? { style: `background-color: ${attributes.backgroundColor}` }
+            : {},
+      },
+    };
+  },
+});
+
+const TableHeader = BaseTableHeader.extend({
+  addAttributes() {
+    return {
+      ...this.parent?.(),
+      color: {
+        default: null,
+        parseHTML: (element) => element.style.color || null,
+        renderHTML: (attributes) =>
+          attributes.color ? { style: `color: ${attributes.color}` } : {},
+      },
+      backgroundColor: {
+        default: null,
+        parseHTML: (element) => element.style.backgroundColor || null,
+        renderHTML: (attributes) =>
+          attributes.backgroundColor
+            ? { style: `background-color: ${attributes.backgroundColor}` }
+            : {},
+      },
+    };
+  },
+});
+
 const tableExtensions: AnyExtension[] = [
   Table.configure({
     resizable: true,
@@ -93,6 +138,7 @@ const tableExtensions: AnyExtension[] = [
   TableRow,
   TableHeader,
   TableCell,
+  TableSideControls,
 ];
 
 export function createRichTextEditorExtensions(ydoc: Y.Doc): AnyExtension[] {
