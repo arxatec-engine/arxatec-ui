@@ -51,8 +51,8 @@ export function HeroSection({ isDark, onDarkChange }: Props) {
                 </p>
               </div>
               <div>
-                <p className="text-lg">Source Sans 3</p>
-                <p className="text-6xl font-bold">Aa</p>
+                <p className="font-sans text-lg">BlinkMacSystemFont</p>
+                <p className="font-sans text-6xl font-bold">Aa</p>
                 <p className="text-muted-foreground text-sm">
                   Semibold / Medium
                 </p>
