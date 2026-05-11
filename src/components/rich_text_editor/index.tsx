@@ -1,22 +1,9 @@
 import { cn, content } from "@/utilities";
 import {
-  ImageExtension,
-  ImagePlaceholder,
   TipTapFloatingMenu,
   FloatingToolbar,
   BlockDragHandle,
-  TableSideControls,
 } from "./extensions";
-import SearchAndReplace from "./extensions/search_and_replace";
-import { Color } from "@tiptap/extension-color";
-import Highlight from "@tiptap/extension-highlight";
-import Link from "@tiptap/extension-link";
-import Subscript from "@tiptap/extension-subscript";
-import Superscript from "@tiptap/extension-superscript";
-import TextAlign from "@tiptap/extension-text-align";
-import { TextStyle } from "@tiptap/extension-text-style";
-import Typography from "@tiptap/extension-typography";
-import Underline from "@tiptap/extension-underline";
 import {
   useEffect,
   useState,
@@ -31,16 +18,9 @@ import {
   type Editor,
   type JSONContent,
 } from "@tiptap/react";
-import StarterKit from "@tiptap/starter-kit";
-import { Table } from "@tiptap/extension-table";
-import { TableRow } from "@tiptap/extension-table-row";
-import { TableCell as BaseTableCell } from "@tiptap/extension-table-cell";
-import { TableHeader as BaseTableHeader } from "@tiptap/extension-table-header";
-import Collaboration from "@tiptap/extension-collaboration";
-import { NodeRange } from "@tiptap/extension-node-range";
 import * as Y from "yjs";
 import { EditorToolbar } from "./toolbars";
-import Placeholder from "@tiptap/extension-placeholder";
+import { createRichTextEditorExtensions } from "./lib/editor_extensions";
 import { Loader2, Save, ChevronDown, FileDown } from "lucide-react";
 import { Button } from "@/components/button";
 import { toast } from "sonner";
@@ -53,114 +33,6 @@ import {
 } from "@/components/dropdown_menu";
 
 export type { Editor, JSONContent };
-
-const TableCell = BaseTableCell.extend({
-  addAttributes() {
-    return {
-      ...this.parent?.(),
-      color: {
-        default: null,
-        parseHTML: (element) => element.style.color || null,
-        renderHTML: (attributes) =>
-          attributes.color ? { style: `color: ${attributes.color}` } : {},
-      },
-      backgroundColor: {
-        default: null,
-        parseHTML: (element) => element.style.backgroundColor || null,
-        renderHTML: (attributes) =>
-          attributes.backgroundColor
-            ? { style: `background-color: ${attributes.backgroundColor}` }
-            : {},
-      },
-    };
-  },
-});
-
-const TableHeader = BaseTableHeader.extend({
-  addAttributes() {
-    return {
-      ...this.parent?.(),
-      color: {
-        default: null,
-        parseHTML: (element) => element.style.color || null,
-        renderHTML: (attributes) =>
-          attributes.color ? { style: `color: ${attributes.color}` } : {},
-      },
-      backgroundColor: {
-        default: null,
-        parseHTML: (element) => element.style.backgroundColor || null,
-        renderHTML: (attributes) =>
-          attributes.backgroundColor
-            ? { style: `background-color: ${attributes.backgroundColor}` }
-            : {},
-      },
-    };
-  },
-});
-
-function createRichTextEditorExtensions(ydoc: Y.Doc) {
-  return [
-    Collaboration.configure({
-      document: ydoc,
-    }),
-    NodeRange,
-    StarterKit.configure({
-      undoRedo: false,
-      orderedList: {
-        HTMLAttributes: {
-          class: "list-decimal",
-        },
-      },
-      bulletList: {
-        HTMLAttributes: {
-          class: "list-disc",
-        },
-      },
-      heading: {
-        levels: [1, 2, 3, 4],
-      },
-    }),
-    Placeholder.configure({
-      emptyNodeClass: "is-editor-empty",
-      placeholder: ({ node }) => {
-        switch (node.type.name) {
-          case "heading":
-            return `Encabezado ${node.attrs.level}`;
-          case "detailsSummary":
-            return "Título de sección";
-          case "codeBlock":
-            return "";
-          default:
-            return "Escribe algo, escribe '/' para comandos";
-        }
-      },
-      includeChildren: false,
-    }),
-    TextAlign.configure({
-      types: ["heading", "paragraph"],
-    }),
-    TextStyle,
-    Subscript,
-    Superscript,
-    Underline,
-    Link,
-    Color,
-    Highlight.configure({
-      multicolor: true,
-    }),
-    ImageExtension,
-    ImagePlaceholder,
-    SearchAndReplace,
-    Typography,
-    Table.configure({
-      resizable: true,
-    }),
-    TableRow,
-    TableHeader,
-    TableCell,
-    TableSideControls,
-  ];
-}
 
 export interface RichTextEditorRef {
   editor: Editor | null;
@@ -209,7 +81,7 @@ export const RichTextEditor = forwardRef<
     const ydoc = useMemo(() => new Y.Doc(), []);
     const editorExtensions = useMemo(
       () => createRichTextEditorExtensions(ydoc) as Extension[],
-      [ydoc]
+      [ydoc],
     );
 
     const editor = useEditor(
@@ -223,7 +95,7 @@ export const RichTextEditor = forwardRef<
           },
         },
       },
-      [editorExtensions]
+      [editorExtensions],
     );
 
     useEffect(() => {
@@ -409,11 +281,6 @@ export const RichTextEditor = forwardRef<
                 "[&_.ProseMirror_blockquote]:shadow-sm! [&_.ProseMirror_blockquote]:not-italic! [&_.ProseMirror_blockquote]:text-[0.8rem]!",
                 "[&_.ProseMirror_blockquote]:leading-[1.45]! [&_.ProseMirror_blockquote]:text-foreground!",
                 "[&_.ProseMirror_blockquote_p]:leading-[inherit]!",
-                // Código en línea (el bloque redefine `pre code` justo debajo)
-                "[&_.ProseMirror_code]:rounded-[4px]! [&_.ProseMirror_code]:border! [&_.ProseMirror_code]:border-border/55!",
-                "[&_.ProseMirror_code]:bg-muted/50! dark:[&_.ProseMirror_code]:bg-muted/35!",
-                "[&_.ProseMirror_code]:px-1! [&_.ProseMirror_code]:py-px! [&_.ProseMirror_code]:font-mono!",
-                "[&_.ProseMirror_code]:text-[0.9em]! [&_.ProseMirror_code]:tabular-nums! [&_.ProseMirror_code]:text-foreground!",
                 // Bloque de código (Notion-like): superficie plana, sin sombras ni stripe lateral
                 "[&_.ProseMirror_pre]:my-4! [&_.ProseMirror_pre]:overflow-x-auto! [&_.ProseMirror_pre]:rounded-[6px]!",
                 "[&_.ProseMirror_pre]:border! [&_.ProseMirror_pre]:border-border/50! [&_.ProseMirror_pre]:bg-muted/65! dark:[&_.ProseMirror_pre]:bg-muted/40! dark:[&_.ProseMirror_pre]:border-border/40!",
@@ -426,12 +293,13 @@ export const RichTextEditor = forwardRef<
                 "[&_.ProseMirror_.tableWrapper]:my-3! [&_.ProseMirror_.tableWrapper]:max-w-full",
                 "[&_.ProseMirror_table]:w-full! [&_.ProseMirror_table]:my-0! [&_.ProseMirror_table]:border-collapse!",
                 "[&_.ProseMirror_table]:text-[0.8rem]! [&_.ProseMirror_table]:rounded-lg! [&_.ProseMirror_table]:border! [&_.ProseMirror_table]:border-border! [&_.ProseMirror_table]:overflow-hidden!",
-                "[&_.ProseMirror_th]:border-border! [&_.ProseMirror_th]:border-r! [&_.ProseMirror_th]:border-b! [&_.ProseMirror_th]:px-2.5! [&_.ProseMirror_th]:py-1.5! [&_.ProseMirror_th]:align-top! [&_.ProseMirror_th]:text-left! [&_.ProseMirror_th]:text-[0.8rem]! [&_.ProseMirror_th]:font-normal! [&_.ProseMirror_th]:normal-case! [&_.ProseMirror_th]:tracking-normal! [&_.ProseMirror_th]:leading-snug!",
-                "[&_.ProseMirror_td]:border-border! [&_.ProseMirror_td]:border-r! [&_.ProseMirror_td]:border-b! [&_.ProseMirror_td]:px-2.5! [&_.ProseMirror_td]:py-1.5! [&_.ProseMirror_td]:align-top! [&_.ProseMirror_td]:text-[0.8rem]! [&_.ProseMirror_td]:font-normal! [&_.ProseMirror_td]:leading-snug!",
+                "[&_.ProseMirror_th]:border-b! [&_.ProseMirror_th]:border-border! [&_.ProseMirror_th]:bg-muted/70! [&_.ProseMirror_th]:px-2.5! [&_.ProseMirror_th]:py-1.5! [&_.ProseMirror_th]:text-left! [&_.ProseMirror_th]:text-[0.7rem]! [&_.ProseMirror_th]:font-semibold! [&_.ProseMirror_th]:uppercase! [&_.ProseMirror_th]:tracking-wide! [&_.ProseMirror_th]:text-muted-foreground!",
+                "[&_.ProseMirror_td]:border-border! [&_.ProseMirror_td]:border-r! [&_.ProseMirror_td]:border-b! [&_.ProseMirror_td]:px-2.5! [&_.ProseMirror_td]:py-1.5! [&_.ProseMirror_td]:align-top! [&_.ProseMirror_td]:text-[0.8rem]! [&_.ProseMirror_td]:leading-snug!",
                 "[&_.ProseMirror_th:last-child]:border-r-0! [&_.ProseMirror_td:last-child]:border-r-0!",
                 "[&_.ProseMirror_tr:last-child_td]:border-b-0!",
-                "[&_.ProseMirror_th_p]:my-0! [&_.ProseMirror_th_p]:text-inherit! [&_.ProseMirror_td_p]:my-0! [&_.ProseMirror_td_p]:text-inherit!",
+                "[&_.ProseMirror_td_p]:my-0! [&_.ProseMirror_td_p]:text-inherit!",
                 "[&_.ProseMirror]:py-6! [&_.ProseMirror]:pr-3! [&_.ProseMirror]:pl-10! sm:[&_.ProseMirror]:px-5! sm:[&_.ProseMirror]:pl-12!",
+                "[&_.ProseMirror_tbody_tr:nth-child(even)_td]:bg-muted/25!",
                 !isExpanded ? "p-3 sm:p-5 md:p-6" : "p-3 sm:p-5 is-expanded"
               )}
               onMouseDown={() => {

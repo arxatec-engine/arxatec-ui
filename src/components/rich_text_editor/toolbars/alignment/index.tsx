@@ -14,7 +14,6 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/dropdown_menu";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/tooltip";
 import { Button } from "@/components/button";
 import { useToolbar } from "../toolbar_provider";
 
@@ -95,16 +94,17 @@ export const AlignmentToolbar = () => {
 
   return (
     <DropdownMenu>
-      <Tooltip>
-        <TooltipTrigger asChild>
-          <DropdownMenuTrigger disabled={isDisabled} asChild>
-            <Button variant="ghost" size="icon" className="size-7">
-              {alignmentOptions[findIndex(currentTextAlign())]?.icon}
-            </Button>
-          </DropdownMenuTrigger>
-        </TooltipTrigger>
-        <TooltipContent>Alineación de texto</TooltipContent>
-      </Tooltip>
+      <DropdownMenuTrigger disabled={isDisabled} asChild>
+        <Button
+          variant="ghost"
+          size="icon"
+          type="button"
+          title="Alineación de texto"
+          className="size-7"
+        >
+          {alignmentOptions[findIndex(currentTextAlign())]?.icon}
+        </Button>
+      </DropdownMenuTrigger>
       <DropdownMenuContent
         loop
         onCloseAutoFocus={(e) => {
