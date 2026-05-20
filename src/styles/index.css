@@ -1442,3 +1442,7 @@
   height: 0;
   pointer-events: none;
 }
+
+.docx-preview-container-wrapper {
+  background-color: transparent !important;
+}
