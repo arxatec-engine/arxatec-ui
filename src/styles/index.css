@@ -432,36 +432,36 @@
   --sidebar-ring: oklch(0.708 0 0);
 
   /* Status colors for toast an messages*/
-  --status-background-error: oklch(94.1% 0.03 12.58);
-  --status-foreground-error: oklch(64.5% 0.246 16.439);
-  --status-background-success: oklch(96.2% 0.044 156.743);
-  --status-foreground-success: oklch(72.3% 0.219 149.579);
-  --status-background-warning: oklch(97.3% 0.071 103.193);
-  --status-foreground-warning: oklch(79.5% 0.184 86.047);
-  --status-background-info: oklch(95.1% 0.026 236.824);
-  --status-foreground-info: oklch(68.5% 0.169 237.323);
-  --status-background-loading: oklch(0.97 0 0);
-  --status-foreground-loading: oklch(0.205 0 0);
+  --status-background-error: oklch(95% 0.014 252);
+  --status-foreground-error: oklch(25% 0.014 252);
+  --status-background-success: oklch(92% 0.012 245);
+  --status-foreground-success: oklch(28% 0.012 245);
+  --status-background-warning: oklch(88% 0.013 268);
+  --status-foreground-warning: oklch(30% 0.013 268);
+  --status-background-info: oklch(86% 0.015 232);
+  --status-foreground-info: oklch(32% 0.015 232);
+  --status-background-loading: oklch(90% 0.012 260);
+  --status-foreground-loading: oklch(32% 0.012 260);
 
   /* Status colors for card */
-  --status-card-background-error: oklch(94.1% 0.03 12.58);
-  --status-card-foreground-error: oklch(64.5% 0.246 16.439);
-  --status-card-background-icon-error: oklch(90.1% 0.05 12.58);
-  --status-card-background-empty: oklch(0.97 0 0);
-  --status-card-foreground-empty: oklch(0.205 0 0);
-  --status-card-background-icon-empty: oklch(0.93 0 0);
+  --status-card-background-error: oklch(95% 0.014 252);
+  --status-card-foreground-error: oklch(25% 0.014 252);
+  --status-card-background-icon-error: oklch(88% 0.014 252);
+  --status-card-background-empty: oklch(90% 0.012 260);
+  --status-card-foreground-empty: oklch(32% 0.012 260);
+  --status-card-background-icon-empty: oklch(84% 0.012 260);
 
   /* Calendar colors */
-  --calendar-color-gray: oklch(55.6% 0 0);
-  --calendar-color-red: oklch(57.7% 0.245 27.325);
-  --calendar-color-yellow: oklch(76.9% 0.188 70.08);
-  --calendar-color-orange: oklch(70.5% 0.213 47.604);
-  --calendar-color-purple: oklch(55.8% 0.288 302.321);
-  --calendar-color-blue: oklch(62.3% 0.214 259.815);
-  --calendar-color-indigo: oklch(51.1% 0.262 276.966);
-  --calendar-color-sky: oklch(58.8% 0.158 241.966);
-  --calendar-color-green: oklch(39.3% 0.095 152.535);
-  --calendar-color-lime: oklch(62.7% 0.194 149.214);
+  --calendar-color-gray: oklch(52% 0.012 260);
+  --calendar-color-red: oklch(36% 0.015 252);
+  --calendar-color-yellow: oklch(48% 0.012 272);
+  --calendar-color-orange: oklch(40% 0.014 256);
+  --calendar-color-purple: oklch(32% 0.016 278);
+  --calendar-color-blue: oklch(44% 0.015 242);
+  --calendar-color-indigo: oklch(38% 0.013 266);
+  --calendar-color-sky: oklch(50% 0.014 228);
+  --calendar-color-green: oklch(46% 0.012 248);
+  --calendar-color-lime: oklch(54% 0.013 220);
 
   /* Case urgency colors */
   --case-urgency-critical-background: oklch(95% 0.01 260);
@@ -497,18 +497,18 @@
   --selector-foreground: oklch(50% 0.134 242.749);
 
   /* License status colors */
-  --license-valid-foreground: oklch(0.205 0 0);
-  --license-valid-background: oklch(0.97 0 0);
-  --license-invalid-foreground: oklch(64.5% 0.246 16.439);
-  --license-invalid-background: oklch(94.1% 0.03 12.58);
-  --license-no-config-foreground: oklch(68.5% 0.169 237.323);
-  --license-no-config-background: oklch(95.1% 0.026 236.824);
+  --license-valid-foreground: oklch(28% 0.012 245);
+  --license-valid-background: oklch(92% 0.012 245);
+  --license-invalid-foreground: oklch(25% 0.014 252);
+  --license-invalid-background: oklch(95% 0.014 252);
+  --license-no-config-foreground: oklch(32% 0.015 232);
+  --license-no-config-background: oklch(86% 0.015 232);
 
   /* Finances type colors */
-  --finance-type-income-background: oklch(96.2% 0.044 156.743);
-  --finance-type-income-foreground: oklch(62.7% 0.194 149.214);
-  --finance-type-expense-background: oklch(93.6% 0.032 17.717);
-  --finance-type-expense-foreground: oklch(57.7% 0.245 27.325);
+  --finance-type-income-background: oklch(92% 0.012 245);
+  --finance-type-income-foreground: oklch(28% 0.012 245);
+  --finance-type-expense-background: oklch(95% 0.014 252);
+  --finance-type-expense-foreground: oklch(25% 0.014 252);
 
   /* TipTap / RichTextEditor */
   --editor-text-default: hsl(240 10% 3.9%);
@@ -559,47 +559,47 @@
     0 4px 6px -4px rgb(0 0 0 / 0.1);
 
   /* Task tag colors */
-  --task-tag-foreground-gray: oklch(32% 0.018 260);
-  --task-tag-background-gray: oklch(92% 0.01 260);
+  --task-tag-foreground-gray: oklch(32% 0.012 260);
+  --task-tag-background-gray: oklch(92% 0.012 260);
 
-  --task-tag-foreground-red: oklch(30% 0.09 26);
-  --task-tag-background-red: oklch(88% 0.06 25);
+  --task-tag-foreground-red: oklch(26% 0.015 252);
+  --task-tag-background-red: oklch(86% 0.015 252);
 
-  --task-tag-foreground-yellow: oklch(36% 0.08 58);
-  --task-tag-background-yellow: oklch(90% 0.07 95);
+  --task-tag-foreground-yellow: oklch(34% 0.012 272);
+  --task-tag-background-yellow: oklch(94% 0.012 272);
 
-  --task-tag-foreground-orange: oklch(36% 0.11 42);
-  --task-tag-background-orange: oklch(90% 0.07 50);
+  --task-tag-foreground-orange: oklch(30% 0.014 256);
+  --task-tag-background-orange: oklch(84% 0.014 256);
 
-  --task-tag-foreground-purple: oklch(32% 0.14 305);
-  --task-tag-background-purple: oklch(90% 0.08 302);
+  --task-tag-foreground-purple: oklch(28% 0.016 278);
+  --task-tag-background-purple: oklch(90% 0.016 278);
 
-  --task-tag-foreground-blue: oklch(32% 0.12 265);
-  --task-tag-background-blue: oklch(88% 0.08 260);
+  --task-tag-foreground-blue: oklch(32% 0.015 242);
+  --task-tag-background-blue: oklch(88% 0.015 242);
 
-  --task-tag-foreground-indigo: oklch(30% 0.12 278);
-  --task-tag-background-indigo: oklch(88% 0.08 277);
+  --task-tag-foreground-indigo: oklch(29% 0.013 266);
+  --task-tag-background-indigo: oklch(93% 0.013 266);
 
-  --task-tag-foreground-sky: oklch(30% 0.08 241);
-  --task-tag-background-sky: oklch(88% 0.06 241);
+  --task-tag-foreground-sky: oklch(33% 0.014 228);
+  --task-tag-background-sky: oklch(85% 0.014 228);
 
-  --task-tag-foreground-green: oklch(28% 0.065 152.934);
-  --task-tag-background-green: oklch(86% 0.07 152);
+  --task-tag-foreground-green: oklch(28% 0.012 248);
+  --task-tag-background-green: oklch(91% 0.012 248);
 
-  --task-tag-foreground-lime: oklch(32% 0.08 131);
-  --task-tag-background-lime: oklch(90% 0.08 130);
+  --task-tag-foreground-lime: oklch(35% 0.013 220);
+  --task-tag-background-lime: oklch(89% 0.013 220);
 
-  --task-priority-foreground-low: oklch(28% 0.065 152.934);
-  --task-priority-background-low: oklch(86% 0.07 152);
+  --task-priority-foreground-low: oklch(28% 0.012 248);
+  --task-priority-background-low: oklch(91% 0.012 248);
 
-  --task-priority-foreground-medium: oklch(30% 0.07 53.813);
-  --task-priority-background-medium: oklch(88% 0.08 85);
+  --task-priority-foreground-medium: oklch(30% 0.013 260);
+  --task-priority-background-medium: oklch(88% 0.013 260);
 
-  --task-priority-foreground-high: oklch(32% 0.1 32);
-  --task-priority-background-high: oklch(88% 0.07 35);
+  --task-priority-foreground-high: oklch(32% 0.014 252);
+  --task-priority-background-high: oklch(85% 0.014 252);
 
-  --task-priority-foreground-critical: oklch(28% 0.12 22);
-  --task-priority-background-critical: oklch(90% 0.09 22);
+  --task-priority-foreground-critical: oklch(26% 0.015 244);
+  --task-priority-background-critical: oklch(94% 0.015 244);
 }
 
 .dark {
@@ -636,36 +636,36 @@
   --sidebar-ring: oklch(0.5 0 0);
 
   /* Status colors for toast and messages */
-  --status-background-error: oklch(27.1% 0.105 12.094);
-  --status-foreground-error: oklch(64.5% 0.246 16.439);
-  --status-background-success: oklch(26.6% 0.065 152.934);
-  --status-foreground-success: oklch(72.3% 0.219 149.579);
-  --status-background-warning: oklch(28.6% 0.066 53.813);
-  --status-foreground-warning: oklch(79.5% 0.184 86.047);
-  --status-background-info: oklch(29.3% 0.066 243.157);
-  --status-foreground-info: oklch(68.5% 0.169 237.323);
-  --status-background-loading: oklch(0.182 0 0);
-  --status-foreground-loading: oklch(0.985 0 0);
+  --status-background-error: oklch(25% 0.014 252);
+  --status-foreground-error: oklch(95% 0.014 252);
+  --status-background-success: oklch(28% 0.012 245);
+  --status-foreground-success: oklch(92% 0.012 245);
+  --status-background-warning: oklch(30% 0.013 268);
+  --status-foreground-warning: oklch(88% 0.013 268);
+  --status-background-info: oklch(32% 0.015 232);
+  --status-foreground-info: oklch(86% 0.015 232);
+  --status-background-loading: oklch(28% 0.012 260);
+  --status-foreground-loading: oklch(90% 0.012 260);
 
   /* Status colors for card */
-  --status-card-background-error: oklch(27.1% 0.105 12.094);
-  --status-card-foreground-error: oklch(64.5% 0.246 16.439);
-  --status-card-background-icon-error: oklch(33.1% 0.105 12.094);
-  --status-card-background-empty: oklch(0.182 0 0);
-  --status-card-foreground-empty: oklch(0.985 0 0);
-  --status-card-background-icon-empty: oklch(0.32 0 0);
+  --status-card-background-error: oklch(25% 0.014 252);
+  --status-card-foreground-error: oklch(95% 0.014 252);
+  --status-card-background-icon-error: oklch(30% 0.014 252);
+  --status-card-background-empty: oklch(28% 0.012 260);
+  --status-card-foreground-empty: oklch(90% 0.012 260);
+  --status-card-background-icon-empty: oklch(34% 0.012 260);
 
   /* Calendar colors */
-  --calendar-color-gray: oklch(55.6% 0 0);
-  --calendar-color-red: oklch(25.8% 0.092 26.042);
-  --calendar-color-yellow: oklch(42.1% 0.095 57.708);
-  --calendar-color-orange: oklch(47% 0.157 37.304);
-  --calendar-color-purple: oklch(38.1% 0.176 304.987);
-  --calendar-color-blue: oklch(37.9% 0.146 265.522);
-  --calendar-color-indigo: oklch(35.9% 0.144 278.697);
-  --calendar-color-sky: oklch(39.1% 0.09 240.876);
-  --calendar-color-green: oklch(39.3% 0.095 152.535);
-  --calendar-color-lime: oklch(40.5% 0.101 131.063);
+  --calendar-color-gray: oklch(62% 0.012 260);
+  --calendar-color-red: oklch(58% 0.015 252);
+  --calendar-color-yellow: oklch(70% 0.012 272);
+  --calendar-color-orange: oklch(62% 0.014 256);
+  --calendar-color-purple: oklch(54% 0.016 278);
+  --calendar-color-blue: oklch(66% 0.015 242);
+  --calendar-color-indigo: oklch(60% 0.013 266);
+  --calendar-color-sky: oklch(72% 0.014 228);
+  --calendar-color-green: oklch(68% 0.012 248);
+  --calendar-color-lime: oklch(74% 0.013 220);
 
   /* Case urgency colors */
   --case-urgency-critical-background: oklch(25% 0.01 260);
@@ -701,18 +701,18 @@
   --selector-foreground: oklch(50% 0.134 242.749);
 
   /* License status colors */
-  --license-valid-foreground: oklch(0.708 0 0);
-  --license-valid-background: oklch(0.182 0 0);
-  --license-invalid-foreground: oklch(64.5% 0.246 16.439);
-  --license-invalid-background: oklch(27.1% 0.105 12.094);
-  --license-no-config-background: oklch(29.3% 0.066 243.157);
-  --license-no-config-foreground: oklch(68.5% 0.169 237.323);
+  --license-valid-foreground: oklch(92% 0.012 245);
+  --license-valid-background: oklch(28% 0.012 245);
+  --license-invalid-foreground: oklch(95% 0.014 252);
+  --license-invalid-background: oklch(25% 0.014 252);
+  --license-no-config-foreground: oklch(86% 0.015 232);
+  --license-no-config-background: oklch(32% 0.015 232);
 
   /* Finances type colors */
-  --finance-type-income-background: oklch(26.6% 0.065 152.934);
-  --finance-type-income-foreground: oklch(62.7% 0.194 149.214);
-  --finance-type-expense-background: oklch(25.8% 0.092 26.042);
-  --finance-type-expense-foreground: oklch(57.7% 0.245 27.325);
+  --finance-type-income-background: oklch(28% 0.012 245);
+  --finance-type-income-foreground: oklch(92% 0.012 245);
+  --finance-type-expense-background: oklch(25% 0.014 252);
+  --finance-type-expense-foreground: oklch(95% 0.014 252);
 
   /* TipTap / RichTextEditor */
   --editor-text-default: hsl(0 0% 98%);
@@ -742,47 +742,47 @@
   --editor-border-strong: hsl(240 5% 64.9%);
 
   /* Task colors */
-  --task-tag-foreground-gray: oklch(92% 0.01 260);
-  --task-tag-background-gray: oklch(32% 0.018 260);
+  --task-tag-foreground-gray: oklch(92% 0.012 260);
+  --task-tag-background-gray: oklch(32% 0.012 260);
 
-  --task-tag-foreground-red: oklch(88% 0.06 25);
-  --task-tag-background-red: oklch(30% 0.09 26);
+  --task-tag-foreground-red: oklch(86% 0.015 252);
+  --task-tag-background-red: oklch(26% 0.015 252);
 
-  --task-tag-foreground-yellow: oklch(90% 0.07 95);
-  --task-tag-background-yellow: oklch(36% 0.08 58);
+  --task-tag-foreground-yellow: oklch(94% 0.012 272);
+  --task-tag-background-yellow: oklch(34% 0.012 272);
 
-  --task-tag-foreground-orange: oklch(90% 0.07 50);
-  --task-tag-background-orange: oklch(36% 0.11 42);
+  --task-tag-foreground-orange: oklch(84% 0.014 256);
+  --task-tag-background-orange: oklch(30% 0.014 256);
 
-  --task-tag-foreground-purple: oklch(90% 0.08 302);
-  --task-tag-background-purple: oklch(32% 0.14 305);
+  --task-tag-foreground-purple: oklch(90% 0.016 278);
+  --task-tag-background-purple: oklch(28% 0.016 278);
 
-  --task-tag-foreground-blue: oklch(88% 0.08 260);
-  --task-tag-background-blue: oklch(32% 0.12 265);
+  --task-tag-foreground-blue: oklch(88% 0.015 242);
+  --task-tag-background-blue: oklch(32% 0.015 242);
 
-  --task-tag-foreground-indigo: oklch(88% 0.08 277);
-  --task-tag-background-indigo: oklch(30% 0.12 278);
+  --task-tag-foreground-indigo: oklch(93% 0.013 266);
+  --task-tag-background-indigo: oklch(29% 0.013 266);
 
-  --task-tag-foreground-sky: oklch(88% 0.06 241);
-  --task-tag-background-sky: oklch(30% 0.08 241);
+  --task-tag-foreground-sky: oklch(85% 0.014 228);
+  --task-tag-background-sky: oklch(33% 0.014 228);
 
-  --task-tag-foreground-green: oklch(86% 0.07 152);
-  --task-tag-background-green: oklch(28% 0.065 152.934);
+  --task-tag-foreground-green: oklch(91% 0.012 248);
+  --task-tag-background-green: oklch(28% 0.012 248);
 
-  --task-tag-foreground-lime: oklch(90% 0.08 130);
-  --task-tag-background-lime: oklch(32% 0.08 131);
+  --task-tag-foreground-lime: oklch(89% 0.013 220);
+  --task-tag-background-lime: oklch(35% 0.013 220);
 
-  --task-priority-foreground-low: oklch(86% 0.07 152);
-  --task-priority-background-low: oklch(28% 0.065 152.934);
+  --task-priority-foreground-low: oklch(91% 0.012 248);
+  --task-priority-background-low: oklch(28% 0.012 248);
 
-  --task-priority-foreground-medium: oklch(88% 0.08 85);
-  --task-priority-background-medium: oklch(30% 0.07 53.813);
+  --task-priority-foreground-medium: oklch(88% 0.013 260);
+  --task-priority-background-medium: oklch(30% 0.013 260);
 
-  --task-priority-foreground-high: oklch(88% 0.07 35);
-  --task-priority-background-high: oklch(32% 0.1 32);
+  --task-priority-foreground-high: oklch(85% 0.014 252);
+  --task-priority-background-high: oklch(32% 0.014 252);
 
-  --task-priority-foreground-critical: oklch(90% 0.09 22);
-  --task-priority-background-critical: oklch(28% 0.12 22);
+  --task-priority-foreground-critical: oklch(94% 0.015 244);
+  --task-priority-background-critical: oklch(26% 0.015 244);
 }
 
 @layer base {

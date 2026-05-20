@@ -13,7 +13,7 @@ const Toaster = ({ closeButton = true, ...props }: ToasterProps) => {
           title: "text-sm leading-5",
           description: "text-xs md:text-sm opacity-60",
           closeButton:
-            "absolute! -top-2.5! -right-2.5! left-auto! z-10! size-5! rounded-md! flex! items-center! justify-center! opacity-100! transition-all! duration-150! cursor-pointer! border-0! bg-current/20! backdrop-blur-xl border! border-border/70! hover:bg-current/30 p-0! [&_svg]:size-2.5! [&_svg]:stroke-[2.5]!",
+            "absolute! -top-2.5! -right-2.5! left-auto! z-10! size-5! rounded-md! flex! items-center! justify-center! opacity-100! transition-[filter,border-color]! duration-150! cursor-pointer! border! border-current/10! border-border/70! bg-inherit! text-inherit! backdrop-blur-xl filter hover:contrast-125! hover:brightness-95! dark:hover:brightness-110! p-0! [&_svg]:size-2.5! [&_svg]:stroke-[2.5]! [&_svg]:text-inherit!",
           error:
             "text-status-foreground-error bg-status-background-error backdrop-blur-sm border-status-foreground-error/10 border p-2.5 rounded-md shadow border border-border",
           success:
@@ -26,7 +26,8 @@ const Toaster = ({ closeButton = true, ...props }: ToasterProps) => {
           loader: " text-stone-50 absolute! left-2! top-[12px]!",
           icon: "text-sm  self-start flex h-full size-4",
           actionButton: "bg-white text-black font-medium rounded-md px-2 py-1",
-          cancelButton: "bg-transparent text-white underline",
+          cancelButton:
+            "shrink-0 rounded-md border border-current/10 border-border bg-inherit px-2 py-1 text-inherit font-medium filter transition-[filter,border-color] duration-150 hover:contrast-125 hover:brightness-95 dark:hover:brightness-110 [&_svg]:text-inherit [&_svg]:size-3.5",
         },
       }}
       {...props}
