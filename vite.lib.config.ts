@@ -50,6 +50,7 @@ export default defineConfig({
       entry: {
         index: path.resolve(dirname, "src/exports/index.ts"),
         sidebar: path.resolve(dirname, "src/exports/sidebar.ts"),
+        "file-view": path.resolve(dirname, "src/exports/file-view.ts"),
       },
       formats: ["es"],
     },

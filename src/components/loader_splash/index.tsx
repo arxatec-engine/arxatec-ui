@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Logo } from "../logo";
+import { Loader2 } from "lucide-react";
 
 const INITIAL_PHRASE = "Estamos cargando la aplicación...";
 const INITIAL_DELAY_MS = 1000;
@@ -55,9 +55,9 @@ export const LoaderSplash = () => {
 
   return (
     <div className="w-screen h-screen bg-background flex items-center justify-center">
-      <div className="flex flex-col items-center gap-4">
-        <Logo className="w-32 h-10 text-primary mx-auto" />
-        <p className="text-foreground text-sm font-normal h-6">
+      <div className="flex flex-col items-center gap-2">
+        <Loader2 className="size-5 text-primary animate-spin" />
+        <p className="text-foreground text-xs font-normal h-4">
           {animationStarted ? (
             <>
               Estamos {displayedText}
