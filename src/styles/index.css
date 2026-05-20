@@ -143,6 +143,32 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
+  --text-xs: var(--font-size-xs);
+  --text-xs--line-height: var(--font-line-height-xs);
+  --text-sm: var(--font-size-sm);
+  --text-sm--line-height: var(--font-line-height-sm);
+  --text-base: var(--font-size-base);
+  --text-base--line-height: var(--font-line-height-base);
+  --text-lg: var(--font-size-lg);
+  --text-lg--line-height: var(--font-line-height-lg);
+  --text-xl: var(--font-size-xl);
+  --text-xl--line-height: var(--font-line-height-xl);
+  --text-2xl: var(--font-size-2xl);
+  --text-2xl--line-height: var(--font-line-height-2xl);
+  --text-3xl: var(--font-size-3xl);
+  --text-3xl--line-height: var(--font-line-height-3xl);
+  --text-4xl: var(--font-size-4xl);
+  --text-4xl--line-height: var(--font-line-height-4xl);
+  --text-5xl: var(--font-size-5xl);
+  --text-5xl--line-height: var(--font-line-height-5xl);
+  --text-6xl: var(--font-size-6xl);
+  --text-6xl--line-height: var(--font-line-height-6xl);
+  --text-7xl: var(--font-size-7xl);
+  --text-7xl--line-height: var(--font-line-height-7xl);
+  --text-8xl: var(--font-size-8xl);
+  --text-8xl--line-height: var(--font-line-height-8xl);
+  --text-9xl: var(--font-size-9xl);
+  --text-9xl--line-height: var(--font-line-height-9xl);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -343,6 +369,36 @@
 
 :root {
   --radius: 0.5rem;
+
+  /* Typography scale (base 16px) */
+  --font-size-xs: 0.625rem; /* 10px */
+  --font-size-sm: 0.75rem; /* 12px */
+  --font-size-base: 0.875rem; /* 14px */
+  --font-size-lg: 1rem; /* 16px */
+  --font-size-xl: 1.125rem; /* 18px */
+  --font-size-2xl: 1.375rem; /* 22px */
+  --font-size-3xl: 1.75rem; /* 28px */
+  --font-size-4xl: 2.125rem; /* 34px */
+  --font-size-5xl: 2.875rem; /* 46px */
+  --font-size-6xl: 3.625rem; /* 58px */
+  --font-size-7xl: 4.375rem; /* 70px */
+  --font-size-8xl: 5.875rem; /* 94px */
+  --font-size-9xl: 7.875rem; /* 126px */
+
+  --font-line-height-xs: 0.875rem; /* 14px */
+  --font-line-height-sm: 1.125rem; /* 18px */
+  --font-line-height-base: 1.25rem; /* 20px */
+  --font-line-height-lg: 1.5rem; /* 24px */
+  --font-line-height-xl: 1.625rem; /* 26px */
+  --font-line-height-2xl: 1.875rem; /* 30px */
+  --font-line-height-3xl: 2.25rem; /* 36px */
+  --font-line-height-4xl: 2.625rem; /* 42px */
+  --font-line-height-5xl: 1;
+  --font-line-height-6xl: 1;
+  --font-line-height-7xl: 1;
+  --font-line-height-8xl: 1;
+  --font-line-height-9xl: 1;
+
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
   --card: oklch(98.5% 0 0);
@@ -549,17 +605,17 @@
 .dark {
   --background: oklch(0.145 0 0);
   --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
+  --card: oklch(0.168 0 0);
   --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
+  --popover: oklch(0.168 0 0);
   --popover-foreground: oklch(0.985 0 0);
   --primary: oklch(0.922 0 0);
   --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
+  --secondary: oklch(0.182 0 0);
   --secondary-foreground: oklch(0.708 0 0);
-  --muted: oklch(0.269 0 0);
+  --muted: oklch(0.182 0 0);
   --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
+  --accent: oklch(0.182 0 0);
   --accent-foreground: oklch(0.985 0 0);
   --destructive: oklch(0.704 0.191 22.216);
   --border: oklch(1 0 0 / 4.5%);
@@ -570,14 +626,14 @@
   --chart-3: oklch(0.769 0.188 70.08);
   --chart-4: oklch(0.627 0.265 303.9);
   --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.205 0 0);
+  --sidebar: oklch(0.168 0 0);
   --sidebar-foreground: oklch(0.985 0 0);
   --sidebar-primary: oklch(0.488 0.243 264.376);
   --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent: oklch(0.182 0 0);
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 4.5%);
-  --sidebar-ring: oklch(0.33 0 0);
+  --sidebar-ring: oklch(0.5 0 0);
 
   /* Status colors for toast and messages */
   --status-background-error: oklch(27.1% 0.105 12.094);
@@ -588,14 +644,14 @@
   --status-foreground-warning: oklch(79.5% 0.184 86.047);
   --status-background-info: oklch(29.3% 0.066 243.157);
   --status-foreground-info: oklch(68.5% 0.169 237.323);
-  --status-background-loading: oklch(0.269 0 0);
+  --status-background-loading: oklch(0.182 0 0);
   --status-foreground-loading: oklch(0.985 0 0);
 
   /* Status colors for card */
   --status-card-background-error: oklch(27.1% 0.105 12.094);
   --status-card-foreground-error: oklch(64.5% 0.246 16.439);
   --status-card-background-icon-error: oklch(33.1% 0.105 12.094);
-  --status-card-background-empty: oklch(0.269 0 0);
+  --status-card-background-empty: oklch(0.182 0 0);
   --status-card-foreground-empty: oklch(0.985 0 0);
   --status-card-background-icon-empty: oklch(0.32 0 0);
 
@@ -646,7 +702,7 @@
 
   /* License status colors */
   --license-valid-foreground: oklch(0.708 0 0);
-  --license-valid-background: oklch(0.269 0 0);
+  --license-valid-background: oklch(0.182 0 0);
   --license-invalid-foreground: oklch(64.5% 0.246 16.439);
   --license-invalid-background: oklch(27.1% 0.105 12.094);
   --license-no-config-background: oklch(29.3% 0.066 243.157);
@@ -734,7 +790,7 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground text-base;
   }
 }
 
