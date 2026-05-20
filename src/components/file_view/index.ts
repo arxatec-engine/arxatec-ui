@@ -25,6 +25,14 @@ export * from "./office_viewer";
 export * from "./office_viewer/components/toolbar";
 export * from "./document_viewer/export_dialog";
 export * from "./context";
+export * from "./file_simple_preview_sheet";
+export * from "./file_simple_preview_render";
+export * from "./file_url_preview_sheet";
+export * from "./file_url_preview_render";
+export * from "./docx_preview_viewer";
+export * from "./xlsx_preview_viewer";
+export * from "./blob_office_unavailable";
+export * from "./file_source_file_viewer";
 
 export { useFileImageViewer } from "./image_viewer/hooks";
 export type { UseFileImageViewerParams } from "./image_viewer/hooks/use_file_image_viewer";
