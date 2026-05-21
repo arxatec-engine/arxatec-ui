@@ -17,6 +17,7 @@ import { EditorContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import {
   Bold,
+  Check,
   ChevronDown,
   Code,
   Heading1,
@@ -55,6 +56,17 @@ const createExtensions = (placeholder: string) => [
     emptyNodeClass: "is-description-editor-empty",
   }),
 ];
+
+const HEADING_MENU_OPTIONS = [
+  { value: "paragraph", label: "Párrafo", className: "font-normal" },
+  { value: "1", label: "Título 1", className: "font-semibold" },
+  { value: "2", label: "Título 2", className: "font-semibold" },
+  { value: "3", label: "Título 3", className: "font-medium" },
+  { value: "4", label: "Título 4", className: "font-medium" },
+] as const;
+
+const headingMenuItemClassName =
+  "pl-2 pr-2 [&>span:first-child]:hidden flex w-full items-center justify-between gap-2";
 
 const turndown = new TurndownService({
   headingStyle: "atx",
@@ -256,7 +268,7 @@ export const DescriptionMarkdownEditor = forwardRef<
         className
       )}
     >
-      <div className={cn("font-sans text-base", styles.wrapper, editorClassName)}>
+      <div className={cn(styles.wrapper, editorClassName)}>
         <EditorContent editor={editor} />
       </div>
 
@@ -290,27 +302,22 @@ export const DescriptionMarkdownEditor = forwardRef<
               value={headingMenuValue}
               onValueChange={applyHeadingStyle}
             >
-              <DropdownMenuRadioItem value="paragraph" className="text-sm">
-                Párrafo
-              </DropdownMenuRadioItem>
-              <DropdownMenuRadioItem
-                value="1"
-                className="text-sm font-semibold"
-              >
-                Título 1
-              </DropdownMenuRadioItem>
-              <DropdownMenuRadioItem
-                value="2"
-                className="text-sm font-semibold"
-              >
-                Título 2
-              </DropdownMenuRadioItem>
-              <DropdownMenuRadioItem value="3" className="text-sm font-medium">
-                Título 3
-              </DropdownMenuRadioItem>
-              <DropdownMenuRadioItem value="4" className="text-sm font-medium">
-                Título 4
-              </DropdownMenuRadioItem>
+              {HEADING_MENU_OPTIONS.map(({ value, label, className }) => (
+                <DropdownMenuRadioItem
+                  key={value}
+                  value={value}
+                  className={cn(
+                    "text-sm",
+                    headingMenuItemClassName,
+                    className
+                  )}
+                >
+                  <span>{label}</span>
+                  {headingMenuValue === value ? (
+                    <Check className="size-4 shrink-0" aria-hidden />
+                  ) : null}
+                </DropdownMenuRadioItem>
+              ))}
             </DropdownMenuRadioGroup>
           </DropdownMenuContent>
         </DropdownMenu>
