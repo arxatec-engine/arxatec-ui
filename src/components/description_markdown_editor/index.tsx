@@ -256,7 +256,7 @@ export const DescriptionMarkdownEditor = forwardRef<
         className
       )}
     >
-      <div className={cn(styles.wrapper, editorClassName)}>
+      <div className={cn("font-sans text-base", styles.wrapper, editorClassName)}>
         <EditorContent editor={editor} />
       </div>
 

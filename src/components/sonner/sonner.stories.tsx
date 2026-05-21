@@ -19,6 +19,10 @@ type SonnerStoryArgs = {
   mensajeError?: string
   mensajeInfo?: string
   mensajeAviso?: string
+  descripcionExito?: string
+  descripcionError?: string
+  descripcionInfo?: string
+  descripcionAviso?: string
 }
 
 const meta = {
@@ -113,6 +117,81 @@ export const Variantes: Story = {
         size="sm"
         variant="secondary"
         onClick={() => toast.warning(mensajeAviso)}
+      >
+        Aviso
+      </Button>
+    </div>
+  ),
+}
+
+export const ConDescripcion: Story = {
+  args: {
+    position: 'bottom-right',
+    expand: false,
+    closeButton: true,
+    richColors: false,
+    mensajeExito: 'Guardado correctamente',
+    mensajeError: 'Algo salió mal',
+    mensajeInfo: 'Información',
+    mensajeAviso: 'Atención',
+    descripcionExito: 'Los cambios se aplicaron en el proyecto.',
+    descripcionError: 'No se pudo completar la operación. Inténtalo de nuevo.',
+    descripcionInfo: 'Puedes revisar los detalles en la configuración.',
+    descripcionAviso: 'Esta acción no se puede deshacer.',
+  },
+  argTypes: {
+    descripcionExito: { control: 'text', name: 'Descripción éxito' },
+    descripcionError: { control: 'text', name: 'Descripción error' },
+    descripcionInfo: { control: 'text', name: 'Descripción info' },
+    descripcionAviso: { control: 'text', name: 'Descripción aviso' },
+  },
+  render: ({
+    mensajeExito,
+    mensajeError,
+    mensajeInfo,
+    mensajeAviso,
+    descripcionExito,
+    descripcionError,
+    descripcionInfo,
+    descripcionAviso,
+  }) => (
+    <div className="flex flex-wrap gap-2">
+      <Button
+        type="button"
+        size="sm"
+        onClick={() =>
+          toast.success(mensajeExito, { description: descripcionExito })
+        }
+      >
+        Éxito
+      </Button>
+      <Button
+        type="button"
+        size="sm"
+        variant="destructive"
+        onClick={() =>
+          toast.error(mensajeError, { description: descripcionError })
+        }
+      >
+        Error
+      </Button>
+      <Button
+        type="button"
+        size="sm"
+        variant="outline"
+        onClick={() =>
+          toast.info(mensajeInfo, { description: descripcionInfo })
+        }
+      >
+        Info
+      </Button>
+      <Button
+        type="button"
+        size="sm"
+        variant="secondary"
+        onClick={() =>
+          toast.warning(mensajeAviso, { description: descripcionAviso })
+        }
       >
         Aviso
       </Button>
