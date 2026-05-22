@@ -1,0 +1,286 @@
+/**
+ * Maps tokens into the Tailwind v4 namespace (`@theme inline`).
+ * Raw values are NOT defined here: only the bridge between design system
+ * variables (`tokens.light.css` / `tokens.dark.css`) and the names Tailwind
+ * uses to generate utilities.
+ *
+ * Exception: the `--spacing-*` scale is defined with literal values because
+ * that is what Tailwind v4 expects for `p-*`, `m-*`, `gap-*`, `w-*`, `h-*`,
+ * `space-*`, etc. The old `--padding-*` naming was incorrect: the scale is
+ * not limited to padding.
+ */
+@theme inline {
+  /* Fonts */
+  --font-serif: "Cormorant Garamond", serif;
+  --font-sans: "ArxatecSans", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+
+  /* Radius */
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  /* Typography scale */
+  --text-xs: var(--font-size-xs);
+  --text-xs--line-height: var(--font-line-height-xs);
+  --text-sm: var(--font-size-sm);
+  --text-sm--line-height: var(--font-line-height-sm);
+  --text-base: var(--font-size-base);
+  --text-base--line-height: var(--font-line-height-base);
+  --text-lg: var(--font-size-lg);
+  --text-lg--line-height: var(--font-line-height-lg);
+  --text-xl: var(--font-size-xl);
+  --text-xl--line-height: var(--font-line-height-xl);
+  --text-2xl: var(--font-size-2xl);
+  --text-2xl--line-height: var(--font-line-height-2xl);
+  --text-3xl: var(--font-size-3xl);
+  --text-3xl--line-height: var(--font-line-height-3xl);
+  --text-4xl: var(--font-size-4xl);
+  --text-4xl--line-height: var(--font-line-height-4xl);
+  --text-5xl: var(--font-size-5xl);
+  --text-5xl--line-height: var(--font-line-height-5xl);
+  --text-6xl: var(--font-size-6xl);
+  --text-6xl--line-height: var(--font-line-height-6xl);
+  --text-7xl: var(--font-size-7xl);
+  --text-7xl--line-height: var(--font-line-height-7xl);
+  --text-8xl: var(--font-size-8xl);
+  --text-8xl--line-height: var(--font-line-height-8xl);
+  --text-9xl: var(--font-size-9xl);
+  --text-9xl--line-height: var(--font-line-height-9xl);
+
+  /* Spacing scale (base 16px) — used by p-*, m-*, gap-*, w-*, h-*, space-*, etc. */
+  --spacing-0: 0; /* 0px */
+  --spacing-px: 1px; /* 1px */
+  --spacing-0.5: 0.0625rem; /* 1px */
+  --spacing-1: 0.125rem; /* 2px */
+  --spacing-1.5: 0.25rem; /* 4px */
+  --spacing-2: 0.375rem; /* 6px */
+  --spacing-2.5: 0.5rem; /* 8px */
+  --spacing-3: 0.625rem; /* 10px */
+  --spacing-3.5: 0.75rem; /* 12px */
+  --spacing-4: 0.75rem; /* 12px */
+  --spacing-5: 1rem; /* 16px */
+  --spacing-6: 1.25rem; /* 20px */
+  --spacing-7: 1.5rem; /* 24px */
+  --spacing-8: 1.75rem; /* 28px */
+  --spacing-9: 2rem; /* 32px */
+  --spacing-10: 2.25rem; /* 36px */
+  --spacing-11: 2.5rem; /* 40px */
+  --spacing-12: 2.75rem; /* 44px */
+  --spacing-14: 3.25rem; /* 52px */
+  --spacing-16: 3.75rem; /* 60px */
+  --spacing-20: 4.75rem; /* 76px */
+  --spacing-24: 5.75rem; /* 92px */
+  --spacing-28: 6.75rem; /* 108px */
+  --spacing-32: 7.75rem; /* 124px */
+  --spacing-36: 8.75rem; /* 140px */
+  --spacing-40: 9.75rem; /* 156px */
+  --spacing-44: 10.75rem; /* 172px */
+  --spacing-48: 11.75rem; /* 188px */
+  --spacing-52: 12.75rem; /* 204px */
+  --spacing-56: 13.75rem; /* 220px */
+  --spacing-60: 14.75rem; /* 236px */
+  --spacing-64: 15.75rem; /* 252px */
+  --spacing-72: 17.75rem; /* 284px */
+  --spacing-80: 19.75rem; /* 316px */
+  --spacing-96: 23.75rem; /* 380px */
+
+  /* Surface / chrome colors */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  /* Status colors — toast and messages */
+  --color-status-background-error: var(--status-background-error);
+  --color-status-foreground-error: var(--status-foreground-error);
+  --color-status-background-success: var(--status-background-success);
+  --color-status-foreground-success: var(--status-foreground-success);
+  --color-status-background-warning: var(--status-background-warning);
+  --color-status-foreground-warning: var(--status-foreground-warning);
+  --color-status-background-info: var(--status-background-info);
+  --color-status-foreground-info: var(--status-foreground-info);
+  --color-status-background-loading: var(--status-background-loading);
+  --color-status-foreground-loading: var(--status-foreground-loading);
+
+  /* Status colors — card */
+  --color-status-card-background-error: var(--status-card-background-error);
+  --color-status-card-foreground-error: var(--status-card-foreground-error);
+  --color-status-card-background-icon-error: var(
+    --status-card-background-icon-error
+  );
+  --color-status-card-border-error: var(--status-card-border-error);
+  --color-status-card-background-empty: var(--status-card-background-empty);
+  --color-status-card-foreground-empty: var(--status-card-foreground-empty);
+  --color-status-card-background-icon-empty: var(
+    --status-card-background-icon-empty
+  );
+  --color-status-card-border-empty: var(--status-card-border-empty);
+
+  /* Calendar colors */
+  --color-calendar-color-gray: var(--calendar-color-gray);
+  --color-calendar-color-red: var(--calendar-color-red);
+  --color-calendar-color-yellow: var(--calendar-color-yellow);
+  --color-calendar-color-orange: var(--calendar-color-orange);
+  --color-calendar-color-purple: var(--calendar-color-purple);
+  --color-calendar-color-blue: var(--calendar-color-blue);
+  --color-calendar-color-indigo: var(--calendar-color-indigo);
+  --color-calendar-color-sky: var(--calendar-color-sky);
+  --color-calendar-color-green: var(--calendar-color-green);
+  --color-calendar-color-lime: var(--calendar-color-lime);
+
+  /* Case urgency colors */
+  --color-case-urgency-high-background: var(--case-urgency-high-background);
+  --color-case-urgency-high-foreground: var(--case-urgency-high-foreground);
+  --color-case-urgency-medium-background: var(--case-urgency-medium-background);
+  --color-case-urgency-medium-foreground: var(--case-urgency-medium-foreground);
+  --color-case-urgency-low-background: var(--case-urgency-low-background);
+  --color-case-urgency-low-foreground: var(--case-urgency-low-foreground);
+  --color-case-urgency-critical-background: var(
+    --case-urgency-critical-background
+  );
+  --color-case-urgency-critical-foreground: var(
+    --case-urgency-critical-foreground
+  );
+
+  /* Case status colors */
+  --color-case-status-open-background: var(--case-status-open-background);
+  --color-case-status-open-foreground: var(--case-status-open-foreground);
+  --color-case-status-in-progress-background: var(
+    --case-status-in-progress-background
+  );
+  --color-case-status-in-progress-foreground: var(
+    --case-status-in-progress-foreground
+  );
+  --color-case-status-closed-background: var(--case-status-closed-background);
+  --color-case-status-closed-foreground: var(--case-status-closed-foreground);
+  --color-case-status-archived-background: var(
+    --case-status-archived-background
+  );
+  --color-case-status-archived-foreground: var(
+    --case-status-archived-foreground
+  );
+  --color-case-status-under-negotiation-background: var(
+    --case-status-under-negotiation-background
+  );
+  --color-case-status-under-negotiation-foreground: var(
+    --case-status-under-negotiation-foreground
+  );
+  --color-case-status-waiting-for-customer-background: var(
+    --case-status-waiting-for-customer-background
+  );
+  --color-case-status-waiting-for-customer-foreground: var(
+    --case-status-waiting-for-customer-foreground
+  );
+  --color-case-status-awaiting-trial-background: var(
+    --case-status-awaiting-trial-background
+  );
+  --color-case-status-awaiting-trial-foreground: var(
+    --case-status-awaiting-trial-foreground
+  );
+  --color-case-status-waiting-background: var(--case-status-waiting-background);
+  --color-case-status-waiting-foreground: var(--case-status-waiting-foreground);
+
+  /* Documents selector colors */
+  --color-selector-rectangle: var(--selector-rectangle);
+  --color-selector-background: var(--selector-background);
+  --color-selector-foreground: var(--selector-foreground);
+
+  /* License status colors */
+  --color-license-valid-foreground: var(--license-valid-foreground);
+  --color-license-valid-background: var(--license-valid-background);
+  --color-license-invalid-foreground: var(--license-invalid-foreground);
+  --color-license-invalid-background: var(--license-invalid-background);
+  --color-license-no-config-foreground: var(--license-no-config-foreground);
+  --color-license-no-config-background: var(--license-no-config-background);
+
+  /* Finances type colors */
+  --color-finance-type-income-background: var(--finance-type-income-background);
+  --color-finance-type-income-foreground: var(--finance-type-income-foreground);
+  --color-finance-type-expense-background: var(
+    --finance-type-expense-background
+  );
+  --color-finance-type-expense-foreground: var(
+    --finance-type-expense-foreground
+  );
+
+  /* Task tag colors */
+  --color-task-tag-foreground-gray: var(--task-tag-foreground-gray);
+  --color-task-tag-background-gray: var(--task-tag-background-gray);
+
+  --color-task-tag-foreground-red: var(--task-tag-foreground-red);
+  --color-task-tag-background-red: var(--task-tag-background-red);
+
+  --color-task-tag-foreground-yellow: var(--task-tag-foreground-yellow);
+  --color-task-tag-background-yellow: var(--task-tag-background-yellow);
+
+  --color-task-tag-foreground-orange: var(--task-tag-foreground-orange);
+  --color-task-tag-background-orange: var(--task-tag-background-orange);
+
+  --color-task-tag-foreground-purple: var(--task-tag-foreground-purple);
+  --color-task-tag-background-purple: var(--task-tag-background-purple);
+
+  --color-task-tag-foreground-blue: var(--task-tag-foreground-blue);
+  --color-task-tag-background-blue: var(--task-tag-background-blue);
+
+  --color-task-tag-foreground-indigo: var(--task-tag-foreground-indigo);
+  --color-task-tag-background-indigo: var(--task-tag-background-indigo);
+
+  --color-task-tag-foreground-sky: var(--task-tag-foreground-sky);
+  --color-task-tag-background-sky: var(--task-tag-background-sky);
+
+  --color-task-tag-foreground-green: var(--task-tag-foreground-green);
+  --color-task-tag-background-green: var(--task-tag-background-green);
+
+  --color-task-tag-foreground-lime: var(--task-tag-foreground-lime);
+  --color-task-tag-background-lime: var(--task-tag-background-lime);
+
+  /* Task priority colors */
+  --color-task-priority-foreground-low: var(--task-priority-foreground-low);
+  --color-task-priority-background-low: var(--task-priority-background-low);
+
+  --color-task-priority-foreground-medium: var(
+    --task-priority-foreground-medium
+  );
+  --color-task-priority-background-medium: var(
+    --task-priority-background-medium
+  );
+
+  --color-task-priority-foreground-high: var(--task-priority-foreground-high);
+  --color-task-priority-background-high: var(--task-priority-background-high);
+
+  --color-task-priority-foreground-critical: var(
+    --task-priority-foreground-critical
+  );
+  --color-task-priority-background-critical: var(
+    --task-priority-background-critical
+  );
+}

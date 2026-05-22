@@ -1,0 +1,29 @@
+/**
+ * Reset / global base styles on Tailwind's `base` layer.
+ */
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground text-base;
+  }
+}
+
+/* EmojiPicker overrides */
+.EmojiPickerReact {
+  --epr-text-color: var(--muted-foreground) !important;
+  --epr-emoji-size: 24px !important;
+  font-family: var(--font-sans) !important;
+  font-size: 14px !important;
+  font-weight: 400 !important;
+}
+.epr-emoji-category-label {
+  font-size: 14px !important;
+  font-weight: 700 !important;
+}
+
+/* docx-preview wrapper */
+.docx-preview-container-wrapper {
+  background-color: transparent !important;
+}

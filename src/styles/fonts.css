@@ -1,0 +1,130 @@
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap");
+
+/* Sans: files in ./fonts/ (shipped next to dist/styles.css in the published package) */
+@font-face {
+  font-family: "ArxatecSans";
+  font-style: normal;
+  font-weight: 100;
+  font-display: swap;
+  src: url("./fonts/BlinkMacSystemFont-Ultralight.woff2") format("woff2");
+}
+@font-face {
+  font-family: "ArxatecSans";
+  font-style: italic;
+  font-weight: 100;
+  font-display: swap;
+  src: url("./fonts/BlinkMacSystemFont-UltralightItalic.woff2") format("woff2");
+}
+@font-face {
+  font-family: "ArxatecSans";
+  font-style: normal;
+  font-weight: 200;
+  font-display: swap;
+  src: url("./fonts/BlinkMacSystemFont-Thin.woff2") format("woff2");
+}
+@font-face {
+  font-family: "ArxatecSans";
+  font-style: italic;
+  font-weight: 200;
+  font-display: swap;
+  src: url("./fonts/BlinkMacSystemFont-ThinItalic.woff2") format("woff2");
+}
+@font-face {
+  font-family: "ArxatecSans";
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url("./fonts/BlinkMacSystemFont-Light.woff2") format("woff2");
+}
+@font-face {
+  font-family: "ArxatecSans";
+  font-style: italic;
+  font-weight: 300;
+  font-display: swap;
+  src: url("./fonts/BlinkMacSystemFont-LightItalic.woff2") format("woff2");
+}
+@font-face {
+  font-family: "ArxatecSans";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("./fonts/BlinkMacSystemFont-Regular.woff2") format("woff2");
+}
+@font-face {
+  font-family: "ArxatecSans";
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url("./fonts/BlinkMacSystemFont-RegularItalic.woff2") format("woff2");
+}
+@font-face {
+  font-family: "ArxatecSans";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("./fonts/BlinkMacSystemFont-Medium.woff2") format("woff2");
+}
+@font-face {
+  font-family: "ArxatecSans";
+  font-style: italic;
+  font-weight: 500;
+  font-display: swap;
+  src: url("./fonts/BlinkMacSystemFont-MediumItalic.woff2") format("woff2");
+}
+@font-face {
+  font-family: "ArxatecSans";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("./fonts/BlinkMacSystemFont-Semibold.woff2") format("woff2");
+}
+@font-face {
+  font-family: "ArxatecSans";
+  font-style: italic;
+  font-weight: 600;
+  font-display: swap;
+  src: url("./fonts/BlinkMacSystemFont-SemiboldItalic.woff2") format("woff2");
+}
+@font-face {
+  font-family: "ArxatecSans";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("./fonts/BlinkMacSystemFont-Bold.woff2") format("woff2");
+}
+@font-face {
+  font-family: "ArxatecSans";
+  font-style: italic;
+  font-weight: 700;
+  font-display: swap;
+  src: url("./fonts/BlinkMacSystemFont-BoldItalic.woff2") format("woff2");
+}
+@font-face {
+  font-family: "ArxatecSans";
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url("./fonts/BlinkMacSystemFont-Heavy.woff2") format("woff2");
+}
+@font-face {
+  font-family: "ArxatecSans";
+  font-style: italic;
+  font-weight: 800;
+  font-display: swap;
+  src: url("./fonts/BlinkMacSystemFont-HeavyItalic.woff2") format("woff2");
+}
+@font-face {
+  font-family: "ArxatecSans";
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+  src: url("./fonts/BlinkMacSystemFont-Black.woff2") format("woff2");
+}
+@font-face {
+  font-family: "ArxatecSans";
+  font-style: italic;
+  font-weight: 900;
+  font-display: swap;
+  src: url("./fonts/BlinkMacSystemFont-BlackItalic.woff2") format("woff2");
+}

@@ -1,0 +1,244 @@
+/**
+ * Light theme tokens (default).
+ * These variables are consumed by `theme.css` to feed the Tailwind namespace.
+ * Only raw design system values live here.
+ */
+:root {
+  --radius: 0.5rem;
+
+  /* Typography scale (base 16px) */
+  --font-size-xs: 0.625rem; /* 10px */
+  --font-size-sm: 0.75rem; /* 12px */
+  --font-size-base: 0.875rem; /* 14px */
+  --font-size-lg: 1rem; /* 16px */
+  --font-size-xl: 1.125rem; /* 18px */
+  --font-size-2xl: 1.375rem; /* 22px */
+  --font-size-3xl: 1.75rem; /* 28px */
+  --font-size-4xl: 2.125rem; /* 34px */
+  --font-size-5xl: 2.875rem; /* 46px */
+  --font-size-6xl: 3.625rem; /* 58px */
+  --font-size-7xl: 4.375rem; /* 70px */
+  --font-size-8xl: 5.875rem; /* 94px */
+  --font-size-9xl: 7.875rem; /* 126px */
+
+  --font-line-height-xs: 0.875rem; /* 14px */
+  --font-line-height-sm: 1.125rem; /* 18px */
+  --font-line-height-base: 1.25rem; /* 20px */
+  --font-line-height-lg: 1.5rem; /* 24px */
+  --font-line-height-xl: 1.625rem; /* 26px */
+  --font-line-height-2xl: 1.875rem; /* 30px */
+  --font-line-height-3xl: 2.25rem; /* 36px */
+  --font-line-height-4xl: 2.625rem; /* 42px */
+  --font-line-height-5xl: 1;
+  --font-line-height-6xl: 1;
+  --font-line-height-7xl: 1;
+  --font-line-height-8xl: 1;
+  --font-line-height-9xl: 1;
+
+  /* Surface / chrome */
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+  --card: oklch(98.5% 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  --primary: oklch(0.205 0 0);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+  --accent: oklch(0.97 0 0);
+  --accent-foreground: oklch(0.205 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.922 0 0);
+  --input: oklch(0.922 0 0);
+  --ring: oklch(0.708 0 0);
+  --chart-1: oklch(0.646 0.222 41.116);
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-primary: oklch(0.205 0 0);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-ring: oklch(0.708 0 0);
+
+  /* Status — toast and messages */
+  --status-background-error: oklch(94% 0.03 250);
+  --status-foreground-error: oklch(28% 0.035 250);
+  --status-background-success: oklch(92% 0.028 210);
+  --status-foreground-success: oklch(26% 0.032 210);
+  --status-background-warning: oklch(90% 0.03 275);
+  --status-foreground-warning: oklch(30% 0.033 275);
+  --status-background-info: oklch(88% 0.032 230);
+  --status-foreground-info: oklch(28% 0.035 230);
+  --status-background-loading: oklch(90% 0.018 260);
+  --status-foreground-loading: oklch(32% 0.018 260);
+
+  /* Status — card */
+  --status-card-background-error: oklch(94% 0.035 27.325);
+  --status-card-border-error: oklch(90% 0.055 27.325);
+  --status-card-foreground-error: var(--destructive);
+  --status-card-background-icon-error: oklch(90% 0.07 27.325);
+
+  --status-card-background-empty: oklch(98.5% 0 0);
+  --status-card-border-empty: oklch(0.922 0 0);
+  --status-card-foreground-empty: oklch(0.205 0 0);
+  --status-card-background-icon-empty: oklch(0.955 0 0);
+
+  /* Calendar */
+  --calendar-color-gray: oklch(50% 0.02 260);
+  --calendar-color-red: oklch(34% 0.035 250);
+  --calendar-color-yellow: oklch(52% 0.03 278);
+  --calendar-color-orange: oklch(38% 0.032 258);
+  --calendar-color-purple: oklch(30% 0.038 285);
+  --calendar-color-blue: oklch(44% 0.035 240);
+  --calendar-color-indigo: oklch(36% 0.033 268);
+  --calendar-color-sky: oklch(48% 0.034 225);
+  --calendar-color-green: oklch(42% 0.028 210);
+  --calendar-color-lime: oklch(56% 0.03 205);
+
+  /* Case urgency */
+  --case-urgency-critical-background: oklch(95% 0.01 260);
+  --case-urgency-critical-foreground: oklch(25% 0.01 260);
+  --case-urgency-high-background: oklch(90% 0.01 260);
+  --case-urgency-high-foreground: oklch(30% 0.01 260);
+  --case-urgency-medium-background: oklch(85% 0.01 260);
+  --case-urgency-medium-foreground: oklch(35% 0.01 260);
+  --case-urgency-low-background: oklch(80% 0.01 260);
+  --case-urgency-low-foreground: oklch(40% 0.01 260);
+
+  /* Case status */
+  --case-status-open-background: oklch(88% 0.01 260);
+  --case-status-open-foreground: oklch(32% 0.01 260);
+  --case-status-in-progress-background: oklch(92% 0.01 260);
+  --case-status-in-progress-foreground: oklch(28% 0.01 260);
+  --case-status-closed-background: oklch(85% 0.01 260);
+  --case-status-closed-foreground: oklch(38% 0.01 260);
+  --case-status-archived-background: oklch(75% 0.01 260);
+  --case-status-archived-foreground: oklch(25% 0.01 260);
+  --case-status-under-negotiation-background: oklch(87% 0.01 260);
+  --case-status-under-negotiation-foreground: oklch(34% 0.01 260);
+  --case-status-waiting-for-customer-background: oklch(89% 0.01 260);
+  --case-status-waiting-for-customer-foreground: oklch(31% 0.01 260);
+  --case-status-awaiting-trial-background: oklch(91% 0.01 260);
+  --case-status-awaiting-trial-foreground: oklch(29% 0.01 260);
+  --case-status-waiting-background: oklch(86% 0.01 260);
+  --case-status-waiting-foreground: oklch(33% 0.01 260);
+
+  /* Documents selector */
+  --selector-rectangle: oklch(90.1% 0.058 230.902);
+  --selector-background: oklch(95.1% 0.026 236.824);
+  --selector-foreground: oklch(50% 0.134 242.749);
+
+  /* License status */
+  --license-valid-foreground: oklch(26% 0.032 210);
+  --license-valid-background: oklch(92% 0.028 210);
+  --license-invalid-foreground: oklch(28% 0.035 250);
+  --license-invalid-background: oklch(94% 0.03 250);
+  --license-no-config-foreground: oklch(28% 0.035 230);
+  --license-no-config-background: oklch(86% 0.032 230);
+
+  /* Finances type */
+  --finance-type-income-background: oklch(92% 0.028 210);
+  --finance-type-income-foreground: oklch(26% 0.032 210);
+  --finance-type-expense-background: oklch(94% 0.03 255);
+  --finance-type-expense-foreground: oklch(28% 0.035 255);
+
+  /* TipTap / RichTextEditor */
+  --editor-text-default: hsl(240 10% 3.9%);
+  --editor-text-gray: hsl(240 3.8% 46.1%);
+  --editor-text-brown: hsl(25 95% 53%);
+  --editor-text-orange: hsl(24 95% 53%);
+  --editor-text-yellow: hsl(48 96% 53%);
+  --editor-text-green: hsl(142 71% 45%);
+  --editor-text-blue: hsl(221 83% 53%);
+  --editor-text-purple: hsl(269 97% 85%);
+  --editor-text-pink: hsl(336 80% 58%);
+  --editor-text-red: hsl(0 84% 60%);
+  --editor-bg-default: hsl(0 0% 100%);
+  --editor-bg-subtle: hsl(0 0% 98%);
+  --editor-bg-muted: hsl(240 5% 96%);
+  --editor-highlight-default: hsl(0 0% 98%);
+  --editor-highlight-gray: hsl(240 5% 96%);
+  --editor-highlight-brown: hsl(43 96% 96%);
+  --editor-highlight-orange: hsl(33 100% 96%);
+  --editor-highlight-yellow: hsl(54 100% 96%);
+  --editor-highlight-green: hsl(142 71% 96%);
+  --editor-highlight-blue: hsl(217 91% 96%);
+  --editor-highlight-purple: hsl(269 97% 96%);
+  --editor-highlight-pink: hsl(336 80% 96%);
+  --editor-highlight-red: hsl(0 84% 96%);
+  --editor-border-default: hsl(240 5% 88%);
+  --editor-border-strong: hsl(240 5% 65%);
+  --editor-spacing-1: 0.25rem;
+  --editor-spacing-2: 0.5rem;
+  --editor-spacing-3: 0.75rem;
+  --editor-spacing-4: 1rem;
+  --editor-spacing-6: 1.5rem;
+  --editor-spacing-8: 2rem;
+  --editor-spacing-12: 3rem;
+  --editor-spacing-16: 4rem;
+  --editor-font-sans: "ArxatecSans", ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --editor-font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    monospace;
+  --editor-font-serif: Georgia, Cambria, "Times New Roman", Times, serif;
+  --editor-transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --editor-transition-normal: 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  --editor-transition-slow: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  --editor-shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --editor-shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1),
+    0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --editor-shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1),
+    0 4px 6px -4px rgb(0 0 0 / 0.1);
+
+  /* Task tag colors */
+  --task-tag-foreground-gray: oklch(32% 0.02 260);
+  --task-tag-background-gray: oklch(92% 0.02 260);
+
+  --task-tag-foreground-red: oklch(26% 0.035 250);
+  --task-tag-background-red: oklch(86% 0.03 250);
+
+  --task-tag-foreground-yellow: oklch(34% 0.032 278);
+  --task-tag-background-yellow: oklch(94% 0.028 278);
+
+  --task-tag-foreground-orange: oklch(30% 0.033 258);
+  --task-tag-background-orange: oklch(82% 0.03 258);
+
+  --task-tag-foreground-purple: oklch(28% 0.038 285);
+  --task-tag-background-purple: oklch(90% 0.035 285);
+
+  --task-tag-foreground-blue: oklch(32% 0.035 240);
+  --task-tag-background-blue: oklch(88% 0.032 240);
+
+  --task-tag-foreground-indigo: oklch(29% 0.033 270);
+  --task-tag-background-indigo: oklch(93% 0.03 270);
+
+  --task-tag-foreground-sky: oklch(33% 0.034 225);
+  --task-tag-background-sky: oklch(84% 0.032 225);
+
+  --task-tag-foreground-green: oklch(28% 0.028 210);
+  --task-tag-background-green: oklch(91% 0.025 210);
+
+  --task-tag-foreground-lime: oklch(36% 0.03 205);
+  --task-tag-background-lime: oklch(89% 0.028 205);
+
+  /* Task priority colors */
+  --task-priority-foreground-low: oklch(28% 0.028 210);
+  --task-priority-background-low: oklch(91% 0.025 210);
+
+  --task-priority-foreground-medium: oklch(30% 0.03 240);
+  --task-priority-background-medium: oklch(88% 0.028 240);
+
+  --task-priority-foreground-high: oklch(32% 0.033 260);
+  --task-priority-background-high: oklch(85% 0.03 260);
+
+  --task-priority-foreground-critical: oklch(26% 0.035 250);
+  --task-priority-background-critical: oklch(94% 0.032 250);
+}
