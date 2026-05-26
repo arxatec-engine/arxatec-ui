@@ -21,6 +21,7 @@
 @import "./base.css";
 @import "./prose.css";
 @import "./editor.css";
+@import "./annotation_editor.css";
 
 @source ".";
 @plugin "@tailwindcss/typography";
