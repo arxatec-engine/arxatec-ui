@@ -3,9 +3,13 @@ import "react-pdf/dist/Page/TextLayer.css";
 import type { RefObject } from "react";
 import { useMemo, useState, useCallback } from "react";
 import { Document, pdfjs } from "react-pdf";
-import type { FileAnnotation } from "../../../types/annotations";
+import type {
+  FileAnnotation,
+  TemplateAnnotation,
+} from "../../../types/annotations";
 import { PdfTemplatePageRow } from "../pdf_template_page_row";
 import { LoadingState, ErrorState } from "../../../pdf_viewer/components";
+import type { ShapeDrawTool } from "../../utilities";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
 
@@ -14,11 +18,18 @@ interface Props {
   url: string;
   pageNumber: number;
   scale: number;
-  annotations: FileAnnotation[];
+  pageWidthAtScale1?: number;
+  pageHeightAtScale1?: number;
+  annotations: TemplateAnnotation[];
+  annotationAssetUrls: Record<string, string>;
   selectedId: string | null;
+  shapeDrawTool: ShapeDrawTool | null;
+  createShapeLabel: (kind: ShapeDrawTool) => string;
   onSelect: (id: string) => void;
   onClearSelection: () => void;
-  onChangeAnnotation: (next: FileAnnotation) => void;
+  onChangeTextAnnotation: (next: FileAnnotation) => void;
+  onChangeShapeAnnotation: (next: TemplateAnnotation) => void;
+  onShapeDrawToolChange: (tool: ShapeDrawTool | null) => void;
   onDocumentPagesLoaded?: (numPages: number) => void;
   scrollContainerRef?: RefObject<HTMLDivElement | null>;
   onPageViewportAtScaleOne?: (width: number, height: number) => void;
@@ -32,11 +43,18 @@ const PdfTemplateViewerContent: React.FC<Props> = ({
   url,
   pageNumber,
   scale,
+  pageWidthAtScale1,
+  pageHeightAtScale1,
   annotations,
+  annotationAssetUrls,
   selectedId,
+  shapeDrawTool,
+  createShapeLabel,
   onSelect,
   onClearSelection,
-  onChangeAnnotation,
+  onChangeTextAnnotation,
+  onChangeShapeAnnotation,
+  onShapeDrawToolChange,
   onDocumentPagesLoaded,
   scrollContainerRef,
   onPageViewportAtScaleOne,
@@ -81,6 +99,7 @@ const PdfTemplateViewerContent: React.FC<Props> = ({
           const el = e.target as HTMLElement | null;
           if (!el?.closest) return;
           if (el.closest("[data-annotation-box]")) return;
+          if (el.closest(".konvajs-content")) return;
           if (
             el.closest(
               ".moveable-control-box, .moveable-line, .moveable-control, .moveable-area, .moveable-padding",
@@ -102,10 +121,18 @@ const PdfTemplateViewerContent: React.FC<Props> = ({
             <PdfTemplatePageRow
               pageNumber={displayPage}
               scale={scale}
+              pageWidthAtScale1={pageWidthAtScale1}
+              pageHeightAtScale1={pageHeightAtScale1}
               annotations={annotations}
+              annotationAssetUrls={annotationAssetUrls}
               selectedId={selectedId}
+              shapeDrawTool={shapeDrawTool}
+              createShapeLabel={createShapeLabel}
               onSelect={onSelect}
-              onChange={onChangeAnnotation}
+              onClearSelection={onClearSelection}
+              onChangeText={onChangeTextAnnotation}
+              onChangeShape={onChangeShapeAnnotation}
+              onShapeDrawToolChange={onShapeDrawToolChange}
               onPageViewportAtScaleOne={onPageViewportAtScaleOne}
             />
           )}
