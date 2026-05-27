@@ -1,0 +1,199 @@
+[data-annotation-box] {
+  color-scheme: light;
+  --annotation-line-height: 1;
+  transition: none !important;
+  --editor-text-default: hsl(240 10% 3.9%);
+  --editor-text-gray: hsl(240 3.8% 46.1%);
+  --editor-text-brown: hsl(25 95% 53%);
+  --editor-text-orange: hsl(24 95% 53%);
+  --editor-text-yellow: hsl(48 96% 53%);
+  --editor-text-green: hsl(142 71% 45%);
+  --editor-text-blue: hsl(221 83% 53%);
+  --editor-text-purple: hsl(269 97% 85%);
+  --editor-text-pink: hsl(336 80% 58%);
+  --editor-text-red: hsl(0 84% 60%);
+  --editor-bg-default: hsl(0 0% 100%);
+  --editor-bg-subtle: hsl(0 0% 98%);
+  --editor-bg-muted: hsl(240 5% 96%);
+  --editor-highlight-default: hsl(0 0% 98%);
+  --editor-highlight-gray: hsl(240 5% 96%);
+  --editor-highlight-brown: hsl(43 96% 96%);
+  --editor-highlight-orange: hsl(33 100% 96%);
+  --editor-highlight-yellow: hsl(54 100% 96%);
+  --editor-highlight-green: hsl(142 71% 96%);
+  --editor-highlight-blue: hsl(217 91% 96%);
+  --editor-highlight-purple: hsl(269 97% 96%);
+  --editor-highlight-pink: hsl(336 80% 96%);
+  --editor-highlight-red: hsl(0 84% 96%);
+}
+
+[data-annotation-box] mark {
+  color: inherit;
+}
+
+[data-annotation-box] .annotation-pm::selection,
+[data-annotation-box] .annotation-pm *::selection {
+  background-color: var(--editor-highlight-blue);
+  color: var(--editor-text-default);
+}
+
+[data-annotation-box] .ProseMirror,
+[data-annotation-box] .ProseMirror p,
+[data-annotation-box] .ProseMirror h1,
+[data-annotation-box] .ProseMirror h2,
+[data-annotation-box] .ProseMirror h3,
+[data-annotation-box] .ProseMirror h4 {
+  color: inherit;
+}
+
+[data-annotation-box] .ProseMirror {
+  min-height: 0 !important;
+  height: auto;
+  max-height: none;
+  padding: 0 !important;
+  margin: 0 !important;
+  max-width: none !important;
+  width: 100%;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: var(--annotation-line-height);
+}
+
+[data-annotation-box][data-auto-size="true"] .ProseMirror {
+  width: max-content;
+  max-width: none;
+}
+
+[data-annotation-box] .ProseMirror > p,
+[data-annotation-box] .ProseMirror p {
+  margin: 0 !important;
+  font-size: inherit !important;
+  line-height: inherit;
+}
+
+[data-annotation-box] .ProseMirror > p:first-child {
+  margin-top: 0 !important;
+}
+
+[data-annotation-box] .ProseMirror > p:last-child {
+  margin-bottom: 0 !important;
+}
+
+[data-annotation-box] .ProseMirror strong,
+[data-annotation-box] .ProseMirror b {
+  font-weight: 700;
+  font-size: inherit;
+}
+
+[data-annotation-box] .ProseMirror em {
+  font-size: inherit;
+}
+
+[data-annotation-box] .ProseMirror [style*="font-size"] {
+  font-size: inherit !important;
+}
+
+[data-annotation-box] .ProseMirror [style*="font-family"] {
+  font-family: inherit !important;
+}
+
+[data-annotation-box] .ProseMirror > .react-renderer {
+  margin: 0 !important;
+}
+
+[data-annotation-box] .tiptap {
+  display: block;
+  height: auto;
+  min-height: 0;
+}
+
+[data-annotation-box] .is-editor-empty::before {
+  height: 0;
+  float: left;
+  pointer-events: none;
+}
+
+.moveable-control-box {
+  z-index: 25 !important;
+  pointer-events: auto !important;
+}
+
+.moveable-control {
+  width: 8px !important;
+  height: 8px !important;
+  margin-top: -4px !important;
+  margin-left: -4px !important;
+  border-radius: 1px !important;
+  background: #ffffff !important;
+  border: 1.5px solid #2563eb !important;
+  box-shadow: none !important;
+}
+
+.moveable-line {
+  background: #2563eb !important;
+  pointer-events: auto !important;
+}
+
+.moveable-control,
+.moveable-area,
+.moveable-padding {
+  pointer-events: auto !important;
+}
+
+.moveable-control.moveable-direction-nw {
+  cursor: nw-resize !important;
+}
+.moveable-control.moveable-direction-n {
+  cursor: n-resize !important;
+}
+.moveable-control.moveable-direction-ne {
+  cursor: ne-resize !important;
+}
+.moveable-control.moveable-direction-w {
+  cursor: w-resize !important;
+}
+.moveable-control.moveable-direction-e {
+  cursor: e-resize !important;
+}
+.moveable-control.moveable-direction-sw {
+  cursor: sw-resize !important;
+}
+.moveable-control.moveable-direction-s {
+  cursor: s-resize !important;
+}
+.moveable-control.moveable-direction-se {
+  cursor: se-resize !important;
+}
+
+.moveable-line.moveable-direction-n {
+  cursor: n-resize !important;
+}
+.moveable-line.moveable-direction-s {
+  cursor: s-resize !important;
+}
+.moveable-line.moveable-direction-e {
+  cursor: e-resize !important;
+}
+.moveable-line.moveable-direction-w {
+  cursor: w-resize !important;
+}
+
+.ann-side-panel-preview {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  min-width: 0;
+  max-width: 100%;
+}
+
+.ann-side-panel-textarea {
+  field-sizing: fixed !important;
+  max-width: 100% !important;
+  overflow-wrap: anywhere !important;
+  word-break: break-word !important;
+  white-space: pre-wrap !important;
+  overflow-x: hidden !important;
+}

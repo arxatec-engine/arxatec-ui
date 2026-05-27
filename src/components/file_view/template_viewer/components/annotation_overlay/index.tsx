@@ -11,6 +11,8 @@ interface Props {
   onChange: (next: FileAnnotation) => void;
   getPageRect: () => DOMRect | null;
   moveableLayoutKey: string;
+  hidden?: boolean;
+  allowPagePointerEvents?: boolean;
 }
 
 export const AnnotationOverlay: React.FC<Props> = ({
@@ -22,6 +24,8 @@ export const AnnotationOverlay: React.FC<Props> = ({
   onChange,
   getPageRect,
   moveableLayoutKey,
+  hidden = false,
+  allowPagePointerEvents = false,
 }) => {
   const list = annotations.filter((a) => a.page === pageNumber);
   const [moveableContainer, setMoveableContainer] =
@@ -33,10 +37,16 @@ export const AnnotationOverlay: React.FC<Props> = ({
   if (list.length === 0) return null;
 
   return (
-    <div className="pointer-events-none absolute inset-0 z-10">
+    <div
+      className="pointer-events-none absolute inset-0 z-10"
+      style={{
+        visibility: hidden ? "hidden" : "visible",
+        pointerEvents: hidden || allowPagePointerEvents ? "none" : undefined,
+      }}
+    >
       <div
         ref={containerRef}
-        className="pointer-events-auto relative h-full w-full"
+        className="pointer-events-none relative h-full w-full"
       >
         {list.map((ann) => (
           <AnnotationItem

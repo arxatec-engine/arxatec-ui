@@ -7,8 +7,15 @@ import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/tooltip";
 import { Layers, Pencil, Trash2 } from "lucide-react";
 import { useCallback, useMemo, useState } from "react";
 import { cn } from "@/utilities/class";
-import type { FileAnnotation } from "../../../types/annotations";
-import { mergePlainDraftIntoAnnotationHtml } from "../../merge_plain_into_annotation_html";
+import type {
+  FileAnnotation,
+  TemplateAnnotation,
+} from "../../../types/annotations";
+import { isTextAnnotation } from "../../../types/annotations";
+import {
+  displayLabelForAnnotation,
+  mergePlainDraftIntoAnnotationHtml,
+} from "../../utilities";
 
 function plainPreviewFromHtml(html: string): string {
   const text = html
@@ -29,7 +36,7 @@ function htmlToPlain(html: string): string {
 }
 
 interface Props {
-  annotations: FileAnnotation[];
+  annotations: TemplateAnnotation[];
   selectedId: string | null;
   onFocusAnnotation: (id: string) => void;
   onUpdateAnnotation: (next: FileAnnotation) => void;
@@ -38,19 +45,20 @@ interface Props {
 }
 
 export const AnnotationsSidePanel: React.FC<Props> = ({
-  annotations,
+  annotations: allAnnotations,
   selectedId,
   onFocusAnnotation,
   onUpdateAnnotation,
   onDelete,
   onClearAll,
 }) => {
+  const annotations = allAnnotations;
   const [editingId, setEditingId] = useState<string | null>(null);
   const [editDraft, setEditDraft] = useState("");
 
   const effectiveEditingId =
     editingId !== null &&
-    annotations.some((a) => a.id === editingId) &&
+    annotations.some((a) => a.id === editingId && isTextAnnotation(a)) &&
     selectedId === editingId
       ? editingId
       : null;
@@ -58,7 +66,7 @@ export const AnnotationsSidePanel: React.FC<Props> = ({
   const pagesGrouped = useMemo(() => {
     const orderIndex = (id: string) =>
       annotations.findIndex((x) => x.id === id);
-    const byPage = new Map<number, FileAnnotation[]>();
+    const byPage = new Map<number, TemplateAnnotation[]>();
     for (const a of annotations) {
       const arr = byPage.get(a.page) ?? [];
       arr.push(a);
@@ -91,18 +99,30 @@ export const AnnotationsSidePanel: React.FC<Props> = ({
 
   const commitEdit = useCallback(() => {
     if (!effectiveEditingId) return;
-    const ann = annotations.find((x) => x.id === effectiveEditingId);
+    const ann = annotations.find(
+      (x): x is FileAnnotation =>
+        x.id === effectiveEditingId && isTextAnnotation(x),
+    );
     if (!ann) return;
+    const content_html = mergePlainDraftIntoAnnotationHtml(
+      ann.content_html,
+      editDraft,
+    );
+    onFocusAnnotation(ann.id);
     onUpdateAnnotation({
       ...ann,
-      content_html: mergePlainDraftIntoAnnotationHtml(
-        ann.content_html,
-        editDraft,
-      ),
+      content_html,
+      label: plainPreviewFromHtml(content_html).slice(0, 500) || ann.label,
     });
     setEditingId(null);
     setEditDraft("");
-  }, [annotations, effectiveEditingId, editDraft, onUpdateAnnotation]);
+  }, [
+    annotations,
+    effectiveEditingId,
+    editDraft,
+    onUpdateAnnotation,
+    onFocusAnnotation,
+  ]);
 
   const totalCount = annotations.length;
   const isEmpty = totalCount === 0;
@@ -146,13 +166,13 @@ export const AnnotationsSidePanel: React.FC<Props> = ({
             color="white"
             size="sm"
             title="Sin bloques aún"
-            description="Usa «Insertar texto» en la barra superior para añadir tu primer bloque."
+            description="Usa la barra superior para añadir texto o formas."
             classNameCard="w-full flex-col items-center text-center"
           />
         </div>
       ) : (
-        <ScrollArea className="min-h-0 flex-1">
-          <div className="flex flex-col gap-3 p-2">
+        <ScrollArea className="min-h-0 w-full flex-1">
+          <div className="flex w-full min-w-0 flex-col gap-3 p-2">
             {pagesGrouped.map(({ page, items }) => (
               <section
                 key={page}
@@ -173,13 +193,16 @@ export const AnnotationsSidePanel: React.FC<Props> = ({
                 <ul className="flex flex-col gap-1.5">
                   {items.map((a) => {
                     const selected = selectedId === a.id;
-                    const isEditing = effectiveEditingId === a.id;
-                    const preview = plainPreviewFromHtml(a.content_html);
+                    const isText = isTextAnnotation(a);
+                    const isEditing = isText && effectiveEditingId === a.id;
+                    const preview = isText
+                      ? plainPreviewFromHtml(a.content_html)
+                      : displayLabelForAnnotation(a, annotations);
                     return (
-                      <li key={a.id}>
+                      <li key={a.id} className="min-w-0 overflow-hidden">
                         <div
                           className={cn(
-                            "group rounded-md border transition-colors",
+                            "group min-w-0 overflow-hidden rounded-md border transition-colors",
                             isEditing
                               ? "border-border bg-background shadow-sm"
                               : selected
@@ -189,13 +212,13 @@ export const AnnotationsSidePanel: React.FC<Props> = ({
                         >
                           {isEditing ? (
                             <div
-                              className="flex flex-col gap-2 p-2"
+                              className="flex min-w-0 flex-col gap-2 overflow-hidden p-2"
                               onPointerDown={(e) => e.stopPropagation()}
                             >
                               <Textarea
                                 value={editDraft}
                                 onChange={(e) => setEditDraft(e.target.value)}
-                                className="min-h-24 resize-none rounded-md border border-border bg-background px-2 py-1.5 text-sm shadow-none transition-colors placeholder:text-muted-foreground focus-visible:border-primary focus-visible:ring-1 focus-visible:ring-primary/20 focus-visible:ring-offset-0"
+                                className="ann-side-panel-textarea min-h-24 w-full min-w-0 max-w-full resize-none rounded-md border border-border bg-background px-2 py-1.5 text-sm shadow-none transition-colors placeholder:text-muted-foreground focus-visible:border-primary focus-visible:ring-1 focus-visible:ring-primary/20 focus-visible:ring-offset-0"
                                 aria-label="Editar contenido del bloque"
                                 autoFocus
                               />
@@ -220,16 +243,16 @@ export const AnnotationsSidePanel: React.FC<Props> = ({
                               </div>
                             </div>
                           ) : (
-                            <div className="flex items-center gap-1 px-2 py-1.5">
+                            <div className="flex min-w-0 items-start gap-1 overflow-hidden px-2 py-1.5">
                               <button
                                 type="button"
-                                className="flex min-w-0 flex-1 items-center gap-2 text-left"
+                                className="flex min-w-0 flex-1 overflow-hidden text-left"
                                 onClick={() => onFocusAnnotation(a.id)}
                                 aria-label={`Seleccionar bloque: ${preview}`}
                               >
                                 <span
                                   className={cn(
-                                    "line-clamp-2 whitespace-pre-wrap wrap-break-word text-sm leading-snug",
+                                    "ann-side-panel-preview text-sm leading-snug",
                                     selected
                                       ? "text-foreground"
                                       : "text-foreground/90",
@@ -239,24 +262,28 @@ export const AnnotationsSidePanel: React.FC<Props> = ({
                                 </span>
                               </button>
                               <div className="flex shrink-0 items-center gap-0.5 opacity-60 transition-opacity group-hover:opacity-100 group-focus-within:opacity-100">
-                                <Tooltip>
-                                  <TooltipTrigger asChild>
-                                    <Button
-                                      type="button"
-                                      variant="ghost"
-                                      size="icon"
-                                      className="size-7 text-muted-foreground hover:text-foreground"
-                                      aria-label="Editar texto"
-                                      onClick={(e) => {
-                                        e.stopPropagation();
-                                        startEdit(a);
-                                      }}
-                                    >
-                                      <Pencil className="size-3.5" />
-                                    </Button>
-                                  </TooltipTrigger>
-                                  <TooltipContent>Editar texto</TooltipContent>
-                                </Tooltip>
+                                {isText ? (
+                                  <Tooltip>
+                                    <TooltipTrigger asChild>
+                                      <Button
+                                        type="button"
+                                        variant="ghost"
+                                        size="icon"
+                                        className="size-7 text-muted-foreground hover:text-foreground"
+                                        aria-label="Editar texto"
+                                        onClick={(e) => {
+                                          e.stopPropagation();
+                                          startEdit(a);
+                                        }}
+                                      >
+                                        <Pencil className="size-3.5" />
+                                      </Button>
+                                    </TooltipTrigger>
+                                    <TooltipContent>
+                                      Editar texto
+                                    </TooltipContent>
+                                  </Tooltip>
+                                ) : null}
                                 <Tooltip>
                                   <TooltipTrigger asChild>
                                     <Button

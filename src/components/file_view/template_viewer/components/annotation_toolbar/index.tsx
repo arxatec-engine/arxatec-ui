@@ -1,13 +1,27 @@
 import { Button } from "@/components/button";
 import { Separator } from "@/components/separator";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/tooltip";
-import { FileDown, Loader2, Type } from "lucide-react";
+import { cn } from "@/utilities/class";
+import {
+  Circle,
+  FileDown,
+  ImagePlus,
+  Loader2,
+  Square,
+  Type,
+  Slash,
+} from "lucide-react";
 import type { ReactNode } from "react";
+import type { ShapeDrawTool } from "../../utilities";
 
 interface Props {
+  shapeDrawTool: ShapeDrawTool | null;
+  onShapeDrawToolChange: (tool: ShapeDrawTool | null) => void;
   onInsertText: () => void;
+  onInsertImage: () => void;
   onSaveAsPdf: () => void;
   isExporting: boolean;
+  isUploadingImage?: boolean;
   hasAnnotations: boolean;
   formatToolbar?: ReactNode;
   hasSelection?: boolean;
@@ -16,9 +30,13 @@ interface Props {
 }
 
 export const AnnotationToolbar: React.FC<Props> = ({
+  shapeDrawTool,
+  onShapeDrawToolChange,
   onInsertText,
+  onInsertImage,
   onSaveAsPdf,
   isExporting,
+  isUploadingImage = false,
   hasAnnotations,
   formatToolbar,
   hasSelection = false,
@@ -32,10 +50,26 @@ export const AnnotationToolbar: React.FC<Props> = ({
 
   const saveDisabled = !hasAnnotations || isExporting;
 
+  const shapeBtnClass = (tool: ShapeDrawTool) =>
+    cn(
+      "size-7",
+      shapeDrawTool === tool &&
+        "bg-primary/10 text-primary hover:bg-primary/15 hover:text-primary",
+    );
+
+  const toggleShapeTool = (tool: ShapeDrawTool) => {
+    onShapeDrawToolChange(shapeDrawTool === tool ? null : tool);
+  };
+
+  const handleInsertText = () => {
+    onShapeDrawToolChange(null);
+    onInsertText();
+  };
+
   return (
     <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5 border-b border-border bg-card px-3 py-1.5">
       <div className="order-last flex w-full min-w-0 basis-full items-center justify-center sm:order-0 sm:w-auto sm:flex-1 sm:basis-0">
-        <div className="flex items-center gap-1">
+        <div className="flex flex-wrap items-center gap-1">
           {hasSelection ? (
             <Tooltip>
               <TooltipTrigger asChild>
@@ -43,8 +77,8 @@ export const AnnotationToolbar: React.FC<Props> = ({
                   type="button"
                   variant="ghost"
                   size="icon"
-                  className="size-7 bg-primary/10 text-primary hover:bg-primary/15 hover:text-primary"
-                  onClick={onInsertText}
+                  className="size-7"
+                  onClick={handleInsertText}
                   aria-label="Insertar caja de texto"
                 >
                   <Type className="size-4" />
@@ -64,8 +98,8 @@ export const AnnotationToolbar: React.FC<Props> = ({
                   type="button"
                   variant="ghost"
                   size="sm"
-                  className="h-8 gap-1.5 bg-primary/10 px-2.5 font-medium text-primary hover:bg-primary/15 hover:text-primary"
-                  onClick={onInsertText}
+                  className="h-8 gap-1.5 px-2.5 font-medium"
+                  onClick={handleInsertText}
                 >
                   <Type className="size-4" />
                   Nuevo texto
@@ -74,6 +108,76 @@ export const AnnotationToolbar: React.FC<Props> = ({
               <TooltipContent>{pageHint}</TooltipContent>
             </Tooltip>
           )}
+
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button
+                type="button"
+                variant="ghost"
+                size="icon"
+                className={shapeBtnClass("line")}
+                onClick={() => toggleShapeTool("line")}
+                aria-label="Dibujar línea"
+              >
+                <Slash className="size-4" />
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>Dibujar línea · {pageHint}</TooltipContent>
+          </Tooltip>
+
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button
+                type="button"
+                variant="ghost"
+                size="icon"
+                className={shapeBtnClass("rect")}
+                onClick={() => toggleShapeTool("rect")}
+                aria-label="Dibujar rectángulo"
+              >
+                <Square className="size-4" />
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>Dibujar rectángulo · {pageHint}</TooltipContent>
+          </Tooltip>
+
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button
+                type="button"
+                variant="ghost"
+                size="icon"
+                className={shapeBtnClass("ellipse")}
+                onClick={() => toggleShapeTool("ellipse")}
+                aria-label="Dibujar elipse"
+              >
+                <Circle className="size-4" />
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>Dibujar elipse · {pageHint}</TooltipContent>
+          </Tooltip>
+
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button
+                type="button"
+                variant="ghost"
+                size="icon"
+                className="size-7"
+                onClick={onInsertImage}
+                aria-label="Insertar imagen"
+                disabled={isUploadingImage}
+              >
+                {isUploadingImage ? (
+                  <Loader2 className="size-4 animate-spin" />
+                ) : (
+                  <ImagePlus className="size-4" />
+                )}
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>Insertar imagen · {pageHint}</TooltipContent>
+          </Tooltip>
+
           {hasSelection && formatToolbar ? (
             <>
               <Separator orientation="vertical" className="h-5 bg-border/80" />
