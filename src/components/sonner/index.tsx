@@ -10,7 +10,7 @@ import { Toaster as Sonner, type ToasterProps } from "sonner";
 const Toaster = ({ closeButton = true, ...props }: ToasterProps) => {
   return (
     <Sonner
-      className="toaster group"
+      className="toaster group pointer-events-none"
       closeButton={closeButton}
       icons={{
         success: <CircleCheck className="size-4" />,
@@ -23,7 +23,7 @@ const Toaster = ({ closeButton = true, ...props }: ToasterProps) => {
         unstyled: true,
         classNames: {
           toast:
-            "group toast transition-all duration-300 shadow-none flex gap-1.5 relative",
+            "group toast pointer-events-auto transition-all duration-300 shadow-none flex gap-1.5 relative",
           title: "text-sm leading-4",
           description: "text-xs md:text-sm opacity-60",
           closeButton:
@@ -37,7 +37,7 @@ const Toaster = ({ closeButton = true, ...props }: ToasterProps) => {
           info: "text-status-foreground-info bg-status-background-info backdrop-blur-lg border-status-foreground-info/10 border p-2.5 rounded-md shadow border border-border",
           loading:
             "text-status-foreground-loading bg-status-background-loading text-base backdrop-blur-sm border-status-foreground-loading/10 border p-2.5 rounded-md shadow border border-border",
-          loader: " text-stone-50 absolute! left-2! top-[12px]!",
+          loader: " text-stone-50 absolute! left-[13px]! top-[13px]!",
           icon: "self-center flex shrink-0 size-4 [[data-sonner-toast]:has([data-description])_&]:self-start [[data-sonner-toast]:has([data-description])_&]:mt-0.5",
           actionButton: "bg-white text-black font-medium rounded-md px-2 py-1",
           cancelButton:

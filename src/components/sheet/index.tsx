@@ -4,6 +4,13 @@ import { XIcon } from "lucide-react";
 
 import { cn } from "@/utilities/index";
 
+function isSonnerInteraction(target: EventTarget | null) {
+  return (
+    target instanceof Element &&
+    Boolean(target.closest("[data-sonner-toast], [data-sonner-toaster]"))
+  );
+}
+
 function Sheet({ ...props }: React.ComponentProps<typeof SheetPrimitive.Root>) {
   return <SheetPrimitive.Root data-slot="sheet" {...props} />;
 }
@@ -52,6 +59,8 @@ function SheetContent({
   children,
   side = "right",
   onContextMenu,
+  onPointerDownOutside,
+  onInteractOutside,
   ...props
 }: React.ComponentProps<typeof SheetPrimitive.Content> & {
   side?: "top" | "right" | "bottom" | "left";
@@ -76,6 +85,18 @@ function SheetContent({
         onContextMenu={(e) => {
           e.stopPropagation();
           onContextMenu?.(e);
+        }}
+        onPointerDownOutside={(e) => {
+          if (isSonnerInteraction(e.target)) {
+            e.preventDefault();
+          }
+          onPointerDownOutside?.(e);
+        }}
+        onInteractOutside={(e) => {
+          if (isSonnerInteraction(e.target)) {
+            e.preventDefault();
+          }
+          onInteractOutside?.(e);
         }}
         {...props}
       >
