@@ -20,17 +20,19 @@ export const DateRangePicker = ({
   onStartDateChange,
   onDueDateChange,
   errorMessage,
-  label = "Fecha",
+  label,
   optional = false,
 }: Props) => {
   return (
     <div>
-      <Label className="mb-2 flex items-center gap-2">
-        {label}
-        {optional && (
-          <span className="text-xs text-muted-foreground">(Opcional)</span>
-        )}
-      </Label>
+      {label && (
+        <Label className="mb-2 flex items-center gap-2">
+          {label}
+          {optional && (
+            <span className="text-xs text-muted-foreground">(Opcional)</span>
+          )}
+        </Label>
+      )}
       <Popover>
         <PopoverTrigger asChild>
           <Button
