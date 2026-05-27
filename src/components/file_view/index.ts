@@ -44,7 +44,7 @@ export { useContainerSize } from "./image_viewer/hooks/use_container_size";
 export { useVideoPlayer } from "./video_player/hooks";
 export type { UseVideoPlayerReturn } from "./video_player/hooks/use_video_player";
 export { getSourceLanguageFromFile } from "./source_viewer/language";
-export { resolveTemplateFileKind, DOCX_MIME, normalizeMimeBase } from "./template_viewer/template_file_kind";
+export { resolveTemplateFileKind, DOCX_MIME, normalizeMimeBase } from "./template_viewer/utilities";
 
 export {
   FileViewLoadingState as PdfViewerLoadingState,

@@ -6,6 +6,7 @@ import {
   useRef,
   useState,
 } from "react";
+import type { ChangeEvent } from "react";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { Button } from "@/components/button";
 import {
@@ -18,27 +19,47 @@ import {
 import { Input } from "@/components/input";
 import { Label } from "@/components/label";
 import { StatusMessage } from "@/components/status_message";
-import { FileQuestion } from "lucide-react";
+import { FileQuestion, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 import type {
   FileAnnotation,
   FileAnnotationsSchema,
   FileAnnotationsRow,
   FileTemplateViewerApi,
+  ImageAnnotation,
+  TemplateAnnotation,
+} from "../types/annotations";
+import {
+  TEMPLATE_ANNOTATION_TYPES,
+  isImageAnnotation,
+  isTextAnnotation,
 } from "../types/annotations";
 import {
   ANNOTATION_DEBOUNCE_MS,
+  ANNOTATION_MIN_HEIGHT,
+  ANNOTATION_MIN_WIDTH,
   DEFAULT_ANNOTATION,
-  normalizeAnnotationsSchema,
   normalizeFileAnnotation,
 } from "./constants";
+import {
+  normalizeAnnotationsSchema,
+  parseAndNormalizeAnnotationsSchema,
+  normalizeTemplateAnnotation,
+  estimateAnnotationTextBoxNorm,
+  type ShapeDrawTool,
+  isShapeToolbarAnnotation,
+  buildShapeLabel,
+  syncShapeLabelCounters,
+  resolveTemplateFileKind,
+} from "./utilities";
 import { ActiveAnnotationEditorProvider } from "./context/active_annotation_editor_provider";
+import { useActiveAnnotationEditor } from "./context/use_active_annotation_editor";
 import { AnnotationDockedToolbar } from "./components/annotation_docked_toolbar";
+import { AnnotationShapeToolbar } from "./components/annotation_shape_toolbar";
 import { AnnotationToolbar } from "./components/annotation_toolbar";
 import { PdfTemplateViewer } from "./components/pdf_template_viewer";
 import { TemplateFloatingBar } from "./components/template_floating_bar";
 import { AnnotationsSidePanel } from "./components/annotations_side_panel";
-import { resolveTemplateFileKind } from "./template_file_kind";
 import { downloadFileFromUrl } from "@/utilities/download";
 
 export type FileTemplateViewerHandle = {
@@ -68,23 +89,7 @@ function annotationPlainPreview(html: string): string {
 
 function parseSchema(raw: unknown): FileAnnotationsSchema | null {
   if (raw == null) return emptySchema();
-  let candidate: unknown = raw;
-  if (typeof candidate === "string") {
-    try {
-      candidate = JSON.parse(candidate);
-    } catch {
-      return null;
-    }
-  }
-  if (
-    candidate &&
-    typeof candidate === "object" &&
-    "annotations" in candidate &&
-    Array.isArray((candidate as FileAnnotationsSchema).annotations)
-  ) {
-    return candidate as FileAnnotationsSchema;
-  }
-  return null;
+  return parseAndNormalizeAnnotationsSchema(raw);
 }
 
 const NEW_TEXT_LABEL_PREFIX = "Nuevo texto ";
@@ -103,11 +108,30 @@ function buildNewTextLabel(n: number): string {
 export const FileTemplateViewerContent = forwardRef<
   FileTemplateViewerHandle,
   ContentProps
->(function FileTemplateViewerContent({ fileId, mimeType, fileName, api }, ref) {
+>(function FileTemplateViewerContent(props, ref) {
+  return (
+    <ActiveAnnotationEditorProvider>
+      <FileTemplateViewerInner ref={ref} {...props} />
+    </ActiveAnnotationEditorProvider>
+  );
+});
+
+const FileTemplateViewerInner = forwardRef<
+  FileTemplateViewerHandle,
+  ContentProps
+>(function FileTemplateViewerInner({ fileId, mimeType, fileName, api }, ref) {
+  const { prepareSchemaForPersist } = useActiveAnnotationEditor();
   const { supportsTemplateAnnotations, isPdf, isDocx } =
     resolveTemplateFileKind(mimeType, fileName);
   const [schema, setSchema] = useState<FileAnnotationsSchema>(emptySchema);
   const [selectedId, setSelectedId] = useState<string | null>(null);
+  const [shapeDrawTool, setShapeDrawTool] = useState<ShapeDrawTool | null>(
+    null,
+  );
+  const [annotationAssetUrls, setAnnotationAssetUrls] = useState<
+    Record<string, string>
+  >({});
+  const [isUploadingImage, setIsUploadingImage] = useState(false);
   const [scale, setScale] = useState(1);
   const [fitWidthNextReturnsTo100, setFitWidthNextReturnsTo100] =
     useState(false);
@@ -121,8 +145,19 @@ export const FileTemplateViewerContent = forwardRef<
   const pdfBlobFetchGenRef = useRef(0);
   const pdfScrollRef = useRef<HTMLDivElement>(null);
   const pageWidthAtScale1Ref = useRef<number | null>(null);
+  const pageHeightAtScale1Ref = useRef<number | null>(null);
+  const [pageViewportAtScaleOne, setPageViewportAtScaleOne] = useState<{
+    width: number;
+    height: number;
+  } | null>(null);
   const nextNewTextNumberRef = useRef(1);
+  const nextShapeNumbersRef = useRef<Record<ShapeDrawTool, number>>({
+    line: 1,
+    rect: 1,
+    ellipse: 1,
+  });
   const saveTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const imageInputRef = useRef<HTMLInputElement | null>(null);
   const schemaRef = useRef(schema);
   schemaRef.current = schema;
 
@@ -230,6 +265,7 @@ export const FileTemplateViewerContent = forwardRef<
 
   useEffect(() => {
     const maxExistingNumber = schema.annotations.reduce((acc, ann) => {
+      if (!isTextAnnotation(ann)) return acc;
       const parsed = parseNewTextLabelNumber(ann.label);
       return parsed ? Math.max(acc, parsed) : acc;
     }, 0);
@@ -237,7 +273,29 @@ export const FileTemplateViewerContent = forwardRef<
       nextNewTextNumberRef.current,
       maxExistingNumber + 1,
     );
+    const shapeNext = syncShapeLabelCounters(schema.annotations);
+    nextShapeNumbersRef.current = {
+      line: Math.max(nextShapeNumbersRef.current.line, shapeNext.line),
+      rect: Math.max(nextShapeNumbersRef.current.rect, shapeNext.rect),
+      ellipse: Math.max(nextShapeNumbersRef.current.ellipse, shapeNext.ellipse),
+    };
   }, [schema.annotations]);
+
+  const createShapeLabel = useCallback((kind: ShapeDrawTool) => {
+    const n = nextShapeNumbersRef.current[kind];
+    nextShapeNumbersRef.current[kind] = n + 1;
+    return buildShapeLabel(kind, n);
+  }, []);
+
+  const resolveAnnotationAssetUrl = useCallback(
+    async (assetId: string): Promise<string> => {
+      if (api.getAnnotationAssetUrl) {
+        return api.getAnnotationAssetUrl(fileId, assetId);
+      }
+      return api.getFileUrl(assetId);
+    },
+    [api, fileId],
+  );
 
   const { mutateAsync: persist } = useMutation({
     mutationFn: async (payload: FileAnnotationsSchema) =>
@@ -264,48 +322,97 @@ export const FileTemplateViewerContent = forwardRef<
     };
   }, []);
 
-  const upsertAnnotation = useCallback(
-    (next: FileAnnotation) => {
-      const existing = schemaRef.current.annotations.find(
-        (a) => a.id === next.id,
-      );
-      const normalized = normalizeFileAnnotation({
-        ...next,
-        label:
-          existing?.label ||
-          next.label ||
-          annotationPlainPreview(next.content_html),
+  const upsertTemplateAnnotation = useCallback(
+    (next: TemplateAnnotation) => {
+      const normalized = normalizeTemplateAnnotation(next);
+      setSchema((prev) => {
+        const exists = prev.annotations.some((a) => a.id === normalized.id);
+        if (!exists) {
+          return { annotations: [...prev.annotations, normalized] };
+        }
+        return {
+          annotations: prev.annotations.map((a) =>
+            a.id === normalized.id ? normalized : a,
+          ),
+        };
       });
-      setSchema((prev) => ({
-        annotations: prev.annotations.map((a) =>
-          a.id === normalized.id ? normalized : a,
-        ),
-      }));
       scheduleSave();
     },
     [scheduleSave],
   );
 
-  const flushSave = useCallback(async () => {
+  const upsertAnnotation = useCallback(
+    (next: FileAnnotation) => {
+      const existing = schemaRef.current.annotations.find(
+        (a) => a.id === next.id,
+      );
+      const existingText =
+        existing && isTextAnnotation(existing) ? existing : undefined;
+      upsertTemplateAnnotation(
+        normalizeFileAnnotation({
+          ...(existingText ?? next),
+          ...next,
+          label:
+            existingText?.label ||
+            next.label ||
+            annotationPlainPreview(next.content_html),
+        }),
+      );
+    },
+    [upsertTemplateAnnotation],
+  );
+
+  const clearSaveTimer = useCallback(() => {
     if (saveTimerRef.current) {
       clearTimeout(saveTimerRef.current);
       saveTimerRef.current = null;
     }
+  }, []);
+
+  const flushSave = useCallback(async () => {
     if (!supportsTemplateAnnotations || !fileId) return;
-    await persist(normalizeAnnotationsSchema(schemaRef.current));
-  }, [persist, supportsTemplateAnnotations, fileId]);
+    clearSaveTimer();
+    const merged = normalizeAnnotationsSchema(
+      prepareSchemaForPersist(schemaRef.current, selectedId),
+    );
+    schemaRef.current = merged;
+    setSchema(merged);
+    await persist(merged);
+  }, [
+    supportsTemplateAnnotations,
+    fileId,
+    clearSaveTimer,
+    prepareSchemaForPersist,
+    selectedId,
+    persist,
+  ]);
 
   useImperativeHandle(ref, () => ({ flushSave }), [flushSave]);
 
   const addAnnotation = useCallback(() => {
     const id = crypto.randomUUID();
     const page = activePage;
-    const w = DEFAULT_ANNOTATION.width;
-    const h = DEFAULT_ANNOTATION.height;
     const newTextNumber = nextNewTextNumberRef.current;
     nextNewTextNumberRef.current += 1;
     const newLabel = buildNewTextLabel(newTextNumber);
+    const pageW = (pageWidthAtScale1Ref.current ?? 0) * scale;
+    const pageH = (pageHeightAtScale1Ref.current ?? 0) * scale;
+    const estimated = estimateAnnotationTextBoxNorm({
+      text: newLabel,
+      fontSizePx: DEFAULT_ANNOTATION.font_size,
+      fontFamily: DEFAULT_ANNOTATION.font_family,
+      pageWidthPx: pageW,
+      pageHeightPx: pageH,
+      pdfScale: scale,
+      minWidth: ANNOTATION_MIN_WIDTH,
+      minHeight: ANNOTATION_MIN_HEIGHT,
+    });
+    const w =
+      pageW > 0 && pageH > 0 ? estimated.width : DEFAULT_ANNOTATION.width;
+    const h =
+      pageW > 0 && pageH > 0 ? estimated.height : DEFAULT_ANNOTATION.height;
     const ann = normalizeFileAnnotation({
+      type: TEMPLATE_ANNOTATION_TYPES.TEXT,
       id,
       page,
       x: clamp01(0.5 - w / 2),
@@ -319,8 +426,69 @@ export const FileTemplateViewerContent = forwardRef<
     });
     setSchema((prev) => ({ annotations: [...prev.annotations, ann] }));
     setSelectedId(id);
+    setShapeDrawTool(null);
     scheduleSave();
-  }, [activePage, scheduleSave]);
+  }, [activePage, scale, scheduleSave]);
+
+  const addImageAnnotation = useCallback(
+    async (file: File) => {
+      if (!api.uploadAnnotationImage) {
+        toast.error("La API no soporta carga de imágenes para anotaciones");
+        return;
+      }
+      setIsUploadingImage(true);
+      try {
+        const uploaded = await api.uploadAnnotationImage(fileId, file);
+        const id = crypto.randomUUID();
+        const imageAnn = normalizeTemplateAnnotation({
+          type: TEMPLATE_ANNOTATION_TYPES.IMAGE,
+          id,
+          page: activePage,
+          x: 0.2,
+          y: 0.2,
+          width: 0.3,
+          height: 0.18,
+          assetId: uploaded.assetId,
+          label: file.name?.trim() || undefined,
+        }) as ImageAnnotation;
+        setSchema((prev) => ({ annotations: [...prev.annotations, imageAnn] }));
+        setSelectedId(id);
+        setShapeDrawTool(null);
+        if (uploaded.url) {
+          setAnnotationAssetUrls((prev) => ({
+            ...prev,
+            [uploaded.assetId]: uploaded.url!,
+          }));
+        }
+        scheduleSave();
+      } catch (e) {
+        console.error(e);
+        toast.error("No se pudo subir la imagen para anotación");
+      } finally {
+        setIsUploadingImage(false);
+      }
+    },
+    [activePage, api, fileId, scheduleSave],
+  );
+
+  const openImagePicker = useCallback(() => {
+    setShapeDrawTool(null);
+    imageInputRef.current?.click();
+  }, []);
+
+  const handleImageInputChange = useCallback(
+    async (ev: ChangeEvent<HTMLInputElement>) => {
+      const file = ev.target.files?.[0];
+      ev.target.value = "";
+      if (!file) return;
+      if (!file.type.startsWith("image/")) {
+        toast.error("Selecciona un archivo de imagen válido");
+        return;
+      }
+      await addImageAnnotation(file);
+    },
+    [addImageAnnotation],
+  );
 
   const removeAnnotation = useCallback(
     (id: string) => {
@@ -345,6 +513,43 @@ export const FileTemplateViewerContent = forwardRef<
     setSelectedId(id);
     setActivePage(ann.page);
   }, []);
+
+  useEffect(() => {
+    const imageAssetIds = Array.from(
+      new Set(
+        schema.annotations
+          .filter(isImageAnnotation)
+          .map((ann) => ann.assetId)
+          .filter((assetId) => !!assetId && !annotationAssetUrls[assetId]),
+      ),
+    );
+    if (!imageAssetIds.length) return;
+    let cancelled = false;
+    void Promise.allSettled(
+      imageAssetIds.map(async (assetId) => {
+        const assetUrl = await resolveAnnotationAssetUrl(assetId);
+        return { assetId, url: assetUrl };
+      }),
+    ).then((results) => {
+      if (cancelled) return;
+      const nextEntries = results
+        .filter(
+          (r): r is PromiseFulfilledResult<{ assetId: string; url: string }> =>
+            r.status === "fulfilled",
+        )
+        .map((r) => r.value)
+        .filter((v) => !!v.url);
+      if (!nextEntries.length) return;
+      setAnnotationAssetUrls((prev) => {
+        const merged = { ...prev };
+        for (const item of nextEntries) merged[item.assetId] = item.url;
+        return merged;
+      });
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [annotationAssetUrls, resolveAnnotationAssetUrl, schema.annotations]);
 
   const { mutateAsync: runGenerateAnnotatedPdf, isPending: exporting } =
     useMutation({
@@ -407,9 +612,27 @@ export const FileTemplateViewerContent = forwardRef<
   const hasAnnotations = schema.annotations.length > 0;
   const isPdfBusy = exporting || downloadingPdf;
 
-  const handlePageViewportAtScaleOne = useCallback((width: number) => {
-    pageWidthAtScale1Ref.current = width;
-  }, []);
+  const selectedAnnotation = schema.annotations.find(
+    (a) => a.id === selectedId,
+  );
+  const selectedIsText =
+    selectedAnnotation != null && isTextAnnotation(selectedAnnotation);
+  const selectedShape = isShapeToolbarAnnotation(selectedAnnotation)
+    ? selectedAnnotation
+    : null;
+  const selectedImage =
+    selectedAnnotation != null && isImageAnnotation(selectedAnnotation)
+      ? selectedAnnotation
+      : null;
+
+  const handlePageViewportAtScaleOne = useCallback(
+    (width: number, height: number) => {
+      pageWidthAtScale1Ref.current = width;
+      pageHeightAtScale1Ref.current = height;
+      setPageViewportAtScaleOne({ width, height });
+    },
+    [],
+  );
 
   const adjustZoomStep = useCallback((delta: number) => {
     setFitWidthNextReturnsTo100(false);
@@ -469,17 +692,21 @@ export const FileTemplateViewerContent = forwardRef<
   const viewerPdfSrc = pdfObjectUrl ?? url;
 
   return (
-    <ActiveAnnotationEditorProvider>
-      <div className="flex h-full min-h-0 w-full flex-col bg-background">
-        <AnnotationToolbar
-          onInsertText={addAnnotation}
-          onSaveAsPdf={openSaveAsDialog}
-          isExporting={isPdfBusy}
-          hasAnnotations={hasAnnotations}
-          hasSelection={!!selectedId}
-          activePdfPage={activePage}
-          pdfPageCount={pdfPageCount}
-          formatToolbar={
+    <div className="flex h-full min-h-0 w-full flex-col bg-background">
+      <AnnotationToolbar
+        shapeDrawTool={shapeDrawTool}
+        onShapeDrawToolChange={setShapeDrawTool}
+        onInsertText={addAnnotation}
+        onInsertImage={openImagePicker}
+        onSaveAsPdf={openSaveAsDialog}
+        isExporting={isPdfBusy}
+        isUploadingImage={isUploadingImage}
+        hasAnnotations={hasAnnotations}
+        hasSelection={!!selectedId}
+        activePdfPage={activePage}
+        pdfPageCount={pdfPageCount}
+        formatToolbar={
+          selectedIsText ? (
             <AnnotationDockedToolbar
               selectedId={selectedId}
               canDelete={!!selectedId}
@@ -487,75 +714,101 @@ export const FileTemplateViewerContent = forwardRef<
                 if (selectedId) removeAnnotation(selectedId);
               }}
             />
-          }
-        />
-        <div className="flex min-h-0 flex-1">
-          <div className="relative flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden">
-            {mainPending && (
-              <div className="absolute inset-0 z-20 flex items-center justify-center bg-background/60 text-sm text-muted-foreground">
-                Cargando…
-              </div>
-            )}
-            {previewFailed ? (
-              <div className="flex h-full items-center justify-center p-6">
-                <StatusMessage
-                  color="white"
-                  title={
-                    isDocx
-                      ? "No se pudo cargar la vista desde Word"
-                      : "No se pudo cargar el PDF"
-                  }
-                  description={
-                    isDocx
-                      ? "Vuelve a intentarlo. Si el documento es muy complejo, prueba desde la pestaña Documento."
-                      : "Vuelve a intentarlo o descarga el archivo desde la pestaña Documento."
-                  }
-                  icon={FileQuestion}
-                />
-              </div>
-            ) : canShowViewer && viewerPdfSrc ? (
-              <>
-                <div className="flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden">
-                  <PdfTemplateViewer
-                    documentKey={fileId}
-                    url={viewerPdfSrc}
-                    pageNumber={activePage}
-                    scale={scale}
-                    annotations={schema.annotations}
-                    selectedId={selectedId}
-                    onSelect={setSelectedId}
-                    onClearSelection={() => setSelectedId(null)}
-                    onChangeAnnotation={upsertAnnotation}
-                    onDocumentPagesLoaded={setPdfPageCount}
-                    scrollContainerRef={pdfScrollRef}
-                    onPageViewportAtScaleOne={handlePageViewportAtScaleOne}
-                  />
-                </div>
-                <TemplateFloatingBar
+          ) : selectedShape ? (
+            <AnnotationShapeToolbar
+              annotation={selectedShape}
+              onUpdate={upsertTemplateAnnotation}
+              onDelete={() => {
+                if (selectedId) removeAnnotation(selectedId);
+              }}
+            />
+          ) : selectedImage && selectedId ? (
+            <Button
+              type="button"
+              variant="ghost"
+              size="icon"
+              className="size-7 text-muted-foreground hover:bg-destructive/10 hover:text-destructive"
+              aria-label="Eliminar imagen"
+              onClick={() => removeAnnotation(selectedId)}
+            >
+              <Trash2 className="size-4" />
+            </Button>
+          ) : null
+        }
+      />
+      <div className="flex min-h-0 flex-1">
+        <div className="relative flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden">
+          {mainPending && (
+            <div className="absolute inset-0 z-20 flex items-center justify-center bg-background/60 text-sm text-muted-foreground">
+              Cargando…
+            </div>
+          )}
+          {previewFailed ? (
+            <div className="flex h-full items-center justify-center p-6">
+              <StatusMessage
+                color="white"
+                title={
+                  isDocx
+                    ? "No se pudo cargar la vista desde Word"
+                    : "No se pudo cargar el PDF"
+                }
+                description={
+                  isDocx
+                    ? "Vuelve a intentarlo. Si el documento es muy complejo, prueba desde la pestaña Documento."
+                    : "Vuelve a intentarlo o descarga el archivo desde la pestaña Documento."
+                }
+                icon={FileQuestion}
+              />
+            </div>
+          ) : canShowViewer && viewerPdfSrc ? (
+            <>
+              <div className="flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden">
+                <PdfTemplateViewer
+                  documentKey={fileId}
+                  url={viewerPdfSrc}
+                  pageNumber={activePage}
                   scale={scale}
-                  onZoomIn={() => adjustZoomStep(0.2)}
-                  onZoomOut={() => adjustZoomStep(-0.2)}
-                  pdfPageCount={pdfPageCount}
-                  activePdfPage={activePage}
-                  onPdfPrevPage={() => goRelativePdfPage(-1)}
-                  onPdfNextPage={() => goRelativePdfPage(1)}
-                  onFitWidth={handleFitWidth}
-                  onDownloadAnnotated={() => void runDownloadAnnotatedPdf()}
-                  isBusy={isPdfBusy}
-                  hasAnnotations={hasAnnotations}
+                  pageWidthAtScale1={pageViewportAtScaleOne?.width}
+                  pageHeightAtScale1={pageViewportAtScaleOne?.height}
+                  annotations={schema.annotations}
+                  annotationAssetUrls={annotationAssetUrls}
+                  selectedId={selectedId}
+                  shapeDrawTool={shapeDrawTool}
+                  createShapeLabel={createShapeLabel}
+                  onSelect={setSelectedId}
+                  onClearSelection={() => setSelectedId(null)}
+                  onChangeTextAnnotation={upsertAnnotation}
+                  onChangeShapeAnnotation={upsertTemplateAnnotation}
+                  onShapeDrawToolChange={setShapeDrawTool}
+                  onDocumentPagesLoaded={setPdfPageCount}
+                  scrollContainerRef={pdfScrollRef}
+                  onPageViewportAtScaleOne={handlePageViewportAtScaleOne}
                 />
-              </>
-            ) : null}
-          </div>
-          <AnnotationsSidePanel
-            annotations={schema.annotations}
-            selectedId={selectedId}
-            onFocusAnnotation={focusAnnotation}
-            onUpdateAnnotation={upsertAnnotation}
-            onDelete={removeAnnotation}
-            onClearAll={clearAll}
-          />
+              </div>
+              <TemplateFloatingBar
+                scale={scale}
+                onZoomIn={() => adjustZoomStep(0.2)}
+                onZoomOut={() => adjustZoomStep(-0.2)}
+                pdfPageCount={pdfPageCount}
+                activePdfPage={activePage}
+                onPdfPrevPage={() => goRelativePdfPage(-1)}
+                onPdfNextPage={() => goRelativePdfPage(1)}
+                onFitWidth={handleFitWidth}
+                onDownloadAnnotated={() => void runDownloadAnnotatedPdf()}
+                isBusy={isPdfBusy}
+                hasAnnotations={hasAnnotations}
+              />
+            </>
+          ) : null}
         </div>
+        <AnnotationsSidePanel
+          annotations={schema.annotations}
+          selectedId={selectedId}
+          onFocusAnnotation={focusAnnotation}
+          onUpdateAnnotation={upsertAnnotation}
+          onDelete={removeAnnotation}
+          onClearAll={clearAll}
+        />
       </div>
       <Dialog open={isSaveAsDialogOpen} onOpenChange={setIsSaveAsDialogOpen}>
         <DialogContent className="sm:max-w-[425px]">
@@ -585,7 +838,16 @@ export const FileTemplateViewerContent = forwardRef<
           </DialogFooter>
         </DialogContent>
       </Dialog>
-    </ActiveAnnotationEditorProvider>
+      <input
+        ref={imageInputRef}
+        type="file"
+        accept="image/*"
+        className="hidden"
+        onChange={(e) => {
+          void handleImageInputChange(e);
+        }}
+      />
+    </div>
   );
 });
 
