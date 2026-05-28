@@ -77,7 +77,7 @@ export const FormSelect: React.FC<FormSelectProps> = ({
           size={size}
           className={cn(
             "w-full",
-            errors?.[name] && "border-rose-500/10 border"
+            errors?.[name] && "border-destructive/10 border"
           )}
           aria-invalid={Boolean(errors?.[name])}
         >
@@ -96,7 +96,7 @@ export const FormSelect: React.FC<FormSelectProps> = ({
         </SelectContent>
       </Select>
       {errors?.[name] && (
-        <p className="text-sm text-rose-500 mt-2">
+        <p className="text-sm text-destructive mt-2">
           {errors[name]?.message as string}
         </p>
       )}

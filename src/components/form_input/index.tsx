@@ -54,11 +54,14 @@ export function FormInput<T extends FieldValues>({
         placeholder={placeholder}
         {...register(name)}
         disabled={disabled}
-        className={cn(error && "border-rose-500/10 border", className)}
+        className={cn(error && "border-destructive/10 border", className)}
         size={size}
       />
       {error && (
-        <p className="text-sm text-rose-500 mt-2" data-testid={`${name}-error`}>
+        <p
+          className="text-sm text-destructive mt-2"
+          data-testid={`${name}-error`}
+        >
           {error.message as string}
         </p>
       )}

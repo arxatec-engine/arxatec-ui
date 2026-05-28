@@ -48,12 +48,15 @@ export function FormTextarea<T extends FieldValues>({
         id={name}
         placeholder={placeholder}
         {...register(name)}
-        className={cn(error && "border-rose-500/10 border", className)}
+        className={cn(error && "border-destructive/10 border", className)}
         autoFocus={autoFocus ?? false}
         {...props}
       />
       {error && (
-        <p className="text-sm text-rose-500 mt-2" data-testid={`${name}-error`}>
+        <p
+          className="text-sm text-destructive mt-2"
+          data-testid={`${name}-error`}
+        >
           {error.message as string}
         </p>
       )}
