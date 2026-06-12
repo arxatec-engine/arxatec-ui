@@ -1,7 +1,9 @@
+import { useMemo } from "react";
 import { Copy, FileText, Loader2 } from "lucide-react";
 import { Button } from "@/components/button";
 import { Skeleton } from "@/components/skeleton";
 import { StatusMessage } from "@/components/status_message";
+import { parseMarkdownToHtml } from "@/components/description_markdown_editor/utils";
 
 export interface FileSummaryViewerProps {
   content?: string | null;
@@ -24,6 +26,11 @@ export const FileSummaryViewer: React.FC<FileSummaryViewerProps> = ({
   onCopy,
   onRetry,
 }) => {
+  const summaryHtml = useMemo(
+    () => (content ? parseMarkdownToHtml(content) : ""),
+    [content],
+  );
+
   if (isLoading) {
     return (
       <div className="p-4 max-w-2xl mx-auto">
@@ -102,9 +109,10 @@ export const FileSummaryViewer: React.FC<FileSummaryViewerProps> = ({
         ) : null}
       </div>
       <div className="flex-1 overflow-auto p-8 prose prose-sm dark:prose-invert max-w-full min-w-full w-full mx-auto">
-        <pre className="whitespace-pre-wrap font-sans text-foreground text-sm leading-relaxed max-w-2xl mx-auto">
-          {content}
-        </pre>
+        <div
+          className="max-w-2xl mx-auto text-foreground text-sm leading-relaxed"
+          dangerouslySetInnerHTML={{ __html: summaryHtml }}
+        />
       </div>
     </div>
   );

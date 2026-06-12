@@ -73,6 +73,7 @@ interface ContentProps {
   mimeType: string;
   fileName?: string;
   api: FileTemplateViewerApi;
+  enabled?: boolean;
 }
 
 function emptySchema(): FileAnnotationsSchema {
@@ -119,7 +120,10 @@ export const FileTemplateViewerContent = forwardRef<
 const FileTemplateViewerInner = forwardRef<
   FileTemplateViewerHandle,
   ContentProps
->(function FileTemplateViewerInner({ fileId, mimeType, fileName, api }, ref) {
+>(function FileTemplateViewerInner(
+  { fileId, mimeType, fileName, api, enabled = true },
+  ref,
+) {
   const { prepareSchemaForPersist } = useActiveAnnotationEditor();
   const { supportsTemplateAnnotations, isPdf, isDocx } =
     resolveTemplateFileKind(mimeType, fileName);
@@ -168,7 +172,7 @@ const FileTemplateViewerInner = forwardRef<
   } = useQuery({
     queryKey: ["file-preview-template", fileId],
     queryFn: async () => api.getFileUrl(fileId),
-    enabled: !!fileId && supportsTemplateAnnotations && isPdf,
+    enabled: !!fileId && supportsTemplateAnnotations && isPdf && enabled,
     refetchOnWindowFocus: false,
     staleTime: 1000 * 60 * 45,
   });
@@ -180,7 +184,7 @@ const FileTemplateViewerInner = forwardRef<
   } = useQuery({
     queryKey: ["file-docx-template-preview-pdf", fileId],
     queryFn: async () => api.getDocxPreviewPdfBlob(fileId),
-    enabled: !!fileId && supportsTemplateAnnotations && isDocx,
+    enabled: !!fileId && supportsTemplateAnnotations && isDocx && enabled,
     refetchOnWindowFocus: false,
     staleTime: 1000 * 60 * 5,
   });
@@ -188,7 +192,7 @@ const FileTemplateViewerInner = forwardRef<
   const { data: row, isPending: rowPending } = useQuery({
     queryKey: ["file-annotations", fileId],
     queryFn: async () => api.getAnnotations(fileId),
-    enabled: !!fileId && supportsTemplateAnnotations,
+    enabled: !!fileId && supportsTemplateAnnotations && enabled,
     refetchOnWindowFocus: false,
   });
 
