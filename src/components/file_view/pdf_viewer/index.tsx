@@ -4,7 +4,8 @@ import React, { useState } from "react";
 import { pdfjs } from "react-pdf";
 import { toast } from "sonner";
 import { downloadFileFromUrl } from "@/utilities/download";
-import { ErrorState, Toolbar, Content, ErrorBoundary } from "./components";
+import { FileViewerFloatingBar } from "../shared";
+import { ErrorState, Content, ErrorBoundary } from "./components";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
 
@@ -65,26 +66,30 @@ const FilePdfViewerContent: React.FC<FilePdfViewerProps> = ({
 
   return (
     <ErrorBoundary>
-      <div className="flex flex-col h-full w-full bg-background">
-        <Toolbar
-          scale={scale}
-          pageNumber={pageNumber}
-          numPages={numPages}
-          onZoomIn={handleZoomIn}
-          onZoomOut={handleZoomOut}
-          onPrevPage={handlePreviousPage}
-          onNextPage={handleNextPage}
-          onDownload={handleDownloadFile}
-        />
-        <Content
-          url={url}
-          remountKey={0}
-          pageNumber={pageNumber}
-          scale={scale}
-          onLoadSuccess={onDocumentLoadSuccess}
-          onLoadError={onDocumentLoadError}
-          numPages={numPages}
-        />
+      <div className="relative flex h-full w-full flex-col bg-background">
+        <div className="relative min-h-0 flex-1">
+          <Content
+            url={url}
+            remountKey={0}
+            pageNumber={pageNumber}
+            scale={scale}
+            onLoadSuccess={onDocumentLoadSuccess}
+            onLoadError={onDocumentLoadError}
+            numPages={numPages}
+          />
+          <FileViewerFloatingBar
+            scale={scale}
+            onZoomIn={handleZoomIn}
+            onZoomOut={handleZoomOut}
+            pageNumber={pageNumber}
+            pageCount={numPages}
+            onPrevPage={handlePreviousPage}
+            onNextPage={handleNextPage}
+            onDownload={handleDownloadFile}
+            downloadLabel="Descargar PDF"
+            ariaLabel="Controles del visor de PDF"
+          />
+        </div>
       </div>
     </ErrorBoundary>
   );

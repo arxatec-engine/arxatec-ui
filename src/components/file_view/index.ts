@@ -49,7 +49,9 @@ export { resolveTemplateFileKind, DOCX_MIME, normalizeMimeBase } from "./templat
 export {
   FileViewLoadingState as PdfViewerLoadingState,
   FileViewErrorState as PdfViewerErrorState,
+  FileViewerFloatingBar,
 } from "./shared";
+export type { FileViewerFloatingBarProps } from "./shared";
 
 export {
   LoadingState as ImageViewerLoadingState,

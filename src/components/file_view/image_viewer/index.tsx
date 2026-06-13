@@ -1,4 +1,8 @@
-import { ErrorState, LoadingState, Toolbar } from "./components";
+import { Button } from "@/components/button";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/tooltip";
+import { FileViewerFloatingBar } from "../shared";
+import { Home, RotateCw } from "lucide-react";
+import { ErrorState, LoadingState } from "./components";
 import { useFileImageViewer } from "./hooks";
 
 export interface FileImageViewerProps {
@@ -36,22 +40,13 @@ const FileImageViewerContent: React.FC<FileImageViewerProps> = (props) => {
     onWheel,
   } = useFileImageViewer(props);
 
-  return (
-    <div className="flex flex-col bg-background h-full w-full">
-      <Toolbar
-        handleZoomOut={zoomOut}
-        handleZoomIn={zoomIn}
-        scale={scale}
-        isPending={isPending}
-        isError={isError}
-        handleDownloadFile={download}
-        handleRotate={rotate}
-        handleReset={reset}
-      />
+  const controlsDisabled = isPending || isError;
 
+  return (
+    <div className="relative flex h-full w-full flex-col bg-background">
       <div
         ref={containerRef}
-        className="flex-1 overflow-hidden p-6 flex items-center justify-center"
+        className="relative flex flex-1 items-center justify-center overflow-hidden p-6"
         onMouseDown={onMouseDown}
         onMouseMove={onMouseMove}
         onMouseUp={onMouseUp}
@@ -91,6 +86,54 @@ const FileImageViewerContent: React.FC<FileImageViewerProps> = (props) => {
             />
           </div>
         ) : null}
+        <FileViewerFloatingBar
+          scale={scale}
+          onZoomIn={zoomIn}
+          onZoomOut={zoomOut}
+          minScale={0.25}
+          maxScale={4}
+          zoomDisabled={controlsDisabled}
+          onDownload={download}
+          downloadLabel="Descargar imagen"
+          downloadDisabled={controlsDisabled}
+          ariaLabel="Controles del visor de imagen"
+          extraActions={
+            <>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="icon"
+                    className="size-8 shrink-0"
+                    aria-label="Rotar imagen"
+                    onClick={rotate}
+                    disabled={controlsDisabled}
+                  >
+                    <RotateCw className="size-4" />
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>Rotar imagen</TooltipContent>
+              </Tooltip>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="icon"
+                    className="size-8 shrink-0"
+                    aria-label="Centrar imagen"
+                    onClick={reset}
+                    disabled={controlsDisabled}
+                  >
+                    <Home className="size-4" />
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>Centrar imagen</TooltipContent>
+              </Tooltip>
+            </>
+          }
+        />
       </div>
     </div>
   );
