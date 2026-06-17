@@ -29,7 +29,7 @@ function ColorPickerPanel({
       <div>
         <div className="flex flex-col gap-2 p-2">
           <HexColorPicker
-            style={{ width: "100%" }}
+            style={{ width: "100%", height: 140 }}
             aria-label="Selector visual de color"
             color={pickerValue}
             onChange={onColorChange}

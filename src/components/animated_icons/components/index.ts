@@ -9,3 +9,4 @@ export * from "./circle_help";
 export * from "./panel_left_close";
 export * from "./panel_left_open";
 export * from "./sparkles";
+export * from "./book_text";

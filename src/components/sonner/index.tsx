@@ -37,7 +37,7 @@ const Toaster = ({ closeButton = true, ...props }: ToasterProps) => {
           info: "text-status-foreground-info bg-status-background-info backdrop-blur-lg border-status-foreground-info/10 border p-2.5 rounded-md shadow border border-border",
           loading:
             "text-status-foreground-loading bg-status-background-loading text-base backdrop-blur-sm border-status-foreground-loading/10 border p-2.5 rounded-md shadow border border-border",
-          loader: " text-stone-50 absolute! left-[13px]! top-[13px]!",
+          loader: "absolute! left-[13px]! top-[14.5px]!",
           icon: "self-center flex shrink-0 size-4 [[data-sonner-toast]:has([data-description])_&]:self-start [[data-sonner-toast]:has([data-description])_&]:mt-0.5",
           actionButton: "bg-white text-black font-medium rounded-md px-2 py-1",
           cancelButton:

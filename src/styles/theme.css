@@ -283,4 +283,72 @@
   --color-task-priority-background-critical: var(
     --task-priority-background-critical
   );
+
+  /* Billing type colors */
+  --color-billing-type-invoice-background: var(
+    --billing-type-invoice-background
+  );
+  --color-billing-type-invoice-foreground: var(
+    --billing-type-invoice-foreground
+  );
+
+  --color-billing-type-proforma-background: var(
+    --billing-type-proforma-background
+  );
+  --color-billing-type-proforma-foreground: var(
+    --billing-type-proforma-foreground
+  );
+
+  --color-billing-type-receipt-background: var(
+    --billing-type-receipt-background
+  );
+  --color-billing-type-receipt-foreground: var(
+    --billing-type-receipt-foreground
+  );
+
+  --color-billing-type-credit-note-background: var(
+    --billing-type-credit-note-background
+  );
+  --color-billing-type-credit-note-foreground: var(
+    --billing-type-credit-note-foreground
+  );
+
+  /* Billing status colors */
+  --color-billing-status-draft-background: var(
+    --billing-status-draft-background
+  );
+  --color-billing-status-draft-foreground: var(
+    --billing-status-draft-foreground
+  );
+
+  --color-billing-status-issued-background: var(
+    --billing-status-issued-background
+  );
+  --color-billing-status-issued-foreground: var(
+    --billing-status-issued-foreground
+  );
+
+  --color-billing-status-partially-paid-background: var(
+    --billing-status-partially-paid-background
+  );
+  --color-billing-status-partially-paid-foreground: var(
+    --billing-status-partially-paid-foreground
+  );
+
+  --color-billing-status-paid-background: var(--billing-status-paid-background);
+  --color-billing-status-paid-foreground: var(--billing-status-paid-foreground);
+
+  --color-billing-status-overdue-background: var(
+    --billing-status-overdue-background
+  );
+  --color-billing-status-overdue-foreground: var(
+    --billing-status-overdue-foreground
+  );
+
+  --color-billing-status-cancelled-background: var(
+    --billing-status-cancelled-background
+  );
+  --color-billing-status-cancelled-foreground: var(
+    --billing-status-cancelled-foreground
+  );
 }

@@ -27,3 +27,19 @@
 .docx-preview-container-wrapper {
   background-color: transparent !important;
 }
+
+/* react-colorful (color picker) overrides */
+.arx-color-picker .react-colorful__pointer {
+  width: 14px;
+  height: 14px;
+  border-width: 2px;
+}
+.arx-color-picker .react-colorful__hue {
+  height: 14px;
+}
+.arx-color-picker .react-colorful__saturation {
+  border-radius: 4px 4px 0 0;
+}
+.arx-color-picker .react-colorful__last-control {
+  border-radius: 0 0 4px 4px;
+}

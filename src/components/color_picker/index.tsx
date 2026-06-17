@@ -82,7 +82,7 @@ function ColorPicker({
 
       <PopoverContent
         align="start"
-        className={cn("w-64 overflow-hidden p-0", contentClassName)}
+        className={cn("w-56  overflow-hidden p-0", contentClassName)}
         data-slot="color-picker-content"
       >
         <ColorPickerPanel

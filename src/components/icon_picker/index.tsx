@@ -17,10 +17,13 @@ import { iconsData } from "./icons_data";
 import { useVirtualizer, type VirtualItem } from "@tanstack/react-virtual";
 import Fuse from "fuse.js";
 import { useDebounceValue } from "usehooks-ts";
+import { StatusMessage } from "../status_message";
 
 export type IconData = (typeof iconsData)[number];
 
 const ICONS_PER_ROW = 8;
+const ROW_HEIGHT = 28;
+const CATEGORY_HEIGHT = 20;
 
 interface IconPickerProps
   extends Omit<
@@ -223,7 +226,7 @@ const IconPicker = React.forwardRef<
       count: virtualItems.length,
       getScrollElement: () => parentRef.current,
       estimateSize: (index) =>
-        virtualItems[index].type === "category" ? 25 : 25,
+        virtualItems[index].type === "category" ? CATEGORY_HEIGHT : ROW_HEIGHT,
       paddingEnd: 0,
       gap: 0,
       overscan: 0,
@@ -338,14 +341,6 @@ const IconPicker = React.forwardRef<
     );
 
     const renderVirtualContent = useCallback(() => {
-      if (filteredIcons.length === 0) {
-        return (
-          <div className="text-center py-10 text-muted-foreground text-sm">
-            No se encontraron iconos
-          </div>
-        );
-      }
-
       return (
         <div
           className="relative w-full overscroll-contain"
@@ -372,11 +367,9 @@ const IconPicker = React.forwardRef<
                 <div
                   style={itemStyle}
                   key={virtualItem.key}
-                  className="flex items-center px-2 pt-2 pb-0.5 z-10"
+                  className="flex items-center px-2 z-10 text-[10px] uppercase tracking-wider text-muted-foreground"
                 >
-                  <h3 className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground">
-                    {categorizedIcons[item.categoryIndex].name}
-                  </h3>
+                  {categorizedIcons[item.categoryIndex].name}
                 </div>
               );
             }
@@ -401,13 +394,9 @@ const IconPicker = React.forwardRef<
           })}
         </div>
       );
-    }, [
-      virtualizer,
-      virtualItems,
-      categorizedIcons,
-      filteredIcons,
-      renderIcon,
-    ]);
+    }, [virtualizer, virtualItems, categorizedIcons, renderIcon]);
+
+    const hasNoResults = !isLoading && filteredIcons.length === 0;
 
     React.useEffect(() => {
       if (isPopoverVisible) {
@@ -455,7 +444,7 @@ const IconPicker = React.forwardRef<
           )}
         </PopoverTrigger>
         <PopoverContent
-          className="w-[275px] p-0 shadow-2xl border-muted-foreground/10 "
+          className="w-[250px] p-0 shadow-2xl border-muted-foreground/10 "
           align="start"
         >
           {searchable && (
@@ -466,7 +455,7 @@ const IconPicker = React.forwardRef<
                   placeholder={searchPlaceholder}
                   onChange={handleSearchChange}
                   size="sm"
-                  className="h-7 pl-8 bg-background focus-visible:ring-primary/20"
+                  className="h-7 pl-6 bg-background focus-visible:ring-primary/20"
                 />
               </div>
             </div>
@@ -474,20 +463,34 @@ const IconPicker = React.forwardRef<
 
           <div className="flex flex-col">
             {categorized && search.trim() === "" && (
-              <div className="flex flex-row gap-1.5 p-2 overflow-x-auto border-b bg-muted/10 no-scrollbar">
+              <div className="flex flex-row gap-1.5 p-1 overflow-x-auto border-b bg-muted/10 no-scrollbar">
                 {categoryButtons}
               </div>
             )}
 
-            <ScrollArea
-              className="h-[250px]"
-              viewportRef={parentRef}
-              onWheel={(e) => e.stopPropagation()}
-            >
+            {hasNoResults ? (
               <div className="py-2">
-                {isLoading ? <IconsColumnSkeleton /> : renderVirtualContent()}
+                <div className="p-2 w-full">
+                  <StatusMessage
+                    title="No se encontraron iconos"
+                    description="Intenta con una búsqueda diferente por favor."
+                    size="sm"
+                    color="white"
+                    icon={Search}
+                  />
+                </div>
               </div>
-            </ScrollArea>
+            ) : (
+              <ScrollArea
+                className="h-[250px]"
+                viewportRef={parentRef}
+                onWheel={(e) => e.stopPropagation()}
+              >
+                <div className="py-2">
+                  {isLoading ? <IconsColumnSkeleton /> : renderVirtualContent()}
+                </div>
+              </ScrollArea>
+            )}
           </div>
         </PopoverContent>
       </Popover>

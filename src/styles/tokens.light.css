@@ -132,9 +132,9 @@
   --case-status-waiting-foreground: oklch(33% 0.01 260);
 
   /* Documents selector */
-  --selector-rectangle: oklch(90.1% 0.058 230.902);
-  --selector-background: oklch(95.1% 0.026 236.824);
-  --selector-foreground: oklch(50% 0.134 242.749);
+  --selector-rectangle: oklch(94% 0.022 238);
+  --selector-background: oklch(97% 0.014 240);
+  --selector-foreground: oklch(38% 0.032 238);
 
   /* License status */
   --license-valid-foreground: oklch(26% 0.032 210);
@@ -241,4 +241,36 @@
 
   --task-priority-foreground-critical: oklch(26% 0.035 250);
   --task-priority-background-critical: oklch(94% 0.032 250);
+
+  /* Billing type */
+  --billing-type-invoice-background: oklch(88% 0.032 240);
+  --billing-type-invoice-foreground: oklch(32% 0.035 240);
+
+  --billing-type-proforma-background: oklch(90% 0.03 268);
+  --billing-type-proforma-foreground: oklch(29% 0.033 268);
+
+  --billing-type-receipt-background: oklch(92% 0.028 210);
+  --billing-type-receipt-foreground: oklch(26% 0.032 210);
+
+  --billing-type-credit-note-background: oklch(94% 0.035 285);
+  --billing-type-credit-note-foreground: oklch(28% 0.038 285);
+
+  /* Billing status */
+  --billing-status-draft-background: oklch(96% 0.018 260);
+  --billing-status-draft-foreground: oklch(55% 0.02 260);
+
+  --billing-status-issued-background: oklch(88% 0.032 240);
+  --billing-status-issued-foreground: oklch(32% 0.035 240);
+
+  --billing-status-partially-paid-background: oklch(94% 0.028 278);
+  --billing-status-partially-paid-foreground: oklch(34% 0.032 278);
+
+  --billing-status-paid-background: oklch(92% 0.028 210);
+  --billing-status-paid-foreground: oklch(26% 0.032 210);
+
+  --billing-status-overdue-background: oklch(94% 0.03 250);
+  --billing-status-overdue-foreground: oklch(28% 0.035 250);
+
+  --billing-status-cancelled-background: oklch(96% 0.02 260);
+  --billing-status-cancelled-foreground: oklch(55% 0.02 260);
 }
