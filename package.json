@@ -65,7 +65,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b tsconfig.build.json && vite build",
-    "build:lib": "vite build --config vite.lib.config.ts && node scripts/merge-lib-styles.mjs",
+    "build:lib": "vite build --config vite.lib.config.ts && node scripts/merge-lib-styles.mjs && node scripts/copy-fonts.mjs",
     "build:lib:watch": "vite build --config vite.lib.config.ts --watch",
     "prepublishOnly": "npm run build:lib",
     "lint": "eslint .",

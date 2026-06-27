@@ -1,4 +1,3 @@
-import { Bold } from "lucide-react";
 import {
   AsyncSelect,
   Button,
@@ -24,13 +23,14 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
+  Separator,
   Slider,
   Textarea,
   Toggle,
-  Separator,
 } from "@/exports";
-import type { StyleGuideDemoItem } from "../types";
+import { Bold } from "lucide-react";
 import { ShowcaseBlock } from "../showcase_block";
+import type { StyleGuideDemoItem } from "../types";
 
 interface Props {
   startDate: Date | undefined;

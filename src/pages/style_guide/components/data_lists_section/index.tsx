@@ -1,4 +1,3 @@
-import { Bar, BarChart, CartesianGrid, XAxis } from "recharts";
 import {
   AsyncCommandList,
   Button,
@@ -10,7 +9,6 @@ import {
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
-  type ChartConfig,
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
@@ -24,9 +22,11 @@ import {
   ResizablePanel,
   ResizablePanelGroup,
   ScrollArea,
+  type ChartConfig,
 } from "@/exports";
-import type { StyleGuideDemoItem } from "../types";
+import { Bar, BarChart, CartesianGrid, XAxis } from "recharts";
 import { ShowcaseBlock } from "../showcase_block";
+import type { StyleGuideDemoItem } from "../types";
 
 interface Props {
   asyncData: StyleGuideDemoItem[];

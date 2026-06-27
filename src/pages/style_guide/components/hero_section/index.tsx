@@ -1,5 +1,5 @@
-import { Moon, Sun } from "lucide-react";
 import { Toggle } from "@/exports";
+import { Moon, Sun } from "lucide-react";
 
 interface Props {
   isDark: boolean;
