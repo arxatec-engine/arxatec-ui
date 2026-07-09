@@ -1,10 +1,11 @@
 import "react-pdf/dist/Page/AnnotationLayer.css";
 import "react-pdf/dist/Page/TextLayer.css";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { pdfjs } from "react-pdf";
 import { toast } from "sonner";
 import { downloadFileFromUrl } from "@/utilities/download";
 import { ErrorState, Toolbar, Content, ErrorBoundary } from "./components";
+import type { ContentHandle } from "./components/content";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
 
@@ -23,6 +24,7 @@ const FilePdfViewerContent: React.FC<FilePdfViewerProps> = ({
   const [pageNumber, setPageNumber] = useState(1);
   const [scale, setScale] = useState(1.0);
   const [error, setError] = useState<string | null>(null);
+  const contentRef = useRef<ContentHandle>(null);
 
   const onDocumentLoadSuccess = ({
     numPages: totalPages,
@@ -39,10 +41,10 @@ const FilePdfViewerContent: React.FC<FilePdfViewerProps> = ({
   };
 
   const handlePreviousPage = () =>
-    setPageNumber((prev) => Math.max(prev - 1, 1));
+    contentRef.current?.scrollToPage(Math.max(pageNumber - 1, 1));
 
   const handleNextPage = () =>
-    setPageNumber((prev) => Math.min(prev + 1, numPages));
+    contentRef.current?.scrollToPage(Math.min(pageNumber + 1, numPages));
 
   const handleZoomIn = () => setScale((prev) => Math.min(prev + 0.2, 3.0));
 
@@ -67,13 +69,13 @@ const FilePdfViewerContent: React.FC<FilePdfViewerProps> = ({
     <ErrorBoundary>
       <div className="relative flex flex-col h-full w-full bg-background">
         <Content
+          ref={contentRef}
           url={url}
-          remountKey={0}
-          pageNumber={pageNumber}
           scale={scale}
           onLoadSuccess={onDocumentLoadSuccess}
           onLoadError={onDocumentLoadError}
           numPages={numPages}
+          onVisiblePageChange={setPageNumber}
         />
         <Toolbar
           scale={scale}
