@@ -35,7 +35,7 @@ export function BrandingFeedbackSection() {
       <div className="grid min-w-0 grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
         <div className="flex flex-col gap-5 rounded-md border border-border/80 bg-card/30 p-5">
           <div className="flex items-center gap-4">
-            <Isotype className="size-10 shrink-0 text-primary" />
+            <Isotype className="size-10 shrink-0 text-foreground" />
             <Logo className="h-7 shrink text-foreground" />
           </div>
 
@@ -46,7 +46,7 @@ export function BrandingFeedbackSection() {
             <OneDriveIcon className="size-7" />
           </div>
 
-          <div className="flex flex-wrap gap-4 border-t pt-5 text-primary/90">
+          <div className="flex flex-wrap gap-4 border-t pt-5 text-foreground/90">
             <UsersIcon className="size-5" />
             <SearchIcon className="size-5" />
             <LayersIcon className="size-5" />

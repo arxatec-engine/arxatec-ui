@@ -26,7 +26,6 @@ export const AiCommandModal = ({
   const [prompt, setPrompt] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
 
-
   const handleSubmit = (e?: React.FormEvent) => {
     e?.preventDefault();
     if (!prompt.trim() || isLoading || !editor) return;
@@ -61,7 +60,8 @@ export const AiCommandModal = ({
     if (node && isOpen) {
       setTimeout(() => node.focus(), 10);
     }
-    (inputRef as React.MutableRefObject<HTMLInputElement | null>).current = node;
+    (inputRef as React.MutableRefObject<HTMLInputElement | null>).current =
+      node;
   };
 
   return (
@@ -82,7 +82,7 @@ export const AiCommandModal = ({
             onKeyDown={handleKeyDown}
           >
             <div className="flex items-center gap-2 px-3 py-2 border-b bg-muted/30">
-              <Sparkles className="w-4 h-4 text-primary animate-pulse" />
+              <Sparkles className="w-4 h-4 text-foreground animate-pulse" />
               <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
                 Magic AI
               </span>
@@ -97,7 +97,7 @@ export const AiCommandModal = ({
             <div className="p-3">
               {isLoading ? (
                 <div className="py-4 flex flex-col items-center justify-center gap-3">
-                  <div className="flex items-center gap-2 text-sm font-medium text-primary">
+                  <div className="flex items-center gap-2 text-sm font-medium text-foreground">
                     <Loader2 className="w-4 h-4 animate-spin" />
                     <span>IA trabajando...</span>
                   </div>

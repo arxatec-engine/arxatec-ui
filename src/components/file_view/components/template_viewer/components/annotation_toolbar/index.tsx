@@ -54,7 +54,7 @@ export const AnnotationToolbar: React.FC<Props> = ({
     cn(
       "size-7",
       shapeDrawTool === tool &&
-        "bg-primary/10 text-primary hover:bg-primary/15 hover:text-primary",
+        "bg-primary/10 text-foreground hover:bg-primary/15 hover:text-foreground",
     );
 
   const toggleShapeTool = (tool: ShapeDrawTool) => {

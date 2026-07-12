@@ -42,7 +42,7 @@ export const FileUnknownViewer: React.FC<FileUnknownViewerProps> = ({
         <FileX className="size-6" />
       </div>
       <div className="mt-6">
-        <h2 className="text-base font-normal text-primary text-center">
+        <h2 className="text-base font-normal text-foreground text-center">
           Vista previa no disponible para este tipo de archivo
         </h2>
         <p className="text-sm text-secondary-foreground mt-2">

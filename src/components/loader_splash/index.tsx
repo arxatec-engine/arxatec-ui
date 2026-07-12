@@ -15,7 +15,7 @@ export const LoaderSplash = ({
   return (
     <div className="flex h-screen w-screen items-center justify-center bg-background ">
       <div
-        className={cn(`relative text-primary`)}
+        className={cn(`relative text-foreground`)}
         role="status"
         aria-busy="true"
         aria-label="Cargando"

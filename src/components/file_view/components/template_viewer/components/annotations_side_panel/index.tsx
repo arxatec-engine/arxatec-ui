@@ -132,7 +132,9 @@ export const AnnotationsSidePanel: React.FC<Props> = ({
       <div className="flex shrink-0 items-center justify-between gap-2 border-b border-border px-3 py-2">
         <div className="flex min-w-0 items-center gap-2">
           <Layers className="size-4 shrink-0 text-muted-foreground" />
-          <h2 className="truncate text-sm font-normal text-primary">Bloques</h2>
+          <h2 className="truncate text-sm font-normal text-foreground">
+            Bloques
+          </h2>
           {totalCount > 0 ? (
             <Badge
               variant="secondary"

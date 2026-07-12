@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react-vite'
+import type { Meta, StoryObj } from "@storybook/react-vite";
 
 import {
   CalendarDaysIcon,
@@ -12,34 +12,38 @@ import {
   SlidersHorizontalIcon,
   SparklesIcon,
   UsersIcon,
-} from './index'
+} from "./index";
 
 type AnimatedIconsStoryArgs = {
-  gap?: string
-  classNameFila?: string
-}
+  gap?: string;
+  classNameFila?: string;
+};
 
 const meta = {
-  title: 'Components/AnimatedIcons',
-  parameters: { layout: 'centered' },
-  tags: ['autodocs'],
+  title: "Components/AnimatedIcons",
+  parameters: { layout: "centered" },
+  tags: ["autodocs"],
   argTypes: {
-    gap: { control: 'text', description: 'Clase gap del contenedor (ej. gap-6)' },
+    gap: {
+      control: "text",
+      description: "Clase gap del contenedor (ej. gap-6)",
+    },
     classNameFila: {
-      control: 'text',
-      description: 'Clases del contenedor flex',
+      control: "text",
+      description: "Clases del contenedor flex",
     },
   },
-} satisfies Meta<AnimatedIconsStoryArgs>
+} satisfies Meta<AnimatedIconsStoryArgs>;
 
-export default meta
+export default meta;
 
-type Story = StoryObj<AnimatedIconsStoryArgs>
+type Story = StoryObj<AnimatedIconsStoryArgs>;
 
 export const Galeria: Story = {
   args: {
-    gap: 'gap-6',
-    classNameFila: 'flex max-w-lg flex-wrap items-center justify-center text-primary',
+    gap: "gap-6",
+    classNameFila:
+      "flex max-w-lg flex-wrap items-center justify-center text-foreground",
   },
   render: ({ gap, classNameFila }) => (
     <div className={`${classNameFila} ${gap}`}>
@@ -56,4 +60,4 @@ export const Galeria: Story = {
       <SparklesIcon />
     </div>
   ),
-}
+};

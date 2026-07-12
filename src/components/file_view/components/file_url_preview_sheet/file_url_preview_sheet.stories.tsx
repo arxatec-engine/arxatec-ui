@@ -50,38 +50,24 @@ function SheetDemo(
       >
         Abrir sheet
       </button>
-      <FileUrlPreviewSheet
-        {...props}
-        open={open}
-        onOpenChange={setOpen}
-      />
+      <FileUrlPreviewSheet {...props} open={open} onOpenChange={setOpen} />
     </>
   );
 }
 
 export const Pdf: Story = {
-  render: () => (
-    <SheetDemo url={SAMPLE_PDF} fileName="tabla-ejemplo.pdf" />
-  ),
+  render: () => <SheetDemo url={SAMPLE_PDF} fileName="tabla-ejemplo.pdf" />,
 };
 
 export const Cargando: Story = {
   render: () => (
-    <SheetDemo
-      url={SAMPLE_PDF}
-      fileName="tabla-ejemplo.pdf"
-      isPending
-    />
+    <SheetDemo url={SAMPLE_PDF} fileName="tabla-ejemplo.pdf" isPending />
   ),
 };
 
 export const Error: Story = {
   render: () => (
-    <SheetDemo
-      url={SAMPLE_PDF}
-      fileName="tabla-ejemplo.pdf"
-      isError
-    />
+    <SheetDemo url={SAMPLE_PDF} fileName="tabla-ejemplo.pdf" isError />
   ),
 };
 

@@ -13,7 +13,7 @@ export const FileBlobOfficeUnavailable: React.FC<
       <FileSpreadsheet className="size-6" />
     </div>
     <div className="mt-6">
-      <h2 className="text-base font-normal text-primary text-center">
+      <h2 className="text-base font-normal text-foreground text-center">
         Vista previa de Office no disponible para archivos locales
       </h2>
       <p className="text-sm text-secondary-foreground mt-2">

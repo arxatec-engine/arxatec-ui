@@ -91,7 +91,7 @@ export function DataListsSection({
               <div className="mt-2 text-right">
                 <p className="text-[10px] text-muted-foreground italic">
                   ID:{" "}
-                  <span className="text-primary font-mono">
+                  <span className="text-foreground font-mono">
                     {selectedCommand ?? "null"}
                   </span>
                 </p>
@@ -187,7 +187,7 @@ export function DataListsSection({
             <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground/60">
               Análisis de Rendimiento
             </p>
-            <p className="text-[10px] font-mono text-primary">Live Data</p>
+            <p className="text-[10px] font-mono text-foreground">Live Data</p>
           </div>
           <div className="w-full min-w-0 overflow-hidden px-1">
             <ChartContainer
