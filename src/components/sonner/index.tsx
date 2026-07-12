@@ -7,11 +7,12 @@ import {
 } from "lucide-react";
 import { Toaster as Sonner, type ToasterProps } from "sonner";
 
-const Toaster = ({ closeButton = true, ...props }: ToasterProps) => {
+const Toaster = ({ closeButton = true, style, ...props }: ToasterProps) => {
   return (
     <Sonner
       className="toaster group pointer-events-none"
       closeButton={closeButton}
+      style={{ fontFamily: "inherit", ...style }}
       icons={{
         success: <CircleCheck className="size-4" />,
         error: <CircleX className="size-4" />,
