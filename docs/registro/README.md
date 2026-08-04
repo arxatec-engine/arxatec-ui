@@ -16,10 +16,8 @@ Aquí vive lo que **se averiguó**, no lo que el repo **es**:
 Un registro es un testigo fechado. Sin la fecha y el commit no vale nada, porque
 el código de debajo se mueve.
 
-**Esta carpeta nace vacía, a propósito.** No hay todavía ninguna auditoría fechada
-de `arxatec-ui`; lo que hay es el sitio donde caerá la primera, con las reglas ya
-escritas y el índice listo. El valor de un armario está en existir antes de que
-haga falta guardar algo.
+La carpeta iba a nacer vacía. No hizo falta: el primer registro es el inventario
+de deuda del repo, que hasta hoy no existía en ninguna parte.
 
 ---
 
@@ -87,7 +85,7 @@ Corolario para agentes: la salida de una sesión anterior es **evidencia**, no
 
 | Fecha | Documento | Qué es | Estado | Última verificación |
 | --- | --- | --- | --- | --- |
-| — | — | *(sin registros todavía)* | — | — |
+| 2026-08-04 | [DEUDA_ABIERTA.md](2026-08-04/DEUDA_ABIERTA.md) | Primer inventario de deuda de este repo: 16 problemas de lint (dos son bugs, no estilo), el conflicto npm/pnpm que impide correr `pnpm lint`, `initialPage` sin implementar y la guía de arquitectura aparcada. | 🟡 D-1, D-2, D-3 · ⏸ D-4 | 2026-08-04 · `d972655` · npm 0.1.55 · eslint ejecutado y leído entero |
 
 Añadir un registro = una fila aquí, en la misma sesión que lo crea. Un registro
 sin fila en el índice es un registro que nadie va a encontrar.
