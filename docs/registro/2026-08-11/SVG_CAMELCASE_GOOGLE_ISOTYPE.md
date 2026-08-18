@@ -93,7 +93,7 @@ son `lint` y `build` (:scripts). Y es un proyecto **npm**: `pnpm lint` revienta
 ya está publicado**: `npm view arxatec-ui dist-tags` → `latest: 0.1.59`, y npm no
 permite reutilizar una versión.
 
-## 7. 🔴 Hallazgo colateral: `main` va por detrás de npm y publicar desde aquí revierte código
+## 7. ✅ Hallazgo colateral (resuelto el 15/08): `main` iba por detrás de npm
 
 Al elegir el número salió un problema que no tiene que ver con este arreglo pero
 que **bloquea el publish**. Verificado descargando los dos tarballs
@@ -126,6 +126,33 @@ No es que falte el bump de versión; falta el código.
 resolvería a `0.1.60` y el visor de documentos perdería la paginación de
 transcripciones. Sería una regresión silenciosa: compila, pasa lint, y falla en
 runtime o degrada la vista.
+
+### Recuperado el 2026-08-15
+
+Se hizo por donde este apartado apuntaba: el `dist/*.js.map` de `0.1.59` trae
+`sourcesContent`, o sea **el TypeScript original**. Comparando cada fuente del
+sourcemap con `src/` salieron exactamente tres archivos:
+
+| Archivo | Situación | Qué se hizo |
+| --- | --- | --- |
+| `file_view/utilities/transcription_pages.ts` | No existía en el repo | Restaurado |
+| `file_view/components/transcription_viewer/index.tsx` | Versión sin paginación | Restaurada la paginada |
+| `icons/components/google_isotype/index.tsx` | **El repo es el bueno** | No se toca |
+
+El tercero merece el matiz: el publicado `0.1.59` lleva los atributos SVG en
+kebab-case (`stop-color`), que es justo el bug que arregló `0.1.60`. Restaurarlo
+habría reintroducido el fallo, así que se dejó la versión del repo.
+
+Faltaba además un eslabón que no se ve en el diff de archivos: los tres símbolos
+se exportan **uno a uno** desde `components/file_view/index.ts`, no con un
+`export *`. Sin añadirlos ahí, el `.d.ts` se generaba pero el bundle **no los
+exportaba** — comprobado y corregido.
+
+**Verificación**: la superficie exportada de los tres puntos de entrada vuelve a
+coincidir con la de `0.1.59` (187 · 66 · 48 símbolos), y la comparación de fuentes
+queda en cero diferencias salvo el isotipo.
+
+La versión pasa a **`0.1.61`** y ya se puede publicar sin perder nada.
 
 Antes de publicar hay que recuperar el trabajo de `0.1.59` a git. Dónde mirar:
 otro working tree o rama sin subir de quien publicó, o reconstruirlo desde

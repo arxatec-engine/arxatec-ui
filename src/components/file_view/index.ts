@@ -20,6 +20,11 @@ export {
 } from "./utilities/resolve_file_view_kind";
 export type { FileViewKind } from "./utilities/resolve_file_view_kind";
 export * from "./components/transcription_viewer";
+export {
+  TRANSCRIPTION_PAGE_BREAK,
+  splitTranscriptionPages,
+  toPlainTranscription,
+} from "./utilities/transcription_pages";
 export * from "./components/summary_viewer";
 export * from "./components/unknown_viewer";
 export * from "./components/office_viewer";
