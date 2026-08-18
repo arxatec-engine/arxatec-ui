@@ -1,7 +1,9 @@
+import { useMemo } from "react";
 import { Copy, FileText, Loader2 } from "lucide-react";
 import { Button } from "@/components/button";
 import { Skeleton } from "@/components/skeleton";
 import { StatusMessage } from "@/components/status_message";
+import { splitTranscriptionPages } from "../../utilities/transcription_pages";
 
 export interface FileTranscriptionViewerProps {
   content?: string | null;
@@ -22,6 +24,11 @@ export const FileTranscriptionViewer: React.FC<
   isError = false,
   onCopy,
 }) => {
+  const pages = useMemo(
+    () => splitTranscriptionPages(content ?? ""),
+    [content],
+  );
+
   if (isLoading) {
     return (
       <div className="p-4 max-w-2xl mx-auto">
@@ -59,12 +66,23 @@ export const FileTranscriptionViewer: React.FC<
     );
   }
 
+  // Los documentos sin paginación real (audio, Word, imágenes) llegan como una
+  // sola página: en ese caso no se muestra la numeración.
+  const isPaginated = pages.length > 1;
+
   return (
     <div className="flex flex-col h-full bg-background overflow-hidden">
       <div className="flex justify-between items-center px-6 py-4 border-b bg-muted/30">
-        <span className="text-sm font-medium text-muted-foreground uppercase tracking-tight">
-          TRANSCRIPCIÓN
-        </span>
+        <div className="flex items-baseline gap-2">
+          <span className="text-sm font-medium text-muted-foreground uppercase tracking-tight">
+            TRANSCRIPCIÓN
+          </span>
+          {isPaginated ? (
+            <span className="text-sm text-muted-foreground">
+              {pages.length} páginas
+            </span>
+          ) : null}
+        </div>
         {onCopy ? (
           <Button
             variant="ghost"
@@ -77,10 +95,32 @@ export const FileTranscriptionViewer: React.FC<
           </Button>
         ) : null}
       </div>
-      <div className="flex-1 overflow-auto p-8 prose prose-sm dark:prose-invert max-w-full min-w-full w-full mx-auto">
-        <pre className="whitespace-pre-wrap font-sans text-foreground text-sm leading-relaxed max-w-2xl mx-auto">
-          {content}
-        </pre>
+      <div className="flex-1 overflow-auto p-8">
+        <div className="mx-auto flex max-w-2xl flex-col gap-6">
+          {pages.map((page, index) => (
+            <article
+              key={index}
+              className="overflow-hidden rounded-lg border bg-card shadow-sm"
+            >
+              {isPaginated ? (
+                <header className="flex items-center justify-between border-b bg-muted/20 px-6 py-2">
+                  <span className="text-sm text-muted-foreground">
+                    Página {index + 1} de {pages.length}
+                  </span>
+                </header>
+              ) : null}
+              {page.trim().length > 0 ? (
+                <pre className="whitespace-pre-wrap break-words px-6 py-5 font-sans text-sm leading-relaxed text-foreground">
+                  {page}
+                </pre>
+              ) : (
+                <p className="px-6 py-5 text-sm text-muted-foreground italic">
+                  Esta página no contiene texto.
+                </p>
+              )}
+            </article>
+          ))}
+        </div>
       </div>
     </div>
   );

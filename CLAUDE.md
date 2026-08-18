@@ -70,19 +70,19 @@ No lo re-exportes desde el barril principal.
 
 ## Publicar (lee esto entero antes de `npm publish`)
 
-**🔴 `main` va por detrás de npm.** Está documentado en
-[`docs/registro/2026-08-11/SVG_CAMELCASE_GOOGLE_ISOTYPE.md`](docs/registro/2026-08-11/SVG_CAMELCASE_GOOGLE_ISOTYPE.md) §7:
+**✅ Recuperado el 2026-08-15.** `main` estuvo por detrás de npm: `0.1.59` se
+publicó desde un working tree que nunca se commiteó, y llevaba
+`file_view/utilities/transcription_pages` —la paginación de transcripciones— que
+no existía en `src`. Publicar desde `main` la habría borrado del paquete.
 
-`0.1.59` se publicó **desde un working tree que nunca se commiteó**. Ese paquete
-contiene `file_view/utilities/transcription_pages` —la paginación de
-transcripciones— que **no existe en el `src` de este repo**.
+Se recuperó del `dist/*.js.map` de `0.1.59`, que trae `sourcesContent`. Detalle y
+verificación en
+[`docs/registro/2026-08-11/SVG_CAMELCASE_GOOGLE_ISOTYPE.md`](docs/registro/2026-08-11/SVG_CAMELCASE_GOOGLE_ISOTYPE.md) §7.
+**Hoy `main` está completo y `0.1.61` se puede publicar sin perder nada.**
 
-Consecuencia: `package.json` está hoy en `0.1.60`, y **publicar desde `main` tal
-cual borra esa funcionalidad del paquete**. La platform pide `^0.1.59`, así que
-resolvería a `0.1.60` y el visor perdería la paginación sin que nada avise.
-
-**Antes de publicar hay que recuperar ese código a git.** La pista está en el
-`dist/file-view.js.map` de `0.1.59`, que sí lleva sourcemap.
+La lección que deja, y por eso queda escrita: **publicar desde un árbol sin
+commitear rompe el repo como fuente de verdad** y solo se nota meses después, al
+comparar el paquete con el código. Publica siempre desde `main` limpio.
 
 Y la regla que ya costó una versión: **no reutilices un número publicado**. npm no
 deja sobrescribir; por eso se saltó de `0.1.58` a `0.1.60`.
