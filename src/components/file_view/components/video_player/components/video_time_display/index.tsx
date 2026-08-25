@@ -1,4 +1,3 @@
-import React from "react";
 import { formatTime } from "../../utils";
 
 interface Props {
@@ -7,11 +6,11 @@ interface Props {
   mobile?: boolean;
 }
 
-export const VideoTimeDisplay: React.FC<Props> = ({
+export const VideoTimeDisplay = ({
   playedSeconds,
   duration,
   mobile = false,
-}) => {
+}: Props) => {
   if (mobile) {
     return (
       <div className="text-white text-sm font-medium sm:hidden">

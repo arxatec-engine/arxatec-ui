@@ -10,12 +10,12 @@ export interface FileUnknownViewerProps {
   onDownload?: () => void;
 }
 
-export const FileUnknownViewer: React.FC<FileUnknownViewerProps> = ({
+export const FileUnknownViewer = ({
   fileName,
   isPending = false,
   isError = false,
   onDownload,
-}) => {
+}: FileUnknownViewerProps) => {
   if (isPending) {
     return (
       <div className="p-6 w-full h-full">

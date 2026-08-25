@@ -16,24 +16,7 @@ import {
   displayLabelForAnnotation,
   mergePlainDraftIntoAnnotationHtml,
 } from "../../utilities";
-
-function plainPreviewFromHtml(html: string): string {
-  const text = html
-    .replace(/<[^>]+>/g, " ")
-    .replace(/\s+/g, " ")
-    .trim();
-  return text || "Texto vacío";
-}
-
-function htmlToPlain(html: string): string {
-  return html
-    .replace(/<br\s*\/?>/gi, "\n")
-    .replace(/<\/p>\s*<p>/gi, "\n\n")
-    .replace(/<\/div>\s*<div>/gi, "\n")
-    .replace(/<[^>]+>/g, "")
-    .replace(/\n{3,}/g, "\n\n")
-    .trim();
-}
+import { htmlToPlain, plainPreviewFromHtml } from "./utilities";
 
 interface Props {
   annotations: TemplateAnnotation[];
@@ -44,14 +27,14 @@ interface Props {
   onClearAll: () => void;
 }
 
-export const AnnotationsSidePanel: React.FC<Props> = ({
+export const AnnotationsSidePanel = ({
   annotations: allAnnotations,
   selectedId,
   onFocusAnnotation,
   onUpdateAnnotation,
   onDelete,
   onClearAll,
-}) => {
+}: Props) => {
   const annotations = allAnnotations;
   const [editingId, setEditingId] = useState<string | null>(null);
   const [editDraft, setEditDraft] = useState("");

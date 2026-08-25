@@ -8,6 +8,8 @@ import {
 } from "react";
 import { LoadingState } from "../";
 import { Document, Page, pdfjs } from "react-pdf";
+import { DEFAULT_PAGE_DIMENSIONS } from "./constants";
+import type { ContentHandle, PageDimensions } from "./types";
 
 interface Props {
   url: string;
@@ -17,17 +19,6 @@ interface Props {
   onLoadError: (error: Error) => void;
   onVisiblePageChange: (page: number) => void;
 }
-
-export interface ContentHandle {
-  scrollToPage: (page: number) => void;
-}
-
-interface PageDimensions {
-  width: number;
-  height: number;
-}
-
-const DEFAULT_PAGE_DIMENSIONS: PageDimensions = { width: 612, height: 792 };
 
 export const Content = forwardRef<ContentHandle, Props>(
   (
@@ -211,3 +202,5 @@ export const Content = forwardRef<ContentHandle, Props>(
 );
 
 Content.displayName = "Content";
+
+export type { ContentHandle } from "./types";

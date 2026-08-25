@@ -26,6 +26,7 @@ export {
   toPlainTranscription,
 } from "./utilities/transcription_pages";
 export * from "./components/summary_viewer";
+export { summaryMarkdownToHtml } from "./utilities/summary_markdown";
 export * from "./components/unknown_viewer";
 export * from "./components/office_viewer";
 export * from "./components/office_viewer/components/toolbar";

@@ -18,8 +18,9 @@ export const AsyncBoundary = <T,>({
   ErrorComponent,
   EmptyComponent,
   children,
-}: Props<T>): React.ReactElement | null => {
+}: Props<T>) => {
   const isEmpty = Array.isArray(data) && data.length === 0;
+
   if (isLoading) return <>{LoadingComponent}</>;
   if (isError || !data) return <>{ErrorComponent}</>;
   if (isEmpty) return <>{EmptyComponent}</>;

@@ -4,7 +4,7 @@ import { Label } from "@/components/label";
 import { Separator } from "@/components/separator";
 import { cn } from "@/utilities/index";
 
-import { getColorContrastForeground } from "../../utils";
+import { getColorContrastForeground } from "../../utilities";
 
 export interface ColorPickerPanelProps {
   pickerValue: string;
@@ -14,13 +14,13 @@ export interface ColorPickerPanelProps {
   onColorChange: (value: string) => void;
 }
 
-function ColorPickerPanel({
+const ColorPickerPanel = ({
   pickerValue,
   normalizedValue,
   swatches,
   disabled = false,
   onColorChange,
-}: ColorPickerPanelProps) {
+}: ColorPickerPanelProps) => {
   return (
     <div
       className="arx-color-picker flex flex-col"
@@ -83,6 +83,6 @@ function ColorPickerPanel({
       </div>
     </div>
   );
-}
+};
 
 export { ColorPickerPanel };

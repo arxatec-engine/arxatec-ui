@@ -1,4 +1,3 @@
-import React from "react";
 import { Button } from "@/components/button";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/tooltip";
 import { Play, Pause } from "lucide-react";
@@ -19,7 +18,7 @@ interface Props {
   onToggleMute: () => void;
 }
 
-export const VideoControls: React.FC<Props> = ({
+export const VideoControls = ({
   playing,
   played,
   playedSeconds,
@@ -30,7 +29,7 @@ export const VideoControls: React.FC<Props> = ({
   onSeekChange,
   onVolumeChange,
   onToggleMute,
-}) => {
+}: Props) => {
   return (
     <div className="absolute bottom-0 left-0 right-0 p-4 space-y-3 z-20">
       <VideoProgressBar played={played} onSeekChange={onSeekChange} />

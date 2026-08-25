@@ -5,4 +5,5 @@ export * from "./get_extension_from_url";
 export * from "./get_source_language_from_file";
 export * from "./infer_mime_from_file_name";
 export * from "./resolve_file_view_kind";
+export * from "./summary_markdown";
 export * from "./transcription_pages";

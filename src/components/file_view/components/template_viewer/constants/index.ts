@@ -67,3 +67,6 @@ export function isDefaultNewTextHtml(html: string): boolean {
 export function shouldAutoFitAnnotationBox(a: TextAnnotation): boolean {
   return isDefaultNewTextHtml(a.content_html);
 }
+
+/** Prefijo de la etiqueta que se pone a una anotación de texto nueva. */
+export const NEW_TEXT_LABEL_PREFIX = "Nuevo texto ";

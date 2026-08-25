@@ -30,7 +30,7 @@ interface FormSelectProps {
   size?: "default" | "sm";
 }
 
-export const FormSelect: React.FC<FormSelectProps> = ({
+export const FormSelect = ({
   name,
   label,
   optional = false,
@@ -42,7 +42,7 @@ export const FormSelect: React.FC<FormSelectProps> = ({
   renderItem,
   children,
   size = "default",
-}) => {
+}: FormSelectProps) => {
   const renderOption = renderItem ?? children;
   const { field } = useController({
     name,

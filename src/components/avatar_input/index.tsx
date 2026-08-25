@@ -1,8 +1,16 @@
+import { PencilIcon, PlusIcon } from "lucide-react";
+import { forwardRef } from "react";
+
+import { cn } from "@/utilities/index";
+
 import { Button } from "../button";
-import { Label } from "../label";
 import { ImageCropDialog } from "../image_crop_dialog";
-import { PencilIcon, PlusIcon, X } from "lucide-react";
-import { useState, useMemo, useRef, useEffect } from "react";
+import { Label } from "../label";
+import { AvatarPreview } from "./components";
+import { DEFAULT_LABELS } from "./constants";
+import { useAvatarInput } from "./hooks";
+import { getInitials } from "./utilities";
+import type { AvatarInputLabels } from "./types";
 
 interface Props {
   fullName: string;
@@ -10,174 +18,84 @@ interface Props {
   className?: string;
   defaultAvatar?: string;
   label?: string;
+  labels?: Partial<AvatarInputLabels>;
 }
 
-export const AvatarInput: React.FC<Props> = ({
-  fullName,
-  onAvatarChange,
-  className = "",
-  defaultAvatar,
-  label = "Foto de perfil",
-}) => {
-  const [avatarFile, setAvatarFile] = useState<File | null>(null);
-  const [avatarPreview, setAvatarPreview] = useState<string | null>(null);
-  const [avatarError, setAvatarError] = useState<string | null>(null);
-  const [selectedImageSrc, setSelectedImageSrc] = useState<string | null>(null);
-  const [isCropDialogOpen, setIsCropDialogOpen] = useState(false);
-  const fileInputRef = useRef<HTMLInputElement>(null);
-
-  useEffect(() => {
-    if (defaultAvatar) {
-      setAvatarPreview(defaultAvatar);
-    }
-  }, [defaultAvatar]);
-
-  const getInitials = useMemo(() => {
-    if (!fullName || fullName.trim() === "") return "MD";
-
-    const names = fullName.trim().split(" ");
-    if (names.length === 1) {
-      return names[0].substring(0, 2).toUpperCase();
-    }
+export const AvatarInput = forwardRef<HTMLDivElement, Props>(
+  (
+    {
+      fullName,
+      onAvatarChange,
+      className,
+      defaultAvatar,
+      label = "Profile photo",
+      labels,
+    },
+    ref
+  ) => {
+    const text = { ...DEFAULT_LABELS, ...labels };
+    const avatar = useAvatarInput({ defaultAvatar, onAvatarChange });
 
     return (
-      names[0].charAt(0) + names[names.length - 1].charAt(0)
-    ).toUpperCase();
-  }, [fullName]);
+      <div ref={ref} data-slot="avatar-input" className={cn(className)}>
+        <Label className="flex items-center gap-2">
+          {label}
+          <span className="text-xs text-muted-foreground">{text.optional}</span>
+        </Label>
 
-  const handleAvatarChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      if (!file.type.startsWith("image/")) {
-        setAvatarError("Por favor selecciona un archivo de imagen válido");
-        event.target.value = "";
-        return;
-      }
-
-      if (file.size > 2 * 1024 * 1024) {
-        setAvatarError("La imagen debe ser menor a 2MB");
-        event.target.value = "";
-        return;
-      }
-
-      setAvatarError(null);
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        setSelectedImageSrc(e.target?.result as string);
-        setIsCropDialogOpen(true);
-      };
-      reader.readAsDataURL(file);
-      event.target.value = "";
-    } else {
-      setAvatarError(null);
-    }
-  };
-
-  const handleCropComplete = (croppedImageFile: File) => {
-    setAvatarError(null);
-    setAvatarFile(croppedImageFile);
-    onAvatarChange(croppedImageFile);
-
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      setAvatarPreview(e.target?.result as string);
-    };
-    reader.readAsDataURL(croppedImageFile);
-
-    setIsCropDialogOpen(false);
-    setSelectedImageSrc(null);
-  };
-
-  const handleCropCancel = () => {
-    setIsCropDialogOpen(false);
-    setSelectedImageSrc(null);
-  };
-
-  const openFileSelector = () => {
-    fileInputRef.current?.click();
-  };
-
-  const removeAvatar = () => {
-    setAvatarFile(null);
-    setAvatarPreview(null);
-    setAvatarError(null);
-    setSelectedImageSrc(null);
-    setIsCropDialogOpen(false);
-    onAvatarChange(undefined);
-    if (fileInputRef.current) {
-      fileInputRef.current.value = "";
-    }
-  };
-
-  return (
-    <div className={className}>
-      <Label className="flex items-center gap-2">
-        {label}
-        <span className="text-xs text-muted-foreground">(Opcional)</span>
-      </Label>
-      <div className="mt-2 flex items-center gap-4">
-        <div className="relative size-20 bg-accent rounded-md flex items-center justify-center border">
-          {avatarPreview ? (
-            <>
-              <img
-                src={avatarPreview}
-                alt="Vista previa del avatar"
-                className="w-full h-full object-cover rounded-md"
-              />
-              <button
-                type="button"
-                onClick={removeAvatar}
-                className="absolute -top-1 -right-1 bg-primary/20 backdrop-blur-lg text-destructive-foreground rounded-full p-1 hover:bg-primary/40 transition-colors"
-              >
-                <X className="size-3" />
-              </button>
-            </>
-          ) : (
-            <span className="text-sm font-medium text-muted-foreground">
-              {getInitials}
-            </span>
-          )}
-        </div>
-        <div className="flex flex-col gap-2">
-          <input
-            ref={fileInputRef}
-            type="file"
-            accept="image/*"
-            onChange={handleAvatarChange}
-            className="hidden"
+        <div className="mt-2 flex items-center gap-4">
+          <AvatarPreview
+            previewUrl={avatar.previewUrl}
+            initials={getInitials(fullName)}
+            previewAlt={text.previewAlt}
+            removeLabel={text.remove}
+            onRemove={avatar.remove}
           />
-          <Button
-            type="button"
-            variant="outline"
-            size="sm"
-            className="border-none bg-accent hover:bg-accent/80 w-fit"
-            onClick={openFileSelector}
-          >
-            {avatarPreview ? (
-              <PencilIcon className="w-4 h-4" />
-            ) : (
-              <PlusIcon className="w-4 h-4" />
+          <div className="flex flex-col gap-2">
+            <input
+              ref={avatar.inputRef}
+              type="file"
+              accept="image/*"
+              onChange={avatar.selectFile}
+              className="hidden"
+            />
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              className="border-none bg-accent hover:bg-accent/80 w-fit"
+              onClick={avatar.openFilePicker}
+            >
+              {avatar.previewUrl ? (
+                <PencilIcon className="w-4 h-4" />
+              ) : (
+                <PlusIcon className="w-4 h-4" />
+              )}
+              <span>{avatar.previewUrl ? text.change : text.add}</span>
+            </Button>
+            {avatar.file && (
+              <p className="text-xs text-muted-foreground">{avatar.file.name}</p>
             )}
-            <span>{avatarPreview ? "Cambiar foto" : "Agregar foto"}</span>
-          </Button>
-          {avatarFile && (
-            <p className="text-xs text-muted-foreground">{avatarFile.name}</p>
-          )}
+          </div>
         </div>
-      </div>
-      {avatarError && (
-        <p className="text-sm text-destructive mt-2">{avatarError}</p>
-      )}
-      {selectedImageSrc && (
-        <ImageCropDialog
-          isOpen={isCropDialogOpen}
-          onClose={handleCropCancel}
-          imageSrc={selectedImageSrc}
-          onCropComplete={handleCropComplete}
-        />
-      )}
-    </div>
-  );
-};
 
-export default AvatarInput;
+        {avatar.error && (
+          <p className="text-sm text-destructive mt-2">{text[avatar.error]}</p>
+        )}
+
+        {avatar.imageToCrop && (
+          <ImageCropDialog
+            isOpen
+            onClose={avatar.cancelCrop}
+            imageSrc={avatar.imageToCrop}
+            onCropComplete={avatar.applyCrop}
+          />
+        )}
+      </div>
+    );
+  }
+);
+
+AvatarInput.displayName = "AvatarInput";
+
+export type { AvatarInputLabels } from "./types";

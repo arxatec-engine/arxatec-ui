@@ -5,7 +5,7 @@ interface Props {
   info: string;
 }
 
-export const InfoTooltip: React.FC<Props> = ({ info }) => {
+export const InfoTooltip = ({ info }: Props) => {
   return (
     <Tooltip>
       <TooltipTrigger className="p-1! bg-secondary rounded-md">

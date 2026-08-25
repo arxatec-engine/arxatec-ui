@@ -1,4 +1,4 @@
-import { getNextWeekendDays } from "../utils";
+import { getNextWeekendDays } from "../utilities";
 
 export const QUICK_DATE_OPTIONS = [
   { label: "Mañana", days: 1 },

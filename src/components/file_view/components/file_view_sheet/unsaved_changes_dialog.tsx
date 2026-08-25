@@ -16,9 +16,7 @@ export interface FileViewUnsavedChangesDialogProps {
   description?: React.ReactNode;
 }
 
-export const FileViewUnsavedChangesDialog: React.FC<
-  FileViewUnsavedChangesDialogProps
-> = ({
+export const FileViewUnsavedChangesDialog = ({
   open,
   onOpenChange,
   onConfirmDiscard,
@@ -29,7 +27,7 @@ export const FileViewUnsavedChangesDialog: React.FC<
       cambios se perderán.
     </>
   ),
-}) => (
+}: FileViewUnsavedChangesDialogProps) => (
   <Dialog open={open} onOpenChange={onOpenChange}>
     <DialogContent className="sm:max-w-md">
       <DialogHeader>

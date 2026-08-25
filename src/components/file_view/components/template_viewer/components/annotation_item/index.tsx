@@ -21,58 +21,16 @@ import { useActiveAnnotationEditor } from "../../context/use_active_annotation_e
 import {
   ANNOTATION_BORDER_PX,
   ANNOTATION_LINE_HEIGHT,
-  ANNOTATION_PADDING_PX,
-  ANNOTATION_WIDTH_BUFFER_PX,
-  annotationPaddingScreen,
+    ANNOTATION_WIDTH_BUFFER_PX,
+  annotationPaddingScreen
 } from "../../utilities";
 import {
   ANNOTATION_MIN_HEIGHT as MIN_H,
   ANNOTATION_MIN_WIDTH as MIN_W,
   normalizeFileAnnotation,
 } from "../../constants";
-
-const ANNOTATION_TEXT_COLOR = "#000000";
-
-const DRAG_STRIP_PX = ANNOTATION_PADDING_PX;
-
-function parseTranslatePx(transform: string): { x: number; y: number } {
-  if (!transform || transform === "none") return { x: 0, y: 0 };
-  const m = transform.match(
-    /translate\(\s*([-0-9.]+)px\s*,\s*([-0-9.]+)px\s*\)/,
-  );
-  if (m) return { x: Number(m[1]), y: Number(m[2]) };
-  const m3 = transform.match(
-    /translate3d\(\s*([-0-9.]+)px\s*,\s*([-0-9.]+)px\s*,/,
-  );
-  if (m3) return { x: Number(m3[1]), y: Number(m3[2]) };
-  return { x: 0, y: 0 };
-}
-
-function measureProseMirrorContentLogicalPx(
-  pm: HTMLElement,
-  pdfScale: number,
-): { width: number; height: number } {
-  const s = pdfScale > 0 ? pdfScale : 1;
-  const prevWidth = pm.style.width;
-  const prevMaxWidth = pm.style.maxWidth;
-  pm.style.width = "max-content";
-  pm.style.maxWidth = "none";
-  const range = document.createRange();
-  range.selectNodeContents(pm);
-  const rectW = range.getBoundingClientRect().width;
-  const screenW = Math.ceil(
-    rectW > 0
-      ? rectW
-      : Math.max(pm.scrollWidth, pm.getBoundingClientRect().width),
-  );
-  const screenH = Math.ceil(pm.scrollHeight);
-  pm.style.width = prevWidth;
-  pm.style.maxWidth = prevMaxWidth;
-  return {
-    width: screenW / s,
-    height: screenH / s,
-  };
-}
+import { ANNOTATION_TEXT_COLOR, DRAG_STRIP_PX } from "./constants";
+import { measureProseMirrorContentLogicalPx, parseTranslatePx } from "./utilities";
 
 interface Props {
   annotation: FileAnnotation;
@@ -85,7 +43,7 @@ interface Props {
   moveableLayoutKey: string;
 }
 
-export const AnnotationItem: React.FC<Props> = ({
+export const AnnotationItem = ({
   annotation,
   pdfScale,
   isSelected,
@@ -94,7 +52,7 @@ export const AnnotationItem: React.FC<Props> = ({
   getPageRect,
   moveableContainer,
   moveableLayoutKey,
-}) => {
+}: Props) => {
   const { registerEditor, registerActiveEditorHtmlSource } =
     useActiveAnnotationEditor();
   const extensions = useMemo(() => createAnnotationEditorExtensions(), []);

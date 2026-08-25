@@ -21,7 +21,7 @@ interface Props<T extends FieldValues>
   autoFocus?: boolean;
 }
 
-export function FormTextarea<T extends FieldValues>({
+export const FormTextarea = <T extends FieldValues,>({
   label,
   name,
   placeholder,
@@ -31,7 +31,7 @@ export function FormTextarea<T extends FieldValues>({
   optional = false,
   autoFocus = false,
   ...props
-}: Props<T>) {
+}: Props<T>) => {
   const error = errors[name];
 
   return (
@@ -62,4 +62,4 @@ export function FormTextarea<T extends FieldValues>({
       )}
     </div>
   );
-}
+};

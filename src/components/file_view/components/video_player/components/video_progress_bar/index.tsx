@@ -1,4 +1,3 @@
-import React from "react";
 import { Slider } from "@/components/slider";
 
 interface Props {
@@ -6,7 +5,7 @@ interface Props {
   onSeekChange: (value: number[]) => void;
 }
 
-export const VideoProgressBar: React.FC<Props> = ({ played, onSeekChange }) => {
+export const VideoProgressBar = ({ played, onSeekChange }: Props) => {
   return (
     <div className="w-full">
       <Slider

@@ -12,7 +12,6 @@ import {
 import type Konva from "konva";
 import type {
   EllipseAnnotation,
-  ImageAnnotation,
   LineAnnotation,
   RectAnnotation,
   TemplateAnnotation,
@@ -39,29 +38,8 @@ import {
   isShapeDrawTool,
   normalizeTemplateAnnotation,
 } from "../../utilities";
-
-function asKonvaRect(node: Konva.Node): Konva.Rect {
-  return node as Konva.Rect;
-}
-
-function asKonvaEllipse(node: Konva.Node): Konva.Ellipse {
-  return node as Konva.Ellipse;
-}
-
-function asKonvaImage(node: Konva.Node): Konva.Image {
-  return node as Konva.Image;
-}
-
-type KonvaShapeAnnotation =
-  | LineAnnotation
-  | RectAnnotation
-  | EllipseAnnotation
-  | ImageAnnotation;
-
-type DraftShape =
-  | { kind: "line"; x1: number; y1: number; x2: number; y2: number }
-  | { kind: "rect"; x: number; y: number; width: number; height: number }
-  | { kind: "ellipse"; x: number; y: number; width: number; height: number };
+import { asKonvaEllipse, asKonvaImage, asKonvaRect, isKonvaShape } from "./utilities";
+import type { DraftShape, KonvaShapeAnnotation } from "./types";
 
 interface Props {
   pageNumber: number;
@@ -79,16 +57,7 @@ interface Props {
   hidden?: boolean;
 }
 
-function isKonvaShape(a: TemplateAnnotation): a is KonvaShapeAnnotation {
-  return (
-    isLineAnnotation(a) ||
-    isRectAnnotation(a) ||
-    isEllipseAnnotation(a) ||
-    isImageAnnotation(a)
-  );
-}
-
-export const AnnotationKonvaLayer: React.FC<Props> = ({
+export const AnnotationKonvaLayer = ({
   pageNumber,
   stageWidth,
   stageHeight,
@@ -102,7 +71,7 @@ export const AnnotationKonvaLayer: React.FC<Props> = ({
   onChange,
   onShapeDrawToolChange,
   hidden = false,
-}) => {
+}: Props) => {
   const selectShape = useCallback(
     (id: string) => {
       onSelect(id);

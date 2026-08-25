@@ -14,7 +14,7 @@ export interface FileMimeRouterProps {
   renderUnknown?: React.ReactNode;
 }
 
-export const FileMimeRouter: React.FC<FileMimeRouterProps> = ({
+export const FileMimeRouter = ({
   mimeType,
   fileName,
   nativeDocumentMimeType,
@@ -26,7 +26,7 @@ export const FileMimeRouter: React.FC<FileMimeRouterProps> = ({
   renderOffice,
   renderSource,
   renderUnknown,
-}) => {
+}: FileMimeRouterProps) => {
   const kind = resolveFileViewKind(mimeType, fileName, nativeDocumentMimeType);
 
   switch (kind) {

@@ -8,7 +8,7 @@ interface Props extends React.ImgHTMLAttributes<HTMLImageElement> {
   classNameImage?: string;
 }
 
-export const Image: React.FC<Props> = ({
+export const Image = ({
   src,
   alt = "",
   errorImage = "/image_error.png",
@@ -17,7 +17,7 @@ export const Image: React.FC<Props> = ({
   className = "",
   classNameImage = "",
   ...props
-}) => {
+}: Props) => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [hasError, setHasError] = useState<boolean>(false);
 

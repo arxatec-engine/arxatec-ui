@@ -21,7 +21,7 @@ interface Props<T extends FieldValues> {
   size?: "default" | "sm";
 }
 
-export function FormInput<T extends FieldValues>({
+export const FormInput = <T extends FieldValues,>({
   label,
   name,
   type = "text",
@@ -32,7 +32,7 @@ export function FormInput<T extends FieldValues>({
   optional = false,
   disabled = false,
   size = "default",
-}: Props<T>) {
+}: Props<T>) => {
   const error = errors[name];
 
   return (
@@ -67,4 +67,4 @@ export function FormInput<T extends FieldValues>({
       )}
     </div>
   );
-}
+};

@@ -1,4 +1,3 @@
-import React from "react";
 import { Button } from "@/components/button";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/tooltip";
 import { Download } from "lucide-react";
@@ -8,10 +7,10 @@ interface Props {
   disabled?: boolean;
 }
 
-export const VideoHeader: React.FC<Props> = ({
+export const VideoHeader = ({
   onDownload,
   disabled = false,
-}) => {
+}: Props) => {
   return (
     <div className="flex items-center justify-end p-4 bg-card border-b border-border">
       <Tooltip>

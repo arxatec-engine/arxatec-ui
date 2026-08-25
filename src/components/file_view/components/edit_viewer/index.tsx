@@ -11,14 +11,14 @@ export interface FileEditViewerProps {
   children?: React.ReactNode;
 }
 
-export const FileEditViewer: React.FC<FileEditViewerProps> = ({
+export const FileEditViewer = ({
   isPending = false,
   isError = false,
   isUnsupported = false,
   isEmpty = false,
   onRetry,
   children,
-}) => {
+}: FileEditViewerProps) => {
   if (isPending) {
     return (
       <div className="flex h-full min-h-[240px] flex-col items-center justify-center gap-2 text-muted-foreground">

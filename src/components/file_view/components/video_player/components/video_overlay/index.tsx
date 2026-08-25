@@ -1,4 +1,3 @@
-import React from "react";
 import { Button } from "@/components/button";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/tooltip";
 import { Maximize, Minimize } from "lucide-react";
@@ -22,7 +21,7 @@ interface Props {
   onToggleMute: () => void;
 }
 
-export const VideoOverlay: React.FC<Props> = ({
+export const VideoOverlay = ({
   showControls,
   isHovering,
   isFullscreen,
@@ -37,7 +36,7 @@ export const VideoOverlay: React.FC<Props> = ({
   onSeekChange,
   onVolumeChange,
   onToggleMute,
-}) => {
+}: Props) => {
   return (
     <div
       className={cn(

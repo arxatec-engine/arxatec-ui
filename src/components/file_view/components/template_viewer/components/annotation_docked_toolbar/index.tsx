@@ -4,16 +4,16 @@ import {
   UnderlineToolbar,
   ColorHighlightToolbar,
 } from "@/components/rich_text_editor/toolbars";
-import { AnnotationBoldToolbar } from "./annotation_format_toolbars";
 import { ToolbarProvider } from "@/components/rich_text_editor/toolbars/toolbar_provider";
 import { TooltipProvider } from "@/components/tooltip";
 import { Trash2 } from "lucide-react";
 import type { MouseEvent as ReactMouseEvent } from "react";
 import { useActiveAnnotationEditor } from "../../context/use_active_annotation_editor";
 import {
+  AnnotationBoldToolbar,
   AnnotationBoxFontFamilyToolbar,
   AnnotationBoxFontSizeToolbar,
-} from "./annotation_box_font_toolbars";
+} from "./components";
 
 interface Props {
   selectedId: string | null;
@@ -21,11 +21,11 @@ interface Props {
   canDelete: boolean;
 }
 
-export const AnnotationDockedToolbar: React.FC<Props> = ({
+export const AnnotationDockedToolbar = ({
   selectedId,
   onDelete,
   canDelete,
-}) => {
+}: Props) => {
   const { active } = useActiveAnnotationEditor();
   const editor = selectedId && active?.id === selectedId ? active.editor : null;
 

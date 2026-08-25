@@ -13,7 +13,7 @@ export interface FileDropZoneProps {
   children?: React.ReactNode;
 }
 
-export const FileDropZone: React.FC<FileDropZoneProps> = ({
+export const FileDropZone = ({
   onFilesChange,
   files = [],
   acceptedTypes = ["*"],
@@ -23,7 +23,7 @@ export const FileDropZone: React.FC<FileDropZoneProps> = ({
   disabled = false,
   className = "",
   children,
-}) => {
+}: FileDropZoneProps) => {
   const [isDragOver, setIsDragOver] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);

@@ -1,11 +1,10 @@
-import React from "react";
 import { Button } from "@/components/button";
 
 interface Props {
   onDownload: () => void;
 }
 
-export const VideoErrorOverlay: React.FC<Props> = ({ onDownload }) => {
+export const VideoErrorOverlay = ({ onDownload }: Props) => {
   return (
     <div className="absolute inset-0 flex items-center justify-center bg-black/50 z-10">
       <div className="flex flex-col items-center gap-3">

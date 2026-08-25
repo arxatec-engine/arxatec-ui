@@ -5,7 +5,7 @@ interface Props {
   children: React.ReactNode;
 }
 
-export const ErrorBoundary: React.FC<Props> = ({ children }) => {
+export const ErrorBoundary = ({ children }: Props) => {
   return (
     <ReactErrorBoundary
       fallback={<ErrorState />}

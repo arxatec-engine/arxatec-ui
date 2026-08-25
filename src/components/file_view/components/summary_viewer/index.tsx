@@ -1,7 +1,9 @@
+import { useMemo } from "react";
 import { Copy, FileText, Loader2 } from "lucide-react";
 import { Button } from "@/components/button";
 import { Skeleton } from "@/components/skeleton";
 import { StatusMessage } from "@/components/status_message";
+import { summaryMarkdownToHtml } from "../../utilities/summary_markdown";
 
 export interface FileSummaryViewerProps {
   content?: string | null;
@@ -14,7 +16,7 @@ export interface FileSummaryViewerProps {
   onRetry?: () => void;
 }
 
-export const FileSummaryViewer: React.FC<FileSummaryViewerProps> = ({
+export const FileSummaryViewer = ({
   content,
   isLoading = false,
   isProcessing = false,
@@ -23,7 +25,9 @@ export const FileSummaryViewer: React.FC<FileSummaryViewerProps> = ({
   isUnsupported = false,
   onCopy,
   onRetry,
-}) => {
+}: FileSummaryViewerProps) => {
+  const html = useMemo(() => summaryMarkdownToHtml(content), [content]);
+
   if (isLoading) {
     return (
       <div className="p-4 max-w-2xl mx-auto">
@@ -101,10 +105,11 @@ export const FileSummaryViewer: React.FC<FileSummaryViewerProps> = ({
           </Button>
         ) : null}
       </div>
-      <div className="flex-1 overflow-auto p-8 prose prose-sm dark:prose-invert max-w-full min-w-full w-full mx-auto">
-        <pre className="whitespace-pre-wrap font-sans text-foreground text-sm leading-relaxed max-w-2xl mx-auto">
-          {content}
-        </pre>
+      <div className="flex-1 overflow-auto p-8">
+        <div
+          className="prose prose-sm dark:prose-invert text-foreground leading-relaxed max-w-2xl mx-auto"
+          dangerouslySetInnerHTML={{ __html: html }}
+        />
       </div>
     </div>
   );

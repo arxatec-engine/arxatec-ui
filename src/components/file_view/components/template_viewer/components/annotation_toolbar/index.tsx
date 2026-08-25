@@ -19,7 +19,8 @@ interface Props {
   onShapeDrawToolChange: (tool: ShapeDrawTool | null) => void;
   onInsertText: () => void;
   onInsertImage: () => void;
-  onSaveAsPdf: () => void;
+  /** Sin handler no se pinta el botón: el anfitrión no tiene dónde guardar. */
+  onSaveAsPdf?: () => void;
   isExporting: boolean;
   isUploadingImage?: boolean;
   hasAnnotations: boolean;
@@ -29,7 +30,7 @@ interface Props {
   pdfPageCount?: number;
 }
 
-export const AnnotationToolbar: React.FC<Props> = ({
+export const AnnotationToolbar = ({
   shapeDrawTool,
   onShapeDrawToolChange,
   onInsertText,
@@ -42,7 +43,7 @@ export const AnnotationToolbar: React.FC<Props> = ({
   hasSelection = false,
   activePdfPage = 1,
   pdfPageCount = 0,
-}) => {
+}: Props) => {
   const pageHint =
     pdfPageCount > 0
       ? `Se insertará en la página ${activePdfPage}.`
@@ -187,31 +188,33 @@ export const AnnotationToolbar: React.FC<Props> = ({
         </div>
       </div>
 
-      <div className="ml-auto flex shrink-0 items-center sm:ml-0">
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <Button
-              type="button"
-              variant="outline"
-              size="sm"
-              disabled={saveDisabled}
-              className="h-8 gap-1.5"
-              onClick={() => onSaveAsPdf()}
-              aria-label="Guardar PDF anotado como nuevo archivo"
-            >
-              {isExporting ? (
-                <Loader2 className="size-4 animate-spin" />
-              ) : (
-                <FileDown className="size-4" />
-              )}
-              {isExporting ? "Generando…" : "Guardar como"}
-            </Button>
-          </TooltipTrigger>
-          <TooltipContent>
-            Crear PDF anotado con otro nombre en documentos
-          </TooltipContent>
-        </Tooltip>
-      </div>
+      {onSaveAsPdf ? (
+        <div className="ml-auto flex shrink-0 items-center sm:ml-0">
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                disabled={saveDisabled}
+                className="h-8 gap-1.5"
+                onClick={() => onSaveAsPdf()}
+                aria-label="Guardar PDF anotado como nuevo archivo"
+              >
+                {isExporting ? (
+                  <Loader2 className="size-4 animate-spin" />
+                ) : (
+                  <FileDown className="size-4" />
+                )}
+                {isExporting ? "Generando…" : "Guardar como"}
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>
+              Crear PDF anotado con otro nombre en documentos
+            </TooltipContent>
+          </Tooltip>
+        </div>
+      ) : null}
     </div>
   );
 };

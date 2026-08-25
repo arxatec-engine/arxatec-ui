@@ -16,13 +16,12 @@ import {
 } from "../../../../types/annotations";
 import {
   type KonvaShapeAnnotation,
-  SHAPE_COLOR_PALETTE,
-  type ShapeColorValue,
-  nearestStrokePresetValue,
+      nearestStrokePresetValue,
   STROKE_WIDTH_PRESETS,
-  normalizeTemplateAnnotation,
+  normalizeTemplateAnnotation
 } from "../../utilities";
 import { AnnotationColorPicker } from "../annotation_color_picker";
+import { applyFillColor, applyStrokeColor, fillPickerValue, strokePickerValue } from "./utilities";
 
 interface Props {
   annotation: KonvaShapeAnnotation;
@@ -31,47 +30,12 @@ interface Props {
   disabled?: boolean;
 }
 
-function strokePickerValue(ann: KonvaShapeAnnotation): ShapeColorValue {
-  const s = ann.stroke?.trim();
-  if (!s || s.toLowerCase() === "transparent") return "transparent";
-  const hit = SHAPE_COLOR_PALETTE.find(
-    (c) => c.value.toLowerCase() === s.toLowerCase(),
-  );
-  return hit?.value ?? "#000000";
-}
-
-function fillPickerValue(ann: KonvaShapeAnnotation): string | null {
-  if (!isRectAnnotation(ann) && !isEllipseAnnotation(ann)) return null;
-  const f = ann.fill;
-  if (!f || f === "transparent") return "transparent";
-  return f;
-}
-
-function applyStrokeColor(
-  ann: KonvaShapeAnnotation,
-  color: ShapeColorValue,
-): KonvaShapeAnnotation {
-  return {
-    ...ann,
-    stroke: color === "transparent" ? "transparent" : color,
-  };
-}
-
-function applyFillColor(
-  ann: KonvaShapeAnnotation,
-  color: ShapeColorValue,
-): KonvaShapeAnnotation {
-  if (!isRectAnnotation(ann) && !isEllipseAnnotation(ann)) return ann;
-  const fill = color === "transparent" ? null : color;
-  return { ...ann, fill };
-}
-
-export const AnnotationShapeToolbar: React.FC<Props> = ({
+export const AnnotationShapeToolbar = ({
   annotation,
   onUpdate,
   onDelete,
   disabled = false,
-}) => {
+}: Props) => {
   const strokeW = nearestStrokePresetValue(
     annotation.strokeWidth ?? STROKE_WIDTH_PRESETS[1].value,
   );

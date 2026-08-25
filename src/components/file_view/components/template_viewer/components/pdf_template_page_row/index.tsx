@@ -27,7 +27,7 @@ interface Props {
   onPageViewportAtScaleOne?: (width: number, height: number) => void;
 }
 
-export function PdfTemplatePageRow({
+export const PdfTemplatePageRow = ({
   pageNumber,
   scale,
   pageWidthAtScale1,
@@ -43,7 +43,7 @@ export function PdfTemplatePageRow({
   onChangeShape,
   onShapeDrawToolChange,
   onPageViewportAtScaleOne,
-}: Props) {
+}: Props) => {
   const [wrapEl, setWrapEl] = useState<HTMLDivElement | null>(null);
   const [box, setBox] = useState({ w: 0, h: 0 });
 
@@ -141,4 +141,4 @@ export function PdfTemplatePageRow({
       />
     </div>
   );
-}
+};

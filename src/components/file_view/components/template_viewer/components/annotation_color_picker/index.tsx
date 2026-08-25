@@ -2,53 +2,11 @@ import { Button } from "@/components/button";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/popover";
 import { ScrollArea } from "@/components/scroll_area";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/tooltip";
-import { cn } from "@/utilities/class";
 import { CheckIcon, ChevronDownIcon } from "lucide-react";
 import type { MouseEvent as ReactMouseEvent } from "react";
 import { SHAPE_COLOR_PALETTE, type ShapeColorValue } from "../../utilities";
-
-function normalizePickerValue(
-  value: string | null | undefined,
-): ShapeColorValue {
-  if (value == null || value === "" || value === "transparent") {
-    return "transparent";
-  }
-  const hit = SHAPE_COLOR_PALETTE.find(
-    (c) => c.value.toLowerCase() === value.toLowerCase(),
-  );
-  return hit?.value ?? "#000000";
-}
-
-function SwatchPreview({
-  color,
-  className,
-}: {
-  color: ShapeColorValue;
-  className?: string;
-}) {
-  if (color === "transparent") {
-    return (
-      <div
-        className={cn(
-          "size-5 rounded-sm border border-border bg-size-[6px_6px] bg-position-[0_0,3px_3px]",
-          className,
-        )}
-        style={{
-          backgroundImage:
-            "linear-gradient(45deg, #ccc 25%, transparent 25%), linear-gradient(-45deg, #ccc 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #ccc 75%), linear-gradient(-45deg, transparent 75%, #ccc 75%)",
-        }}
-        aria-hidden
-      />
-    );
-  }
-  return (
-    <div
-      className={cn("size-5 rounded-sm border border-border", className)}
-      style={{ backgroundColor: color }}
-      aria-hidden
-    />
-  );
-}
+import { SwatchPreview } from "./components/swatch_preview";
+import { normalizePickerValue } from "./utilities";
 
 interface Props {
   label: string;
@@ -58,13 +16,13 @@ interface Props {
   disabled?: boolean;
 }
 
-export const AnnotationColorPicker: React.FC<Props> = ({
+export const AnnotationColorPicker = ({
   label,
   tooltip,
   value,
   onChange,
   disabled = false,
-}) => {
+}: Props) => {
   const current = normalizePickerValue(value);
 
   return (

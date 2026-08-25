@@ -1,4 +1,3 @@
-import React from "react";
 import { Button } from "@/components/button";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/tooltip";
 import { Slider } from "@/components/slider";
@@ -11,12 +10,12 @@ interface Props {
   onVolumeChange: (value: number[]) => void;
 }
 
-export const VideoVolumeControl: React.FC<Props> = ({
+export const VideoVolumeControl = ({
   volume,
   muted,
   onToggleMute,
   onVolumeChange,
-}) => {
+}: Props) => {
   return (
     <div className="flex items-center gap-2">
       <Tooltip>

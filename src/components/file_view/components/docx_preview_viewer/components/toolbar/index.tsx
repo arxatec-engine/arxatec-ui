@@ -15,13 +15,13 @@ interface Props {
   disabled?: boolean;
 }
 
-export const Toolbar: React.FC<Props> = ({
+export const Toolbar = ({
   scale,
   onZoomIn,
   onZoomOut,
   onDownload,
   disabled = false,
-}) => (
+}: Props) => (
   <ViewerFloatingBar ariaLabel="Controles del visor de documento">
     <Tooltip>
       <TooltipTrigger asChild>

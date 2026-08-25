@@ -13,11 +13,11 @@ export interface FileSimplePreviewSheetProps {
   file: File | null;
 }
 
-export const FileSimplePreviewSheet: React.FC<FileSimplePreviewSheetProps> = ({
+export const FileSimplePreviewSheet = ({
   open,
   onOpenChange,
   file,
-}) => {
+}: FileSimplePreviewSheetProps) => {
   const url = useMemo(() => {
     if (!file) return null;
     return URL.createObjectURL(file);

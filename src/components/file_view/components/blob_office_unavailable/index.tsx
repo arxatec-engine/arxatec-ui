@@ -5,9 +5,7 @@ export interface FileBlobOfficeUnavailableProps {
   fileName?: string;
 }
 
-export const FileBlobOfficeUnavailable: React.FC<
-  FileBlobOfficeUnavailableProps
-> = ({ url, fileName }) => (
+export const FileBlobOfficeUnavailable = ({ url, fileName }: FileBlobOfficeUnavailableProps) => (
   <div className="flex flex-col items-center justify-center h-full p-4 mx-auto max-w-md text-center">
     <div className="p-4 rounded-md bg-status-card-background-icon-empty text-foreground">
       <FileSpreadsheet className="size-6" />

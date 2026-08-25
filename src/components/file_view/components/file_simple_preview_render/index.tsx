@@ -9,38 +9,14 @@ import { FileVideoPlayer } from "../video_player";
 import { FileXlsxPreviewViewer } from "../xlsx_preview_viewer";
 import { downloadFromUrl } from "../../utilities/download_from_url";
 import { effectiveMimeFromFile } from "../../utilities/effective_mime_from_file";
+import { CODE_FILE_EXTENSIONS, CODE_MIME_PREFIXES, DOCX_MIME, OFFICE_MIME_TYPES, XLSX_MIME, XLS_MIME } from "./constants";
 
 export interface FileSimplePreviewRenderProps {
   file: File;
   url: string;
 }
 
-const CODE_MIME_PREFIXES = [
-  "text/",
-  "application/javascript",
-  "application/json",
-  "application/xml",
-  "application/typescript",
-] as const;
-
-const CODE_FILE_EXTENSIONS =
-  /\.(js|jsx|ts|tsx|py|java|c|cpp|cs|rb|go|rs|php|sql|sh|bash|md|json|yml|yaml|html|css)$/i;
-
-const OFFICE_MIME_TYPES = [
-  "application/msword",
-  "application/vnd.ms-powerpoint",
-  "application/vnd.openxmlformats-officedocument.presentationml.presentation",
-] as const;
-
-const DOCX_MIME =
-  "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
-const XLSX_MIME =
-  "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
-const XLS_MIME = "application/vnd.ms-excel";
-
-export const FileSimplePreviewRender: React.FC<
-  FileSimplePreviewRenderProps
-> = ({ file, url }) => {
+export const FileSimplePreviewRender = ({ file, url }: FileSimplePreviewRenderProps) => {
   const mimeType = effectiveMimeFromFile(file);
   const download = () => downloadFromUrl(url, file.name);
 

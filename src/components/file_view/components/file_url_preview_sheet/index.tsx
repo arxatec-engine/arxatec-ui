@@ -20,14 +20,14 @@ export interface FileUrlPreviewSheetProps {
   isError?: boolean;
 }
 
-export const FileUrlPreviewSheet: React.FC<FileUrlPreviewSheetProps> = ({
+export const FileUrlPreviewSheet = ({
   open,
   onOpenChange,
   url,
   fileName,
   isPending = false,
   isError = false,
-}) => {
+}: FileUrlPreviewSheetProps) => {
   const displayName =
     fileName ?? (url ? getFileNameFromUrl(url) : "Vista previa");
 

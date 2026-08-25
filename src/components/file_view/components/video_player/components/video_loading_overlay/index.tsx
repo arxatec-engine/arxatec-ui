@@ -1,11 +1,10 @@
-import React from "react";
 import { Loader2 } from "lucide-react";
 
 interface Props {
   isBuffering: boolean;
 }
 
-export const VideoLoadingOverlay: React.FC<Props> = ({ isBuffering }) => {
+export const VideoLoadingOverlay = ({ isBuffering }: Props) => {
   return (
     <div className="absolute inset-0 flex items-center justify-center bg-black/50 z-10">
       <div className="flex flex-col items-center gap-3">

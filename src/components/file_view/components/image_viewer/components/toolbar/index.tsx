@@ -17,7 +17,7 @@ interface Props {
   handleRotate: () => void;
   handleReset: () => void;
 }
-export const Toolbar: React.FC<Props> = ({
+export const Toolbar = ({
   handleZoomOut,
   handleZoomIn,
   scale,
@@ -26,7 +26,7 @@ export const Toolbar: React.FC<Props> = ({
   handleDownloadFile,
   handleRotate,
   handleReset,
-}) => {
+}: Props) => {
   const disabled = isPending || isError;
 
   return (

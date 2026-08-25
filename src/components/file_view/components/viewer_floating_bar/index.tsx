@@ -7,11 +7,11 @@ interface ViewerFloatingBarProps {
   className?: string;
 }
 
-export const ViewerFloatingBar: React.FC<ViewerFloatingBarProps> = ({
+export const ViewerFloatingBar = ({
   children,
   ariaLabel = "Controles del visor",
   className,
-}) => (
+}: ViewerFloatingBarProps) => (
   <div
     className="pointer-events-none absolute inset-x-0 bottom-5 z-30 flex justify-center px-4"
     role="toolbar"
@@ -28,21 +28,4 @@ export const ViewerFloatingBar: React.FC<ViewerFloatingBarProps> = ({
   </div>
 );
 
-interface ViewerFloatingBarValueProps {
-  children: ReactNode;
-  className?: string;
-}
-
-export const ViewerFloatingBarValue: React.FC<ViewerFloatingBarValueProps> = ({
-  children,
-  className,
-}) => (
-  <div
-    className={cn(
-      "min-w-11 select-none rounded-md bg-muted px-2 py-0.5 text-center text-xs font-medium tabular-nums text-foreground",
-      className,
-    )}
-  >
-    {children}
-  </div>
-);
+export { ViewerFloatingBarValue } from "./components/viewer_floating_bar_value";

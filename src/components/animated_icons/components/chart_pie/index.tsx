@@ -1,67 +1,36 @@
 "use client";
 
-import type { Variants } from "motion/react";
 import { motion, useAnimation } from "motion/react";
 import type { HTMLAttributes } from "react";
-import { forwardRef, useCallback, useImperativeHandle, useRef } from "react";
+import { forwardRef } from "react";
 
 import { cn } from "@/utilities/index";
 
-export interface ChartPieIconHandle {
-  startAnimation: () => void;
-  stopAnimation: () => void;
-}
+import { PATH_VARIANTS } from "./constants";
 
-interface ChartPieIconProps extends HTMLAttributes<HTMLDivElement> {
+import type { AnimatedIconHandle } from "../../hooks/use_animated_icon";
+import { useAnimatedIconHandle } from "../../hooks/use_animated_icon_handle";
+
+interface Props extends HTMLAttributes<HTMLDivElement> {
   size?: number;
 }
 
-const PATH_VARIANTS: Variants = {
-  normal: { translateX: 0, translateY: 0 },
-  animate: { translateX: 1.1, translateY: -1.1 },
-};
-
-const ChartPieIcon = forwardRef<ChartPieIconHandle, ChartPieIconProps>(
+const ChartPieIcon = forwardRef<AnimatedIconHandle, Props>(
   ({ onMouseEnter, onMouseLeave, className, size = 28, ...props }, ref) => {
     const controls = useAnimation();
-    const isControlledRef = useRef(false);
-
-    useImperativeHandle(ref, () => {
-      isControlledRef.current = true;
-
-      return {
-        startAnimation: () => controls.start("animate"),
-        stopAnimation: () => controls.start("normal"),
-      };
+    const hoverHandlers = useAnimatedIconHandle({
+      ref,
+      onMouseEnter,
+      onMouseLeave,
+      start: () => controls.start("animate"),
+      stop: () => controls.start("normal"),
     });
-
-    const handleMouseEnter = useCallback(
-      (e: React.MouseEvent<HTMLDivElement>) => {
-        if (isControlledRef.current) {
-          onMouseEnter?.(e);
-        } else {
-          controls.start("animate");
-        }
-      },
-      [controls, onMouseEnter]
-    );
-
-    const handleMouseLeave = useCallback(
-      (e: React.MouseEvent<HTMLDivElement>) => {
-        if (isControlledRef.current) {
-          onMouseLeave?.(e);
-        } else {
-          controls.start("normal");
-        }
-      },
-      [controls, onMouseLeave]
-    );
 
     return (
       <div
+        data-slot="animated-icon"
         className={cn(className)}
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
+        {...hoverHandlers}
         {...props}
       >
         <svg

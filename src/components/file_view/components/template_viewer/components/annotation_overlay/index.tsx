@@ -15,7 +15,7 @@ interface Props {
   allowPagePointerEvents?: boolean;
 }
 
-export const AnnotationOverlay: React.FC<Props> = ({
+export const AnnotationOverlay = ({
   pageNumber,
   pdfScale,
   annotations,
@@ -26,7 +26,7 @@ export const AnnotationOverlay: React.FC<Props> = ({
   moveableLayoutKey,
   hidden = false,
   allowPagePointerEvents = false,
-}) => {
+}: Props) => {
   const list = annotations.filter((a) => a.page === pageNumber);
   const [moveableContainer, setMoveableContainer] =
     useState<HTMLDivElement | null>(null);

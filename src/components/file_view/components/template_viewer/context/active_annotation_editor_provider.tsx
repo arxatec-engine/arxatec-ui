@@ -6,11 +6,11 @@ import {
   type ActiveAnnotationEditorEntry,
 } from "./active_annotation_editor_context";
 
-export function ActiveAnnotationEditorProvider({
+export const ActiveAnnotationEditorProvider = ({
   children,
 }: {
   children: ReactNode;
-}) {
+}) => {
   const [active, setActive] = useState<ActiveAnnotationEditorEntry | null>(
     null,
   );
@@ -80,4 +80,4 @@ export function ActiveAnnotationEditorProvider({
       {children}
     </ActiveAnnotationEditorContext.Provider>
   );
-}
+};

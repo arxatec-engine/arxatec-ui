@@ -7,9 +7,7 @@ export interface FileOfficeViewerToolbarProps {
   onDownload?: () => void;
 }
 
-export const FileOfficeViewerToolbar: React.FC<
-  FileOfficeViewerToolbarProps
-> = ({ onDownload }) => {
+export const FileOfficeViewerToolbar = ({ onDownload }: FileOfficeViewerToolbarProps) => {
   if (!onDownload) return null;
 
   return (

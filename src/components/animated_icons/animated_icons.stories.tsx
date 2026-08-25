@@ -1,17 +1,21 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
 import {
+  BookTextIcon,
   CalendarDaysIcon,
   ChartPieIcon,
   CircleHelpIcon,
   FoldersIcon,
+  HammerIcon,
   LayersIcon,
+  MessageSquareIcon,
   PanelLeftCloseIcon,
   PanelLeftOpenIcon,
   SearchIcon,
   SlidersHorizontalIcon,
   SparklesIcon,
   UsersIcon,
+  useAnimatedIcon,
 } from "./index";
 
 type AnimatedIconsStoryArgs = {
@@ -47,7 +51,7 @@ export const Galeria: Story = {
   },
   render: ({ gap, classNameFila }) => (
     <div className={`${classNameFila} ${gap}`}>
-      <UsersIcon className="text-foreground" />
+      <UsersIcon />
       <SearchIcon />
       <LayersIcon />
       <FoldersIcon />
@@ -58,6 +62,33 @@ export const Galeria: Story = {
       <PanelLeftCloseIcon />
       <PanelLeftOpenIcon />
       <SparklesIcon />
+      <BookTextIcon />
+      <MessageSquareIcon />
+      <HammerIcon />
     </div>
   ),
+};
+
+function ControlledDemo() {
+  const { iconRef, onMouseEnter, onMouseLeave } = useAnimatedIcon();
+
+  return (
+    <button
+      type="button"
+      className="inline-flex items-center gap-2 rounded-md border border-input px-3 py-2 text-sm text-foreground"
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+    >
+      <SearchIcon ref={iconRef} size={20} />
+      Buscar
+    </button>
+  );
+}
+
+/**
+ * Con `ref` el icono deja de animarse por su cuenta: quien dispara la animación
+ * es el contenedor, que es el caso real de un icono dentro de un botón.
+ */
+export const Controlado: Story = {
+  render: () => <ControlledDemo />,
 };

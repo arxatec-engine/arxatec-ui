@@ -24,7 +24,7 @@ interface Props {
   onDownload: () => void;
 }
 
-export const Toolbar: React.FC<Props> = ({
+export const Toolbar = ({
   scale,
   pageNumber,
   numPages,
@@ -33,7 +33,7 @@ export const Toolbar: React.FC<Props> = ({
   onPrevPage,
   onNextPage,
   onDownload,
-}) => {
+}: Props) => {
   const showPagination = numPages > 0;
 
   return (

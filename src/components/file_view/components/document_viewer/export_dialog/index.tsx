@@ -17,16 +17,14 @@ export interface FileDocumentExportDialogProps {
   onConfirm: () => void;
 }
 
-export const FileDocumentExportDialog: React.FC<
-  FileDocumentExportDialogProps
-> = ({
+export const FileDocumentExportDialog = ({
   open,
   onOpenChange,
   exportType,
   exportName,
   onExportNameChange,
   onConfirm,
-}) => (
+}: FileDocumentExportDialogProps) => (
   <Dialog open={open} onOpenChange={onOpenChange}>
     <DialogContent className="sm:max-w-[425px]">
       <DialogHeader>

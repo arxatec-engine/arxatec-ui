@@ -1,104 +1,43 @@
 "use client";
 
-import type { Variants } from "motion/react";
 import { motion, useAnimation } from "motion/react";
 import type { HTMLAttributes } from "react";
-import { forwardRef, useCallback, useImperativeHandle, useRef } from "react";
+import { forwardRef } from "react";
 
 import { cn } from "@/utilities/index";
 
-export interface SparklesIconHandle {
-  startAnimation: () => void;
-  stopAnimation: () => void;
-}
+import { SPARKLE_VARIANTS, STAR_VARIANTS } from "./constants";
 
-interface SparklesIconProps extends HTMLAttributes<HTMLDivElement> {
+import type { AnimatedIconHandle } from "../../hooks/use_animated_icon";
+import { useAnimatedIconHandle } from "../../hooks/use_animated_icon_handle";
+
+interface Props extends HTMLAttributes<HTMLDivElement> {
   size?: number;
 }
 
-const SPARKLE_VARIANTS: Variants = {
-  initial: {
-    y: 0,
-    fill: "none",
-  },
-  hover: {
-    y: [0, -1, 0, 0],
-    fill: "currentColor",
-    transition: {
-      duration: 1,
-      bounce: 0.3,
-    },
-  },
-};
-
-const STAR_VARIANTS: Variants = {
-  initial: {
-    opacity: 1,
-    x: 0,
-    y: 0,
-  },
-  blink: () => ({
-    opacity: [0, 1, 0, 0, 0, 0, 1],
-    transition: {
-      duration: 2,
-      type: "spring",
-      stiffness: 70,
-      damping: 10,
-      mass: 0.4,
-    },
-  }),
-};
-
-const SparklesIcon = forwardRef<SparklesIconHandle, SparklesIconProps>(
+const SparklesIcon = forwardRef<AnimatedIconHandle, Props>(
   ({ onMouseEnter, onMouseLeave, className, size = 28, ...props }, ref) => {
     const starControls = useAnimation();
     const sparkleControls = useAnimation();
-    const isControlledRef = useRef(false);
-
-    useImperativeHandle(ref, () => {
-      isControlledRef.current = true;
-
-      return {
-        startAnimation: () => {
-          sparkleControls.start("hover");
-          starControls.start("blink", { delay: 1 });
-        },
-        stopAnimation: () => {
-          sparkleControls.start("initial");
-          starControls.start("initial");
-        },
-      };
+    const hoverHandlers = useAnimatedIconHandle({
+      ref,
+      onMouseEnter,
+      onMouseLeave,
+      start: () => {
+        sparkleControls.start("hover");
+        starControls.start("blink", { delay: 1 });
+      },
+      stop: () => {
+        sparkleControls.start("initial");
+        starControls.start("initial");
+      },
     });
-
-    const handleMouseEnter = useCallback(
-      (e: React.MouseEvent<HTMLDivElement>) => {
-        if (isControlledRef.current) {
-          onMouseEnter?.(e);
-        } else {
-          sparkleControls.start("hover");
-          starControls.start("blink", { delay: 1 });
-        }
-      },
-      [onMouseEnter, sparkleControls, starControls]
-    );
-
-    const handleMouseLeave = useCallback(
-      (e: React.MouseEvent<HTMLDivElement>) => {
-        if (isControlledRef.current) {
-          onMouseLeave?.(e);
-        } else {
-          sparkleControls.start("initial");
-          starControls.start("initial");
-        }
-      },
-      [sparkleControls, starControls, onMouseLeave]
-    );
 
     return (
       <div
+        data-slot="animated-icon"
         className={cn(className)}
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
+        {...hoverHandlers}
         {...props}
       >
         <svg

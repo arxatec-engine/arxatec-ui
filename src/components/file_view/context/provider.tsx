@@ -1,34 +1,5 @@
-import { useState, type ReactNode } from "react";
-import { FilePreviewAssistantContext } from "./context";
-import type {
-  FilePreviewAssistantContextValue,
-  FilePreviewAssistantState,
-} from "./types";
-
-interface StateProviderProps {
-  open: boolean;
-  children: ReactNode;
-}
-
-const FilePreviewAssistantStateProvider: React.FC<StateProviderProps> = ({
-  open,
-  children,
-}) => {
-  const [assistant, setAssistant] = useState<FilePreviewAssistantState>(() =>
-    open ? false : null,
-  );
-
-  const value: FilePreviewAssistantContextValue = {
-    assistant,
-    setAssistant,
-  };
-
-  return (
-    <FilePreviewAssistantContext.Provider value={value}>
-      {children}
-    </FilePreviewAssistantContext.Provider>
-  );
-};
+import { type ReactNode } from "react";
+import { FilePreviewAssistantStateProvider } from "./components/file_preview_assistant_state_provider";
 
 export interface FilePreviewAssistantProviderProps {
   children: ReactNode;
@@ -36,9 +7,7 @@ export interface FilePreviewAssistantProviderProps {
   fileId: string;
 }
 
-export const FilePreviewAssistantProvider: React.FC<
-  FilePreviewAssistantProviderProps
-> = ({ children, open, fileId }) => (
+export const FilePreviewAssistantProvider = ({ children, open, fileId }: FilePreviewAssistantProviderProps) => (
   <FilePreviewAssistantStateProvider key={`${open}:${fileId}`} open={open}>
     {children}
   </FilePreviewAssistantStateProvider>

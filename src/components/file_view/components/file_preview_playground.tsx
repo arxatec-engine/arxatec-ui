@@ -3,14 +3,8 @@ import { Link2, Upload } from "lucide-react";
 import { Button } from "@/components/button";
 import { Input } from "@/components/input";
 import { cn } from "@/utilities/class";
-import { inferMimeFromFileName } from "../utilities/infer_mime_from_file_name";
-
-export interface FilePreviewSource {
-  url: string;
-  file: File | null;
-  fileName: string;
-  mimeType: string;
-}
+import { fileNameFromUrl, resolveMime } from "./utilities";
+import type { FilePreviewSource, Mode } from "./types";
 
 export interface FilePreviewPlaygroundProps {
   /** Acepta tipos de archivo para el input local (ej. "image/*,application/pdf"). */
@@ -28,30 +22,13 @@ export interface FilePreviewPlaygroundProps {
   children: (source: FilePreviewSource) => ReactNode;
 }
 
-type Mode = "file" | "url";
-
-const resolveMime = (fileName: string, fallback?: string) =>
-  fallback && fallback.length > 0
-    ? fallback
-    : (inferMimeFromFileName(fileName) ?? "application/octet-stream");
-
-const fileNameFromUrl = (url: string) => {
-  try {
-    const { pathname } = new URL(url, window.location.href);
-    const last = pathname.split("/").filter(Boolean).pop();
-    return last ? decodeURIComponent(last) : "archivo";
-  } catch {
-    return "archivo";
-  }
-};
-
-export const FilePreviewPlayground: React.FC<FilePreviewPlaygroundProps> = ({
+export const FilePreviewPlayground = ({
   accept,
   defaultUrl,
   requireFile = false,
   hint,
   children,
-}) => {
+}: FilePreviewPlaygroundProps) => {
   const [mode, setMode] = useState<Mode>(defaultUrl ? "url" : "file");
   const [urlInput, setUrlInput] = useState(defaultUrl ?? "");
   const [source, setSource] = useState<FilePreviewSource | null>(null);

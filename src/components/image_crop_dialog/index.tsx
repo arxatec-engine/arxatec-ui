@@ -19,12 +19,12 @@ interface Props {
   onCropComplete: (croppedImageFile: File) => void;
 }
 
-export const ImageCropDialog: React.FC<Props> = ({
+export const ImageCropDialog = ({
   isOpen,
   onClose,
   imageSrc,
   onCropComplete,
-}) => {
+}: Props) => {
   const [crop, setCrop] = useState<Crop>();
   const [completedCrop, setCompletedCrop] = useState<PixelCrop>();
   const [isProcessing, setIsProcessing] = useState(false);

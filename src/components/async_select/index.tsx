@@ -1,3 +1,7 @@
+import { useId } from "react";
+
+import { ALL_VALUE } from "./constants";
+
 import { Label } from "../label";
 import {
   Select,
@@ -17,11 +21,14 @@ interface Props {
   isLoading?: boolean;
   isError?: boolean;
   emptyLabel?: string;
+  loadingLabel?: string;
+  errorLabel?: string;
+  allLabel?: string;
   showAllOption?: boolean;
   className?: string;
 }
 
-export const AsyncSelect: React.FC<Props> = ({
+export const AsyncSelect = ({
   size = "default",
   label,
   value,
@@ -30,44 +37,58 @@ export const AsyncSelect: React.FC<Props> = ({
   options,
   isLoading = false,
   isError = false,
-  emptyLabel = "No hay resultados",
+  emptyLabel = "No results",
+  loadingLabel = "Loading…",
+  errorLabel = "Failed to load",
+  allLabel = "All",
   showAllOption = true,
   className,
-}) => {
+}: Props) => {
+  const labelId = useId();
+  const hasOptions = Array.isArray(options) && options.length > 0;
+
   return (
     <>
-      {label && <Label className="mb-2 block">{label}</Label>}
+      {label && (
+        <Label id={labelId} className="mb-2 block">
+          {label}
+        </Label>
+      )}
       <Select
         value={value || ""}
-        onValueChange={(val) => onChange(val === "all" ? undefined : val)}
+        onValueChange={(next) =>
+          onChange(next === ALL_VALUE ? undefined : next)
+        }
       >
-        <SelectTrigger size={size} className={className}>
+        <SelectTrigger
+          size={size}
+          className={className}
+          aria-labelledby={label ? labelId : undefined}
+        >
           <SelectValue placeholder={placeholder} />
         </SelectTrigger>
         <SelectContent>
           {isError ? (
             <SelectItem value="error" disabled>
-              Error al cargar
+              {errorLabel}
             </SelectItem>
           ) : isLoading ? (
             <SelectItem value="loading" disabled>
-              Cargando...
+              {loadingLabel}
             </SelectItem>
-          ) : !Array.isArray(options) || options.length === 0 ? (
+          ) : !hasOptions ? (
             <SelectItem value="empty" disabled>
               {emptyLabel}
             </SelectItem>
           ) : (
             <>
-              {options.map((opt) => (
-                <SelectItem key={opt.id} value={opt.id}>
-                  {opt.name}
+              {options.map((option) => (
+                <SelectItem key={option.id} value={option.id}>
+                  {option.name}
                 </SelectItem>
               ))}
               {showAllOption && (
-                <SelectItem key="all" value="all">
-                  Todos
-                </SelectItem>
+                <SelectItem value={ALL_VALUE}>{allLabel}</SelectItem>
               )}
             </>
           )}

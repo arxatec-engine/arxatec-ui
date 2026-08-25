@@ -3,7 +3,7 @@ import { ChevronDownIcon } from "lucide-react";
 
 import { ColorPickerPanel } from "./components";
 import { DEFAULT_COLOR_SWATCHES } from "./constants";
-import { FALLBACK_COLOR, normalizeHexColor } from "./utils";
+import { FALLBACK_COLOR, normalizeHexColor } from "./utilities";
 import { Button } from "@/components/button";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/popover";
 import { cn } from "@/utilities/index";
@@ -18,7 +18,7 @@ export interface ColorPickerProps {
   swatches?: string[];
 }
 
-function ColorPicker({
+const ColorPicker = ({
   value,
   onChange,
   className,
@@ -26,7 +26,7 @@ function ColorPicker({
   disabled = false,
   placeholder = "Selecciona un color",
   swatches = DEFAULT_COLOR_SWATCHES,
-}: ColorPickerProps) {
+}: ColorPickerProps) => {
   const normalizedValue = normalizeHexColor(value);
   const pickerValue = normalizedValue ?? FALLBACK_COLOR;
   const normalizedSwatches = React.useMemo(
@@ -95,6 +95,6 @@ function ColorPicker({
       </PopoverContent>
     </Popover>
   );
-}
+};
 
 export { ColorPicker, ColorPickerPanel };

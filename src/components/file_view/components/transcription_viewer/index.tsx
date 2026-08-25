@@ -14,16 +14,14 @@ export interface FileTranscriptionViewerProps {
   onCopy?: () => void;
 }
 
-export const FileTranscriptionViewer: React.FC<
-  FileTranscriptionViewerProps
-> = ({
+export const FileTranscriptionViewer = ({
   content,
   isLoading = false,
   isProcessing = false,
   isFetching = false,
   isError = false,
   onCopy,
-}) => {
+}: FileTranscriptionViewerProps) => {
   const pages = useMemo(
     () => splitTranscriptionPages(content ?? ""),
     [content],

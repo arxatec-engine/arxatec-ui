@@ -24,7 +24,7 @@ interface Props {
   hasAnnotations: boolean;
 }
 
-export const TemplateFloatingBar: React.FC<Props> = ({
+export const TemplateFloatingBar = ({
   scale,
   onZoomIn,
   onZoomOut,
@@ -36,7 +36,7 @@ export const TemplateFloatingBar: React.FC<Props> = ({
   onDownloadAnnotated,
   isBusy,
   hasAnnotations,
-}) => {
+}: Props) => {
   const showPagination = pdfPageCount > 0;
 
   return (

@@ -13,13 +13,13 @@ export interface FileSourceViewerProps {
   isError?: boolean;
 }
 
-export const FileSourceViewer: React.FC<FileSourceViewerProps> = ({
+export const FileSourceViewer = ({
   content,
   mimeType,
   fileName,
   isPending = false,
   isError = false,
-}) => {
+}: FileSourceViewerProps) => {
   const language = getSourceLanguageFromFile(mimeType, fileName);
 
   if (isPending) {

@@ -8,29 +8,37 @@
   --theme-hue: 260;
   --radius: 0.5rem;
 
-  /* Typography scale (base 16px) */
-  --font-size-xs: 0.625rem; /* 10px */
-  --font-size-sm: 0.75rem; /* 12px */
-  --font-size-base: 0.875rem; /* 14px */
-  --font-size-lg: 1rem; /* 16px */
-  --font-size-xl: 1.125rem; /* 18px */
-  --font-size-2xl: 1.375rem; /* 22px */
-  --font-size-3xl: 1.75rem; /* 28px */
-  --font-size-4xl: 2.125rem; /* 34px */
-  --font-size-5xl: 2.875rem; /* 46px */
-  --font-size-6xl: 3.625rem; /* 58px */
-  --font-size-7xl: 4.375rem; /* 70px */
-  --font-size-8xl: 5.875rem; /* 94px */
-  --font-size-9xl: 7.875rem; /* 126px */
+  /*
+   * Multiplicador global de la escala tipográfica. El usuario lo ajusta desde
+   * Preferencias (tamaño de fuente); la app pone `data-font-size` en <html> y
+   * sobreescribe este valor. `1` = escala base. Solo afecta a la tipografía,
+   * no al `--spacing-*`.
+   */
+  --font-scale: 1;
 
-  --font-line-height-xs: 0.875rem; /* 14px */
-  --font-line-height-sm: 1.125rem; /* 18px */
-  --font-line-height-base: 1.25rem; /* 20px */
-  --font-line-height-lg: 1.5rem; /* 24px */
-  --font-line-height-xl: 1.625rem; /* 26px */
-  --font-line-height-2xl: 1.875rem; /* 30px */
-  --font-line-height-3xl: 2.25rem; /* 36px */
-  --font-line-height-4xl: 2.625rem; /* 42px */
+  /* Typography scale (base 16px, multiplicada por --font-scale) */
+  --font-size-xs: calc(0.625rem * var(--font-scale)); /* 10px */
+  --font-size-sm: calc(0.75rem * var(--font-scale)); /* 12px */
+  --font-size-base: calc(0.875rem * var(--font-scale)); /* 14px */
+  --font-size-lg: calc(1rem * var(--font-scale)); /* 16px */
+  --font-size-xl: calc(1.125rem * var(--font-scale)); /* 18px */
+  --font-size-2xl: calc(1.375rem * var(--font-scale)); /* 22px */
+  --font-size-3xl: calc(1.75rem * var(--font-scale)); /* 28px */
+  --font-size-4xl: calc(2.125rem * var(--font-scale)); /* 34px */
+  --font-size-5xl: calc(2.875rem * var(--font-scale)); /* 46px */
+  --font-size-6xl: calc(3.625rem * var(--font-scale)); /* 58px */
+  --font-size-7xl: calc(4.375rem * var(--font-scale)); /* 70px */
+  --font-size-8xl: calc(5.875rem * var(--font-scale)); /* 94px */
+  --font-size-9xl: calc(7.875rem * var(--font-scale)); /* 126px */
+
+  --font-line-height-xs: calc(0.875rem * var(--font-scale)); /* 14px */
+  --font-line-height-sm: calc(1.125rem * var(--font-scale)); /* 18px */
+  --font-line-height-base: calc(1.25rem * var(--font-scale)); /* 20px */
+  --font-line-height-lg: calc(1.5rem * var(--font-scale)); /* 24px */
+  --font-line-height-xl: calc(1.625rem * var(--font-scale)); /* 26px */
+  --font-line-height-2xl: calc(1.875rem * var(--font-scale)); /* 30px */
+  --font-line-height-3xl: calc(2.25rem * var(--font-scale)); /* 36px */
+  --font-line-height-4xl: calc(2.625rem * var(--font-scale)); /* 42px */
   --font-line-height-5xl: 1;
   --font-line-height-6xl: 1;
   --font-line-height-7xl: 1;

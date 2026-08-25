@@ -5,30 +5,17 @@ import { FileUnknownViewer } from "../unknown_viewer";
 import { downloadFromUrl } from "../../utilities/download_from_url";
 import { getExtensionFromUrl } from "../../utilities/get_extension_from_url";
 import { inferMimeFromFileName } from "../../utilities/infer_mime_from_file_name";
+import { IMAGE_EXTENSIONS, OFFICE_EXTENSIONS } from "./constants";
 
 export interface FileUrlPreviewRenderProps {
   url: string;
   fileName: string;
 }
 
-const OFFICE_EXTENSIONS = ["doc", "docx", "ppt", "pptx", "xls", "xlsx"];
-const IMAGE_EXTENSIONS = [
-  "jpg",
-  "jpeg",
-  "png",
-  "gif",
-  "webp",
-  "svg",
-  "bmp",
-  "ico",
-  "heic",
-  "heif",
-];
-
-export const FileUrlPreviewRender: React.FC<FileUrlPreviewRenderProps> = ({
+export const FileUrlPreviewRender = ({
   url,
   fileName,
-}) => {
+}: FileUrlPreviewRenderProps) => {
   const ext = getExtensionFromUrl(url);
   const download = () => downloadFromUrl(url, fileName);
 
