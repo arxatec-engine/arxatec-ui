@@ -39,11 +39,12 @@ const FileViewSheetPanelContent = ({
   const panelClass = (
     tab: FileViewSheetTab,
     overflow: "hidden" | "auto" = "hidden",
+    tabsOverlay = false,
   ) =>
     cn(
       "absolute inset-0 min-w-0 transition-opacity duration-150",
       overflow === "auto" ? "overflow-auto" : "overflow-hidden",
-      floatingTabs && "pt-16",
+      floatingTabs && !tabsOverlay && "pt-16",
       activeTab === tab
         ? "opacity-100 z-10"
         : "opacity-0 pointer-events-none z-0",
@@ -102,7 +103,13 @@ const FileViewSheetPanelContent = ({
             </div>
           ) : (
             <>
-              <div className={panelClass(FILE_VIEW_SHEET_TAB.ORIGINAL)}>
+              <div
+                className={panelClass(
+                  FILE_VIEW_SHEET_TAB.ORIGINAL,
+                  "hidden",
+                  true,
+                )}
+              >
                 {renderOriginal}
               </div>
               {renderTranscription ? (
@@ -124,7 +131,13 @@ const FileViewSheetPanelContent = ({
                 </div>
               ) : null}
               {renderTemplate ? (
-                <div className={panelClass(FILE_VIEW_SHEET_TAB.TEMPLATE)}>
+                <div
+                  className={panelClass(
+                    FILE_VIEW_SHEET_TAB.TEMPLATE,
+                    "hidden",
+                    true,
+                  )}
+                >
                   {renderPanelContent(
                     renderTemplate,
                     activeTab === FILE_VIEW_SHEET_TAB.TEMPLATE,
