@@ -19,6 +19,7 @@ export interface FileViewSheetPanelProps {
   renderSummary?: FileViewSheetPanelRender;
   renderTemplate?: FileViewSheetPanelRender;
   renderEdit?: FileViewSheetPanelRender;
+  renderVersions?: FileViewSheetPanelRender;
 }
 
 export interface FileViewSheetProps extends FileViewSheetPanelProps {

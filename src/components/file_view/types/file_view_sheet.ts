@@ -4,6 +4,7 @@ export const FILE_VIEW_SHEET_TAB = {
   SUMMARY: "summary",
   TEMPLATE: "template",
   EDIT: "edit",
+  VERSIONS: "versions",
 } as const;
 
 export type FileViewSheetTab =

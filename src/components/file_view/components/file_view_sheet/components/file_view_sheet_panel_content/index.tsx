@@ -29,10 +29,12 @@ const FileViewSheetPanelContent = ({
   renderSummary,
   renderTemplate,
   renderEdit,
+  renderVersions,
 }: FileViewSheetPanelProps) => {
   const [activeTab, setActiveTab] = useState<FileViewSheetTab>(defaultTab);
   const showViewer = !isPending && !isError;
   const simpleViewer = !showTabs;
+  const floatingTabs = showTabs && tabs.length > 0;
 
   const panelClass = (
     tab: FileViewSheetTab,
@@ -41,6 +43,7 @@ const FileViewSheetPanelContent = ({
     cn(
       "absolute inset-0 min-w-0 transition-opacity duration-150",
       overflow === "auto" ? "overflow-auto" : "overflow-hidden",
+      floatingTabs && "pt-16",
       activeTab === tab
         ? "opacity-100 z-10"
         : "opacity-0 pointer-events-none z-0",
@@ -54,28 +57,6 @@ const FileViewSheetPanelContent = ({
           Aquí podrás ver la vista previa del archivo seleccionado.
         </SheetDescription>
       </SheetHeader>
-
-      {showTabs && tabs.length > 0 && (
-        <div className="p-1 flex items-center justify-center border-b bg-background">
-          <div className="flex items-center gap-4 mr-8">
-            <Tabs value={activeTab}>
-              <TabsList className="bg-accent">
-                {tabs.map((tab) => (
-                  <TabsTrigger
-                    key={tab.id}
-                    className={cn("font-normal", activeTab === tab.id && "bg-background")}
-                    value={tab.id}
-                    onClick={() => setActiveTab(tab.id)}
-                  >
-                    {tab.icon}
-                    {tab.label}
-                  </TabsTrigger>
-                ))}
-              </TabsList>
-            </Tabs>
-          </div>
-        </div>
-      )}
 
       {isPending && (
         <div className="p-4">
@@ -94,6 +75,26 @@ const FileViewSheetPanelContent = ({
       )}
 
       <div className="flex-1 relative min-h-0 bg-background">
+        {floatingTabs && (
+          <div className="pointer-events-none absolute inset-x-0 top-5 z-30 flex justify-center px-4">
+            <Tabs value={activeTab} className="pointer-events-auto max-w-full">
+              <TabsList className="border-border bg-card/95 h-auto max-w-full flex-wrap border shadow-lg backdrop-blur-sm">
+                {tabs.map((tab) => (
+                  <TabsTrigger
+                    key={tab.id}
+                    className={cn("font-normal", activeTab === tab.id && "bg-background")}
+                    value={tab.id}
+                    onClick={() => setActiveTab(tab.id)}
+                  >
+                    {tab.icon}
+                    {tab.label}
+                  </TabsTrigger>
+                ))}
+              </TabsList>
+            </Tabs>
+          </div>
+        )}
+
         {showViewer &&
           (simpleViewer ? (
             <div className="absolute inset-0 overflow-hidden min-w-0 z-10">
@@ -135,6 +136,16 @@ const FileViewSheetPanelContent = ({
                   {renderPanelContent(
                     renderEdit,
                     activeTab === FILE_VIEW_SHEET_TAB.EDIT,
+                  )}
+                </div>
+              ) : null}
+              {renderVersions ? (
+                <div
+                  className={panelClass(FILE_VIEW_SHEET_TAB.VERSIONS, "auto")}
+                >
+                  {renderPanelContent(
+                    renderVersions,
+                    activeTab === FILE_VIEW_SHEET_TAB.VERSIONS,
                   )}
                 </div>
               ) : null}
