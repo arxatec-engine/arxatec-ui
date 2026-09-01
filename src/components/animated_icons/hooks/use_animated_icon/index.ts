@@ -9,11 +9,11 @@ export const useAnimatedIcon = () => {
   const iconRef = useRef<AnimatedIconHandle>(null);
 
   const handleMouseEnter = useCallback(() => {
-    iconRef.current?.startAnimation();
+    iconRef.current?.startAnimation?.();
   }, []);
 
   const handleMouseLeave = useCallback(() => {
-    iconRef.current?.stopAnimation();
+    iconRef.current?.stopAnimation?.();
   }, []);
 
   return {
