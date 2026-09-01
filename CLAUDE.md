@@ -17,7 +17,31 @@ documenta `npm run …` y `prepublishOnly` corre con npm.
 
 Hoy conviven `package-lock.json` **y** `pnpm-lock.yaml`, que es deuda abierta
 (D-2 de [`docs/registro/2026-08-04/DEUDA_ABIERTA.md`](docs/registro/2026-08-04/DEUDA_ABIERTA.md)):
-cada lockfile puede resolver un árbol distinto. **Mientras no se decida, usa npm.**
+cada lockfile puede resolver un árbol distinto.
+
+> ### ⚠️ Corregido el 2026-09-01: **usa `pnpm` para instalar, aquí decía npm**
+>
+> Este archivo decía «mientras no se decida, usa npm». **npm no funciona hoy**:
+>
+> ```text
+> $ npm ci        → ERESOLVE
+> $ npm install   → ERESOLVE
+>   @tiptap/extension-table@3.22.5 exige @tiptap/core@3.22.5 exacto,
+>   y el árbol resuelve @tiptap/core@3.22.4
+> ```
+>
+> El conflicto **está en `package.json`**, no solo en el lockfile: los 28
+> paquetes de tiptap se declaran con rangos `^3.14.0`/`^3.22.4` sueltos, y sus
+> sub-paquetes fijan el peer de `core` **a una versión exacta**. npm elige el más
+> nuevo de cada uno por su cuenta y los descuadra. `pnpm install --frozen-lockfile`
+> sí resuelve, y es lo que hay que usar para instalar.
+>
+> Lo que **sigue siendo npm** es el resto: los scripts del `README.md`,
+> `prepublishOnly`, y `npm publish`. Es solo la instalación la que no.
+>
+> **Esto inclina D-2**: el lockfile que funciona es el de pnpm. Retirar
+> `package-lock.json` es decisión del owner, pero mantener dos cuando uno está
+> roto es peor que tener uno.
 
 > Corregido el 2026-08-15: ese registro dice que `pnpm lint` «revienta» antes de
 > llegar a eslint. Ya no: hoy ejecuta y falla solo por los 16 problemas de lint
@@ -67,6 +91,54 @@ existe para quien consume la librería.
 ⚠️ **`file-view` es pesado y contagioso.** En la platform, importarlo desde un
 barril hacía reventar suites enteras de tests con `Unknown file extension ".css"`.
 No lo re-exportes desde el barril principal.
+
+## La regla de la versión: un cambio publicable = un `version` nuevo
+
+**Todo cambio que altere lo que se publica sube `version` en `package.json`, en
+el mismo commit que el cambio.** Publicable es todo lo que entra en el paquete:
+`src/`, estilos, fuentes, y la configuración del build de librería. No lo son el
+banco de pruebas de `src/pages/`, las stories, ni la documentación.
+
+No es burocracia. Este paquete **no tiene tests** —su red es Storybook y el ojo—
+y sus dos consumidores lo reciben por npm, no por git. Sin número nuevo:
+
+- **npm no deja publicar.** Un número ya publicado es inmutable; por eso se saltó
+  de `0.1.58` a `0.1.60`.
+- **El cambio no llega a nadie.** `platform` y `public-web` piden un rango
+  (`^0.1.x`) contra el registro. Tocar este repo **no cambia ni la web ni el
+  producto** hasta que hay `npm publish`.
+
+### Subir el número no basta: hay tres pasos, y el tercero se olvida
+
+| # | Dónde | Qué |
+| --- | --- | --- |
+| 1 | Aquí | `version` en `package.json` **en el commit del cambio** |
+| 2 | Aquí | `npm publish` desde `main` limpio |
+| 3 | **En los consumidores** | `pnpm update arxatec-ui` (platform) · `npm install arxatec-ui@<v>` (public-web) |
+
+El paso 3 es el que se olvida y produce la confusión de siempre: *«ya lo publiqué
+y no se ve»*. El lockfile del consumidor clava la versión aunque el rango permita
+subir. Medido el 2026-09-01: npm y `main` estaban los dos en `0.1.64` y **la
+platform seguía instalando `0.1.60`** — cuatro versiones por detrás, incluida la
+que recuperó la paginación de transcripciones.
+
+> **Y ojo con publicar y actualizar el mismo día.** La platform tiene una
+> política de cadena de suministro (`minimumReleaseAge`, 24 h) que **rechaza
+> cualquier versión publicada hace menos de un día**: `pnpm install` falla la
+> verificación del lockfile y CI sale rojo. Añadirla a
+> `minimumReleaseAgeExclude` **no es suficiente**, comprobado el 2026-09-01 con
+> `0.1.64`. Si publicas hoy, el consumidor la coge mañana.
+
+### Antes de publicar, comprueba contra npm
+
+```bash
+npm view arxatec-ui version      # lo que hay publicado
+grep '"version"' package.json    # lo que hay aquí
+```
+
+Esta comprobación ha estado equivocada **en las dos direcciones** —`main` por
+detrás de npm en agosto, npm por detrás de `main` después—, así que no la des por
+sabida: córrela.
 
 ## Publicar (lee esto entero antes de `npm publish`)
 
