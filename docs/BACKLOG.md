@@ -71,6 +71,14 @@ Work already identified, with its origin. It moves to `focus/` when its turn com
   installable again, and it changes the dependency tree of a library **with no
   tests** — do it with Storybook in front of you, and publish it alone.
 
+#### Documentation
+
+- **`docs/CODE_STYLING.md` is still in Spanish** (637 lines, rules `R1`–`R48` and
+  `L1`–`L13`). Everything else at repo level is in English as of 2026-09-08. It was
+  left out on purpose: it is a normative document whose rule numbers are shared with
+  `arxatec-lawyer-platform`, and translating it in passing risks changing what a rule
+  says. Do it as its own PR, with the platform's numbering side by side.
+
 #### Structural, not urgent
 
 - **This repo has no tests** (0 test files, 93 stories). The safety net is
