@@ -84,3 +84,13 @@ Work already identified, with its origin. It moves to `focus/` when its turn com
 - **This repo has no tests** (0 test files, 93 stories). The safety net is
   Storybook and the eye. Deciding whether that stays the answer is a real
   decision, not an oversight to fix in passing.
+- **There is no CI.** Verified 2026-09-08: this repo has no `.github/` directory at
+  all, so **nothing runs on a PR** — not `lint`, not `build:lib`, not a Storybook
+  build. Combined with the line above, a PR here is reviewed by reading it and
+  nothing else. Of the six repos in the workspace, only `arxatec-lawyer-service` has
+  a workflow. The cheap first step is a workflow that runs `pnpm install
+  --frozen-lockfile` and `npm run build:lib`: it would at least catch a package that
+  does not build, which is the failure that reaches consumers.
+- **There is no `.nvmrc`.** The Node version this repo builds with is not written
+  down anywhere. It matters here more than elsewhere because the artefact is
+  published: a different Node produces a different `dist/`.
