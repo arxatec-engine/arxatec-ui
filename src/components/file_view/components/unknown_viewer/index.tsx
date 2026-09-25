@@ -1,13 +1,15 @@
 import { Download, FileX } from "lucide-react";
 import { Button } from "@/components/button";
-import { Skeleton } from "@/components/skeleton";
 import { StatusMessage } from "@/components/status_message";
+import { useFileViewLoadingChange } from "../../hooks";
+import type { FileViewLoadingChangeHandler } from "../../types";
 
 export interface FileUnknownViewerProps {
   fileName: string;
   isPending?: boolean;
   isError?: boolean;
   onDownload?: () => void;
+  onLoadingChange?: FileViewLoadingChangeHandler;
 }
 
 export const FileUnknownViewer = ({
@@ -15,13 +17,12 @@ export const FileUnknownViewer = ({
   isPending = false,
   isError = false,
   onDownload,
+  onLoadingChange,
 }: FileUnknownViewerProps) => {
+  useFileViewLoadingChange(isPending && !isError, onLoadingChange);
+
   if (isPending) {
-    return (
-      <div className="p-6 w-full h-full">
-        <Skeleton className="w-full h-full rounded-md" />
-      </div>
-    );
+    return null;
   }
 
   if (isError) {

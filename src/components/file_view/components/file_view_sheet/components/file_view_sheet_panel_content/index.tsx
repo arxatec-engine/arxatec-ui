@@ -8,7 +8,6 @@ import {
   SheetHeader,
   SheetTitle
 } from "@/components/sheet";
-import { Skeleton } from "@/components/skeleton";
 import { StatusMessage } from "@/components/status_message";
 import { Tabs, TabsList, TabsTrigger } from "@/components/tabs";
 import {
@@ -20,6 +19,8 @@ import type { FileViewSheetPanelProps } from "../../types";
 const FileViewSheetPanelContent = ({
   title,
   isPending = false,
+  isLoading = false,
+  loadingOverlay,
   isError = false,
   tabs = [],
   defaultTab = FILE_VIEW_SHEET_TAB.ORIGINAL,
@@ -59,12 +60,6 @@ const FileViewSheetPanelContent = ({
         </SheetDescription>
       </SheetHeader>
 
-      {isPending && (
-        <div className="p-4">
-          <Skeleton className="flex-1 h-48 w-full rounded-md" />
-        </div>
-      )}
-
       {isError && (
         <div className="p-4">
           <StatusMessage
@@ -76,6 +71,12 @@ const FileViewSheetPanelContent = ({
       )}
 
       <div className="flex-1 relative min-h-0 bg-background">
+        {(isPending || isLoading) && loadingOverlay ? (
+          <div className="absolute inset-0 z-50 bg-background">
+            {loadingOverlay}
+          </div>
+        ) : null}
+
         {floatingTabs && (
           <div className="pointer-events-none absolute inset-x-0 top-5 z-30 flex justify-center px-4">
             <Tabs value={activeTab} className="pointer-events-auto max-w-full">

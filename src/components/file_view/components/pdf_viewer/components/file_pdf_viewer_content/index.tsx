@@ -4,6 +4,7 @@ import { useRef, useState } from "react";
 import { toast } from "sonner";
 import { downloadFileFromUrl } from "@/utilities/download";
 import { ErrorState, Toolbar, Content, ErrorBoundary } from "..";
+import { useFileViewLoadingChange } from "../../../../hooks";
 import type { ContentHandle } from "../content";
 import type { FilePdfViewerProps } from "../../types";
 
@@ -11,12 +12,14 @@ const FilePdfViewerContent = ({
   url,
   fileName,
   onDownload,
+  onLoadingChange,
 }: FilePdfViewerProps) => {
   const [numPages, setNumPages] = useState(0);
   const [pageNumber, setPageNumber] = useState(1);
   const [scale, setScale] = useState(1.0);
   const [error, setError] = useState<string | null>(null);
   const contentRef = useRef<ContentHandle>(null);
+  useFileViewLoadingChange(numPages === 0 && !error, onLoadingChange);
 
   const onDocumentLoadSuccess = ({
     numPages: totalPages,

@@ -28,6 +28,42 @@
   background-color: transparent !important;
 }
 
+/* Office Online paints a brand strip inside a cross-origin iframe
+   (Word blue, Excel green, PowerPoint orange) on the top and sides.
+   Parent CSS cannot style that paint; clip the iframe instead.
+   Bottom stays aligned so the page toolbar remains usable. */
+#msdoc-renderer {
+  --office-embed-chrome: 10px;
+  position: relative !important;
+  height: 100% !important;
+  overflow: hidden !important;
+  border: none !important;
+  outline: none !important;
+}
+
+#proxy-renderer {
+  height: 100% !important;
+  overflow: hidden !important;
+  border: none !important;
+  outline: none !important;
+}
+
+#msdoc-iframe {
+  display: block;
+  width: calc(100% + (var(--office-embed-chrome) * 2)) !important;
+  height: calc(100% + var(--office-embed-chrome)) !important;
+  margin: calc(var(--office-embed-chrome) * -1) 0 0
+    calc(var(--office-embed-chrome) * -1) !important;
+  border: none !important;
+  outline: none !important;
+}
+
+#proxy-renderer iframe,
+#react-doc-viewer {
+  border: none !important;
+  outline: none !important;
+}
+
 /* react-colorful (color picker) overrides */
 .arx-color-picker .react-colorful__pointer {
   width: 14px;

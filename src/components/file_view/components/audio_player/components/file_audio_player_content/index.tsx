@@ -16,11 +16,13 @@ import {
 } from "lucide-react";
 import type { FileAudioPlayerProps } from "../../types";
 import { formatTime } from "../../utilities";
+import { useFileViewLoadingChange } from "../../../../hooks";
 
 const FileAudioPlayerContent = ({
   url,
   fileName,
   onDownload,
+  onLoadingChange,
 }: FileAudioPlayerProps) => {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -29,6 +31,8 @@ const FileAudioPlayerContent = ({
   const [volume, setVolume] = useState(1);
   const [isMuted, setIsMuted] = useState(false);
   const [hasError, setHasError] = useState(false);
+  const [isReady, setIsReady] = useState(false);
+  useFileViewLoadingChange(!isReady && !hasError, onLoadingChange);
 
   const handleDownloadFile = async () => {
     try {
@@ -45,6 +49,7 @@ const FileAudioPlayerContent = ({
   const handleLoadedMetadata = () => {
     if (!audioRef.current) return;
     setDuration(audioRef.current.duration || 0);
+    setIsReady(true);
   };
 
   const handleTimeUpdate = () => {
@@ -113,6 +118,7 @@ const FileAudioPlayerContent = ({
 
   const handleAudioError = () => {
     setHasError(true);
+    setIsReady(false);
     toast.error("Ha ocurrido un error al cargar el audio");
   };
 

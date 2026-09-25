@@ -1,8 +1,10 @@
 import type { Props } from "../../types";
 import { useMemo, useState, useCallback } from "react";
 import { Document, pdfjs } from "react-pdf";
+import "../../../../../../utilities/setup_pdf_worker";
 import { PdfTemplatePageRow } from "../../../pdf_template_page_row";
-import { LoadingState, ErrorState } from "../../../../../pdf_viewer/components";
+import { ErrorState } from "../../../../../pdf_viewer/components";
+import { useFileViewLoadingChange } from "../../../../../../hooks";
 
 const PdfTemplateViewerContent = ({
   url,
@@ -23,9 +25,11 @@ const PdfTemplateViewerContent = ({
   onDocumentPagesLoaded,
   scrollContainerRef,
   onPageViewportAtScaleOne,
+  onLoadingChange,
 }: Props) => {
   const [numPages, setNumPages] = useState(0);
   const [error, setError] = useState<string | null>(null);
+  useFileViewLoadingChange(numPages === 0 && !error, onLoadingChange);
 
   const options = useMemo(
     () => ({
@@ -79,7 +83,7 @@ const PdfTemplateViewerContent = ({
           file={url}
           onLoadSuccess={onLoadSuccess}
           onLoadError={onLoadError}
-          loading={<LoadingState />}
+          loading={null}
           options={options}
         >
           {numPages > 0 && (

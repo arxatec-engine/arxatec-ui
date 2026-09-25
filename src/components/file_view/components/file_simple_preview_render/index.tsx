@@ -10,19 +10,30 @@ import { FileXlsxPreviewViewer } from "../xlsx_preview_viewer";
 import { downloadFromUrl } from "../../utilities/download_from_url";
 import { effectiveMimeFromFile } from "../../utilities/effective_mime_from_file";
 import { CODE_FILE_EXTENSIONS, CODE_MIME_PREFIXES, DOCX_MIME, OFFICE_MIME_TYPES, XLSX_MIME, XLS_MIME } from "./constants";
+import type { FileViewLoadingChangeHandler } from "../../types";
 
 export interface FileSimplePreviewRenderProps {
   file: File;
   url: string;
+  onLoadingChange?: FileViewLoadingChangeHandler;
 }
 
-export const FileSimplePreviewRender = ({ file, url }: FileSimplePreviewRenderProps) => {
+export const FileSimplePreviewRender = ({
+  file,
+  url,
+  onLoadingChange,
+}: FileSimplePreviewRenderProps) => {
   const mimeType = effectiveMimeFromFile(file);
   const download = () => downloadFromUrl(url, file.name);
 
   if (mimeType === "application/pdf") {
     return (
-      <FilePdfViewer url={url} fileName={file.name} onDownload={download} />
+      <FilePdfViewer
+        url={url}
+        fileName={file.name}
+        onDownload={download}
+        onLoadingChange={onLoadingChange}
+      />
     );
   }
 
@@ -34,19 +45,30 @@ export const FileSimplePreviewRender = ({ file, url }: FileSimplePreviewRenderPr
         fileId={url}
         fileName={file.name}
         onDownload={download}
+        onLoadingChange={onLoadingChange}
       />
     );
   }
 
   if (mimeType.startsWith("video/")) {
     return (
-      <FileVideoPlayer url={url} fileName={file.name} onDownload={download} />
+      <FileVideoPlayer
+        url={url}
+        fileName={file.name}
+        onDownload={download}
+        onLoadingChange={onLoadingChange}
+      />
     );
   }
 
   if (mimeType.startsWith("audio/")) {
     return (
-      <FileAudioPlayer url={url} fileName={file.name} onDownload={download} />
+      <FileAudioPlayer
+        url={url}
+        fileName={file.name}
+        onDownload={download}
+        onLoadingChange={onLoadingChange}
+      />
     );
   }
 
@@ -54,12 +76,16 @@ export const FileSimplePreviewRender = ({ file, url }: FileSimplePreviewRenderPr
     CODE_MIME_PREFIXES.some((prefix) => mimeType.startsWith(prefix)) ||
     CODE_FILE_EXTENSIONS.test(file.name);
 
-  if (isCode) return <FileSourceFileViewer file={file} />;
+  if (isCode) {
+    return <FileSourceFileViewer file={file} onLoadingChange={onLoadingChange} />;
+  }
 
-  if (mimeType === DOCX_MIME) return <FileDocxPreviewViewer file={file} />;
+  if (mimeType === DOCX_MIME) {
+    return <FileDocxPreviewViewer file={file} onLoadingChange={onLoadingChange} />;
+  }
 
   if (mimeType === XLSX_MIME || mimeType === XLS_MIME) {
-    return <FileXlsxPreviewViewer file={file} />;
+    return <FileXlsxPreviewViewer file={file} onLoadingChange={onLoadingChange} />;
   }
 
   if ((OFFICE_MIME_TYPES as readonly string[]).includes(mimeType)) {

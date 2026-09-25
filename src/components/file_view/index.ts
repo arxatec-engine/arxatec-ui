@@ -11,6 +11,7 @@ export * from "./components/file_view_sheet/unsaved_changes_dialog";
 export * from "./types/file_view_sheet";
 export * from "./components/template_viewer";
 export * from "./types/annotations";
+export type { FileViewLoadingChangeHandler } from "./types";
 export * from "./components/mime_router";
 export {
   FILE_VIEW_KIND,

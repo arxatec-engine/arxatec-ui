@@ -6,8 +6,8 @@ import {
   useRef,
   useState,
 } from "react";
-import { LoadingState } from "../";
 import { Document, Page, pdfjs } from "react-pdf";
+import "../../../../utilities/setup_pdf_worker";
 import { DEFAULT_PAGE_DIMENSIONS } from "./constants";
 import type { ContentHandle, PageDimensions } from "./types";
 
@@ -159,7 +159,7 @@ export const Content = forwardRef<ContentHandle, Props>(
           file={url}
           onLoadSuccess={onLoadSuccess}
           onLoadError={onLoadError}
-          loading={<LoadingState />}
+          loading={null}
           options={options}
           className="flex w-max min-w-full flex-col items-center gap-4"
         >

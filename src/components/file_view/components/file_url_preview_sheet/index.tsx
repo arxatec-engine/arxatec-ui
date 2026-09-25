@@ -6,10 +6,10 @@ import {
   SheetHeader,
   SheetTitle,
 } from "@/components/sheet";
-import { Skeleton } from "@/components/skeleton";
 import { StatusMessage } from "@/components/status_message";
 import { FileUrlPreviewRender } from "../file_url_preview_render";
 import { getFileNameFromUrl } from "../../utilities/get_extension_from_url";
+import type { FileViewLoadingChangeHandler } from "../../types";
 
 export interface FileUrlPreviewSheetProps {
   open: boolean;
@@ -17,7 +17,10 @@ export interface FileUrlPreviewSheetProps {
   url: string | null;
   fileName?: string;
   isPending?: boolean;
+  isLoading?: boolean;
   isError?: boolean;
+  loadingOverlay?: React.ReactNode;
+  onLoadingChange?: FileViewLoadingChangeHandler;
 }
 
 export const FileUrlPreviewSheet = ({
@@ -26,7 +29,10 @@ export const FileUrlPreviewSheet = ({
   url,
   fileName,
   isPending = false,
+  isLoading = false,
   isError = false,
+  loadingOverlay,
+  onLoadingChange,
 }: FileUrlPreviewSheetProps) => {
   const displayName =
     fileName ?? (url ? getFileNameFromUrl(url) : "Vista previa");
@@ -44,11 +50,11 @@ export const FileUrlPreviewSheet = ({
         </SheetHeader>
 
         <div className="flex-1 relative min-h-0 bg-background overflow-hidden">
-          {isPending && (
-            <div className="p-4">
-              <Skeleton className="h-48 w-full rounded-md" />
+          {(isPending || isLoading) && loadingOverlay ? (
+            <div className="absolute inset-0 z-50 bg-background">
+              {loadingOverlay}
             </div>
-          )}
+          ) : null}
 
           {isError && (
             <div className="p-4">
@@ -61,7 +67,11 @@ export const FileUrlPreviewSheet = ({
           )}
 
           {!isPending && !isError && url && (
-            <FileUrlPreviewRender url={url} fileName={displayName} />
+            <FileUrlPreviewRender
+              url={url}
+              fileName={displayName}
+              onLoadingChange={onLoadingChange}
+            />
           )}
         </div>
       </SheetContent>

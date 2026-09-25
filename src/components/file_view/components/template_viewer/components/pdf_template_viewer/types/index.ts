@@ -5,6 +5,7 @@ import type {
   TemplateAnnotation,
 } from "../../../../../types/annotations";
 import type { ShapeDrawTool } from "../../../utilities";
+import type { FileViewLoadingChangeHandler } from "../../../../../types";
 
 export interface Props {
   documentKey: string;
@@ -26,4 +27,5 @@ export interface Props {
   onDocumentPagesLoaded?: (numPages: number) => void;
   scrollContainerRef?: RefObject<HTMLDivElement | null>;
   onPageViewportAtScaleOne?: (width: number, height: number) => void;
+  onLoadingChange?: FileViewLoadingChangeHandler;
 }

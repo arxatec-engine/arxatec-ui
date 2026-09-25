@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
 import { FileText, Mic, Sparkles, Pencil } from "lucide-react";
 
+import { FileViewLoadingState } from "../loading_state";
 import { FileViewSheet, FILE_VIEW_SHEET_TAB } from "./index";
 
 const meta = {
@@ -93,4 +94,18 @@ function SheetDemo() {
 
 export const ConTabs: Story = {
   render: () => <SheetDemo />,
+};
+
+export const Cargando: Story = {
+  render: () => (
+    <FileViewSheet
+      open
+      onOpenChange={() => {}}
+      fileKey="loading-demo"
+      title="contrato-servicios.pdf"
+      isPending
+      loadingOverlay={<FileViewLoadingState />}
+      renderOriginal={null}
+    />
+  ),
 };

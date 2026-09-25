@@ -6,7 +6,6 @@ import type {
 } from "../../../../types/annotations";
 import { AnnotationKonvaLayer } from "../annotation_konva_layer";
 import { AnnotationOverlay } from "../annotation_overlay";
-import { LoadingState } from "../../../pdf_viewer/components";
 import { type ShapeDrawTool, isShapeDrawTool } from "../../utilities";
 
 interface Props {
@@ -109,7 +108,7 @@ export const PdfTemplatePageRow = ({
         scale={scale}
         renderTextLayer
         renderAnnotationLayer
-        loading={<LoadingState />}
+        loading={null}
         onRenderSuccess={onRenderSuccess}
       />
       <AnnotationKonvaLayer

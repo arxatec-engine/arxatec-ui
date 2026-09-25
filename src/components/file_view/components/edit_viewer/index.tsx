@@ -1,6 +1,8 @@
-import { Loader2, RefreshCw, FileX } from "lucide-react";
+import { RefreshCw, FileX } from "lucide-react";
 import { Button } from "@/components/button";
 import { StatusMessage } from "@/components/status_message";
+import { useFileViewLoadingChange } from "../../hooks";
+import type { FileViewLoadingChangeHandler } from "../../types";
 
 export interface FileEditViewerProps {
   isPending?: boolean;
@@ -9,6 +11,7 @@ export interface FileEditViewerProps {
   isEmpty?: boolean;
   onRetry?: () => void;
   children?: React.ReactNode;
+  onLoadingChange?: FileViewLoadingChangeHandler;
 }
 
 export const FileEditViewer = ({
@@ -18,14 +21,12 @@ export const FileEditViewer = ({
   isEmpty = false,
   onRetry,
   children,
+  onLoadingChange,
 }: FileEditViewerProps) => {
+  useFileViewLoadingChange(isPending, onLoadingChange);
+
   if (isPending) {
-    return (
-      <div className="flex h-full min-h-[240px] flex-col items-center justify-center gap-2 text-muted-foreground">
-        <Loader2 className="size-8 animate-spin" />
-        <p className="text-sm">Importando contenido del documento…</p>
-      </div>
-    );
+    return null;
   }
 
   if (isError) {

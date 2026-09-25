@@ -1,5 +1,6 @@
 import { FileViewErrorState } from "../error_state";
-import { FileViewLoadingState } from "../loading_state";
+import { useState } from "react";
+import { useFileViewLoadingChange } from "../../hooks";
 import { FileOfficeViewerContent } from "./components/file_office_viewer_content";
 import type { FileOfficeViewerProps } from "./types";
 
@@ -10,13 +11,16 @@ export const FileOfficeViewer = ({
   isPending = false,
   isError = false,
   onDownload,
+  onLoadingChange,
 }: FileOfficeViewerProps) => {
+  const [isContentLoading, setIsContentLoading] = useState(true);
+  useFileViewLoadingChange(
+    !isError && (isPending || isContentLoading),
+    onLoadingChange,
+  );
+
   if (isPending) {
-    return (
-      <div className="flex h-full w-full items-center justify-center">
-        <FileViewLoadingState />
-      </div>
-    );
+    return null;
   }
 
   if (isError || !url) return <FileViewErrorState />;
@@ -28,6 +32,7 @@ export const FileOfficeViewer = ({
       fileName={fileName}
       mimeType={mimeType}
       onDownload={onDownload}
+      onLoadingChange={setIsContentLoading}
     />
   );
 };

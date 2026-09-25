@@ -5,4 +5,6 @@ export interface SheetData {
 
 export interface FileXlsxPreviewViewerProps {
   file: File;
+  onLoadingChange?: FileViewLoadingChangeHandler;
 }
+import type { FileViewLoadingChangeHandler } from "../../../types";

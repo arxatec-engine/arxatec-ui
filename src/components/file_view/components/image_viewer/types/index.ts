@@ -1,3 +1,5 @@
+import type { FileViewLoadingChangeHandler } from "../../../types";
+
 export interface FileImageViewerProps {
   url: string | undefined;
   mimeType?: string;
@@ -6,4 +8,5 @@ export interface FileImageViewerProps {
   isPending?: boolean;
   isError?: boolean;
   onDownload?: () => void | Promise<void>;
+  onLoadingChange?: FileViewLoadingChangeHandler;
 }

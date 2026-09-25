@@ -1,10 +1,10 @@
 import { toast } from "sonner";
 import { downloadFileFromUrl } from "@/utilities/download";
 import { useVideoPlayer } from "../../hooks";
+import { useFileViewLoadingChange } from "../../../../hooks";
 import {
   VideoHeader,
   VideoOverlay,
-  VideoLoadingOverlay,
   VideoErrorOverlay
   } from "..";
 import type { FileVideoPlayerProps } from "../../types";
@@ -13,6 +13,7 @@ const FileVideoPlayerContent = ({
   url,
   fileName,
   onDownload,
+  onLoadingChange,
 }: FileVideoPlayerProps) => {
   const {
     videoRef,
@@ -46,6 +47,10 @@ const FileVideoPlayerContent = ({
     handleEnded,
     handleError,
   } = useVideoPlayer(url);
+  useFileViewLoadingChange(
+    (!isReady && !hasError) || isBuffering,
+    onLoadingChange,
+  );
 
   const handleDownloadFile = async () => {
     try {
@@ -97,10 +102,6 @@ const FileVideoPlayerContent = ({
             }}
           />
         </div>
-
-        {((!isReady && !hasError) || isBuffering) && (
-          <VideoLoadingOverlay isBuffering={isBuffering} />
-        )}
 
         {hasError && <VideoErrorOverlay onDownload={handleDownloadFile} />}
 

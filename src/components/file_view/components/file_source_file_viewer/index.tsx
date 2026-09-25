@@ -4,6 +4,13 @@ import type { FileSourceFileViewerProps } from "./types";
 
 export const FileSourceFileViewer = ({
   file,
-}: FileSourceFileViewerProps) => <FileSourceFileViewerContent key={getFilePreviewKey(file)} file={file} />;
+  onLoadingChange,
+}: FileSourceFileViewerProps) => (
+  <FileSourceFileViewerContent
+    key={getFilePreviewKey(file)}
+    file={file}
+    onLoadingChange={onLoadingChange}
+  />
+);
 
 export type { FileSourceFileViewerProps } from "./types";

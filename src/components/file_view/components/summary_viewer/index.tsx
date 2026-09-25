@@ -1,9 +1,10 @@
 import { useMemo } from "react";
-import { Copy, FileText, Loader2 } from "lucide-react";
+import { Copy, FileText } from "lucide-react";
 import { Button } from "@/components/button";
-import { Skeleton } from "@/components/skeleton";
 import { StatusMessage } from "@/components/status_message";
 import { summaryMarkdownToHtml } from "../../utilities/summary_markdown";
+import { useFileViewLoadingChange } from "../../hooks";
+import type { FileViewLoadingChangeHandler } from "../../types";
 
 export interface FileSummaryViewerProps {
   content?: string | null;
@@ -14,26 +15,24 @@ export interface FileSummaryViewerProps {
   isUnsupported?: boolean;
   onCopy?: () => void;
   onRetry?: () => void;
+  onLoadingChange?: FileViewLoadingChangeHandler;
 }
 
 export const FileSummaryViewer = ({
   content,
   isLoading = false,
   isProcessing = false,
-  isFetching = false,
   isError = false,
   isUnsupported = false,
   onCopy,
   onRetry,
+  onLoadingChange,
 }: FileSummaryViewerProps) => {
   const html = useMemo(() => summaryMarkdownToHtml(content), [content]);
+  useFileViewLoadingChange(isLoading || isProcessing, onLoadingChange);
 
   if (isLoading) {
-    return (
-      <div className="p-4 max-w-2xl mx-auto">
-        <Skeleton className="w-full h-96" />
-      </div>
-    );
+    return null;
   }
 
   if (isUnsupported) {
@@ -54,15 +53,7 @@ export const FileSummaryViewer = ({
   }
 
   if (isProcessing) {
-    return (
-      <div className="p-4 h-full flex flex-col items-center justify-center gap-3">
-        <Loader2 className="size-8 animate-spin text-muted-foreground" />
-        <p className="text-sm text-muted-foreground text-center">
-          Generando resumen
-          {isFetching ? "..." : ". Esto puede tardar un momento..."}
-        </p>
-      </div>
-    );
+    return null;
   }
 
   if (isError) {

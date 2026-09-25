@@ -10,6 +10,8 @@ export type FileViewSheetPanelRender =
 export interface FileViewSheetPanelProps {
   title: string;
   isPending?: boolean;
+  isLoading?: boolean;
+  loadingOverlay?: React.ReactNode;
   isError?: boolean;
   tabs?: FileViewSheetTabItem[];
   defaultTab?: FileViewSheetTab;

@@ -5,6 +5,7 @@ import type { FileSourceFileViewerProps } from "../../types";
 
 const FileSourceFileViewerContent = ({
   file,
+  onLoadingChange,
 }: FileSourceFileViewerProps) => {
   const [content, setContent] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
@@ -40,6 +41,7 @@ const FileSourceFileViewerContent = ({
       fileName={file.name}
       isPending={loading}
       isError={error}
+      onLoadingChange={onLoadingChange}
     />
   );
 };

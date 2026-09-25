@@ -1,16 +1,31 @@
 import "@cyntler/react-doc-viewer/dist/index.css";
 import DocViewer, { DocViewerRenderers } from "@cyntler/react-doc-viewer";
-import { FileOfficeViewerToolbar } from "../toolbar";
+import { useRef } from "react";
 import { resolveOfficeFileExtension } from "../../../../utilities/resolve_file_view_kind";
+import { useFileViewLoadingChange } from "../../../../hooks";
+import { useOfficeEmbedOverlay } from "../../hooks";
 import type { FileOfficeViewerProps } from "../../types";
+import { FileOfficeViewerToolbar } from "../toolbar";
 
-const FileOfficeViewerContent = ({ url, fileName, mimeType, onDownload }: Omit<FileOfficeViewerProps, "isPending" | "isError">) => {
+const FileOfficeViewerContent = ({
+  url,
+  fileName,
+  mimeType,
+  onDownload,
+  onLoadingChange,
+}: Omit<FileOfficeViewerProps, "isPending" | "isError">) => {
+  const rootRef = useRef<HTMLDivElement>(null);
+  const isEmbedPending = useOfficeEmbedOverlay(rootRef, url);
+  useFileViewLoadingChange(isEmbedPending, onLoadingChange);
   const fileType = resolveOfficeFileExtension(fileName, mimeType);
   const docs = [{ uri: url, fileType }];
 
   return (
-    <div className="relative flex flex-col h-full w-full bg-background">
-      <div className="flex-1 overflow-hidden h-full">
+    <div
+      ref={rootRef}
+      className="relative flex min-h-0 h-full w-full flex-col bg-background"
+    >
+      <div className="h-full flex-1 overflow-hidden">
         <DocViewer
           documents={docs}
           prefetchMethod="GET"
@@ -18,8 +33,8 @@ const FileOfficeViewerContent = ({ url, fileName, mimeType, onDownload }: Omit<F
           pluginRenderers={DocViewerRenderers}
           config={{
             loadingRenderer: {
-              overrideComponent: () => <h5>Loading...</h5>,
-              showLoadingTimeout: 1000,
+              overrideComponent: () => null,
+              showLoadingTimeout: false,
             },
             header: {
               disableHeader: true,

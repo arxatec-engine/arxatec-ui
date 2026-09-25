@@ -4,8 +4,13 @@ import type { FileXlsxPreviewViewerProps } from "./types";
 
 export const FileXlsxPreviewViewer = ({
   file,
+  onLoadingChange,
 }: FileXlsxPreviewViewerProps) => (
-  <FileXlsxPreviewViewerContent key={getFilePreviewKey(file)} file={file} />
+  <FileXlsxPreviewViewerContent
+    key={getFilePreviewKey(file)}
+    file={file}
+    onLoadingChange={onLoadingChange}
+  />
 );
 
 export type { FileXlsxPreviewViewerProps } from "./types";

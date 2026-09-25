@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
 
+import { FileViewLoadingState } from "../loading_state";
 import { FileUrlPreviewSheet } from "./index";
 
 const SAMPLE_PDF =
@@ -41,6 +42,7 @@ function SheetDemo(
   >,
 ) {
   const [open, setOpen] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   return (
     <>
       <button
@@ -50,7 +52,14 @@ function SheetDemo(
       >
         Abrir sheet
       </button>
-      <FileUrlPreviewSheet {...props} open={open} onOpenChange={setOpen} />
+      <FileUrlPreviewSheet
+        {...props}
+        open={open}
+        onOpenChange={setOpen}
+        isLoading={isLoading}
+        loadingOverlay={<FileViewLoadingState />}
+        onLoadingChange={setIsLoading}
+      />
     </>
   );
 }
@@ -75,6 +84,7 @@ function PlaygroundDemo() {
   const [open, setOpen] = useState(false);
   const [url, setUrl] = useState(SAMPLE_PDF);
   const [submittedUrl, setSubmittedUrl] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   return (
     <div className="flex flex-col gap-3 p-4">
@@ -109,6 +119,9 @@ function PlaygroundDemo() {
         open={open}
         onOpenChange={setOpen}
         url={submittedUrl}
+        isLoading={isLoading}
+        loadingOverlay={<FileViewLoadingState />}
+        onLoadingChange={setIsLoading}
       />
     </div>
   );

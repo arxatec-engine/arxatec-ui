@@ -2,18 +2,20 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { renderAsync } from "docx-preview";
 import { FileX } from "lucide-react";
 import { toast } from "sonner";
-import { Skeleton } from "@/components/skeleton";
 import { StatusMessage } from "@/components/status_message";
+import { useFileViewLoadingChange } from "../../../../hooks";
 import { Toolbar } from "../toolbar";
 import type { FileDocxPreviewViewerProps } from "../../types";
 
 const FileDocxPreviewViewerContent = ({
   file,
+  onLoadingChange,
 }: FileDocxPreviewViewerProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [scale, setScale] = useState(1);
+  useFileViewLoadingChange(loading && !error, onLoadingChange);
 
   const handleZoomIn = useCallback(
     () => setScale((prev) => Math.min(prev + 0.2, 3.0)),
@@ -82,11 +84,6 @@ const FileDocxPreviewViewerContent = ({
   return (
     <div className="relative w-full h-full bg-accent">
       <div className="w-full h-full overflow-auto">
-        {loading && (
-          <div className="absolute inset-0 z-10 flex min-h-0 p-4">
-            <Skeleton className="h-full w-full min-h-full" />
-          </div>
-        )}
         {error && (
           <div className="absolute inset-0 z-10 flex min-h-0 bg-background p-4">
             <StatusMessage

@@ -1,4 +1,5 @@
 import type { FileTemplateViewerApi } from "../../../types/annotations";
+import type { FileViewLoadingChangeHandler } from "../../../types";
 
 export type FileTemplateViewerHandle = {
   flushSave: () => Promise<void>;
@@ -25,6 +26,7 @@ export interface ContentProps {
   fileName?: string;
   api: FileTemplateViewerApi;
   features?: FileTemplateViewerFeatures;
+  onLoadingChange?: FileViewLoadingChangeHandler;
 }
 
 export type FileTemplateViewerProps = ContentProps;

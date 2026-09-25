@@ -1,9 +1,10 @@
 import { useMemo } from "react";
-import { Copy, FileText, Loader2 } from "lucide-react";
+import { Copy, FileText } from "lucide-react";
 import { Button } from "@/components/button";
-import { Skeleton } from "@/components/skeleton";
 import { StatusMessage } from "@/components/status_message";
 import { splitTranscriptionPages } from "../../utilities/transcription_pages";
+import { useFileViewLoadingChange } from "../../hooks";
+import type { FileViewLoadingChangeHandler } from "../../types";
 
 export interface FileTranscriptionViewerProps {
   content?: string | null;
@@ -12,39 +13,29 @@ export interface FileTranscriptionViewerProps {
   isFetching?: boolean;
   isError?: boolean;
   onCopy?: () => void;
+  onLoadingChange?: FileViewLoadingChangeHandler;
 }
 
 export const FileTranscriptionViewer = ({
   content,
   isLoading = false,
   isProcessing = false,
-  isFetching = false,
   isError = false,
   onCopy,
+  onLoadingChange,
 }: FileTranscriptionViewerProps) => {
   const pages = useMemo(
     () => splitTranscriptionPages(content ?? ""),
     [content],
   );
+  useFileViewLoadingChange(isLoading || isProcessing, onLoadingChange);
 
   if (isLoading) {
-    return (
-      <div className="p-4 max-w-2xl mx-auto">
-        <Skeleton className="w-full h-96" />
-      </div>
-    );
+    return null;
   }
 
   if (isProcessing) {
-    return (
-      <div className="p-4 h-full flex flex-col items-center justify-center gap-3">
-        <Loader2 className="size-8 animate-spin text-muted-foreground" />
-        <p className="text-sm text-muted-foreground text-center">
-          Procesando transcripción
-          {isFetching ? "..." : ". Actualizando automáticamente..."}
-        </p>
-      </div>
-    );
+    return null;
   }
 
   if (isError) {

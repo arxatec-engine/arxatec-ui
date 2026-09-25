@@ -65,12 +65,13 @@ import { TemplateFloatingBar } from "../template_floating_bar";
 import { AnnotationsSidePanel } from "../annotations_side_panel";
 import { downloadFileFromUrl } from "@/utilities/download";
 import type { ContentProps, FileTemplateViewerHandle } from "../../types";
+import { useFileViewLoadingChange } from "../../../../hooks";
 
 const FileTemplateViewerInner = forwardRef<
   FileTemplateViewerHandle,
   ContentProps
 >(function FileTemplateViewerInner(
-  { fileId, mimeType, fileName, api, features },
+  { fileId, mimeType, fileName, api, features, onLoadingChange },
   ref,
 ) {
   const { prepareSchemaForPersist } = useActiveAnnotationEditor();
@@ -90,6 +91,7 @@ const FileTemplateViewerInner = forwardRef<
     useState(false);
   const [activePage, setActivePage] = useState(1);
   const [pdfPageCount, setPdfPageCount] = useState(0);
+  const [isPdfRendering, setIsPdfRendering] = useState(true);
   const [isSaveAsDialogOpen, setIsSaveAsDialogOpen] = useState(false);
   const [saveAsName, setSaveAsName] = useState("");
   const [pdfObjectUrl, setPdfObjectUrl] = useState<string | null>(null);
@@ -627,6 +629,15 @@ const FileTemplateViewerInner = forwardRef<
       (docxPreviewError ||
         (!docxPreviewPending && docxPreviewBlob === undefined)));
 
+  const canShowViewer =
+    !previewFailed &&
+    (pdfObjectUrl != null || Boolean(isPdf && pdfBlobFallbackToRemote && url));
+
+  useFileViewLoadingChange(
+    !previewFailed && (mainPending || (canShowViewer && isPdfRendering)),
+    onLoadingChange,
+  );
+
   if (!supportsTemplateAnnotations) {
     return (
       <div className="flex h-full items-center justify-center p-6">
@@ -639,10 +650,6 @@ const FileTemplateViewerInner = forwardRef<
       </div>
     );
   }
-
-  const canShowViewer =
-    !previewFailed &&
-    (pdfObjectUrl != null || Boolean(isPdf && pdfBlobFallbackToRemote && url));
 
   const viewerPdfSrc = pdfObjectUrl ?? url;
 
@@ -693,11 +700,6 @@ const FileTemplateViewerInner = forwardRef<
       />
       <div className="flex min-h-0 flex-1">
         <div className="relative flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden">
-          {mainPending && (
-            <div className="absolute inset-0 z-20 flex items-center justify-center bg-background/60 text-sm text-muted-foreground">
-              Cargando…
-            </div>
-          )}
           {previewFailed ? (
             <div className="flex h-full items-center justify-center p-6">
               <StatusMessage
@@ -738,6 +740,7 @@ const FileTemplateViewerInner = forwardRef<
                   onDocumentPagesLoaded={setPdfPageCount}
                   scrollContainerRef={pdfScrollRef}
                   onPageViewportAtScaleOne={handlePageViewportAtScaleOne}
+                  onLoadingChange={setIsPdfRendering}
                 />
               </div>
               <TemplateFloatingBar

@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
 
+import { FileViewLoadingState } from "../loading_state";
 import { FileSimplePreviewSheet } from "./index";
 
 const meta = {
@@ -31,6 +32,7 @@ type Story = StoryObj<typeof meta>;
 
 function SheetDemo() {
   const [open, setOpen] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const file = new File(
     ['{"hola": "mundo"}'],
     "datos.json",
@@ -50,6 +52,9 @@ function SheetDemo() {
         open={open}
         onOpenChange={setOpen}
         file={file}
+        isLoading={isLoading}
+        loadingOverlay={<FileViewLoadingState />}
+        onLoadingChange={setIsLoading}
       />
     </>
   );
@@ -62,6 +67,7 @@ export const Json: Story = {
 function PlaygroundDemo() {
   const [open, setOpen] = useState(false);
   const [file, setFile] = useState<File | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   return (
     <div className="flex flex-col gap-3 p-4">
@@ -78,7 +84,14 @@ function PlaygroundDemo() {
       <p className="text-xs text-muted-foreground">
         El sheet se abre automáticamente al elegir un archivo.
       </p>
-      <FileSimplePreviewSheet open={open} onOpenChange={setOpen} file={file} />
+      <FileSimplePreviewSheet
+        open={open}
+        onOpenChange={setOpen}
+        file={file}
+        isLoading={isLoading}
+        loadingOverlay={<FileViewLoadingState />}
+        onLoadingChange={setIsLoading}
+      />
     </div>
   );
 }

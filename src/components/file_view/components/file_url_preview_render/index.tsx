@@ -6,22 +6,30 @@ import { downloadFromUrl } from "../../utilities/download_from_url";
 import { getExtensionFromUrl } from "../../utilities/get_extension_from_url";
 import { inferMimeFromFileName } from "../../utilities/infer_mime_from_file_name";
 import { IMAGE_EXTENSIONS, OFFICE_EXTENSIONS } from "./constants";
+import type { FileViewLoadingChangeHandler } from "../../types";
 
 export interface FileUrlPreviewRenderProps {
   url: string;
   fileName: string;
+  onLoadingChange?: FileViewLoadingChangeHandler;
 }
 
 export const FileUrlPreviewRender = ({
   url,
   fileName,
+  onLoadingChange,
 }: FileUrlPreviewRenderProps) => {
   const ext = getExtensionFromUrl(url);
   const download = () => downloadFromUrl(url, fileName);
 
   if (ext === "pdf") {
     return (
-      <FilePdfViewer url={url} fileName={fileName} onDownload={download} />
+      <FilePdfViewer
+        url={url}
+        fileName={fileName}
+        onDownload={download}
+        onLoadingChange={onLoadingChange}
+      />
     );
   }
 
@@ -34,6 +42,7 @@ export const FileUrlPreviewRender = ({
         fileName={fileName}
         fileId={url}
         onDownload={download}
+        onLoadingChange={onLoadingChange}
       />
     );
   }
@@ -45,6 +54,7 @@ export const FileUrlPreviewRender = ({
         fileName={fileName}
         mimeType={inferMimeFromFileName(fileName) ?? undefined}
         onDownload={download}
+        onLoadingChange={onLoadingChange}
       />
     );
   }

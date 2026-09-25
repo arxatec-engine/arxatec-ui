@@ -6,17 +6,24 @@ import {
   SheetTitle,
 } from "@/components/sheet";
 import { FileSimplePreviewRender } from "../file_simple_preview_render";
+import type { FileViewLoadingChangeHandler } from "../../types";
 
 export interface FileSimplePreviewSheetProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   file: File | null;
+  isLoading?: boolean;
+  loadingOverlay?: React.ReactNode;
+  onLoadingChange?: FileViewLoadingChangeHandler;
 }
 
 export const FileSimplePreviewSheet = ({
   open,
   onOpenChange,
   file,
+  isLoading = false,
+  loadingOverlay,
+  onLoadingChange,
 }: FileSimplePreviewSheetProps) => {
   const url = useMemo(() => {
     if (!file) return null;
@@ -41,9 +48,18 @@ export const FileSimplePreviewSheet = ({
         <div className="flex-1 relative min-h-0 bg-background">
           {file && url && (
             <div className="absolute inset-0 overflow-hidden min-w-0">
-              <FileSimplePreviewRender file={file} url={url} />
+              <FileSimplePreviewRender
+                file={file}
+                url={url}
+                onLoadingChange={onLoadingChange}
+              />
             </div>
           )}
+          {isLoading && loadingOverlay ? (
+            <div className="absolute inset-0 z-50 bg-background">
+              {loadingOverlay}
+            </div>
+          ) : null}
         </div>
       </SheetContent>
     </Sheet>

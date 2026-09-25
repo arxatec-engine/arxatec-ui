@@ -1,4 +1,3 @@
-import { LoadingState } from "../loading_state";
 import { useEffect, useState } from "react";
 import * as XLSX from "xlsx";
 import { FileX, TableProperties } from "lucide-react";
@@ -7,14 +6,17 @@ import { StatusMessage } from "@/components/status_message";
 import { Tabs, TabsList, TabsTrigger } from "@/components/tabs";
 import { cn } from "@/utilities/class";
 import type { SheetData, FileXlsxPreviewViewerProps } from "../../types";
+import { useFileViewLoadingChange } from "../../../../hooks";
 
 const FileXlsxPreviewViewerContent = ({
   file,
+  onLoadingChange,
 }: FileXlsxPreviewViewerProps) => {
   const [sheets, setSheets] = useState<SheetData[]>([]);
   const [activeSheet, setActiveSheet] = useState(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  useFileViewLoadingChange(loading && !error, onLoadingChange);
 
   useEffect(() => {
     let cancelled = false;
@@ -51,7 +53,7 @@ const FileXlsxPreviewViewerContent = ({
     };
   }, [file]);
 
-  if (loading) return <LoadingState />;
+  if (loading) return null;
 
   if (error) {
     return (

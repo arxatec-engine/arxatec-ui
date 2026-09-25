@@ -1,4 +1,4 @@
-import { ErrorState, LoadingState, Toolbar } from "..";
+import { ErrorState, Toolbar } from "..";
 import { useFileImageViewer } from "../../hooks";
 import type { FileImageViewerProps } from "../../types";
 
@@ -39,15 +39,10 @@ const FileImageViewerContent = (props: FileImageViewerProps) => {
         onWheel={onWheel}
         style={{ cursor: isDragging ? "grabbing" : "grab" }}
       >
-        {isPending ? (
-          <LoadingState />
-        ) : isError ? (
+        {isPending ? null : isError ? (
           <ErrorState />
         ) : data ? (
           <div className="relative w-full h-full flex-col flex items-center justify-center">
-            {isLoading && (
-              <LoadingState className="absolute top-0 left-0 w-full h-full" />
-            )}
             <img
               ref={imageRef}
               src={data}

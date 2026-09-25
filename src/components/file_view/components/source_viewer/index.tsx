@@ -1,9 +1,10 @@
 import { FileCode } from "lucide-react";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { oneDark } from "react-syntax-highlighter/dist/esm/styles/prism";
-import { Skeleton } from "@/components/skeleton";
 import { StatusMessage } from "@/components/status_message";
 import { getSourceLanguageFromFile } from "../../utilities/get_source_language_from_file";
+import { useFileViewLoadingChange } from "../../hooks";
+import type { FileViewLoadingChangeHandler } from "../../types";
 
 export interface FileSourceViewerProps {
   content?: string | null;
@@ -11,6 +12,7 @@ export interface FileSourceViewerProps {
   fileName: string;
   isPending?: boolean;
   isError?: boolean;
+  onLoadingChange?: FileViewLoadingChangeHandler;
 }
 
 export const FileSourceViewer = ({
@@ -19,15 +21,13 @@ export const FileSourceViewer = ({
   fileName,
   isPending = false,
   isError = false,
+  onLoadingChange,
 }: FileSourceViewerProps) => {
   const language = getSourceLanguageFromFile(mimeType, fileName);
+  useFileViewLoadingChange(isPending && !isError, onLoadingChange);
 
   if (isPending) {
-    return (
-      <div className="p-6 w-full h-full overflow-auto">
-        <Skeleton className="w-full h-96 rounded-md" />
-      </div>
-    );
+    return null;
   }
 
   if (isError || content == null) {

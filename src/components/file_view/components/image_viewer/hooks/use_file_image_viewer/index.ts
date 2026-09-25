@@ -6,6 +6,8 @@ import { useImageLoadingState } from "../use_image_loading_state";
 import { useImageTransforms } from "../use_image_transforms";
 import { useImageDrag } from "../use_image_drag";
 import { useContainerSize } from "../use_container_size";
+import { useFileViewLoadingChange } from "../../../../hooks";
+import type { FileViewLoadingChangeHandler } from "../../../../types";
 
 export interface UseFileImageViewerParams {
   url: string | undefined;
@@ -15,6 +17,7 @@ export interface UseFileImageViewerParams {
   onDownload?: () => void | Promise<void>;
   isPending?: boolean;
   isError?: boolean;
+  onLoadingChange?: FileViewLoadingChangeHandler;
 }
 
 export const useFileImageViewer = ({
@@ -24,6 +27,7 @@ export const useFileImageViewer = ({
   onDownload,
   isPending = false,
   isError = false,
+  onLoadingChange,
 }: UseFileImageViewerParams) => {
   const imageRef = useRef<HTMLImageElement | null>(null);
 
@@ -39,6 +43,7 @@ export const useFileImageViewer = ({
     isPending,
     isConverting,
   });
+  useFileViewLoadingChange(isLoading && !isError, onLoadingChange);
 
   const { scale, rotation, position, zoomIn, zoomOut, rotate, reset, onWheel, updatePosition } =
     useImageTransforms({
