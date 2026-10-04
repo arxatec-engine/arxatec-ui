@@ -1,12 +1,31 @@
-import { FileImageViewer } from "../image_viewer";
-import { FileOfficeViewer } from "../office_viewer";
-import { FilePdfViewer } from "../pdf_viewer";
+import type { ComponentProps } from "react";
+import { lazyFileViewer } from "../lazy_viewer";
 import { FileUnknownViewer } from "../unknown_viewer";
 import { downloadFromUrl } from "../../utilities/download_from_url";
 import { getExtensionFromUrl } from "../../utilities/get_extension_from_url";
 import { inferMimeFromFileName } from "../../utilities/infer_mime_from_file_name";
 import { IMAGE_EXTENSIONS, OFFICE_EXTENSIONS } from "./constants";
 import type { FileViewLoadingChangeHandler } from "../../types";
+
+const FileImageViewer = lazyFileViewer<
+  ComponentProps<typeof import("../image_viewer").FileImageViewer>
+>(() =>
+  import("../image_viewer").then((module) => ({
+    default: module.FileImageViewer,
+  })),
+);
+const FileOfficeViewer = lazyFileViewer<
+  ComponentProps<typeof import("../office_viewer").FileOfficeViewer>
+>(() =>
+  import("../office_viewer").then((module) => ({
+    default: module.FileOfficeViewer,
+  })),
+);
+const FilePdfViewer = lazyFileViewer<
+  ComponentProps<typeof import("../pdf_viewer").FilePdfViewer>
+>(() =>
+  import("../pdf_viewer").then((module) => ({ default: module.FilePdfViewer })),
+);
 
 export interface FileUrlPreviewRenderProps {
   url: string;

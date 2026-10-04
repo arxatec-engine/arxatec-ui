@@ -1,4 +1,3 @@
-
 import { FileImageViewerContent } from "./components/file_image_viewer_content";
 import type { FileImageViewerProps } from "./types";
 
@@ -10,6 +9,7 @@ export const FileImageViewer = ({
   isPending = false,
   isError = false,
   onDownload,
+  onLoadingChange,
 }: FileImageViewerProps) => {
   const sessionKey = `${fileId ?? "preview"}-${url ?? "empty"}`;
 
@@ -23,6 +23,7 @@ export const FileImageViewer = ({
       isPending={isPending}
       isError={isError}
       onDownload={onDownload}
+      onLoadingChange={onLoadingChange}
     />
   );
 };

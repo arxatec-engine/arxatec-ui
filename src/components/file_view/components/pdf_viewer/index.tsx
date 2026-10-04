@@ -6,6 +6,7 @@ export const FilePdfViewer = ({
   url,
   fileName,
   onDownload,
+  onLoadingChange,
 }: FilePdfViewerProps) => {
   if (!url) return <ErrorState />;
 
@@ -15,6 +16,7 @@ export const FilePdfViewer = ({
       url={url}
       fileName={fileName}
       onDownload={onDownload}
+      onLoadingChange={onLoadingChange}
     />
   );
 };

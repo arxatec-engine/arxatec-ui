@@ -1,16 +1,68 @@
-import { FileAudioPlayer } from "../audio_player";
+import type { ComponentProps } from "react";
+import { lazyFileViewer } from "../lazy_viewer";
 import { FileBlobOfficeUnavailable } from "../blob_office_unavailable";
-import { FileDocxPreviewViewer } from "../docx_preview_viewer";
-import { FileImageViewer } from "../image_viewer";
-import { FilePdfViewer } from "../pdf_viewer";
-import { FileSourceFileViewer } from "../file_source_file_viewer";
 import { FileUnknownViewer } from "../unknown_viewer";
-import { FileVideoPlayer } from "../video_player";
-import { FileXlsxPreviewViewer } from "../xlsx_preview_viewer";
 import { downloadFromUrl } from "../../utilities/download_from_url";
 import { effectiveMimeFromFile } from "../../utilities/effective_mime_from_file";
-import { CODE_FILE_EXTENSIONS, CODE_MIME_PREFIXES, DOCX_MIME, OFFICE_MIME_TYPES, XLSX_MIME, XLS_MIME } from "./constants";
+import {
+  CODE_FILE_EXTENSIONS,
+  CODE_MIME_PREFIXES,
+  DOCX_MIME,
+  OFFICE_MIME_TYPES,
+  XLSX_MIME,
+  XLS_MIME,
+} from "./constants";
 import type { FileViewLoadingChangeHandler } from "../../types";
+
+const FileAudioPlayer = lazyFileViewer<
+  ComponentProps<typeof import("../audio_player").FileAudioPlayer>
+>(() =>
+  import("../audio_player").then((module) => ({
+    default: module.FileAudioPlayer,
+  })),
+);
+const FileDocxPreviewViewer = lazyFileViewer<
+  ComponentProps<typeof import("../docx_preview_viewer").FileDocxPreviewViewer>
+>(() =>
+  import("../docx_preview_viewer").then((module) => ({
+    default: module.FileDocxPreviewViewer,
+  })),
+);
+const FileImageViewer = lazyFileViewer<
+  ComponentProps<typeof import("../image_viewer").FileImageViewer>
+>(() =>
+  import("../image_viewer").then((module) => ({
+    default: module.FileImageViewer,
+  })),
+);
+const FilePdfViewer = lazyFileViewer<
+  ComponentProps<typeof import("../pdf_viewer").FilePdfViewer>
+>(() =>
+  import("../pdf_viewer").then((module) => ({ default: module.FilePdfViewer })),
+);
+const FileSourceFileViewer = lazyFileViewer<
+  ComponentProps<
+    typeof import("../file_source_file_viewer").FileSourceFileViewer
+  >
+>(() =>
+  import("../file_source_file_viewer").then((module) => ({
+    default: module.FileSourceFileViewer,
+  })),
+);
+const FileVideoPlayer = lazyFileViewer<
+  ComponentProps<typeof import("../video_player").FileVideoPlayer>
+>(() =>
+  import("../video_player").then((module) => ({
+    default: module.FileVideoPlayer,
+  })),
+);
+const FileXlsxPreviewViewer = lazyFileViewer<
+  ComponentProps<typeof import("../xlsx_preview_viewer").FileXlsxPreviewViewer>
+>(() =>
+  import("../xlsx_preview_viewer").then((module) => ({
+    default: module.FileXlsxPreviewViewer,
+  })),
+);
 
 export interface FileSimplePreviewRenderProps {
   file: File;
@@ -77,15 +129,21 @@ export const FileSimplePreviewRender = ({
     CODE_FILE_EXTENSIONS.test(file.name);
 
   if (isCode) {
-    return <FileSourceFileViewer file={file} onLoadingChange={onLoadingChange} />;
+    return (
+      <FileSourceFileViewer file={file} onLoadingChange={onLoadingChange} />
+    );
   }
 
   if (mimeType === DOCX_MIME) {
-    return <FileDocxPreviewViewer file={file} onLoadingChange={onLoadingChange} />;
+    return (
+      <FileDocxPreviewViewer file={file} onLoadingChange={onLoadingChange} />
+    );
   }
 
   if (mimeType === XLSX_MIME || mimeType === XLS_MIME) {
-    return <FileXlsxPreviewViewer file={file} onLoadingChange={onLoadingChange} />;
+    return (
+      <FileXlsxPreviewViewer file={file} onLoadingChange={onLoadingChange} />
+    );
   }
 
   if ((OFFICE_MIME_TYPES as readonly string[]).includes(mimeType)) {

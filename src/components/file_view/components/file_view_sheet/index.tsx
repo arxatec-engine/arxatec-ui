@@ -11,10 +11,17 @@ export const FileViewSheet = ({
   open,
   onOpenChange,
   fileKey,
+  lazyPanels = false,
   ...panelProps
 }: FileViewSheetProps) => (
   <Sheet open={open} onOpenChange={onOpenChange}>
-    <FileViewSheetPanelContent key={fileKey} {...panelProps} />
+    {(!lazyPanels || open) && (
+      <FileViewSheetPanelContent
+        key={fileKey}
+        lazyPanels={lazyPanels}
+        {...panelProps}
+      />
+    )}
   </Sheet>
 );
 

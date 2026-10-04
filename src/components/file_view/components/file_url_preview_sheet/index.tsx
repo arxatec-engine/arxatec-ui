@@ -66,7 +66,7 @@ export const FileUrlPreviewSheet = ({
             </div>
           )}
 
-          {!isPending && !isError && url && (
+          {open && !isPending && !isError && url && (
             <FileUrlPreviewRender
               url={url}
               fileName={displayName}

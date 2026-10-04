@@ -1,4 +1,3 @@
-import heic2any from "heic2any";
 import { toast } from "sonner";
 
 export const isHeicFormat = (mimeType?: string): boolean => {
@@ -7,8 +6,11 @@ export const isHeicFormat = (mimeType?: string): boolean => {
   return lowerMimeType === "image/heic" || lowerMimeType === "image/heif";
 };
 
-export const convertHeicToJpeg = async (imageUrl: string): Promise<string | null> => {
+export const convertHeicToJpeg = async (
+  imageUrl: string,
+): Promise<string | null> => {
   try {
+    const { default: heic2any } = await import("heic2any");
     const response = await fetch(imageUrl);
     const blob = await response.blob();
 
@@ -18,7 +20,9 @@ export const convertHeicToJpeg = async (imageUrl: string): Promise<string | null
       quality: 0.92,
     });
 
-    const blobResult = Array.isArray(convertedBlob) ? convertedBlob[0] : convertedBlob;
+    const blobResult = Array.isArray(convertedBlob)
+      ? convertedBlob[0]
+      : convertedBlob;
 
     return URL.createObjectURL(blobResult);
   } catch (error) {

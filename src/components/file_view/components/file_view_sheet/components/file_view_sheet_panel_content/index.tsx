@@ -1,22 +1,24 @@
 import { renderPanelContent } from "../../utilities";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FileX } from "lucide-react";
 import { cn } from "@/utilities/class";
 import {
-    SheetContent,
+  SheetContent,
   SheetDescription,
   SheetHeader,
-  SheetTitle
+  SheetTitle,
 } from "@/components/sheet";
 import { StatusMessage } from "@/components/status_message";
 import { Tabs, TabsList, TabsTrigger } from "@/components/tabs";
 import {
   FILE_VIEW_SHEET_TAB,
-  type FileViewSheetTab
-  } from "../../../../types/file_view_sheet";
+  type FileViewSheetTab,
+} from "../../../../types/file_view_sheet";
 import type { FileViewSheetPanelProps } from "../../types";
 
 const FileViewSheetPanelContent = ({
+  lazyPanels = false,
+  onActiveTabChange,
   title,
   isPending = false,
   isLoading = false,
@@ -33,6 +35,14 @@ const FileViewSheetPanelContent = ({
   renderVersions,
 }: FileViewSheetPanelProps) => {
   const [activeTab, setActiveTab] = useState<FileViewSheetTab>(defaultTab);
+  const [visited, setVisited] = useState<Set<FileViewSheetTab>>(
+    () => new Set([defaultTab]),
+  );
+  const shouldMount = (tab: FileViewSheetTab) =>
+    !lazyPanels || visited.has(tab);
+  useEffect(() => {
+    onActiveTabChange?.(activeTab);
+  }, [activeTab, onActiveTabChange]);
   const showViewer = !isPending && !isError;
   const simpleViewer = !showTabs;
   const floatingTabs = showTabs && tabs.length > 0;
@@ -84,9 +94,15 @@ const FileViewSheetPanelContent = ({
                 {tabs.map((tab) => (
                   <TabsTrigger
                     key={tab.id}
-                    className={cn("font-normal", activeTab === tab.id && "bg-background")}
+                    className={cn(
+                      "font-normal",
+                      activeTab === tab.id && "bg-background",
+                    )}
                     value={tab.id}
-                    onClick={() => setActiveTab(tab.id)}
+                    onClick={() => {
+                      setVisited((previous) => new Set([...previous, tab.id]));
+                      setActiveTab(tab.id);
+                    }}
                   >
                     {tab.icon}
                     {tab.label}
@@ -104,16 +120,19 @@ const FileViewSheetPanelContent = ({
             </div>
           ) : (
             <>
-              <div
-                className={panelClass(
-                  FILE_VIEW_SHEET_TAB.ORIGINAL,
-                  "hidden",
-                  true,
-                )}
-              >
-                {renderOriginal}
-              </div>
-              {renderTranscription ? (
+              {shouldMount(FILE_VIEW_SHEET_TAB.ORIGINAL) && (
+                <div
+                  className={panelClass(
+                    FILE_VIEW_SHEET_TAB.ORIGINAL,
+                    "hidden",
+                    true,
+                  )}
+                >
+                  {renderOriginal}
+                </div>
+              )}
+              {renderTranscription &&
+              shouldMount(FILE_VIEW_SHEET_TAB.TRANSCRIPTION) ? (
                 <div className={panelClass(FILE_VIEW_SHEET_TAB.TRANSCRIPTION)}>
                   {renderPanelContent(
                     renderTranscription,
@@ -121,7 +140,7 @@ const FileViewSheetPanelContent = ({
                   )}
                 </div>
               ) : null}
-              {renderSummary ? (
+              {renderSummary && shouldMount(FILE_VIEW_SHEET_TAB.SUMMARY) ? (
                 <div
                   className={panelClass(FILE_VIEW_SHEET_TAB.SUMMARY, "auto")}
                 >
@@ -131,7 +150,7 @@ const FileViewSheetPanelContent = ({
                   )}
                 </div>
               ) : null}
-              {renderTemplate ? (
+              {renderTemplate && shouldMount(FILE_VIEW_SHEET_TAB.TEMPLATE) ? (
                 <div
                   className={panelClass(
                     FILE_VIEW_SHEET_TAB.TEMPLATE,
@@ -145,7 +164,7 @@ const FileViewSheetPanelContent = ({
                   )}
                 </div>
               ) : null}
-              {renderEdit ? (
+              {renderEdit && shouldMount(FILE_VIEW_SHEET_TAB.EDIT) ? (
                 <div className={panelClass(FILE_VIEW_SHEET_TAB.EDIT, "auto")}>
                   {renderPanelContent(
                     renderEdit,
@@ -153,7 +172,7 @@ const FileViewSheetPanelContent = ({
                   )}
                 </div>
               ) : null}
-              {renderVersions ? (
+              {renderVersions && shouldMount(FILE_VIEW_SHEET_TAB.VERSIONS) ? (
                 <div
                   className={panelClass(FILE_VIEW_SHEET_TAB.VERSIONS, "auto")}
                 >
