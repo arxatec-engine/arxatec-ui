@@ -30,7 +30,7 @@ compatible. New `/file-view/core` provides a lightweight shell, MIME routing,
 contexts, types and worker configuration. Engines have independent `/pdf`,
 `/image`, `/office`, `/code`, `/template`, `/docx`, `/xlsx`, `/audio`, `/video`,
 `/summary` and `/transcription` entries under `/file-view`; `/lazy` supplies the
-loading/error/retry wrapper. Import engines dynamically when opening that format.
+deferred loading wrapper without added controls. Import engines dynamically when opening that format.
 Never connect the startup barrel to a viewer engine.
 
 `react`, `react-dom`, React Query, `react-hook-form`, `@tiptap/core` and

@@ -161,8 +161,9 @@ const PdfViewer = lazyFileViewer<FilePdfViewerProps>(() =>
 Engine entries under `/file-view/` are `pdf`, `image`, `office`, `code`, `template`,
 `docx`, `xlsx`, `audio`, `video`, `summary` and `transcription`. The core does not
 import PDF or another engine. HEIC conversion loads `heic2any` only for HEIC.
-The wrapper shows loading, handles a failed chunk and offers retry. The parent
-sheet keeps its close action available while loading.
+The wrapper loads without adding loading, error or retry controls. Loading
+callbacks reach the existing parent sheet; a failed load ends its pending state.
+Closing and reopening the sheet allows another load attempt.
 
 `FileViewSheet` accepts `lazyPanels?: boolean`, default `false`. Set it to `true`
 to mount only the initial panel and mount each other panel on its first visit.
