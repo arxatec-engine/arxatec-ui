@@ -52,7 +52,11 @@ export { useContainerSize } from "./components/image_viewer/hooks/use_container_
 export { useVideoPlayer } from "./components/video_player/hooks";
 export type { UseVideoPlayerReturn } from "./components/video_player/hooks/use_video_player";
 export { getSourceLanguageFromFile } from "./utilities/get_source_language_from_file";
-export { resolveTemplateFileKind, DOCX_MIME, normalizeMimeBase } from "./components/template_viewer/utilities";
+export {
+  resolveTemplateFileKind,
+  DOCX_MIME,
+  normalizeMimeBase,
+} from "./components/template_viewer/utilities";
 
 export { FileViewLoadingState as PdfViewerLoadingState } from "./components/loading_state";
 export { FileViewErrorState as PdfViewerErrorState } from "./components/error_state";
@@ -74,3 +78,5 @@ export {
   Content as PdfViewerContent,
   ErrorBoundary as PdfViewerErrorBoundary,
 } from "./components/pdf_viewer/components";
+
+export * from "./utilities/pdf_worker_configuration";

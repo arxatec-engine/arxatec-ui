@@ -136,3 +136,56 @@ Publishing to npm requires **2FA**; use `npm publish --otp=...` when prompted.
 ## License
 
 MIT. See [LICENSE](./LICENSE).
+
+## File-view engines on demand (0.1.69)
+
+Existing `arxatec-ui/file-view` exports remain compatible. Applications that need
+bounded startup downloads should use the lightweight shell and lazy engines:
+
+```tsx
+import {
+  FileViewSheet,
+  configureFileViewPdfWorker,
+} from "arxatec-ui/file-view/core";
+import { lazyFileViewer } from "arxatec-ui/file-view/lazy";
+import type { FilePdfViewerProps } from "arxatec-ui/file-view/pdf";
+
+configureFileViewPdfWorker(localHashedWorkerUrl);
+const PdfViewer = lazyFileViewer<FilePdfViewerProps>(() =>
+  import("arxatec-ui/file-view/pdf").then(({ FilePdfViewer }) => ({
+    default: FilePdfViewer,
+  })),
+);
+```
+
+Engine entries under `/file-view/` are `pdf`, `image`, `office`, `code`, `template`,
+`docx`, `xlsx`, `audio`, `video`, `summary` and `transcription`. The core does not
+import PDF or another engine. HEIC conversion loads `heic2any` only for HEIC.
+The wrapper loads without adding loading, error or retry controls. Loading
+callbacks reach the existing parent sheet; a failed load ends its pending state.
+Closing and reopening the sheet allows another load attempt.
+
+`FileViewSheet` accepts `lazyPanels?: boolean`, default `false`. Set it to `true`
+to mount only the initial panel and mount each other panel on its first visit.
+Visited panels remain mounted, preserving edits, annotations and zoom, until
+close or `fileKey` changes. `onActiveTabChange` reports the active panel. Render
+callbacks receive `isActive`; query consumers should use it to pause summary and
+transcription reads. Hidden-panel loading must not replace the active panel.
+
+Configure a local hashed PDF worker before opening PDF. Configuration itself is
+lightweight; deferred setup respects it and later configuration updates it. Match
+the worker version exactly to `pdfjs-dist` resolved by this package's `react-pdf`.
+The worker URL can use web/PWA origin or Electron `app://arxatec`. Build consumers
+with the package's worker setup marked as a side effect. PDF and image viewers
+forward `onLoadingChange` until their content is ready.
+
+Import `arxatec-ui/styles.css` once. Font faces retain ArxatecSans,
+Cormorant Garamond (300–700, normal/italic) and JetBrains Mono (100–800,
+normal/italic), with local licensed assets and `font-display: swap`. They download
+only when matching content uses them; omit fonts from PWA precache and cache
+requested faces at runtime. Consumers share `react-hook-form`, `@tiptap/core` and
+`@tiptap/react` as peers alongside React and React Query.
+
+Publication requires owner PR merge and clean-main publish. The platform's
+minimum release age is seven days; validate a tarball in isolation before that
+consumer update.

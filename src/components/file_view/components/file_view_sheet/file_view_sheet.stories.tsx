@@ -96,6 +96,69 @@ export const ConTabs: Story = {
   render: () => <SheetDemo />,
 };
 
+function LazyPanelsDemo() {
+  const [open, setOpen] = useState(true);
+  const [file, setFile] = useState(1);
+  const [active, setActive] = useState<string>(FILE_VIEW_SHEET_TAB.ORIGINAL);
+  return (
+    <>
+      <button type="button" onClick={() => setOpen(true)}>
+        Abrir panel diferido
+      </button>
+      <FileViewSheet
+        open={open}
+        onOpenChange={setOpen}
+        lazyPanels
+        fileKey={`lazy-${file}`}
+        title={`Archivo ${file}`}
+        showTabs
+        onActiveTabChange={setActive}
+        tabs={[
+          { id: FILE_VIEW_SHEET_TAB.ORIGINAL, label: "Original" },
+          { id: FILE_VIEW_SHEET_TAB.SUMMARY, label: "Resumen" },
+          { id: FILE_VIEW_SHEET_TAB.EDIT, label: "Editar" },
+        ]}
+        renderOriginal={
+          <div className="p-6">
+            <p>Panel inicial</p>
+            <p>Activo: {active}</p>
+            <button type="button" onClick={() => setFile((value) => value + 1)}>
+              Cambiar archivo
+            </button>
+          </div>
+        }
+        renderSummary={(isActive) => (
+          <div className="p-6" data-testid="lazy-summary">
+            Resumen montado; consulta {isActive ? "activa" : "pausada"}
+          </div>
+        )}
+        renderEdit={
+          <div className="p-6">
+            <label htmlFor="lazy-editor">Edición conservada</label>
+            <input
+              id="lazy-editor"
+              data-testid="lazy-editor"
+              defaultValue="Texto inicial"
+            />
+          </div>
+        }
+      />
+    </>
+  );
+}
+
+export const PanelesDiferidos: Story = {
+  render: () => <LazyPanelsDemo />,
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Solo monta Original al abrir. Visita Editar, cambia el texto y vuelve: se conserva. Cambiar archivo o cerrar reinicia los paneles. Resumen pausa la consulta mientras está oculto.",
+      },
+    },
+  },
+};
+
 export const Cargando: Story = {
   render: () => (
     <FileViewSheet

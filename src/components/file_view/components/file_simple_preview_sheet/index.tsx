@@ -26,9 +26,9 @@ export const FileSimplePreviewSheet = ({
   onLoadingChange,
 }: FileSimplePreviewSheetProps) => {
   const url = useMemo(() => {
-    if (!file) return null;
+    if (!open || !file) return null;
     return URL.createObjectURL(file);
-  }, [file]);
+  }, [file, open]);
 
   useEffect(() => {
     return () => {

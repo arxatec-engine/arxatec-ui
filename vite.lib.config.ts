@@ -20,7 +20,7 @@ const bundleableDependencyIds = [
 
 function isDependencyModule(id: string) {
   return bundleableDependencyIds.some(
-    (dep) => id === dep || id.startsWith(`${dep}/`)
+    (dep) => id === dep || id.startsWith(`${dep}/`),
   );
 }
 
@@ -51,6 +51,55 @@ export default defineConfig({
         index: path.resolve(dirname, "src/exports/index.ts"),
         sidebar: path.resolve(dirname, "src/exports/sidebar.ts"),
         "file-view": path.resolve(dirname, "src/exports/file-view.ts"),
+        "file-view-core": path.resolve(
+          dirname,
+          "src/exports/file-view-core.ts",
+        ),
+        "file-view-pdf": path.resolve(dirname, "src/exports/file-view-pdf.ts"),
+        "file-view-image": path.resolve(
+          dirname,
+          "src/exports/file-view-image.ts",
+        ),
+        "file-view-office": path.resolve(
+          dirname,
+          "src/exports/file-view-office.ts",
+        ),
+        "file-view-code": path.resolve(
+          dirname,
+          "src/exports/file-view-code.ts",
+        ),
+        "file-view-template": path.resolve(
+          dirname,
+          "src/exports/file-view-template.ts",
+        ),
+        "file-view-docx": path.resolve(
+          dirname,
+          "src/exports/file-view-docx.ts",
+        ),
+        "file-view-xlsx": path.resolve(
+          dirname,
+          "src/exports/file-view-xlsx.ts",
+        ),
+        "file-view-audio": path.resolve(
+          dirname,
+          "src/exports/file-view-audio.ts",
+        ),
+        "file-view-video": path.resolve(
+          dirname,
+          "src/exports/file-view-video.ts",
+        ),
+        "file-view-summary": path.resolve(
+          dirname,
+          "src/exports/file-view-summary.ts",
+        ),
+        "file-view-transcription": path.resolve(
+          dirname,
+          "src/exports/file-view-transcription.ts",
+        ),
+        "file-view-lazy": path.resolve(
+          dirname,
+          "src/exports/file-view-lazy.ts",
+        ),
       },
       formats: ["es"],
     },

@@ -1,6 +1,6 @@
 import {
-    type FileViewSheetTab,
-  type FileViewSheetTabItem
+  type FileViewSheetTab,
+  type FileViewSheetTabItem,
 } from "../../../types/file_view_sheet";
 
 export type FileViewSheetPanelRender =
@@ -8,6 +8,8 @@ export type FileViewSheetPanelRender =
   | ((isActive: boolean) => React.ReactNode);
 
 export interface FileViewSheetPanelProps {
+  lazyPanels?: boolean;
+  onActiveTabChange?: (tab: FileViewSheetTab) => void;
   title: string;
   isPending?: boolean;
   isLoading?: boolean;
