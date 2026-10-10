@@ -44,12 +44,10 @@ removing the setup exception silently restores the default worker in consumers.
 Every publishable change bumps `package.json#version` in the same commit. Keep the
 existing exports and default behavior compatible. On 2026-10-04 the npm registry
 and local `main` both report **0.1.68**; recheck before publishing a new number.
-The performance branch prepares **0.1.69**, verified as a tarball; it is not yet
-published or consumed by the platform registry dependency.
-
-The Apple icon on `main` prepares **0.1.70**. The platform currently consumes the
-new icon through a narrow pnpm patch on its installed **0.1.68**, pending a
-published release and the existing release-age policy.
+Reverified on 2026-10-09: the registry still reports **0.1.68**, while base
+`main` (`563c36d`) is **0.1.70** and includes the lazy file-view engines and Apple
+icon. The Logo variants change prepares **0.1.71**. These source additions are
+pending publication; validate a candidate tarball before a consumer update.
 
 1. Open a PR on an own branch. **The owner merges; never push directly to main.**
 2. Publish only from a clean, merged `main`, after comparing `npm view arxatec-ui

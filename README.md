@@ -93,7 +93,19 @@ Patterns follow **shadcn**-style APIs (compound components with named exports).
 - **Surfaces & navigation:** `Card`, `Dialog`, `Sheet`, `Drawer`, `Popover`, `Tooltip`, `DropdownMenu`, `ContextMenu`, `Tabs`, `Breadcrumb`, `Pagination`, `PaginationController`, `Sidebar`, `Command`, `Collapsible`, and more.
 - **Data & feedback:** `Table`, `Badge`, `Skeleton`, `Progress`, `StatusMessage`, `AsyncBoundary`, `AsyncCommandList`, `Chart`, `Carousel`, and more.
 - **Maps:** `MapView`, `MapPicker`.
-- **Extras:** `Toaster` (Sonner), `IconPicker`, `EmojiPicker`, brand icons, animated icons, etc.
+- **Extras:** `Toaster` (Sonner), `Logo`, `IconPicker`, `EmojiPicker`, brand icons, animated icons, etc.
+
+`Logo` accepts `variant="arxatec" | "academy" | "management"` starting with
+`0.1.71`. Omitting `variant` renders the original Arxatec logo. All three inline
+SVGs preserve their proportions and inherit their color through `currentColor`:
+
+```tsx
+import { Logo } from "arxatec-ui";
+
+<Logo className="h-8 w-auto text-foreground" />;
+<Logo variant="academy" className="h-8 w-auto text-foreground" />;
+<Logo variant="management" className="h-8 w-auto text-foreground" />;
+```
 
 `AppleIsotype` is an inline SVG with a transparent background. It inherits its
 color through `currentColor` and accepts SVG props, including `className` and
