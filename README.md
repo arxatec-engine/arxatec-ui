@@ -95,6 +95,16 @@ Patterns follow **shadcn**-style APIs (compound components with named exports).
 - **Maps:** `MapView`, `MapPicker`.
 - **Extras:** `Toaster` (Sonner), `IconPicker`, `EmojiPicker`, brand icons, animated icons, etc.
 
+`AppleIsotype` is an inline SVG with a transparent background. It inherits its
+color through `currentColor` and accepts SVG props, including `className` and
+ARIA attributes:
+
+```tsx
+import { AppleIsotype } from "arxatec-ui";
+
+<AppleIsotype className="size-4 text-foreground" aria-hidden="true" />;
+```
+
 The full list matches the `export *` entries in [`src/index.ts`](./src/index.ts).
 
 ### Hooks
