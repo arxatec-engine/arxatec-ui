@@ -47,6 +47,10 @@ and local `main` both report **0.1.68**; recheck before publishing a new number.
 The performance branch prepares **0.1.69**, verified as a tarball; it is not yet
 published or consumed by the platform registry dependency.
 
+The Apple icon branch prepares **0.1.70**. The platform currently consumes the
+new icon through a narrow pnpm patch on its installed **0.1.68**, pending a
+published release and the existing release-age policy.
+
 1. Open a PR on an own branch. **The owner merges; never push directly to main.**
 2. Publish only from a clean, merged `main`, after comparing `npm view arxatec-ui
 version` with source and reviewing the tarball.

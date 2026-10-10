@@ -1,4 +1,5 @@
 import {
+  AppleIsotype,
   AsyncBoundary,
   Button,
   CalendarDaysIcon,
@@ -39,9 +40,10 @@ export function BrandingFeedbackSection() {
             <Logo className="h-7 shrink text-foreground" />
           </div>
 
-          <div className="grid grid-cols-4 items-center gap-4 text-muted-foreground/60">
+          <div className="grid grid-cols-5 items-center gap-4 text-muted-foreground/60">
             <GoogleIsotype className="size-7" />
             <MicrosoftIsotype className="size-7" />
+            <AppleIsotype className="size-7" />
             <GoogleDriveIcon className="size-7" />
             <OneDriveIcon className="size-7" />
           </div>
