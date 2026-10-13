@@ -22,6 +22,7 @@
 @import "./prose.css";
 @import "./editor.css";
 @import "./annotation_editor.css";
+@import "../components/emoji_picker/styles.css";
 
 @source ".";
 @plugin "@tailwindcss/typography";

@@ -76,3 +76,12 @@ export * from "./components/form_select";
 export * from "./components/description_markdown_editor";
 export * from "./components/sidebar";
 export * from "./components/mention_list";
+export * from "./exports/editable-fields";
+export * from "./components/shiny_text";
+export * from "./components/offline_banner";
+export * from "./components/icon_emoji_picker";
+
+export * from "./components/file_type_icon";
+export * from "./components/folder_icon";
+export * from "./components/file_explorer";
+export * from "./components/file_thumbnail";

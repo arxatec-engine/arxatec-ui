@@ -41,12 +41,12 @@ work** and accumulates by week. They never mix.
 All four record sites name their files the same way: `YYYY_Wnn.md`, with the ISO
 week from `date +%G_W%V`.
 
-| Where | What | Who writes it |
-| --- | --- | --- |
-| [`docs/BACKLOG.md`](./docs/BACKLOG.md) | Ideas from the whole team and everything missing. One line, no formatting, no priority. | Anyone, whenever |
-| [`docs/focus/`](./docs/focus/) | **One** priority per week, its actions (one per day) and the action that unblocks each dependency. | The CEO, on Monday |
-| [`docs/shipped/`](./docs/shipped/) | What was delivered: intent, branch, PR, what changed, how it was verified, **and which of the three publishing steps ran**. | **The agent, on closing the feature, inside the same PR** |
-| [`docs/known_issues/`](./docs/known_issues/) | Live bugs and traps no gate catches. One `##` section per problem. | Whoever detects it |
+| Where                                        | What                                                                                                                        | Who writes it                                             |
+| -------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------- |
+| [`docs/BACKLOG.md`](./docs/BACKLOG.md)       | Ideas from the whole team and everything missing. One line, no formatting, no priority.                                     | Anyone, whenever                                          |
+| [`docs/focus/`](./docs/focus/)               | **One** priority per week, its actions (one per day) and the action that unblocks each dependency.                          | The CEO, on Monday                                        |
+| [`docs/shipped/`](./docs/shipped/)           | What was delivered: intent, branch, PR, what changed, how it was verified, **and which of the three publishing steps ran**. | **The agent, on closing the feature, inside the same PR** |
+| [`docs/known_issues/`](./docs/known_issues/) | Live bugs and traps no gate catches. One `##` section per problem.                                                          | Whoever detects it                                        |
 
 The cycle runs one way: idea → `BACKLOG.md` → the week's priority in `focus/` →
 `shipped/` when the PR lands. Whatever breaks along the way falls into
@@ -63,9 +63,9 @@ it is the record of a **delivery**, it travels inside the PR that delivers it, a
 it exists because **intent is the only thing that cannot be reconstructed from
 `git log`**.
 
-There is no test here to fall back on (0 test files, 93 stories), so the usual
-advice —"before writing a known issue, check whether a test can catch it"— has a
-local answer: **check whether a story can show it**. If it can, write the story.
+Component unit tests live beside the components and run with
+`pnpm test:components`. For visual issues, check whether a story can show the
+problem before writing a known issue.
 
 `docs/registro/` was **removed** on 2026-09-08 and is in `.gitignore`. Its content
 is still in history and is cited, never restored:

@@ -41,9 +41,10 @@ the technical change. If it came from the backlog or from the week's focus, link
 - `src/components/<component>/index.tsx` — what changed and why
 - `src/styles/…` — same
 
-**How it was verified.** This repo has **no tests**: say which stories were looked
-at in Storybook, plus `npm run lint` and `npm run build:lib`. If the change is
-publishable, state the new `version` and whether it was published.
+**How it was verified.** Say which stories were looked at in Storybook and which
+lint, type, build or unit-test commands ran. Editable-field unit tests run with
+`pnpm test:components`. If the change is publishable, state the new `version` and
+whether it was published.
 
 **What is still open.** What the PR does not close. If it is a live bug it also
 goes to `../known_issues/`; if it is future work, to `../BACKLOG.md`. Only the
@@ -56,12 +57,12 @@ decided will not.
 
 ## What does NOT go here
 
-| Yes | No |
-| --- | --- |
-| A feature delivered and merged | Work in progress → not shipped yet |
-| A bug fixed, with its cause | A live bug → `../known_issues/` |
+| Yes                              | No                                     |
+| -------------------------------- | -------------------------------------- |
+| A feature delivered and merged   | Work in progress → not shipped yet     |
+| A bug fixed, with its cause      | A live bug → `../known_issues/`        |
 | A refactor with a visible effect | The line-by-line changelog → `git log` |
-| A decision made while executing | Ideas → `../BACKLOG.md` |
+| A decision made while executing  | Ideas → `../BACKLOG.md`                |
 
 ## And here, one field more: the version
 

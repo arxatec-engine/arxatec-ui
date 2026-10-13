@@ -33,6 +33,8 @@ export default defineConfig({
       entryRoot: "src",
       exclude: [
         "**/*.stories.*",
+        "**/*.test.*",
+        "**/__tests__/**",
         "**/main.tsx",
         "**/pages/**",
         "**/vite.config.ts",
@@ -49,6 +51,23 @@ export default defineConfig({
     lib: {
       entry: {
         index: path.resolve(dirname, "src/exports/index.ts"),
+        "editable-fields": path.resolve(
+          dirname,
+          "src/exports/editable-fields.ts",
+        ),
+        "provider-icons": path.resolve(
+          dirname,
+          "src/exports/provider-icons.ts",
+        ),
+        "shiny-text": path.resolve(dirname, "src/exports/shiny-text.ts"),
+        "offline-banner": path.resolve(
+          dirname,
+          "src/exports/offline-banner.ts",
+        ),
+        "icon-emoji-picker": path.resolve(
+          dirname,
+          "src/exports/icon-emoji-picker.ts",
+        ),
         sidebar: path.resolve(dirname, "src/exports/sidebar.ts"),
         "file-view": path.resolve(dirname, "src/exports/file-view.ts"),
         "file-view-core": path.resolve(

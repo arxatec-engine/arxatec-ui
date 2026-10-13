@@ -1,6 +1,6 @@
 {
   "name": "arxatec-ui",
-  "version": "0.1.71",
+  "version": "0.1.72",
   "description": "React component library for building Arxatec product UIs—built on established ecosystem libraries for a consistent, efficient workflow. More at https://arxatec.net.",
   "license": "MIT",
   "type": "module",
@@ -117,6 +117,31 @@
       "types": "./dist/exports/file-view-lazy.d.ts",
       "import": "./dist/file-view-lazy.js",
       "default": "./dist/file-view-lazy.js"
+    },
+    "./editable-fields": {
+      "types": "./dist/exports/editable-fields.d.ts",
+      "import": "./dist/editable-fields.js",
+      "default": "./dist/editable-fields.js"
+    },
+    "./shiny-text": {
+      "types": "./dist/exports/shiny-text.d.ts",
+      "import": "./dist/shiny-text.js",
+      "default": "./dist/shiny-text.js"
+    },
+    "./offline-banner": {
+      "types": "./dist/exports/offline-banner.d.ts",
+      "import": "./dist/offline-banner.js",
+      "default": "./dist/offline-banner.js"
+    },
+    "./icon-emoji-picker": {
+      "types": "./dist/exports/icon-emoji-picker.d.ts",
+      "import": "./dist/icon-emoji-picker.js",
+      "default": "./dist/icon-emoji-picker.js"
+    },
+    "./provider-icons": {
+      "types": "./dist/exports/provider-icons.d.ts",
+      "import": "./dist/provider-icons.js",
+      "default": "./dist/provider-icons.js"
     }
   },
   "types": "./dist/exports/index.d.ts",
@@ -140,7 +165,8 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "storybook:preview": "npm run build-storybook && serve storybook-static -s -l 6006",
-    "storybook:serve-static": "serve storybook-static -s -l 6006"
+    "storybook:serve-static": "serve storybook-static -s -l 6006",
+    "test:components": "vitest run --config vitest.components.config.ts"
   },
   "peerDependencies": {
     "@tanstack/react-query": "^5.0.0",
@@ -275,6 +301,9 @@
     "vitest": "^4.1.2",
     "@tiptap/core": "^3.14.0",
     "@tiptap/react": "^3.14.0",
-    "react-hook-form": "^7.62.0"
+    "react-hook-form": "^7.62.0",
+    "@testing-library/react": "16.3.1",
+    "@testing-library/jest-dom": "6.9.1",
+    "jsdom": "27.4.0"
   }
 }

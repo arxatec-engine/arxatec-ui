@@ -3,3 +3,7 @@ export * from "./one_drive";
 export * from "./google_isotype";
 export * from "./microsoft_isotype";
 export * from "./apple_isotype";
+export * from "./google_calendar_isotype";
+export * from "./google_drive_isotype";
+export * from "./onedrive_isotype";
+export * from "./outlook_calendar_isotype";

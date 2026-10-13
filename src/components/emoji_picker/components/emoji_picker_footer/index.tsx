@@ -1,18 +1,17 @@
-import {
-        EmojiPicker as EmojiPickerPrimitive
-} from "frimousse";
+import { EmojiPicker as EmojiPickerPrimitive } from "frimousse";
 import type * as React from "react";
 import { cn } from "@/utilities/index";
 
 const EmojiPickerFooter = ({
   className,
+  emptyLabel = "Seleccionar un emoji…",
   ...props
-}: React.ComponentProps<"div">) => {
+}: React.ComponentProps<"div"> & { emptyLabel?: React.ReactNode }) => {
   return (
     <div
       className={cn(
         "max-w-(--frimousse-viewport-width) flex w-full min-w-0 items-center gap-1 border-t p-2",
-        className
+        className,
       )}
       data-slot="emoji-picker-footer"
       {...props}
@@ -30,7 +29,7 @@ const EmojiPickerFooter = ({
             </>
           ) : (
             <span className="text-muted-foreground ml-1.5 flex h-7 items-center truncate text-xs">
-              Seleccionar un emoji…
+              {emptyLabel}
             </span>
           )
         }

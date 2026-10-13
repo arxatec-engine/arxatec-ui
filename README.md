@@ -87,6 +87,11 @@ Patterns follow **shadcn**-style APIs (compound components with named exports).
 
 ## Package exports
 
+Import general components, hooks, prop types and utilities with named imports
+from `arxatec-ui`. The grouped component entries are optional. The library
+preserves modules and declares side effects so compatible bundlers can discard
+unused exports in production builds.
+
 ### Components (overview)
 
 - **Forms & text:** `Button`, `Input`, `Textarea`, `Label`, `Checkbox`, `RadioGroup`, `Select`, `Slider`, `Toggle`, `InputOTP`, `FileDropZone`, `LocationInput`, `DateRangePicker`, `Calendar`, `AsyncSelect`, `DescriptionMarkdownEditor`, `RichTextEditor`, and more.
@@ -119,6 +124,256 @@ import { AppleIsotype } from "arxatec-ui";
 
 The full list matches the `export *` entries in [`src/index.ts`](./src/index.ts).
 
+### Editable fields (0.1.72)
+
+Import property rows, inline editing, table cells, color selection and save
+feedback from `arxatec-ui`. The optional `/editable-fields` entry groups the same
+APIs. These components receive values and callbacks; the application owns
+validation, persistence and retry logic.
+
+| Component               | Source                                                                                                                                       |
+| ----------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| `PropertyRow`           | [`src/components/property_row/index.tsx`](./src/components/property_row/index.tsx)                                                           |
+| `InlineEditableText`    | [`src/components/inline_editable_text/index.tsx`](./src/components/inline_editable_text/index.tsx)                                           |
+| `InlineOptionField`     | [`src/components/inline_option_field/index.tsx`](./src/components/inline_option_field/index.tsx)                                             |
+| `InlineDateField`       | [`src/components/inline_date_field/index.tsx`](./src/components/inline_date_field/index.tsx)                                                 |
+| `InlineMarkdownField`   | [`src/components/inline_markdown_field/index.tsx`](./src/components/inline_markdown_field/index.tsx)                                         |
+| `InlineDurationField`   | [`src/components/inline_duration_field/index.tsx`](./src/components/inline_duration_field/index.tsx)                                         |
+| `TableDateField`        | [`src/components/table_date_field/index.tsx`](./src/components/table_date_field/index.tsx)                                                   |
+| `TableOptionField`      | [`src/components/table_option_field/index.tsx`](./src/components/table_option_field/index.tsx)                                               |
+| `AutosaveStatus`        | [`src/components/autosave_status/index.tsx`](./src/components/autosave_status/index.tsx)                                                     |
+| `AutosaveFieldStatus`   | [`src/components/autosave_field_status/index.tsx`](./src/components/autosave_field_status/index.tsx)                                         |
+| `SelectTableHeader`     | [`src/components/select_table_header/index.tsx`](./src/components/select_table_header/index.tsx)                                             |
+| `HexColorPickerContent` | [`src/components/hex_color_picker/hex_color_picker_content/index.tsx`](./src/components/hex_color_picker/hex_color_picker_content/index.tsx) |
+| `HexColorPickerPopover` | [`src/components/hex_color_picker/hex_color_picker_popover/index.tsx`](./src/components/hex_color_picker/hex_color_picker_popover/index.tsx) |
+
+Configure shared copy, date-fns locale, date formats and swatches with
+`EditableFieldsProvider`. A partial configuration inherits the nearest provider;
+the default copy and date locale are Spanish. Supply all shared labels when
+switching the whole interface to another language. Field-specific labels such as
+`ariaLabel`, `emptyText` and `clearLabel` remain component props.
+
+```tsx
+import { useState } from "react";
+import { enUS } from "date-fns/locale";
+import { FileText } from "lucide-react";
+import {
+  EditableFieldsProvider,
+  InlineEditableText,
+  PropertyRow,
+} from "arxatec-ui";
+
+export function DocumentName() {
+  const [name, setName] = useState("Shared document");
+  return (
+    <EditableFieldsProvider
+      locale={enUS}
+      dateFormat="MMMM d, yyyy"
+      tableDateFormat="MMM d, yyyy"
+      labels={{
+        empty: "Add…",
+        hint: "Enter to save · Esc to cancel",
+        hours: "Hours",
+        minutes: "Minutes",
+        saving: "Saving…",
+        saved: "Saved",
+        savedAgo: "Saved a moment ago",
+        offline: "Offline · changes will save when connected",
+        genericError: "Could not save. Check your connection.",
+        retry: "Retry",
+        acceptColor: "Accept",
+        clearColor: "Clear color",
+        selectColor: "Select color",
+        changeColor: "Change color",
+        currentColor: "current",
+      }}
+    >
+      <PropertyRow icon={FileText} label="Name">
+        <InlineEditableText
+          value={name}
+          onCommit={setName}
+          ariaLabel="Document name"
+        />
+      </PropertyRow>
+    </EditableFieldsProvider>
+  );
+}
+```
+
+`InlineEditableText` commits on Enter or blur, cancels with Escape and accepts a
+`validate` callback. Multiline text commits with Ctrl/⌘ + Enter.
+`InlineDurationField` receives seconds; `InlineDateField` receives `Date` values;
+`TableDateField` receives and emits ISO strings or `null`. Table fields preserve
+focus and stop click/key events inside their popovers from activating their row.
+
+`InlineFieldTrigger` supplies the shared button style for application-specific
+selectors and forwards its ref. `useEditableFields`, configuration and component
+prop types, `AutosaveFieldState`, `AutosaveStatusValue`, `normalizeHexColor`,
+`hexColorOrFallback`, `HEX_COLOR_SWATCHES` and `HEX_COLOR_PICKER_FALLBACK` are also
+exported from `arxatec-ui` and the optional `/editable-fields` entry.
+
+### Provider icons (0.1.72)
+
+Import the multicolor integration SVGs from `arxatec-ui`. The optional
+`/provider-icons` entry exposes the same components:
+
+| Component                | Source                                                                                                                                       |
+| ------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| `GoogleCalendarIsotype`  | [`src/components/icons/components/google_calendar_isotype/index.tsx`](./src/components/icons/components/google_calendar_isotype/index.tsx)   |
+| `GoogleDriveIsotype`     | [`src/components/icons/components/google_drive_isotype/index.tsx`](./src/components/icons/components/google_drive_isotype/index.tsx)         |
+| `OneDriveIsotype`        | [`src/components/icons/components/onedrive_isotype/index.tsx`](./src/components/icons/components/onedrive_isotype/index.tsx)                 |
+| `OutlookCalendarIsotype` | [`src/components/icons/components/outlook_calendar_isotype/index.tsx`](./src/components/icons/components/outlook_calendar_isotype/index.tsx) |
+
+```tsx
+import { GoogleDriveIsotype } from "arxatec-ui";
+
+<GoogleDriveIsotype className="size-5" aria-hidden="true" />;
+```
+
+The icons accept standard SVG props and namespace their internal definitions per
+instance. The existing `GoogleDriveIcon` and `OneDriveIcon` keep their outline
+appearance.
+
+### Animated text, connectivity and icon/emoji selection (0.1.72)
+
+Use named imports from `arxatec-ui` for these components. Individual entries are
+also available as optional APIs:
+
+| Optional entry                 | Components                                    | Source                                                                                     |
+| ------------------------------ | --------------------------------------------- | ------------------------------------------------------------------------------------------ |
+| `arxatec-ui/shiny-text`        | `ShinyText`                                   | [`src/components/shiny_text/index.tsx`](./src/components/shiny_text/index.tsx)             |
+| `arxatec-ui/offline-banner`    | `OfflineBanner`                               | [`src/components/offline_banner/index.tsx`](./src/components/offline_banner/index.tsx)     |
+| `arxatec-ui/icon-emoji-picker` | `IconEmoji`, `IconEmojiPicker`, `isEmojiIcon` | [`src/components/icon_emoji_picker/index.ts`](./src/components/icon_emoji_picker/index.ts) |
+
+`ShinyText` accepts children, `className` for its wrapper and `textClassName` for
+its visible text. Its animated overlay is hidden from assistive technology.
+The animation CSS is included in the existing `arxatec-ui/styles.css` import.
+
+```tsx
+import { OfflineBanner, ShinyText } from "arxatec-ui";
+
+<ShinyText>Preparing response…</ShinyText>;
+<OfflineBanner
+  isOnline={isOnline}
+  labels={{
+    offline: "You have no internet connection",
+    reconnected: "You're back online",
+    close: "Close",
+  }}
+/>;
+```
+
+`OfflineBanner` receives connectivity from the application. It renders offline
+feedback with a dismiss button, then shows a reconnect message for three seconds
+after an offline-to-online transition. `reconnectedDurationMs` adjusts that time.
+Translated copy and `className` are optional; defaults preserve the Spanish UI.
+
+`IconEmoji` renders either a Lucide name or an emoji glyph, with `folder` as the
+empty-value fallback. `IconEmojiPicker` is a controlled picker with a custom
+trigger, icon/emoji tabs, searchable icon pagination and `onValueChange`:
+
+```tsx
+import { IconEmoji, IconEmojiPicker } from "arxatec-ui";
+
+<IconEmojiPicker
+  value={icon}
+  onValueChange={setIcon}
+  locale="en"
+  labels={{
+    icons: "Icons",
+    emojis: "Emojis",
+    searchIcons: "Search an icon…",
+    searchEmojis: "Search an emoji…",
+    emptyIcons: "No icon found.",
+    emptyEmojis: "No emoji found.",
+    emojiHint: "Select an emoji…",
+  }}
+>
+  <button type="button" aria-label="Choose icon or emoji">
+    <IconEmoji value={icon} className="size-5" />
+  </button>
+</IconEmojiPicker>;
+```
+
+It also accepts `align`, `modal` and `disabled`. Copy and emoji-data locale default
+to Spanish and can be configured independently. Prop, label and locale types are
+exported with the components. The panel width follows text size to accommodate
+its twelve columns, padding, scrollbar and borders. Existing `EmojiPickerContent` and
+`EmojiPickerFooter` now accept `emptyLabel` to translate their empty state and
+selection hint while keeping their previous defaults.
+The emoji viewport's scrollbar styling is included in `arxatec-ui/styles.css`,
+alongside the animated-text and connectivity-banner styles.
+
+### Files, folders and explorer presentation (0.1.72)
+
+Import these components by name from `arxatec-ui`:
+
+```tsx
+import {
+  FileTypeIcon,
+  FolderIcon,
+  FileThumbnail,
+  ExplorerGridCard,
+} from "arxatec-ui";
+
+<FileTypeIcon
+  mimeType="application/pdf"
+  fileName="Report.pdf"
+  className="size-6"
+/>;
+<FolderIcon variant="shared" className="size-6" />;
+<FileThumbnail
+  source={thumbnailUrl}
+  isLoading={isLoading}
+  isError={isError}
+  fallback={<FileTypeIcon mimeType="application/pdf" className="size-14" />}
+/>;
+```
+
+`FileTypeIcon` is the file-shaped SVG previously named `IconType` in Lawyer
+Platform. Its color follows the MIME family; its visible label prefers the
+filename extension, then the MIME extension, then a family label such as `FILE`.
+Labels are uppercase and limited to four characters. It covers PDF, office
+documents, images, video, audio, archives, code, JSON, XML, fonts, databases,
+binary files and native Google Workspace formats. Both it and `FolderIcon`
+accept standard SVG props and are decorative by default. Pass accessible SVG
+props when using an icon without adjacent text.
+
+`FolderIcon` accepts `default`, `shared` and `drive` variants. `FOLDER_VARIANT`,
+`FolderVariant`, `getFileKindStyle`, `getFileTypeLabel`, `FILE_KIND_STYLES`,
+`FileKind` and `FileKindStyle` are exported from the main package too.
+
+| Components                                                         | Source                                                                                                                       |
+| ------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------- |
+| `FileTypeIcon`                                                     | [`src/components/file_type_icon/file_type_icon.tsx`](./src/components/file_type_icon/file_type_icon.tsx)                     |
+| `FolderIcon`                                                       | [`src/components/folder_icon/index.tsx`](./src/components/folder_icon/index.tsx)                                             |
+| `FileThumbnail`                                                    | [`src/components/file_thumbnail/index.tsx`](./src/components/file_thumbnail/index.tsx)                                       |
+| `ExplorerGridCard`, `ExplorerRow`, `ExplorerNameCell`              | [`src/components/file_explorer/index.ts`](./src/components/file_explorer/index.ts)                                           |
+| `ExplorerGrid`, `ExplorerTable`, `ExplorerPanel`                   | [`src/components/file_explorer/index.ts`](./src/components/file_explorer/index.ts)                                           |
+| `ExplorerBreadcrumb`                                               | [`src/components/file_explorer/explorer_breadcrumb/index.tsx`](./src/components/file_explorer/explorer_breadcrumb/index.tsx) |
+| `ExplorerEmptyState`, `ExplorerLoadingState`, `ExplorerErrorState` | [`src/components/file_explorer/index.ts`](./src/components/file_explorer/index.ts)                                           |
+| `ItemActionsDropdown`, `ItemActionsContextContent`                 | [`src/components/file_explorer/item_actions/index.ts`](./src/components/file_explorer/item_actions/index.ts)                 |
+
+`FileThumbnail` receives a thumbnail URL, loading/error state and a fallback. It
+forwards its container ref, displays a skeleton while loading and falls back if
+the image fails. A new source resets the image failure state. Fetching signed
+URLs, generating PDF previews, cloud permissions and object-URL cleanup belong
+to the consumer. These exports do not load PDF or office viewer engines.
+
+Explorer rows and cards receive `id`, `type` (`file` or `folder`), `selected`,
+`actions` and their content. `ExplorerAction` supplies the action key, translated
+label, icon and callback; hidden actions are omitted. Cards also receive `name`,
+`icon`, `preview`, optional path/metadata and pointer or drag handlers. Pass
+`actionsLabel` to localize the action-menu trigger. Selection, opening, moving,
+deleting and downloading are controlled by consumer callbacks.
+
+`ExplorerBreadcrumb` receives `{ id, name }` items and `onNavigate`; its buttons
+support keyboard navigation. `ExplorerTable` receives `ExplorerColumn` entries
+and accepts `flow` for content-height tables. Grid, panel and table containers
+retain selection/viewport refs, overlay and footer slots. `className` controls
+container height and spacing. All component prop types and `EXPLORER_GRID_CLASS`
+are also exported from `arxatec-ui`.
+
 ### Hooks
 
 - **`useDebounce`**
@@ -145,13 +400,25 @@ import "leaflet/dist/leaflet.css";
 
 ## Developing this repo
 
-| Command             | Description                    |
-| ------------------- | ------------------------------ |
-| `npm run dev`       | Vite playground (style guide). |
-| `npm run storybook` | Storybook on port 6006.        |
-| `npm run build:lib` | Build `dist/` for npm.         |
-| `npm run build`     | Playground production build.   |
-| `npm run lint`      | ESLint.                        |
+| Command                | Description                    |
+| ---------------------- | ------------------------------ |
+| `npm run dev`          | Vite playground (style guide). |
+| `npm run storybook`    | Storybook on port 6006.        |
+| `npm run build:lib`    | Build `dist/` for npm.         |
+| `npm run build`        | Playground production build.   |
+| `npm run lint`         | ESLint.                        |
+| `pnpm test:components` | Component unit tests.          |
+
+For local development with `arxatec-lawyer-platform`, build this library first and
+run `pnpm update arxatec-ui --ignore-scripts` in the platform. Its local migration
+uses `file:../../arxatec-ui`, so rebuilding this repository requires refreshing the
+consumer package. React, React Hook Form and Tiptap continue to resolve through
+the consumer's peer dependencies.
+
+Release status on 2026-10-12: npm reports `0.1.71`; this source prepares `0.1.72`.
+The new entries become available from npm after publication. Before shipping the
+platform, replace its local `file:` dependency with the published `0.1.72` range
+and run `pnpm update arxatec-ui`.
 
 Publishing to npm requires **2FA**; use `npm publish --otp=...` when prompted.
 
@@ -208,6 +475,7 @@ only when matching content uses them; omit fonts from PWA precache and cache
 requested faces at runtime. Consumers share `react-hook-form`, `@tiptap/core` and
 `@tiptap/react` as peers alongside React and React Query.
 
-Publication requires owner PR merge and clean-main publish. The platform's
-minimum release age is seven days; validate a tarball in isolation before that
+Publication requires owner PR merge and clean-main publish. The platform applies
+a seven-day minimum release age to external dependencies and explicitly exempts
+all versions of `arxatec-ui`; validate a tarball in isolation before a registry
 consumer update.

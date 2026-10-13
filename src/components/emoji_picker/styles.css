@@ -1,0 +1,39 @@
+/* frimousse (el EmojiPicker de arxatec-ui) virtualiza sobre su propio viewport:
+   escucha el scroll de ese div para saber qué filas pinta, así que no puede ir
+   dentro del ScrollArea de Radix. Se le da a su barra nativa el mismo aspecto que
+   a la de ScrollArea: 8px de ancho, pulgar de 6px en `--border` y visible solo al
+   pasar por encima. El hueco ya lo reserva frimousse con `scrollbar-gutter: stable`.
+
+   Chrome ignora `::-webkit-scrollbar` si el elemento también declara
+   `scrollbar-width`, por eso las propiedades estándar van aparte, solo para los
+   navegadores sin pseudo-elementos webkit (Firefox). */
+
+[data-slot="emoji-picker-viewport"]::-webkit-scrollbar {
+  width: 8px;
+}
+
+[data-slot="emoji-picker-viewport"]::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+[data-slot="emoji-picker-viewport"]::-webkit-scrollbar-thumb {
+  background-color: transparent;
+  background-clip: content-box;
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+}
+
+[data-slot="emoji-picker-viewport"]:hover::-webkit-scrollbar-thumb {
+  background-color: var(--border);
+}
+
+@supports not selector(::-webkit-scrollbar) {
+  [data-slot="emoji-picker-viewport"] {
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
+  }
+
+  [data-slot="emoji-picker-viewport"]:hover {
+    scrollbar-color: var(--border) transparent;
+  }
+}

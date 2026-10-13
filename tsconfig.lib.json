@@ -5,5 +5,11 @@
     "skipLibCheck": true
   },
   "include": ["src/**/*.ts", "src/**/*.tsx"],
-  "exclude": ["src/**/*.stories.*", "src/main.tsx", "src/pages/**/*"]
+  "exclude": [
+    "src/**/*.test.*",
+    "src/__tests__/**/*",
+    "src/**/*.stories.*",
+    "src/main.tsx",
+    "src/pages/**/*"
+  ]
 }

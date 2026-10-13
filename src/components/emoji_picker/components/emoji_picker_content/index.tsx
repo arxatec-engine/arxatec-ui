@@ -1,6 +1,4 @@
-import {
-        EmojiPicker as EmojiPickerPrimitive
-} from "frimousse";
+import { EmojiPicker as EmojiPickerPrimitive } from "frimousse";
 import { LoaderIcon } from "lucide-react";
 import type * as React from "react";
 import { cn } from "@/utilities/index";
@@ -11,8 +9,11 @@ import { EmojiPickerRow } from "../emoji_picker_row";
 
 const EmojiPickerContent = ({
   className,
+  emptyLabel = "Emoji no encontrado.",
   ...props
-}: React.ComponentProps<typeof EmojiPickerPrimitive.Viewport>) => {
+}: React.ComponentProps<typeof EmojiPickerPrimitive.Viewport> & {
+  emptyLabel?: React.ReactNode;
+}) => {
   return (
     <EmojiPickerPrimitive.Viewport
       className={cn("outline-hidden relative flex-1", className)}
@@ -29,7 +30,7 @@ const EmojiPickerContent = ({
         className="absolute inset-0 flex items-center justify-center text-muted-foreground text-sm"
         data-slot="emoji-picker-empty"
       >
-        Emoji no encontrado.
+        {emptyLabel}
       </EmojiPickerPrimitive.Empty>
       <EmojiPickerPrimitive.List
         className="select-none pb-1"
