@@ -49,6 +49,23 @@ MIME types, thumbnail sources and callbacks, without document services or router
 dependencies. Do not connect thumbnail presentation to PDF preview generation;
 the consumer supplies the generated source through props.
 
+The main package keeps shared explorer filters/selection/view mode, general
+controlled dialogs and small status/loading primitives. Browser-selection and
+visibility/loading hooks are generic. FilePublicPreviewRender stays in
+`/file-view/core` and dynamically loads PDF/image/Office engines. Direct main
+imports of FileViewLoadingState, ViewerFloatingBar, FileDocumentExportDialog and
+loading propagation hooks must remain independent of viewer engines.
+
+Contact and calendar product compositions belong to Lawyer Platform
+in `src/modules/<module>/shared/presentation`. Document product components,
+types and helpers belong to `src/modules/documents/components`.
+Documents owns move/conflict dialogs, sharing/credential fields, versions, detail
+and AI panels, public-file layouts, account/quota bars and transfers/toasts.
+Keep FileTypeIcon, FolderIcon, FileThumbnail, shared explorer primitives and
+generic file viewers in this kit. Promote further behavior only with independent
+consumers and a stable shared contract. Routine screen changes should be
+delivered from the application alone.
+
 `react`, `react-dom`, React Query, `react-hook-form`, `@tiptap/core` and
 `@tiptap/react` are shared peers. Consumers must resolve one coherent Tiptap core
 version and one form context. Duplicate copies break editor types and forms.
@@ -58,10 +75,9 @@ removing the setup exception silently restores the default worker in consumers.
 ## Version and publication
 
 Every publishable change bumps `package.json#version` in the same commit. Keep the
-existing exports and default behavior compatible. Reverified on 2026-10-12 with
-`npm view arxatec-ui version`: the registry reports **0.1.71**, matching base
-`main` (`426fd0a`). The editable-fields and provider-icons migration prepares
-**0.1.72**, pending publication. Validate a candidate tarball before a registry
+existing exports and default behavior compatible. Reverified on 2026-10-14 with
+`npm view arxatec-ui version`: the registry reports **0.1.72**. General shared controls prepare **0.1.73**, pending publication. Contact, calendar
+and document product compositions are maintained in the platform. Validate a candidate tarball before a registry
 consumer update.
 
 1. Open a PR on an own branch. **The owner merges; never push directly to main.**
@@ -77,7 +93,7 @@ and publication. A tarball `file:` dependency is a validation fixture and must
 not reach the production consumer. State exactly which publication steps ran in
 `docs/shipped/YYYY_Wnn.md`.
 
-The editable-fields migration is connected locally with
+The sibling-platform migration is connected locally with
 `file:../../arxatec-ui` in the platform, as requested for sibling-repository work.
 Build the library, then refresh it with `pnpm update arxatec-ui --ignore-scripts`.
 Switch the consumer manifest to the registry release before production delivery.

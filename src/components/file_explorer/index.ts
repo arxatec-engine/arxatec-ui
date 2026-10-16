@@ -27,3 +27,12 @@ export { ItemActionsContextContent, ItemActionsDropdown } from "./item_actions";
 export type { ExplorerAction } from "./item_actions";
 export type { ItemActionsDropdownProps } from "./item_actions/item_actions_dropdown";
 export type { ItemActionsContextContentProps } from "./item_actions/item_actions_context_content";
+
+export * from "./explorer_filters";
+export * from "./explorer_filters/components/filter_select";
+export * from "./explorer_filters/types";
+export * from "./explorer_selection_bar";
+export * from "./explorer_view_mode_toggle";
+export * from "./explorer_view_mode_toggle/types";
+
+export * from "./explorer_items_loading";

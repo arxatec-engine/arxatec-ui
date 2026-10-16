@@ -20,3 +20,6 @@ export * from "../components/file_view/components/edit_viewer";
 export * from "../components/file_view/components/document_viewer/export_dialog";
 export type { FileTemplateViewerHandle } from "../components/file_view/components/template_viewer/types";
 export { resolveTemplateFileKind } from "../components/file_view/components/template_viewer/utilities/file/template_file_kind";
+
+export * from "../components/file_view/components/file_public_preview_render";
+export * from "../components/file_view/utilities/preview_mime_type";

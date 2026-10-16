@@ -23,3 +23,5 @@ export * from "./video_player";
 export * from "./xlsx_preview_viewer";
 export { FileViewUnsavedChangesDialog } from "./file_view_sheet/unsaved_changes_dialog";
 export { FileDocumentExportDialog } from "./document_viewer/export_dialog";
+
+export * from "./file_public_preview_render";

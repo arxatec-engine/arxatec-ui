@@ -6,6 +6,7 @@ import {
   BreadcrumbSeparator,
 } from "../../breadcrumb";
 import { Fragment } from "react";
+import { cn } from "../../../utilities/class";
 
 export interface ExplorerBreadcrumbItem {
   name: string;
@@ -15,18 +16,20 @@ export interface ExplorerBreadcrumbItem {
 export interface ExplorerBreadcrumbProps {
   items: ExplorerBreadcrumbItem[];
   onNavigate: (id: string | null, index: number) => void;
+  linkClassName?: string;
 }
 
 export const ExplorerBreadcrumb = ({
   items,
   onNavigate,
+  linkClassName,
 }: ExplorerBreadcrumbProps) => (
   <Breadcrumb>
     <BreadcrumbList>
       {items.map((item, idx) => (
         <Fragment key={item.id ?? "root"}>
           <BreadcrumbItem>
-            <BreadcrumbLink asChild className="text-base">
+            <BreadcrumbLink asChild className={cn("text-base", linkClassName)}>
               <button type="button" onClick={() => onNavigate(item.id, idx)}>
                 {item.name}
               </button>

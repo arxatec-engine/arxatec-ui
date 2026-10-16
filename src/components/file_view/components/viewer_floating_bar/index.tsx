@@ -1,21 +1,23 @@
 import type { ReactNode } from "react";
 import { cn } from "@/utilities/class";
 
-interface ViewerFloatingBarProps {
+export interface ViewerFloatingBarProps {
   children: ReactNode;
   ariaLabel?: string;
+  label?: string;
   className?: string;
 }
 
 export const ViewerFloatingBar = ({
   children,
   ariaLabel = "Controles del visor",
+  label,
   className,
 }: ViewerFloatingBarProps) => (
   <div
     className="pointer-events-none absolute inset-x-0 bottom-5 z-30 flex justify-center px-4"
     role="toolbar"
-    aria-label={ariaLabel}
+    aria-label={label ?? ariaLabel}
   >
     <div
       className={cn(

@@ -1,12 +1,14 @@
 import { Loader2 } from "lucide-react";
 import { cn } from "@/utilities/class";
 
-interface FileViewLoadingStateProps {
+export interface FileViewLoadingStateProps {
   className?: string;
+  label?: string;
 }
 
 export const FileViewLoadingState = ({
   className,
+  label = "Cargando archivo",
 }: FileViewLoadingStateProps) => (
   <div
     className={cn(
@@ -14,7 +16,7 @@ export const FileViewLoadingState = ({
       className,
     )}
     role="status"
-    aria-label="Cargando archivo"
+    aria-label={label}
   >
     <Loader2 className="size-8 animate-spin text-muted-foreground" />
   </div>

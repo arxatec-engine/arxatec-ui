@@ -85,3 +85,14 @@ export * from "./components/file_type_icon";
 export * from "./components/folder_icon";
 export * from "./components/file_explorer";
 export * from "./components/file_thumbnail";
+export * from "./components/panel_status";
+export * from "./components/explorer_section";
+export * from "./components/inline_error_message";
+export * from "./components/file_view/components/loading_state";
+export * from "./components/file_view/components/viewer_floating_bar";
+
+export * from "./components/confirmation_dialog";
+export * from "./components/name_input_dialog";
+export * from "./components/file_view/components/document_viewer/export_dialog";
+
+export * from "./components/file_view/hooks/use_file_view_loading_change";

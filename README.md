@@ -374,6 +374,42 @@ retain selection/viewport refs, overlay and footer slots. `className` controls
 container height and spacing. All component prop types and `EXPLORER_GRID_CLASS`
 are also exported from `arxatec-ui`.
 
+### Shared file controls (0.1.73)
+
+Import general components, prop types and interaction hooks from `arxatec-ui`.
+FileTypeIcon, FolderIcon, FileThumbnail and the base Explorer surfaces remain
+shared presentation primitives. Explorer rows, tables, filters, selection and
+empty states have consumers in Documents and Cases.
+
+- ExplorerFilters, ExplorerFilterSelect, ExplorerSelectionBar, ExplorerViewModeToggle and ExplorerItemsLoading live in [file_explorer](./src/components/file_explorer/index.ts).
+- ConfirmationDialog and NameInputDialog are controlled general dialogs. Consumers own validation and persistence.
+- PanelStatus, InlineErrorMessage and ExplorerSection provide small presentation primitives.
+- FileViewLoadingState, ViewerFloatingBar, FileDocumentExportDialog and useFileViewLoadingChange are main-package exports independent of viewer engines.
+
+`ExplorerViewModeToggle` receives its value and callback; the consumer owns
+preference storage. Filter options, action labels and search copy arrive through
+props. ExplorerSelectionBar accepts actions and trailing content.
+
+Generic root hooks include useFilePicker/useFolderPicker for native browser
+selection, useAutomaticPages for scroll pagination, useLazyVisible for visibility
+and useFileViewLoading for loading propagation.
+
+The MIME renderer FilePublicPreviewRender and getFilePreviewMimeType stay in
+`arxatec-ui/file-view/core`; PDF/image/Office engines load dynamically.
+
+Documents product compositions live in Lawyer Platform at
+`src/modules/documents/components`: move/conflict dialogs, versions,
+sharing and credential fields, detail panels, summary/transcription panels,
+public-file layouts, account/quota bars and transfer/toast surfaces. Their types
+and support helpers are local too. They are not library exports.
+
+See [shared controls stories](./src/components/documents_controls.stories.tsx)
+for explorer, name and confirmation dialogs.
+
+The local candidate is `0.1.73`; the registry check recorded on 2026-10-14
+reported `0.1.72`. The sibling platform uses `file:../../arxatec-ui`. After
+building this library, refresh it with `pnpm update arxatec-ui --ignore-scripts`.
+
 ### Hooks
 
 - **`useDebounce`**
@@ -415,9 +451,9 @@ uses `file:../../arxatec-ui`, so rebuilding this repository requires refreshing 
 consumer package. React, React Hook Form and Tiptap continue to resolve through
 the consumer's peer dependencies.
 
-Release status on 2026-10-12: npm reports `0.1.71`; this source prepares `0.1.72`.
-The new entries become available from npm after publication. Before shipping the
-platform, replace its local `file:` dependency with the published `0.1.72` range
+This source prepares `0.1.73`; the registry check recorded on 2026-10-14
+reported `0.1.72`. New exports reach npm after publication. Before production
+delivery, replace the platform local `file:` dependency with the published release
 and run `pnpm update arxatec-ui`.
 
 Publishing to npm requires **2FA**; use `npm publish --otp=...` when prompted.
@@ -479,3 +515,13 @@ Publication requires owner PR merge and clean-main publish. The platform applies
 a seven-day minimum release age to external dependencies and explicitly exempts
 all versions of `arxatec-ui`; validate a tarball in isolation before a registry
 consumer update.
+
+## Product composition boundary
+
+Contact and calendar product compositions belong to Lawyer Platform in
+`src/modules/<module>/shared/presentation`. Document product components and their
+supporting helpers belong to `src/modules/documents/components`.
+They compose the general controls provided by this package, and their screen
+changes are delivered with the application. Icons, thumbnail presentation, shared
+explorer primitives and generic file viewers remain in this kit.
+The `Calendar` date-picker primitive remains part of this kit.
