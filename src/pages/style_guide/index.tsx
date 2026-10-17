@@ -36,18 +36,36 @@ export const StyleGuide = ({ initialTheme }: Props) => {
           <GuideHeader isDark={isDark} onDarkChange={setIsDark} />
           <main
             id="contenido"
-            className="mx-auto w-full min-w-0 max-w-6xl space-y-20 px-5 pb-16 pt-8 sm:px-10 lg:pt-12"
+            className="mx-auto w-full min-w-0 max-w-6xl space-y-20 pb-16 pt-8 lg:pt-12"
             tabIndex={-1}
           >
-            <HeroSection />
-            <ActionsSection />
-            <FormsSection />
-            <BrandingFeedbackSection />
-            <NavigationSection />
-            <DataListsSection />
-            <MediaGeoSection />
-            <TablesPaginationSection />
-            <StyleGuideFooter />
+            <div className="px-6">
+              <HeroSection />
+            </div>
+            <div className="px-6">
+              <ActionsSection />
+            </div>
+            <div className="px-6">
+              <FormsSection />
+            </div>
+            <div className="px-6">
+              <BrandingFeedbackSection />
+            </div>
+            <div className="px-6">
+              <NavigationSection />
+            </div>
+            <div className="px-6">
+              <DataListsSection />
+            </div>
+            <div className="px-6">
+              <MediaGeoSection />
+            </div>
+            <div className="px-6">
+              <TablesPaginationSection />
+            </div>
+            <div className="px-6">
+              <StyleGuideFooter />
+            </div>
           </main>
         </div>
       </TooltipProvider>
