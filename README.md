@@ -35,10 +35,11 @@ The same stylesheet **also appends** CSS extracted from the library build (TipTa
 
 ### Vite + Tailwind v4
 
-1. Install Tailwind and the official Vite plugin:
+1. Install Tailwind, the official Vite plugin and the typography plugin used by
+   the library stylesheet:
 
    ```bash
-   npm install tailwindcss @tailwindcss/vite
+   npm install tailwindcss @tailwindcss/vite @tailwindcss/typography
    ```
 
 2. In `vite.config.ts`:
@@ -100,8 +101,10 @@ unused exports in production builds.
 - **Maps:** `MapView`, `MapPicker`.
 - **Extras:** `Toaster` (Sonner), `Logo`, `IconPicker`, `EmojiPicker`, brand icons, animated icons, etc.
 
-`Logo` accepts `variant="arxatec" | "academy" | "management"` starting with
-`0.1.71`. Omitting `variant` renders the original Arxatec logo. All three inline
+`Logo` in source candidate `0.1.74` accepts
+`variant="arxatec" | "academy" | "management" | "design"`. The `design` variant
+is pending publication; the npm registry reports `0.1.72`, reverified on
+2026-10-17. Omitting `variant` renders the original Arxatec logo. All four inline
 SVGs preserve their proportions and inherit their color through `currentColor`:
 
 ```tsx
@@ -110,6 +113,7 @@ import { Logo } from "arxatec-ui";
 <Logo className="h-8 w-auto text-foreground" />;
 <Logo variant="academy" className="h-8 w-auto text-foreground" />;
 <Logo variant="management" className="h-8 w-auto text-foreground" />;
+<Logo variant="design" className="h-8 w-auto text-foreground" />;
 ```
 
 `AppleIsotype` is an inline SVG with a transparent background. It inherits its
@@ -454,10 +458,10 @@ For local integration checks, build and pack this library, then install the
 tarball in an isolated copy of `arxatec-lawyer-platform`. React, React Hook Form
 and Tiptap continue to resolve through the consumer's peer dependencies.
 
-This source prepares `0.1.74`; the registry check on 2026-10-16 reported `0.1.72`.
-The real platform locks registry version `0.1.71`. After the owner merges and
-publishes, update the real consumer with `pnpm update arxatec-ui`. A temporary
-tarball dependency must stay in the isolated validation copy.
+This source prepares `0.1.75`; the registry check on 2026-10-17 reported `0.1.74`.
+After the owner merges and publishes, update consumers with
+`pnpm update arxatec-ui`. A temporary tarball dependency must stay in the isolated
+validation copy.
 
 Publishing to npm requires **2FA**; use `npm publish --otp=...` when prompted.
 

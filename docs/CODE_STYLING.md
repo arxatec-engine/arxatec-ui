@@ -553,8 +553,9 @@ inglés mostrando media interfaz en español.
 
 ### L10 — Cada componente tiene su `*.stories.tsx`
 
-La story es la documentación ejecutable y el único banco de pruebas del repo: **no hay
-tests**. Un componente sin story no se puede revisar sin montar la platform entera.
+La story es la documentación ejecutable para la revisión visual. Las pruebas unitarias
+viven junto a los componentes y se ejecutan con `pnpm test:components`. Un componente
+sin story no se puede revisar visualmente sin montar un consumidor.
 
 La story vive al lado del `index.tsx` (excepción de R3) y cubre al menos las variantes
 declaradas en `cva`.
@@ -600,15 +601,20 @@ recuperan con el mismo significado.
 
 ## Gates
 
-Hoy el único gate ejecutable del repo es:
+Comandos verificados contra `package.json`, las configuraciones y el código el 2026-10-17:
 
 ```bash
-pnpm lint     # eslint
+pnpm lint                                  # ESLint de todo el código
+pnpm exec tsc -b tsconfig.build.json         # TypeScript, incluida la demo
+pnpm test:components                       # Vitest + JSDOM
+pnpm build                                 # TypeScript + build de la demo
+pnpm build-storybook                       # Build de la documentación visual
 ```
 
-**No hay** script `test`, `typecheck` ni `format`, y **no hay ningún archivo de test** en
-`src`. Tampoco hay configuración de Prettier, así que el formato es convención, no
-automatismo. Mientras siga así, la revisión humana y las stories (L10) son la única red.
+El manifiesto no define scripts `test`, `typecheck` ni `format`: usa los comandos
+anteriores. Las pruebas de componentes y las stories complementan la revisión humana;
+los cambios visuales necesitan inspección en el navegador. La demo de `src/pages` y sus
+stories están excluidas de las declaraciones publicadas.
 
 ---
 

@@ -86,17 +86,42 @@ describe("FileOfficeViewer", () => {
   });
 
   it("preserves pending and error states without mounting the embed", () => {
+    const onLoadingChange = vi.fn();
     const { container, rerender } = render(
-      <FileOfficeViewer url={DOCUMENT_URL} isPending />,
+      <FileOfficeViewer
+        url={DOCUMENT_URL}
+        isPending
+        onLoadingChange={onLoadingChange}
+      />,
     );
     expect(container).toBeEmptyDOMElement();
+    expect(onLoadingChange).toHaveBeenLastCalledWith(true);
 
-    rerender(<FileOfficeViewer url={DOCUMENT_URL} isError />);
+    rerender(
+      <FileOfficeViewer
+        url={DOCUMENT_URL}
+        isError
+        onLoadingChange={onLoadingChange}
+      />,
+    );
     expect(container.querySelector("iframe")).toBeNull();
     expect(container).not.toBeEmptyDOMElement();
+    expect(onLoadingChange).toHaveBeenLastCalledWith(false);
 
-    rerender(<FileOfficeViewer url="" />);
+    rerender(<FileOfficeViewer url="" onLoadingChange={onLoadingChange} />);
     expect(container.querySelector("iframe")).toBeNull();
+    expect(onLoadingChange).toHaveBeenLastCalledWith(false);
+  });
+
+  it("reports pending while the document URL is still being fetched", () => {
+    const onLoadingChange = vi.fn();
+    const { rerender } = render(
+      <FileOfficeViewer url="" isPending onLoadingChange={onLoadingChange} />,
+    );
+    expect(onLoadingChange).toHaveBeenLastCalledWith(true);
+
+    rerender(<FileOfficeViewer url="" onLoadingChange={onLoadingChange} />);
+    expect(onLoadingChange).toHaveBeenLastCalledWith(false);
   });
 
   it("keeps the optional download action", () => {

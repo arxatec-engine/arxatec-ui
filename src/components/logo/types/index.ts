@@ -1,4 +1,4 @@
-export type LogoVariant = "arxatec" | "academy" | "management";
+export type LogoVariant = "arxatec" | "academy" | "management" | "design";
 
 export interface LogoDefinition {
   viewBox: string;

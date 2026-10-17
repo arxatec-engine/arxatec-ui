@@ -1,26 +1,31 @@
 import type { ReactNode } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/exports";
 
-export function ShowcaseBlock({
-  title,
-  description,
-  children,
-}: {
+interface Props {
+  id: string;
   title: string;
-  description?: string;
+  description: string;
   children: ReactNode;
-}) {
-  return (
-    <Card className="min-w-0 max-w-full overflow-hidden border-border/70 bg-card/75 backdrop-blur-sm">
-      <CardHeader className="min-w-0 pb-4">
-        <CardTitle className="font-serif text-3xl">{title}</CardTitle>
-        {description ? (
-          <p className="min-w-0 text-sm text-muted-foreground">{description}</p>
-        ) : null}
-      </CardHeader>
-      <CardContent className="min-w-0 overflow-x-hidden">
-        {children}
-      </CardContent>
-    </Card>
-  );
 }
+
+export const ShowcaseBlock = ({ id, title, description, children }: Props) => (
+  <section
+    id={id}
+    aria-labelledby={id + "-title"}
+    className="guide-anchor w-full min-w-0"
+  >
+    <header className="mb-4 flex items-start text-left gap-4">
+      <div className="min-w-0">
+        <h2
+          id={id + "-title"}
+          className="text-base"
+        >
+          {title}
+        </h2>
+        <p className="max-w-2xl text-sm leading-relaxed text-muted-foreground">
+          {description}
+        </p>
+      </div>
+    </header>
+    <div className="flex min-w-0 flex-col gap-2">{children}</div>
+  </section>
+);

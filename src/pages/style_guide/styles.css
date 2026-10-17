@@ -1,0 +1,55 @@
+@reference "../../styles/index.css";
+
+.style-guide {
+  isolation: isolate;
+}
+
+/* Apply the guide radius to primitive parts and portaled surfaces as well. */
+:root[data-style-guide] :is([class~="rounded"], [class*="rounded-"]) {
+  @apply rounded-md;
+}
+
+.guide-skip-link {
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  z-index: 100;
+  transform: translateY(-200%);
+  @apply rounded-md;
+  padding: 0.75rem 1rem;
+  background: var(--primary);
+  color: var(--primary-foreground);
+}
+
+.guide-skip-link:focus {
+  transform: translateY(0);
+}
+
+.guide-anchor {
+  scroll-margin-top: 6rem;
+}
+
+.guide-preview {
+  background-color: var(--card);
+  background-image: radial-gradient(var(--border) 0.7px, transparent 0.7px);
+  background-size: 12px 12px;
+}
+
+.style-guide [data-slot="pagination-content"] {
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.style-guide :focus-visible {
+  outline: 2px solid var(--foreground);
+  outline-offset: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root[data-style-guide] *,
+  :root[data-style-guide] *::before,
+  :root[data-style-guide] *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}

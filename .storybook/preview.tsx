@@ -19,6 +19,7 @@ const preview: Preview = {
   },
   decorators: [
     (Story, context) => {
+      if (context.parameters.handlesOwnTheme) return <Story />
       const theme = context.globals.theme as string
       const isDark = theme === 'dark'
       return (
