@@ -11,7 +11,7 @@ interface Props {
 
 export const GuideHeader = ({ isDark, onDarkChange }: Props) => (
   <header className="sticky top-0 z-40 border-b bg-background/95 backdrop-blur-md">
-    <div className="mx-auto flex min-h-16 max-w-7xl items-center justify-between gap-5 px-5 sm:px-10">
+    <div className="mx-auto flex min-h-16 max-w-6xl items-center justify-between gap-5 px-5 sm:px-10">
       <a
         href="#fundamentos"
         aria-label="Arxatec, inicio de la guía"

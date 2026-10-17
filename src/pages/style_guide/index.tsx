@@ -9,7 +9,6 @@ import {
   DataListsSection,
   FormsSection,
   GuideHeader,
-  GuideNavigation,
   HeroSection,
   MediaGeoSection,
   NavigationSection,
@@ -35,20 +34,21 @@ export const StyleGuide = ({ initialTheme }: Props) => {
           </a>
           <Toaster position="bottom-right" />
           <GuideHeader isDark={isDark} onDarkChange={setIsDark} />
-          <div className="mx-auto grid max-w-7xl gap-10 px-5 pb-16 pt-8 sm:px-10 lg:grid-cols-[180px_minmax(0,1fr)] lg:gap-16 lg:pt-12">
-            <GuideNavigation />
-            <main id="contenido" className="min-w-0 space-y-20" tabIndex={-1}>
-              <HeroSection />
-              <ActionsSection />
-              <FormsSection />
-              <BrandingFeedbackSection />
-              <NavigationSection />
-              <DataListsSection />
-              <MediaGeoSection />
-              <TablesPaginationSection />
-              <StyleGuideFooter />
-            </main>
-          </div>
+          <main
+            id="contenido"
+            className="mx-auto w-full min-w-0 max-w-6xl space-y-20 px-5 pb-16 pt-8 sm:px-10 lg:pt-12"
+            tabIndex={-1}
+          >
+            <HeroSection />
+            <ActionsSection />
+            <FormsSection />
+            <BrandingFeedbackSection />
+            <NavigationSection />
+            <DataListsSection />
+            <MediaGeoSection />
+            <TablesPaginationSection />
+            <StyleGuideFooter />
+          </main>
         </div>
       </TooltipProvider>
     </MotionConfig>

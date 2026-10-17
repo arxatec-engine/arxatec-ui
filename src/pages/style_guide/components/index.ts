@@ -3,7 +3,6 @@ export { BrandingFeedbackSection } from "./branding_feedback_section";
 export { DataListsSection } from "./data_lists_section";
 export { FormsSection } from "./forms_section";
 export { GuideHeader } from "./guide_header";
-export { GuideNavigation } from "./guide_navigation";
 export { HeroSection } from "./hero_section";
 export { MediaGeoSection } from "./media_geo_section";
 export { NavigationSection } from "./navigation_section";
