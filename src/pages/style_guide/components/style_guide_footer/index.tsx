@@ -1,16 +1,19 @@
-import { Bell } from "lucide-react";
+import { ArrowUp } from "lucide-react";
 
-export function StyleGuideFooter() {
-  return (
-    <footer className="min-w-0 max-w-full rounded-xl border border-border/60 bg-card/70 p-5">
-      <p className="text-sm text-muted-foreground">
-        Style Guide tecnico orientado a UX visual: contraste, ritmo, jerarquia
-        tipografica y demostraciones de componentes en contexto.
-      </p>
-      <div className="mt-2 flex items-center gap-3 text-xs text-muted-foreground">
-        <Bell className="size-3" />
-        <span>Componentes cubiertos: base + custom de `src/components`.</span>
-      </div>
-    </footer>
-  );
-}
+export const StyleGuideFooter = () => (
+  <footer className="flex flex-wrap items-center justify-between gap-5 border-t pt-8 text-sm text-muted-foreground">
+    <p>
+      Arxatec UI{" "}
+      <span className="mx-2" aria-hidden="true">
+        /
+      </span>{" "}
+      Diseñado para construir con claridad.
+    </p>
+    <a
+      href="#fundamentos"
+      className="inline-flex min-h-9 items-center gap-2 rounded-sm hover:text-foreground"
+    >
+      Volver al inicio <ArrowUp className="size-4" aria-hidden="true" />
+    </a>
+  </footer>
+);
