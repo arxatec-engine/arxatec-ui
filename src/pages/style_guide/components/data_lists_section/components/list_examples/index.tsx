@@ -24,7 +24,7 @@ export const ListExamples = () => {
         title="Command"
         description="Encuentra y ejecuta acciones escribiendo su nombre. La navegación con flechas y Enter agiliza las tareas frecuentes."
       >
-        <div className="space-y-3">
+        <div className="w-full max-w-sm space-y-3">
           <Command className="rounded-md border bg-background">
             <CommandInput
               placeholder="Busca una acción…"
@@ -57,7 +57,7 @@ export const ListExamples = () => {
         title="AsyncCommandList"
         description="Presenta resultados dinámicos con los mismos patrones de selección. Incluye estados de espera y lista vacía."
       >
-        <div className="space-y-3">
+        <div className="w-full max-w-sm space-y-3">
           <Command className="rounded-md border bg-background">
             <AsyncCommandList
               data={DEMO_PROJECTS}

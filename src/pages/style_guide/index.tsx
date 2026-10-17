@@ -36,18 +36,36 @@ export const StyleGuide = ({ initialTheme }: Props) => {
           <GuideHeader isDark={isDark} onDarkChange={setIsDark} />
           <main
             id="contenido"
-            className="mx-auto w-full min-w-0 max-w-6xl space-y-20 px-5 pb-16 pt-8 sm:px-10 lg:pt-12"
+            className="mx-auto w-full min-w-0 max-w-6xl divide-y"
             tabIndex={-1}
           >
-            <HeroSection />
-            <ActionsSection />
-            <FormsSection />
-            <BrandingFeedbackSection />
-            <NavigationSection />
-            <DataListsSection />
-            <MediaGeoSection />
-            <TablesPaginationSection />
-            <StyleGuideFooter />
+            <div className="flex flex-col items-center justify-center px-6 py-4">
+              <HeroSection />
+            </div>
+            <div className="flex flex-col items-center justify-center px-6 py-4">
+              <ActionsSection />
+            </div>
+            <div className="flex flex-col items-center justify-center px-6 py-4">
+              <FormsSection />
+            </div>
+            <div className="flex flex-col items-center justify-center px-6 py-4">
+              <BrandingFeedbackSection />
+            </div>
+            <div className="flex flex-col items-center justify-center px-6 py-4">
+              <NavigationSection />
+            </div>
+            <div className="flex flex-col items-center justify-center px-6 py-4">
+              <DataListsSection />
+            </div>
+            <div className="flex flex-col items-center justify-center px-6 py-4">
+              <MediaGeoSection />
+            </div>
+            <div className="flex flex-col items-center justify-center px-6 py-4">
+              <TablesPaginationSection />
+            </div>
+            <div className="flex flex-col items-center justify-center px-6 py-4">
+              <StyleGuideFooter />
+            </div>
           </main>
         </div>
       </TooltipProvider>

@@ -25,7 +25,7 @@ export const SidebarExample = () => {
       title="Sidebar"
       description="Da acceso estable a las áreas de una aplicación. Se puede contraer cuando el contenido necesita más espacio."
     >
-      <div className="isolate h-60 overflow-hidden rounded-md border bg-background">
+      <div className="isolate h-60 w-full overflow-hidden rounded-md border bg-background">
         <SidebarProvider
           open={open}
           onOpenChange={setOpen}
@@ -53,6 +53,7 @@ export const SidebarExample = () => {
                   ].map(({ label, icon: Icon }) => (
                     <SidebarMenuItem key={label}>
                       <SidebarMenuButton
+                        size="sm"
                         isActive={selected === label}
                         onClick={() => setSelected(label)}
                         aria-label={label}
@@ -71,7 +72,8 @@ export const SidebarExample = () => {
             <header className="flex h-12 items-center gap-3 border-b px-4">
               <Button
                 variant="ghost"
-                size="icon"
+                size="sm"
+                className="size-8 p-0"
                 aria-label={
                   open ? "Contraer navegación" : "Expandir navegación"
                 }

@@ -36,7 +36,7 @@ export const NavigationExamples = () => (
       title="Tabs"
       description="Alterna entre vistas del mismo contexto. Úsalo para contenido relacionado que no necesita verse al mismo tiempo."
     >
-      <Tabs defaultValue="overview" className="w-full">
+      <Tabs defaultValue="overview" className="w-full max-w-sm">
         <TabsList className="grid w-full grid-cols-2">
           <TabsTrigger value="overview">Resumen</TabsTrigger>
           <TabsTrigger value="activity">Actividad</TabsTrigger>

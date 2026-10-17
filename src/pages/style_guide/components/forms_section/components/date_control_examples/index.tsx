@@ -52,12 +52,12 @@ export const DateControlExamples = () => {
         title="InputOTP"
         description="Divide un código corto en posiciones legibles y conserva una sola entrada. Facilita revisar y pegar códigos de verificación."
       >
-        <div className="space-y-4">
+        <div className="flex flex-col items-center gap-4">
           <Label htmlFor="guide-otp">Código de verificación</Label>
           <InputOTP
             id="guide-otp"
             maxLength={6}
-            containerClassName="flex-wrap gap-2"
+            containerClassName="flex-wrap justify-center gap-2"
           >
             <InputOTPGroup>
               <InputOTPSlot index={0} />
@@ -77,7 +77,7 @@ export const DateControlExamples = () => {
         title="Slider · Progress"
         description="Slider ajusta un valor dentro de un rango. Progress comunica cuánto se ha completado; aquí refleja el valor que elijas."
       >
-        <div className="space-y-5">
+        <div className="w-full max-w-sm space-y-5">
           <div className="flex items-center justify-between text-sm">
             <Label id="guide-level">Nivel de avance</Label>
             <output className="tabular-nums">{progress[0]} %</output>

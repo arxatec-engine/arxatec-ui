@@ -29,7 +29,7 @@ export const ContextExamples = () => (
     >
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button variant="outline" className="mx-auto flex">
+          <Button size="sm" variant="outline" className="mx-auto flex">
             Opciones del proyecto <MoreHorizontal aria-hidden="true" />
           </Button>
         </DropdownMenuTrigger>
@@ -37,16 +37,19 @@ export const ContextExamples = () => (
           <DropdownMenuLabel>Proyecto</DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuItem
+            size="sm"
             onSelect={() => toast.info("Acción seleccionada: editar")}
           >
             Editar
           </DropdownMenuItem>
           <DropdownMenuItem
+            size="sm"
             onSelect={() => toast.success("Proyecto duplicado")}
           >
             Duplicar
           </DropdownMenuItem>
           <DropdownMenuItem
+            size="sm"
             onSelect={() => toast.success("Proyecto archivado")}
           >
             Archivar
@@ -60,7 +63,7 @@ export const ContextExamples = () => (
     >
       <Popover>
         <PopoverTrigger asChild>
-          <Button variant="outline" className="mx-auto flex">
+          <Button size="sm" variant="outline" className="mx-auto flex">
             Ver información
           </Button>
         </PopoverTrigger>
@@ -79,7 +82,7 @@ export const ContextExamples = () => (
     >
       <Tooltip>
         <TooltipTrigger asChild>
-          <Button variant="outline" className="mx-auto flex">
+          <Button size="sm" variant="outline" className="mx-auto flex">
             Pasa el cursor o enfoca
           </Button>
         </TooltipTrigger>

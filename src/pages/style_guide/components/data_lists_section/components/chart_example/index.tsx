@@ -14,7 +14,7 @@ export const ChartExample = () => (
     title="Chart"
     description="Convierte valores en patrones fáciles de comparar. Un solo color mantiene la atención en los datos; el tooltip permite consultar el detalle."
   >
-    <figure className="space-y-5">
+    <figure className="w-full space-y-5">
       <figcaption className="flex flex-wrap items-center justify-between gap-3 text-sm">
         <span className="font-medium">Proyectos completados</span>
         <span className="text-muted-foreground">

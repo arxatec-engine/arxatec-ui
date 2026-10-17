@@ -23,14 +23,16 @@ export const FeedbackExamples = () => (
       title="StatusMessage"
       description="Explica estados que necesitan contexto. El icono, el título y la descripción comunican el mensaje sin depender solo del color."
     >
-      <div className="space-y-3">
+      <div className="w-full max-w-sm space-y-3">
         <StatusMessage
+          size="sm"
           title="Todo al día"
           description="Los cambios se guardaron correctamente."
           color="white"
           icon={CalendarCheck2}
         />
         <StatusMessage
+          size="sm"
           title="Revisa la conexión"
           description="Hay cambios pendientes de sincronizar."
           color="rose"
@@ -44,6 +46,7 @@ export const FeedbackExamples = () => (
     >
       <div className="flex flex-wrap justify-center gap-3">
         <Button
+          size="sm"
           variant="outline"
           onClick={() =>
             toast.success("Cambios guardados", {
@@ -54,6 +57,7 @@ export const FeedbackExamples = () => (
           Mostrar confirmación
         </Button>
         <Button
+          size="sm"
           variant="ghost"
           onClick={() => toast.info("Nueva actualización disponible")}
         >

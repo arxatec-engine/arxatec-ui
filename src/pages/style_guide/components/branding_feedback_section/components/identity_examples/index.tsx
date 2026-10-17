@@ -42,10 +42,10 @@ export const IdentityExamples = () => (
       </div>
     </ComponentPreview>
     <ComponentPreview
-      title="ProviderIcons"
-      description="Los símbolos originales de cada servicio ayudan a reconocer integraciones y reducen la ambigüedad al conectar una cuenta."
+      title="Iconos de proveedores"
+      description="Identifican proveedores y servicios en accesos e integraciones. Acompaña cada símbolo con el nombre del servicio al conectar una cuenta."
     >
-      <div className="flex flex-wrap items-center justify-center gap-7">
+      <div className="flex flex-wrap items-center justify-center gap-6">
         <GoogleDriveIsotype
           className="size-8"
           aria-hidden="false"
@@ -70,13 +70,6 @@ export const IdentityExamples = () => (
           role="img"
           aria-label="Outlook Calendar"
         />
-      </div>
-    </ComponentPreview>
-    <ComponentPreview
-      title="Isotipos de proveedores"
-      description="Identifican al proveedor en accesos e integraciones. Acompaña cada símbolo con el nombre del servicio en las acciones de conexión."
-    >
-      <div className="flex items-center justify-center gap-8">
         <span role="img" aria-label="Google">
           <GoogleIsotype className="size-8" />
         </span>

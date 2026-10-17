@@ -31,7 +31,7 @@ export const MediaExamples = () => {
         <Image
           src={DEMO_IMAGE}
           alt="Lago entre montañas reflejadas en el agua"
-          className="aspect-video overflow-hidden rounded-md border"
+          className="aspect-video w-full overflow-hidden rounded-md border"
         />
       </ComponentPreview>
       <ComponentPreview
@@ -44,7 +44,7 @@ export const MediaExamples = () => {
             alt="Vista previa del encuadre seleccionado"
             className="size-24 overflow-hidden rounded-md border"
           />
-          <Button variant="outline" onClick={() => setCropOpen(true)}>
+          <Button size="sm" variant="outline" onClick={() => setCropOpen(true)}>
             <Crop aria-hidden="true" />
             Ajustar encuadre
           </Button>
@@ -63,7 +63,7 @@ export const MediaExamples = () => {
         title="FileDropZone"
         description="Ofrece arrastrar archivos o seleccionarlos desde el equipo. Comunica formatos y límites antes de que ocurra un error."
       >
-        <div className="space-y-4">
+        <div className="w-full max-w-lg space-y-4">
           <FileDropZone
             files={files}
             onFilesChange={setFiles}

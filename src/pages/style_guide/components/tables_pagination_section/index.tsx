@@ -35,7 +35,7 @@ export const TablesPaginationSection = () => {
         title="Table"
         description="Alinea información comparable en columnas estables. Los encabezados y los estados ayudan a recorrer los registros con rapidez."
       >
-        <div className="overflow-hidden rounded-md border bg-background">
+        <div className="w-full overflow-hidden rounded-md border bg-background">
           <Table>
             <caption className="sr-only">
               Proyectos de ejemplo, página {page} de 3
@@ -72,11 +72,12 @@ export const TablesPaginationSection = () => {
         title="Pagination"
         description="Divide una lista larga en páginas. La página activa y los controles anterior y siguiente mantienen visible la posición actual."
       >
-        <div className="space-y-5">
+        <div className="w-full space-y-5">
           <Pagination aria-label="Páginas de los proyectos de ejemplo">
             <PaginationContent>
               <PaginationItem>
                 <PaginationPrevious
+                  size="sm"
                   href="#tablas"
                   aria-label="Página anterior"
                   aria-disabled={page === 1}
@@ -90,6 +91,7 @@ export const TablesPaginationSection = () => {
               {[1, 2, 3].map((number) => (
                 <PaginationItem key={number}>
                   <PaginationLink
+                    size="sm"
                     href="#tablas"
                     isActive={page === number}
                     aria-label={"Página " + number}
@@ -104,6 +106,7 @@ export const TablesPaginationSection = () => {
               ))}
               <PaginationItem>
                 <PaginationNext
+                  size="sm"
                   href="#tablas"
                   aria-label="Página siguiente"
                   aria-disabled={page === 3}
