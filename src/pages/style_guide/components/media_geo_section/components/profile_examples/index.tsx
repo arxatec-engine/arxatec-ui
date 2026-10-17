@@ -71,7 +71,7 @@ export const ProfileExamples = () => {
         title="EmojiPicker"
         description="Añade una expresión visual familiar a nombres y mensajes. La búsqueda ayuda a encontrar una opción entre muchas."
       >
-        <div className="space-y-4">
+        <div className="w-full max-w-sm space-y-4">
           <p className="text-sm text-muted-foreground" aria-live="polite">
             Tu selección: <span className="text-lg">{emoji}</span>
           </p>

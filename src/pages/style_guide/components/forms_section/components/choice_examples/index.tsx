@@ -60,10 +60,10 @@ export const ChoiceExamples = () => {
         title="Select"
         description="Presenta una lista de opciones conocidas sin ocupar espacio permanente. Úsalo para una selección simple."
       >
-        <div className="space-y-3">
+        <div className="w-full max-w-sm space-y-3">
           <Label htmlFor="guide-country">País</Label>
           <Select defaultValue="pe">
-            <SelectTrigger id="guide-country" className="w-full">
+            <SelectTrigger size="sm" id="guide-country" className="w-full">
               <SelectValue placeholder="Selecciona un país" />
             </SelectTrigger>
             <SelectContent>
@@ -79,8 +79,9 @@ export const ChoiceExamples = () => {
         title="AsyncSelect"
         description="Resuelve selección, carga y error en un mismo control cuando las opciones llegan desde una fuente de datos."
       >
-        <div>
+        <div className="w-full max-w-sm">
           <AsyncSelect
+            size="sm"
             label="Proyecto"
             value={project}
             onChange={setProject}

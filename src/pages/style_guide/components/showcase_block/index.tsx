@@ -13,9 +13,9 @@ export const ShowcaseBlock = ({ id, title, description, children }: Props) => (
   <section
     id={id}
     aria-labelledby={id + "-title"}
-    className="guide-anchor min-w-0"
+    className="guide-anchor w-full min-w-0"
   >
-    <header className="mb-8 flex items-start gap-5">
+    <header className="mb-8 flex items-start justify-center text-center gap-5">
       <span
         className="pt-1 text-sm tabular-nums text-muted-foreground"
         aria-hidden="true"

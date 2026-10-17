@@ -29,7 +29,7 @@ export const CompositionExamples = () => (
       description="Permite recorrer contenido extenso dentro de un espacio acotado. La página mantiene su estructura mientras la lista se desplaza."
     >
       <ScrollArea
-        className="h-44 rounded-md border bg-background"
+        className="h-44 w-full max-w-sm rounded-md border bg-background"
         aria-label="Actividad reciente"
         tabIndex={0}
       >
@@ -52,9 +52,9 @@ export const CompositionExamples = () => (
       title="Collapsible"
       description="Oculta detalles que no hacen falta de entrada. El usuario decide cuándo ampliar la información sin cambiar de vista."
     >
-      <Collapsible className="rounded-md border bg-background">
+      <Collapsible className="w-full max-w-sm rounded-md border bg-background">
         <CollapsibleTrigger asChild>
-          <Button variant="ghost" className="w-full justify-between px-5">
+          <Button size="sm" variant="ghost" className="w-full justify-between px-5">
             Detalles del proyecto <ChevronDown aria-hidden="true" />
           </Button>
         </CollapsibleTrigger>
@@ -70,7 +70,7 @@ export const CompositionExamples = () => (
     >
       <ResizablePanelGroup
         direction="horizontal"
-        className="min-h-36 rounded-md border bg-background"
+        className="min-h-36 w-full rounded-md border bg-background"
       >
         <ResizablePanel defaultSize={40} minSize={25}>
           <div className="flex h-full min-h-36 items-center justify-center text-sm text-muted-foreground">
@@ -92,7 +92,7 @@ export const CompositionExamples = () => (
       title="Carousel"
       description="Recorre una secuencia de elementos con el mismo peso. Úsalo para vistas previas donde ver un elemento a la vez tenga sentido."
     >
-      <div className="px-9">
+      <div className="w-full max-w-sm px-9">
         <Carousel>
           <CarouselContent>
             {["Boceto", "Propuesta", "Resultado"].map((item) => (
@@ -108,11 +108,13 @@ export const CompositionExamples = () => (
             ))}
           </CarouselContent>
           <CarouselPrevious
-            className="-left-9 size-8"
+            size="sm"
+            className="-left-9 size-8 p-0"
             aria-label="Vista anterior"
           />
           <CarouselNext
-            className="-right-9 size-8"
+            size="sm"
+            className="-right-9 size-8 p-0"
             aria-label="Vista siguiente"
           />
         </Carousel>

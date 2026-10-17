@@ -17,7 +17,7 @@ export const LoadingExamples = () => {
         description="Anticipa la estructura mientras llega el contenido. Mantener el espacio reservado reduce saltos y hace la espera más predecible."
       >
         <div
-          className="flex items-center gap-4 rounded-md border bg-background p-5"
+          className="flex w-full max-w-sm items-center gap-4 rounded-md border bg-background p-5"
           role="status"
           aria-label="Ejemplo de contenido cargando"
         >
@@ -32,7 +32,7 @@ export const LoadingExamples = () => {
         title="LoaderSplash"
         description="Acompaña una carga inicial que ocupa toda la experiencia. Úsalo al arrancar, antes de que exista una estructura de contenido."
       >
-        <div className="guide-loader">
+        <div className="guide-loader w-full">
           <LoaderSplash size={2.5} />
         </div>
       </ComponentPreview>
@@ -40,8 +40,8 @@ export const LoadingExamples = () => {
         title="AsyncBoundary"
         description="Da a una vista un lugar consistente para carga, error y contenido. Prueba a alternar entre los estados de esta demostración."
       >
-        <div className="space-y-5">
-          <div className="min-h-12 rounded-md border bg-background p-4">
+        <div className="flex w-full max-w-sm flex-col items-center gap-5">
+          <div className="min-h-12 w-full rounded-md border bg-background p-4">
             <AsyncBoundary
               isLoading={loading}
               isError={false}

@@ -6,10 +6,10 @@ export const HeroSection = () => (
   <section
     id="fundamentos"
     aria-labelledby="guide-title"
-    className="guide-anchor min-w-0"
+    className="guide-anchor w-full min-w-0"
   >
-    <div className="max-w-2xl pb-12 pt-3 lg:pt-5">
-      <p className="mb-6 flex items-center gap-2 text-sm font-medium text-muted-foreground">
+    <div className="mx-auto max-w-2xl pb-12 pt-3 text-center lg:pt-5">
+      <p className="mb-6 flex items-center justify-center gap-2 text-sm font-medium text-muted-foreground">
         <span
           className="size-1.5 rounded-md bg-foreground"
           aria-hidden="true"
@@ -24,11 +24,11 @@ export const HeroSection = () => (
         <br />
         <span className="text-muted-foreground">Un mismo lenguaje.</span>
       </h1>
-      <p className="mt-6 max-w-lg text-lg leading-relaxed text-muted-foreground">
+      <p className="mx-auto mt-6 max-w-lg text-lg leading-relaxed text-muted-foreground">
         Las piezas de Arxatec, en un solo lugar. Descubre cómo se ven, pruébalas
         y entiende cuándo usar cada una.
       </p>
-      <Button asChild variant="outline" className="mt-8 gap-3">
+      <Button size="sm" asChild variant="outline" className="mt-8 gap-3">
         <a href="#acciones">
           Explorar componentes{" "}
           <ArrowDown className="size-4" aria-hidden="true" />

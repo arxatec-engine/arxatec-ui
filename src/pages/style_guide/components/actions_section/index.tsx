@@ -21,23 +21,25 @@ export const ActionsSection = () => (
       description="La acción principal lleva más peso visual. Las variantes outline y ghost acompañan sin competir."
     >
       <div className="flex flex-wrap items-center justify-center gap-3">
-        <Button onClick={() => toast.success("Proyecto creado")}>
+        <Button size="sm" onClick={() => toast.success("Proyecto creado")}>
           <Plus aria-hidden="true" />
           Crear proyecto
         </Button>
         <Button
+          size="sm"
           variant="outline"
           onClick={() => toast.info("Cambios descartados")}
         >
           Cancelar
         </Button>
         <Button
+          size="sm"
           variant="ghost"
           onClick={() => toast.info("Aquí puedes consultar los detalles")}
         >
           Ver detalles
         </Button>
-        <Button disabled>Pendiente</Button>
+        <Button size="sm" disabled>Pendiente</Button>
       </div>
     </ComponentPreview>
     <ComponentPreview
@@ -47,6 +49,7 @@ export const ActionsSection = () => (
       <div className="flex justify-center">
         <ButtonGroup aria-label="Acciones del documento">
           <Button
+            size="sm"
             variant="outline"
             onClick={() => toast.success("Borrador guardado")}
           >
@@ -54,6 +57,7 @@ export const ActionsSection = () => (
           </Button>
           <ButtonGroupSeparator />
           <Button
+            size="sm"
             variant="outline"
             onClick={() => toast.success("Documento publicado")}
           >
@@ -67,10 +71,10 @@ export const ActionsSection = () => (
       description="Activa o desactiva una opción sin salir del contexto. Su estado visual muestra si la opción está aplicada."
     >
       <div className="flex items-center justify-center gap-3">
-        <Toggle variant="outline" aria-label="Activar negrita">
+        <Toggle size="sm" variant="outline" aria-label="Activar negrita">
           <Bold aria-hidden="true" />
         </Toggle>
-        <Toggle variant="outline" aria-label="Activar cursiva">
+        <Toggle size="sm" variant="outline" aria-label="Activar cursiva">
           <Italic aria-hidden="true" />
         </Toggle>
         <span className="ml-2 text-sm text-muted-foreground">

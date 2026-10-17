@@ -30,7 +30,7 @@ export const LocationExamples = () => {
         title="LocationInput"
         description="Incorpora una ubicación a un formulario con una selección guiada. La dirección y las coordenadas permiten revisar lo elegido."
       >
-        <LocationInput value={location} onChange={setLocation} />
+        <LocationInput size="sm" value={location} onChange={setLocation} />
       </ComponentPreview>
       <ComponentPreview
         title="MapPicker"
@@ -46,7 +46,7 @@ export const LocationExamples = () => {
           </p>
           <Dialog open={mapOpen} onOpenChange={setMapOpen}>
             <DialogTrigger asChild>
-              <Button variant="outline">Elegir en el mapa</Button>
+              <Button size="sm" variant="outline">Elegir en el mapa</Button>
             </DialogTrigger>
             <DialogContent className="max-h-[90dvh] overflow-y-auto sm:max-w-2xl">
               <DialogHeader>
@@ -71,7 +71,7 @@ export const LocationExamples = () => {
         title="MapView"
         description="Da contexto geográfico a una ubicación confirmada. La vista se actualiza al elegir otro punto en los ejemplos de arriba."
       >
-        <div className="isolate overflow-hidden rounded-md border bg-background">
+        <div className="isolate w-full overflow-hidden rounded-md border bg-background">
           <MapView
             key={location ? location.lat + "," + location.lng : "default"}
             lat={location?.lat ?? -12.1211}

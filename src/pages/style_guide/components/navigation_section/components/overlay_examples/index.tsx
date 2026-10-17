@@ -40,7 +40,7 @@ export const OverlayExamples = () => (
     >
       <Dialog>
         <DialogTrigger asChild>
-          <Button variant="outline" className="mx-auto flex">
+          <Button size="sm" variant="outline" className="mx-auto flex">
             Abrir diálogo
           </Button>
         </DialogTrigger>
@@ -54,7 +54,7 @@ export const OverlayExamples = () => (
           </DialogHeader>
           <DialogFooter>
             <DialogClose asChild>
-              <Button>Entendido</Button>
+              <Button size="sm">Entendido</Button>
             </DialogClose>
           </DialogFooter>
         </DialogContent>
@@ -66,7 +66,7 @@ export const OverlayExamples = () => (
     >
       <Sheet>
         <SheetTrigger asChild>
-          <Button variant="outline" className="mx-auto flex">
+          <Button size="sm" variant="outline" className="mx-auto flex">
             Abrir panel lateral
           </Button>
         </SheetTrigger>
@@ -80,7 +80,7 @@ export const OverlayExamples = () => (
           </SheetHeader>
           <SheetFooter>
             <SheetClose asChild>
-              <Button variant="outline">Cerrar panel</Button>
+              <Button size="sm" variant="outline">Cerrar panel</Button>
             </SheetClose>
           </SheetFooter>
         </SheetContent>
@@ -92,7 +92,7 @@ export const OverlayExamples = () => (
     >
       <Drawer>
         <DrawerTrigger asChild>
-          <Button variant="outline" className="mx-auto flex">
+          <Button size="sm" variant="outline" className="mx-auto flex">
             Abrir panel inferior
           </Button>
         </DrawerTrigger>
@@ -107,7 +107,7 @@ export const OverlayExamples = () => (
             </DrawerHeader>
             <DrawerFooter>
               <DrawerClose asChild>
-                <Button variant="outline">Cerrar</Button>
+                <Button size="sm" variant="outline">Cerrar</Button>
               </DrawerClose>
             </DrawerFooter>
           </div>
