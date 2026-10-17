@@ -440,6 +440,11 @@ import "leaflet/dist/leaflet.css";
 
 ## Developing this repo
 
+The shadcn CLI is pinned as a development dependency. From this repository, use
+`pnpm exec shadcn info` to inspect the configuration or
+`pnpm exec shadcn add <component> --dry-run` to preview an addition. The existing
+components live in `src/components`; library consumers do not install the CLI.
+
 | Command                | Description                    |
 | ---------------------- | ------------------------------ |
 | `npm run dev`          | Vite playground (style guide). |
@@ -449,16 +454,14 @@ import "leaflet/dist/leaflet.css";
 | `npm run lint`         | ESLint.                        |
 | `pnpm test:components` | Component unit tests.          |
 
-For local development with `arxatec-lawyer-platform`, build this library first and
-run `pnpm update arxatec-ui --ignore-scripts` in the platform. Its local migration
-uses `file:../../arxatec-ui`, so rebuilding this repository requires refreshing the
-consumer package. React, React Hook Form and Tiptap continue to resolve through
-the consumer's peer dependencies.
+For local integration checks, build and pack this library, then install the
+tarball in an isolated copy of `arxatec-lawyer-platform`. React, React Hook Form
+and Tiptap continue to resolve through the consumer's peer dependencies.
 
-This source prepares `0.1.73`; the registry check recorded on 2026-10-14
-reported `0.1.72`. New exports reach npm after publication. Before production
-delivery, replace the platform local `file:` dependency with the published release
-and run `pnpm update arxatec-ui`.
+This source prepares `0.1.75`; the registry check on 2026-10-17 reported `0.1.74`.
+After the owner merges and publishes, update consumers with
+`pnpm update arxatec-ui`. A temporary tarball dependency must stay in the isolated
+validation copy.
 
 Publishing to npm requires **2FA**; use `npm publish --otp=...` when prompted.
 
@@ -490,6 +493,8 @@ const PdfViewer = lazyFileViewer<FilePdfViewerProps>(() =>
 Engine entries under `/file-view/` are `pdf`, `image`, `office`, `code`, `template`,
 `docx`, `xlsx`, `audio`, `video`, `summary` and `transcription`. The core does not
 import PDF or another engine. HEIC conversion loads `heic2any` only for HEIC.
+The Office engine embeds Microsoft Office Online directly and requires a publicly
+accessible document URL. Its loading and download callbacks use the same API.
 The wrapper loads without adding loading, error or retry controls. Loading
 callbacks reach the existing parent sheet; a failed load ends its pending state.
 Closing and reopening the sheet allows another load attempt.

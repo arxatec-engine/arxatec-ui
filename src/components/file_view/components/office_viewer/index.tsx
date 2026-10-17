@@ -15,7 +15,7 @@ export const FileOfficeViewer = ({
 }: FileOfficeViewerProps) => {
   const [isContentLoading, setIsContentLoading] = useState(true);
   useFileViewLoadingChange(
-    !isError && (isPending || isContentLoading),
+    !isError && (isPending || (Boolean(url) && isContentLoading)),
     onLoadingChange,
   );
 

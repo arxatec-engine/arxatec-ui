@@ -76,9 +76,9 @@ removing the setup exception silently restores the default worker in consumers.
 
 Every publishable change bumps `package.json#version` in the same commit. Keep the
 existing exports and default behavior compatible. Reverified on 2026-10-17 with
-`npm view arxatec-ui version`: the registry reports **0.1.72**. The source
-candidate is **0.1.74**, including the unpublished **0.1.73** general shared
-controls and the new `Logo` design variant. Contact, calendar and document
+`npm view arxatec-ui version`: the registry reports **0.1.74**. Source candidate
+**0.1.75** includes the dependency security fix in PR #22, the published Logo
+design variant and shared controls. Contact, calendar and document
 product compositions are maintained in the platform. Validate a candidate
 tarball before a registry consumer update.
 
@@ -95,10 +95,11 @@ and publication. A tarball `file:` dependency is a validation fixture and must
 not reach the production consumer. State exactly which publication steps ran in
 `docs/shipped/YYYY_Wnn.md`.
 
-The sibling-platform migration is connected locally with
-`file:../../arxatec-ui` in the platform, as requested for sibling-repository work.
-Build the library, then refresh it with `pnpm update arxatec-ui --ignore-scripts`.
-Switch the consumer manifest to the registry release before production delivery.
+Reverified on 2026-10-17: Lawyer Platform declares `arxatec-ui: ^0.1.71`
+and locks registry version **0.1.71**; Admin Platform declares `^0.1.74` and
+locks published **0.1.74**. Earlier local migration links are historical.
+Validate changes with a candidate tarball in an isolated consumer copy, then
+update the real consumer from the registry after the owner merges and publishes.
 
 ## Working conventions
 

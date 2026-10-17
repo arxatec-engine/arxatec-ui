@@ -56,6 +56,16 @@ export const TypeScript: Story = {
   ),
 };
 
+export const TextoEscapado: Story = {
+  args: {
+    file: new File(
+      ['<img src=x onerror="alert(document.cookie)"><script>alert(1)</script>'],
+      "documento.txt",
+      { type: "text/plain" },
+    ),
+  },
+};
+
 export const Playground: Story = {
   parameters: { controls: { disable: true } },
   render: () => (
