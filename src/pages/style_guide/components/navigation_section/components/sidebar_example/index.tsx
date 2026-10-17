@@ -24,7 +24,6 @@ export const SidebarExample = () => {
     <ComponentPreview
       title="Sidebar"
       description="Da acceso estable a las áreas de una aplicación. Se puede contraer cuando el contenido necesita más espacio."
-      className="md:col-span-2"
     >
       <div className="isolate h-60 overflow-hidden rounded-lg border bg-background">
         <SidebarProvider

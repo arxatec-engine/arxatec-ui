@@ -34,6 +34,6 @@ export const ShowcaseBlock = ({ id, title, description, children }: Props) => (
         </p>
       </div>
     </header>
-    <div className="grid min-w-0 gap-5 md:grid-cols-2">{children}</div>
+    <div className="flex min-w-0 flex-col gap-5">{children}</div>
   </section>
 );

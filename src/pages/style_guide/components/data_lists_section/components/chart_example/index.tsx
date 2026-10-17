@@ -13,7 +13,6 @@ export const ChartExample = () => (
   <ComponentPreview
     title="Chart"
     description="Convierte valores en patrones fáciles de comparar. Un solo color mantiene la atención en los datos; el tooltip permite consultar el detalle."
-    className="md:col-span-2"
   >
     <figure className="space-y-5">
       <figcaption className="flex flex-wrap items-center justify-between gap-3 text-sm">

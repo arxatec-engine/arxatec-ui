@@ -70,7 +70,6 @@ export const LocationExamples = () => {
       <ComponentPreview
         title="MapView"
         description="Da contexto geográfico a una ubicación confirmada. La vista se actualiza al elegir otro punto en los ejemplos de arriba."
-        className="md:col-span-2"
       >
         <div className="isolate overflow-hidden rounded-lg border bg-background">
           <MapView

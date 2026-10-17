@@ -62,7 +62,6 @@ export const MediaExamples = () => {
       <ComponentPreview
         title="FileDropZone"
         description="Ofrece arrastrar archivos o seleccionarlos desde el equipo. Comunica formatos y límites antes de que ocurra un error."
-        className="md:col-span-2"
       >
         <div className="space-y-4">
           <FileDropZone

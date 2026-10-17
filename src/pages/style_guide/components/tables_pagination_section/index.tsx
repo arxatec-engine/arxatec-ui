@@ -34,7 +34,6 @@ export const TablesPaginationSection = () => {
       <ComponentPreview
         title="Table"
         description="Alinea información comparable en columnas estables. Los encabezados y los estados ayudan a recorrer los registros con rapidez."
-        className="md:col-span-2"
       >
         <div className="overflow-hidden rounded-lg border bg-background">
           <Table>
@@ -72,7 +71,6 @@ export const TablesPaginationSection = () => {
       <ComponentPreview
         title="Pagination"
         description="Divide una lista larga en páginas. La página activa y los controles anterior y siguiente mantienen visible la posición actual."
-        className="md:col-span-2"
       >
         <div className="space-y-5">
           <Pagination aria-label="Páginas de los proyectos de ejemplo">
