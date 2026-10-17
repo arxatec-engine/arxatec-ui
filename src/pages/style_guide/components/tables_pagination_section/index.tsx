@@ -1,126 +1,129 @@
+import { useState } from "react";
+
+import { Badge } from "@/components/badge";
 import {
-  Badge,
-  Calendar,
-  InfoTooltip,
   Pagination,
   PaginationContent,
-  PaginationEllipsis,
   PaginationItem,
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
-  PaginationController,
-  Skeleton,
+} from "@/components/pagination";
+import {
   Table,
   TableBody,
   TableCell,
   TableHead,
   TableHeader,
   TableRow,
-} from "@/exports";
-import type { PaginationState } from "@/types";
+} from "@/components/table";
+
+import { TABLE_PROJECTS } from "../../constants";
+import { ComponentPreview } from "../component_preview";
 import { ShowcaseBlock } from "../showcase_block";
 
-interface Props {
-  pagination: PaginationState;
-  onSetPage: (page: number) => void;
-}
+export const TablesPaginationSection = () => {
+  const [page, setPage] = useState(1);
 
-export function TablesPaginationSection({ pagination, onSetPage }: Props) {
   return (
     <ShowcaseBlock
-      title="Tablas y Paginación"
-      description="Componentes de lectura de datos y navegación por volumen."
+      id="tablas"
+      title="Tablas y paginación"
+      description="Comparar información con orden y recorrerla a un ritmo manejable."
     >
-      <div className="grid min-w-0 gap-5 xl:grid-cols-2">
-        <div className="min-w-0 space-y-5 rounded-md border bg-card/20 p-5">
-          <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground/60">
-            Visualización de Datos
-          </p>
-          <div className="w-full min-w-0 max-w-full overflow-x-auto rounded-md border bg-background/50">
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>ID</TableHead>
-                  <TableHead>Cliente</TableHead>
-                  <TableHead>Estado</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                <TableRow>
-                  <TableCell>001</TableCell>
-                  <TableCell>Arxatec Legal</TableCell>
-                  <TableCell>
-                    <Badge>Activo</Badge>
-                  </TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell>002</TableCell>
-                  <TableCell>North Partners</TableCell>
-                  <TableCell>
-                    <Badge variant="secondary">Revision</Badge>
-                  </TableCell>
-                </TableRow>
-              </TableBody>
-            </Table>
-          </div>
-
-          <div className="flex w-full min-w-0 max-w-full justify-center overflow-x-auto p-4 rounded-md border border-dashed border-border/60 bg-background/30">
-            <Calendar mode="single" className="min-w-0 shrink-0 scale-90" />
-          </div>
+      <ComponentPreview
+        title="Table"
+        description="Alinea información comparable en columnas estables. Los encabezados y los estados ayudan a recorrer los registros con rapidez."
+      >
+        <div className="overflow-hidden rounded-md border bg-background">
+          <Table>
+            <caption className="sr-only">
+              Proyectos de ejemplo, página {page} de 3
+            </caption>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Proyecto</TableHead>
+                <TableHead>Responsable</TableHead>
+                <TableHead className="text-right">Estado</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {TABLE_PROJECTS.slice((page - 1) * 3, page * 3).map(
+                ({ name, owner, status, variant }, index) => (
+                  <TableRow key={name}>
+                    <TableCell className="font-medium">
+                      {String((page - 1) * 3 + index + 1).padStart(2, "0")}{" "}
+                      <span className="ml-3">{name}</span>
+                    </TableCell>
+                    <TableCell className="text-muted-foreground">
+                      {owner}
+                    </TableCell>
+                    <TableCell className="text-right">
+                      <Badge variant={variant}>{status}</Badge>
+                    </TableCell>
+                  </TableRow>
+                ),
+              )}
+            </TableBody>
+          </Table>
         </div>
-
-        <div className="min-w-0 space-y-5 rounded-md border bg-card/20 p-5">
-          <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground/60">
-            Navegación y Utilidades
-          </p>
-          <div className="w-full min-w-0 overflow-x-auto py-2">
-            <Pagination>
-              <PaginationContent className="flex-wrap justify-center gap-y-2">
-                <PaginationItem>
-                  <PaginationPrevious href="#" />
-                </PaginationItem>
-                <PaginationItem>
-                  <PaginationLink href="#" isActive>
-                    1
+      </ComponentPreview>
+      <ComponentPreview
+        title="Pagination"
+        description="Divide una lista larga en páginas. La página activa y los controles anterior y siguiente mantienen visible la posición actual."
+      >
+        <div className="space-y-5">
+          <Pagination aria-label="Páginas de los proyectos de ejemplo">
+            <PaginationContent>
+              <PaginationItem>
+                <PaginationPrevious
+                  href="#tablas"
+                  aria-label="Página anterior"
+                  aria-disabled={page === 1}
+                  onClick={(event) => {
+                    event.preventDefault();
+                    setPage(Math.max(1, page - 1));
+                  }}
+                  className={page === 1 ? "opacity-40" : undefined}
+                />
+              </PaginationItem>
+              {[1, 2, 3].map((number) => (
+                <PaginationItem key={number}>
+                  <PaginationLink
+                    href="#tablas"
+                    isActive={page === number}
+                    aria-label={"Página " + number}
+                    onClick={(event) => {
+                      event.preventDefault();
+                      setPage(number);
+                    }}
+                  >
+                    {number}
                   </PaginationLink>
                 </PaginationItem>
-                <PaginationItem>
-                  <PaginationLink href="#">2</PaginationLink>
-                </PaginationItem>
-                <PaginationItem>
-                  <PaginationLink href="#">3</PaginationLink>
-                </PaginationItem>
-                <PaginationItem>
-                  <PaginationEllipsis />
-                </PaginationItem>
-                <PaginationItem>
-                  <PaginationNext href="#" />
-                </PaginationItem>
-              </PaginationContent>
-            </Pagination>
-          </div>
-
-          <PaginationController pagination={pagination} setPage={onSetPage} />
-
-          <div className="rounded-md border bg-background/40 p-3 text-xs text-muted-foreground">
-            Pagina {pagination.page} de {pagination.total_pages}
-          </div>
-
-          <div className="flex min-w-0 flex-wrap items-center gap-2 pt-2">
-            <Badge>new</Badge>
-            <Badge variant="secondary">stable</Badge>
-            <Badge variant="outline">ui-kit</Badge>
-            <InfoTooltip info="Esta seccion valida estados de paginado y lectura." />
-          </div>
-
-          <div className="grid grid-cols-3 gap-3">
-            <Skeleton className="h-16 rounded-md" />
-            <Skeleton className="h-16 rounded-md" />
-            <Skeleton className="h-16 rounded-md" />
-          </div>
+              ))}
+              <PaginationItem>
+                <PaginationNext
+                  href="#tablas"
+                  aria-label="Página siguiente"
+                  aria-disabled={page === 3}
+                  onClick={(event) => {
+                    event.preventDefault();
+                    setPage(Math.min(3, page + 1));
+                  }}
+                  className={page === 3 ? "opacity-40" : undefined}
+                />
+              </PaginationItem>
+            </PaginationContent>
+          </Pagination>
+          <p
+            className="text-center text-sm text-muted-foreground"
+            aria-live="polite"
+          >
+            Página {page} de 3 · Registros {(page - 1) * 3 + 1}–{page * 3} de 9
+          </p>
         </div>
-      </div>
+      </ComponentPreview>
     </ShowcaseBlock>
   );
-}
+};
