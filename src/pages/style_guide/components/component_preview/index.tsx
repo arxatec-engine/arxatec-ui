@@ -26,7 +26,7 @@ export const ComponentPreview = ({
       )}
     >
       <div className="guide-preview flex min-h-48 min-w-0 flex-1 items-center justify-center p-6 sm:p-8">
-        <div className="flex w-full min-w-0 flex-col items-center justify-center [&>*]:max-w-full">
+        <div className="mx-auto flex w-full min-w-0 max-w-sm flex-col items-center justify-center [&>*]:max-w-full">
           {children}
         </div>
       </div>
