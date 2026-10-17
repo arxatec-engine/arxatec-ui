@@ -76,9 +76,9 @@ removing the setup exception silently restores the default worker in consumers.
 
 Every publishable change bumps `package.json#version` in the same commit. Keep the
 existing exports and default behavior compatible. Reverified on 2026-10-17 with
-`npm view arxatec-ui version`: the registry reports **0.1.74**. The security fix
-prepares **0.1.75** on `fix/security-viewer-dependencies` (PR #22), including the
-published Logo design variant and shared controls. Contact, calendar and document
+`npm view arxatec-ui version`: the registry reports **0.1.74**. Source candidate
+**0.1.75** includes the dependency security fix in PR #22, the published Logo
+design variant and shared controls. Contact, calendar and document
 product compositions are maintained in the platform. Validate a candidate
 tarball before a registry consumer update.
 
