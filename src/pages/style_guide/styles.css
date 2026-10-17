@@ -4,11 +4,6 @@
   isolation: isolate;
 }
 
-:root[data-style-guide]
-  :is(code, kbd, pre, .font-mono, .font-serif, .leaflet-container) {
-  font-family: var(--font-sans);
-}
-
 /* Apply the guide radius to primitive parts and portaled surfaces as well. */
 :root[data-style-guide] :is([class~="rounded"], [class*="rounded-"]) {
   @apply rounded-md;

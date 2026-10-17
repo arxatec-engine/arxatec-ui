@@ -10,16 +10,6 @@ import {
   DialogTrigger,
 } from "@/components/dialog";
 import {
-  Drawer,
-  DrawerClose,
-  DrawerContent,
-  DrawerDescription,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerTrigger,
-} from "@/components/drawer";
-import {
   Sheet,
   SheetClose,
   SheetContent,
@@ -85,34 +75,6 @@ export const OverlayExamples = () => (
           </SheetFooter>
         </SheetContent>
       </Sheet>
-    </ComponentPreview>
-    <ComponentPreview
-      title="Drawer"
-      description="Presenta una tarea desde el borde de la pantalla. Su gesto de arrastre resulta natural en dispositivos táctiles."
-    >
-      <Drawer>
-        <DrawerTrigger asChild>
-          <Button size="sm" variant="outline" className="mx-auto flex">
-            Abrir panel inferior
-          </Button>
-        </DrawerTrigger>
-        <DrawerContent className="rounded-md">
-          <div className="mx-auto w-full max-w-md p-6">
-            <DrawerHeader>
-              <DrawerTitle>Todo a mano</DrawerTitle>
-              <DrawerDescription>
-                Contenido accesible desde un panel que puedes cerrar al
-                terminar.
-              </DrawerDescription>
-            </DrawerHeader>
-            <DrawerFooter>
-              <DrawerClose asChild>
-                <Button size="sm" variant="outline">Cerrar</Button>
-              </DrawerClose>
-            </DrawerFooter>
-          </div>
-        </DrawerContent>
-      </Drawer>
     </ComponentPreview>
   </>
 );

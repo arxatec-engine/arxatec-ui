@@ -1,6 +1,3 @@
-import { useState } from "react";
-
-import { AsyncSelect } from "@/components/async_select";
 import { Checkbox } from "@/components/checkbox";
 import { Label } from "@/components/label";
 import { RadioGroup, RadioGroupItem } from "@/components/radio_group";
@@ -12,12 +9,9 @@ import {
   SelectValue,
 } from "@/components/select";
 
-import { DEMO_PROJECTS } from "../../../../constants";
 import { ComponentPreview } from "../../../component_preview";
 
 export const ChoiceExamples = () => {
-  const [project, setProject] = useState<string>();
-
   return (
     <>
       <ComponentPreview
@@ -73,26 +67,6 @@ export const ChoiceExamples = () => {
               <SelectItem value="es">España</SelectItem>
             </SelectContent>
           </Select>
-        </div>
-      </ComponentPreview>
-      <ComponentPreview
-        title="AsyncSelect"
-        description="Resuelve selección, carga y error en un mismo control cuando las opciones llegan desde una fuente de datos."
-      >
-        <div className="w-full max-w-sm">
-          <AsyncSelect
-            size="sm"
-            label="Proyecto"
-            value={project}
-            onChange={setProject}
-            options={DEMO_PROJECTS}
-            placeholder="Selecciona un proyecto"
-            allLabel="Todos los proyectos"
-            className="w-full"
-          />
-          <p className="mt-3 text-sm text-muted-foreground">
-            Esta demostración usa opciones locales.
-          </p>
         </div>
       </ComponentPreview>
     </>

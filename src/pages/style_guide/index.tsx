@@ -10,7 +10,6 @@ import {
   FormsSection,
   GuideHeader,
   HeroSection,
-  MediaGeoSection,
   NavigationSection,
   StyleGuideFooter,
   TablesPaginationSection,
@@ -28,7 +27,7 @@ export const StyleGuide = ({ initialTheme }: Props) => {
   return (
     <MotionConfig reducedMotion="user">
       <TooltipProvider>
-        <div className="style-guide min-h-screen bg-background font-sans text-foreground antialiased">
+        <div className="style-guide  min-h-screen bg-card mx-auto  font-sans text-foreground">
           <a className="guide-skip-link" href="#contenido">
             Saltar al contenido
           </a>
@@ -36,7 +35,7 @@ export const StyleGuide = ({ initialTheme }: Props) => {
           <GuideHeader isDark={isDark} onDarkChange={setIsDark} />
           <main
             id="contenido"
-            className="mx-auto w-full min-w-0 max-w-6xl divide-y"
+            className="mx-auto w-full min-w-0 max-w-3xl divide-y bg-background border-l border-r border-border"
             tabIndex={-1}
           >
             <div className="flex flex-col items-center justify-center px-6 py-4">
@@ -56,9 +55,6 @@ export const StyleGuide = ({ initialTheme }: Props) => {
             </div>
             <div className="flex flex-col items-center justify-center px-6 py-4">
               <DataListsSection />
-            </div>
-            <div className="flex flex-col items-center justify-center px-6 py-4">
-              <MediaGeoSection />
             </div>
             <div className="flex flex-col items-center justify-center px-6 py-4">
               <TablesPaginationSection />

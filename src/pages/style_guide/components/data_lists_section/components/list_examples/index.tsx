@@ -1,7 +1,6 @@
 import { FilePlus, Search, Settings } from "lucide-react";
 import { useState } from "react";
 
-import { AsyncCommandList } from "@/components/async_command_list";
 import {
   Command,
   CommandEmpty,
@@ -11,12 +10,10 @@ import {
   CommandList,
 } from "@/components/command";
 
-import { DEMO_PROJECTS } from "../../../../constants";
 import { ComponentPreview } from "../../../component_preview";
 
 export const ListExamples = () => {
   const [action, setAction] = useState("Ninguna todavía");
-  const [project, setProject] = useState<string>();
 
   return (
     <>
@@ -50,28 +47,6 @@ export const ListExamples = () => {
           </Command>
           <p className="text-sm text-muted-foreground" aria-live="polite">
             Acción: {action}
-          </p>
-        </div>
-      </ComponentPreview>
-      <ComponentPreview
-        title="AsyncCommandList"
-        description="Presenta resultados dinámicos con los mismos patrones de selección. Incluye estados de espera y lista vacía."
-      >
-        <div className="w-full max-w-sm space-y-3">
-          <Command className="rounded-md border bg-background">
-            <AsyncCommandList
-              data={DEMO_PROJECTS}
-              isLoading={false}
-              getKey={(item) => item.id}
-              renderItem={(item) => <span>{item.name}</span>}
-              onSelect={setProject}
-              emptyMessage="Sin proyectos"
-            />
-          </Command>
-          <p className="text-sm text-muted-foreground" aria-live="polite">
-            Proyecto:{" "}
-            {DEMO_PROJECTS.find((item) => item.id === project)?.name ??
-              "Selecciona uno"}
           </p>
         </div>
       </ComponentPreview>

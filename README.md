@@ -35,10 +35,11 @@ The same stylesheet **also appends** CSS extracted from the library build (TipTa
 
 ### Vite + Tailwind v4
 
-1. Install Tailwind and the official Vite plugin:
+1. Install Tailwind, the official Vite plugin and the typography plugin used by
+   the library stylesheet:
 
    ```bash
-   npm install tailwindcss @tailwindcss/vite
+   npm install tailwindcss @tailwindcss/vite @tailwindcss/typography
    ```
 
 2. In `vite.config.ts`:

@@ -3,8 +3,6 @@ import { toast } from "sonner";
 
 import { Button } from "@/components/button";
 import { ButtonGroup, ButtonGroupSeparator } from "@/components/button_group";
-import { InfoTooltip } from "@/components/info_tooltip";
-import { Kbd, KbdGroup } from "@/components/kbd";
 import { Toggle } from "@/components/toggle";
 
 import { ComponentPreview } from "../component_preview";
@@ -80,21 +78,6 @@ export const ActionsSection = () => (
         <span className="ml-2 text-sm text-muted-foreground">
           Prueba a activarlos
         </span>
-      </div>
-    </ComponentPreview>
-    <ComponentPreview
-      title="Kbd · InfoTooltip"
-      description="Los atajos ayudan a descubrir formas más rápidas de trabajar. La ayuda contextual explica un control justo donde hace falta."
-    >
-      <div className="flex items-center justify-center gap-4">
-        <span className="text-sm text-muted-foreground">
-          Buscar en la aplicación
-        </span>
-        <KbdGroup aria-label="Atajo Control K">
-          <Kbd>Ctrl</Kbd>
-          <Kbd>K</Kbd>
-        </KbdGroup>
-        <InfoTooltip info="Este es un ejemplo visual de cómo presentar un atajo de teclado." />
       </div>
     </ComponentPreview>
   </ShowcaseBlock>

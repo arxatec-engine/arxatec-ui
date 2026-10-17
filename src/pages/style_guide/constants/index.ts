@@ -1,20 +1,3 @@
-export const GUIDE_SECTIONS = [
-  { id: "fundamentos", label: "Fundamentos", number: "01" },
-  { id: "acciones", label: "Acciones", number: "02" },
-  { id: "formularios", label: "Formularios", number: "03" },
-  { id: "estados", label: "Identidad y estados", number: "04" },
-  { id: "navegacion", label: "Navegación", number: "05" },
-  { id: "datos", label: "Datos y composición", number: "06" },
-  { id: "media", label: "Media y ubicación", number: "07" },
-  { id: "tablas", label: "Tablas y paginación", number: "08" },
-];
-
-export const DEMO_PROJECTS = [
-  { id: "design", name: "Sistema de diseño" },
-  { id: "website", name: "Sitio web" },
-  { id: "product", name: "Nuevo producto" },
-];
-
 export const CHART_DATA = [
   { month: "Ene", total: 120 },
   { month: "Feb", total: 220 },
@@ -22,10 +5,6 @@ export const CHART_DATA = [
   { month: "Abr", total: 280 },
   { month: "May", total: 230 },
 ];
-
-// Local fixture so image cropping uses the same origin as the demo.
-// Source: https://images.unsplash.com/photo-1470770841072-f978cf4d019e
-export const DEMO_IMAGE = "/style-guide-landscape.jpg";
 
 export const TABLE_PROJECTS = [
   {

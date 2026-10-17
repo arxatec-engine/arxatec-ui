@@ -1,7 +1,6 @@
 import { useState } from "react";
 
 import { Calendar } from "@/components/calendar";
-import { DateRangePicker } from "@/components/date_range_picker";
 import {
   InputOTP,
   InputOTPGroup,
@@ -15,26 +14,11 @@ import { Slider } from "@/components/slider";
 import { ComponentPreview } from "../../../component_preview";
 
 export const DateControlExamples = () => {
-  const [startDate, setStartDate] = useState<Date>();
-  const [dueDate, setDueDate] = useState<Date>();
   const [day, setDay] = useState<Date>();
   const [progress, setProgress] = useState([62]);
 
   return (
     <>
-      <ComponentPreview
-        title="DateRangePicker"
-        description="Mantiene inicio y fin juntos para planificar un período. Evita repartir una misma decisión en campos separados."
-      >
-        <DateRangePicker
-          label="Fechas del proyecto"
-          optional
-          startDate={startDate}
-          dueDate={dueDate}
-          onStartDateChange={setStartDate}
-          onDueDateChange={setDueDate}
-        />
-      </ComponentPreview>
       <ComponentPreview
         title="Calendar"
         description="Ayuda a elegir una fecha viendo su relación con el mes. Útil cuando el contexto temporal importa tanto como el día."

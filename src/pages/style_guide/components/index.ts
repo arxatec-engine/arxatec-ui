@@ -4,7 +4,6 @@ export { DataListsSection } from "./data_lists_section";
 export { FormsSection } from "./forms_section";
 export { GuideHeader } from "./guide_header";
 export { HeroSection } from "./hero_section";
-export { MediaGeoSection } from "./media_geo_section";
 export { NavigationSection } from "./navigation_section";
 export { StyleGuideFooter } from "./style_guide_footer";
 export { TablesPaginationSection } from "./tables_pagination_section";

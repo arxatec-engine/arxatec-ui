@@ -13,41 +13,11 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/collapsible";
-import {
-  ResizableHandle,
-  ResizablePanel,
-  ResizablePanelGroup,
-} from "@/components/resizable";
-import { ScrollArea } from "@/components/scroll_area";
 
 import { ComponentPreview } from "../../../component_preview";
 
 export const CompositionExamples = () => (
   <>
-    <ComponentPreview
-      title="ScrollArea"
-      description="Permite recorrer contenido extenso dentro de un espacio acotado. La página mantiene su estructura mientras la lista se desplaza."
-    >
-      <ScrollArea
-        className="h-44 w-full max-w-sm rounded-md border bg-background"
-        aria-label="Actividad reciente"
-        tabIndex={0}
-      >
-        <div className="divide-y px-4">
-          {Array.from({ length: 8 }, (_, index) => (
-            <div
-              key={index}
-              className="flex items-center justify-between gap-4 py-4 text-sm"
-            >
-              <span>Actualización {index + 1}</span>
-              <span className="text-muted-foreground">
-                Hace {index + 1} min
-              </span>
-            </div>
-          ))}
-        </div>
-      </ScrollArea>
-    </ComponentPreview>
     <ComponentPreview
       title="Collapsible"
       description="Oculta detalles que no hacen falta de entrada. El usuario decide cuándo ampliar la información sin cambiar de vista."
@@ -63,30 +33,6 @@ export const CompositionExamples = () => (
           editar y comentar.
         </CollapsibleContent>
       </Collapsible>
-    </ComponentPreview>
-    <ComponentPreview
-      title="Resizable"
-      description="Deja que cada persona distribuya el espacio según su tarea. Arrastra el separador o enfócalo y usa las flechas."
-    >
-      <ResizablePanelGroup
-        direction="horizontal"
-        className="min-h-36 w-full rounded-md border bg-background"
-      >
-        <ResizablePanel defaultSize={40} minSize={25}>
-          <div className="flex h-full min-h-36 items-center justify-center text-sm text-muted-foreground">
-            Lista
-          </div>
-        </ResizablePanel>
-        <ResizableHandle
-          withHandle
-          aria-label="Ajustar tamaño de los paneles"
-        />
-        <ResizablePanel defaultSize={60} minSize={25}>
-          <div className="flex h-full min-h-36 items-center justify-center bg-muted/40 text-sm text-muted-foreground">
-            Detalle
-          </div>
-        </ResizablePanel>
-      </ResizablePanelGroup>
     </ComponentPreview>
     <ComponentPreview
       title="Carousel"

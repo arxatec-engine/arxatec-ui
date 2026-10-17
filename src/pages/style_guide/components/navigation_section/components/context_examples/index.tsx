@@ -3,12 +3,6 @@ import { toast } from "sonner";
 
 import { Button } from "@/components/button";
 import {
-  ContextMenu,
-  ContextMenuContent,
-  ContextMenuItem,
-  ContextMenuTrigger,
-} from "@/components/context_menu";
-import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
@@ -88,31 +82,6 @@ export const ContextExamples = () => (
         </TooltipTrigger>
         <TooltipContent>Una pequeña ayuda, justo aquí.</TooltipContent>
       </Tooltip>
-    </ComponentPreview>
-    <ComponentPreview
-      title="ContextMenu"
-      description="Ofrece acciones sobre un elemento desde el clic derecho. Debe complementar las acciones visibles, sin esconder funciones esenciales."
-    >
-      <ContextMenu>
-        <ContextMenuTrigger asChild>
-          <button
-            type="button"
-            className="flex min-h-20 w-full items-center justify-center rounded-md border border-dashed bg-background px-4 text-sm text-muted-foreground"
-          >
-            Clic derecho o Shift + F10
-          </button>
-        </ContextMenuTrigger>
-        <ContextMenuContent>
-          <ContextMenuItem
-            onSelect={() => toast.info("Acción seleccionada: abrir")}
-          >
-            Abrir
-          </ContextMenuItem>
-          <ContextMenuItem onSelect={() => toast.success("Elemento duplicado")}>
-            Duplicar
-          </ContextMenuItem>
-        </ContextMenuContent>
-      </ContextMenu>
     </ComponentPreview>
   </>
 );

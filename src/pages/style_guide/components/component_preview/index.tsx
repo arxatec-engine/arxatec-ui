@@ -21,20 +21,20 @@ export const ComponentPreview = ({
     <article
       aria-labelledby={titleId}
       className={cn(
-        "flex w-full min-w-0 flex-col overflow-hidden rounded-md border bg-background",
+        "flex w-full min-w-0 flex-col overflow-hidden rounded-md border bg-card",
         className,
       )}
     >
-      <div className="guide-preview flex min-h-48 min-w-0 flex-1 items-center justify-center p-6 sm:p-8">
+      <div className="guide-preview flex min-h-48 min-w-0 flex-1 items-center justify-center p-3">
         <div className="mx-auto flex w-full min-w-0 max-w-sm flex-col items-center justify-center [&>*]:max-w-full">
           {children}
         </div>
       </div>
-      <div className="space-y-2 border-t px-6 py-5 text-center">
-        <h3 id={titleId} className="text-base font-medium tracking-tight">
+      <div className="bg-muted/70 border-t p-3 text-left">
+        <h3 id={titleId} className="text-sm">
           {title}
         </h3>
-        <p className="text-sm leading-relaxed text-muted-foreground">
+        <p className="text-sm text-muted-foreground">
           {description}
         </p>
       </div>
