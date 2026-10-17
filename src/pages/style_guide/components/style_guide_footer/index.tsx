@@ -1,19 +1,15 @@
-import { ArrowUp } from "lucide-react";
+import { Logo } from "@/components/logo";
 
 export const StyleGuideFooter = () => (
-  <footer className="flex w-full flex-wrap items-center justify-center gap-5 text-center text-sm text-muted-foreground">
-    <p>
-      Arxatec UI{" "}
-      <span className="mx-2" aria-hidden="true">
-        /
-      </span>{" "}
-      Diseñado para construir con claridad.
+  <footer className="flex w-full items-center justify-between flex-wrap gap-4 text-center text-sm">
+    <p role="img" aria-label="Arxatec Design">
+      <Logo variant="design" className="w-44 text-foreground h-auto" />
     </p>
     <a
       href="#fundamentos"
-      className="inline-flex min-h-9 items-center gap-2 rounded-md hover:text-foreground"
+      className="inline-flex items-center gap-2 rounded-md hover:text-foreground"
     >
-      Volver al inicio <ArrowUp className="size-4" aria-hidden="true" />
+      Diseñado para construir con claridad.
     </a>
   </footer>
 );

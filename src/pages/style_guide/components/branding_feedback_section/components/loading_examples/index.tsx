@@ -1,4 +1,3 @@
-import { LoaderSplash } from "@/components/loader_splash";
 import { Skeleton } from "@/components/skeleton";
 
 import { ComponentPreview } from "../../../component_preview";
@@ -20,14 +19,6 @@ export const LoadingExamples = () => {
             <Skeleton className="h-3 w-3/4" />
             <Skeleton className="h-3 w-1/2" />
           </div>
-        </div>
-      </ComponentPreview>
-      <ComponentPreview
-        title="LoaderSplash"
-        description="Acompaña una carga inicial que ocupa toda la experiencia. Úsalo al arrancar, antes de que exista una estructura de contenido."
-      >
-        <div className="guide-loader w-full">
-          <LoaderSplash size={2.5} />
         </div>
       </ComponentPreview>
     </>

@@ -13,19 +13,19 @@ export const ShowcaseBlock = ({ id, title, description, children }: Props) => (
     aria-labelledby={id + "-title"}
     className="guide-anchor w-full min-w-0"
   >
-    <header className="mb-8 flex items-start justify-center text-center gap-5">
-      <div className="min-w-0 space-y-2">
+    <header className="mb-4 flex items-start text-left gap-4">
+      <div className="min-w-0">
         <h2
           id={id + "-title"}
-          className="text-2xl font-semibold tracking-tight"
+          className="text-base"
         >
           {title}
         </h2>
-        <p className="max-w-2xl text-base leading-relaxed text-muted-foreground">
+        <p className="max-w-2xl text-sm leading-relaxed text-muted-foreground">
           {description}
         </p>
       </div>
     </header>
-    <div className="flex min-w-0 flex-col gap-5">{children}</div>
+    <div className="flex min-w-0 flex-col gap-2">{children}</div>
   </section>
 );
