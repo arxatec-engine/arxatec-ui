@@ -25,8 +25,7 @@ export const HeroSection = () => (
         <span className="text-muted-foreground">Un mismo lenguaje.</span>
       </h1>
       <p className="mx-auto mt-6 max-w-lg text-lg leading-relaxed text-muted-foreground">
-        Las piezas de Arxatec, en un solo lugar. Descubre cómo se ven, pruébalas
-        y entiende cuándo usar cada una.
+        Una vista rápida de los fundamentos y componentes esenciales de Arxatec.
       </p>
       <Button size="sm" asChild variant="outline" className="mt-8 gap-3">
         <a href="#acciones">

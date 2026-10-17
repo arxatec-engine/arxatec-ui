@@ -1,7 +1,5 @@
 import type { ReactNode } from "react";
 
-import { GUIDE_SECTIONS } from "../../constants";
-
 interface Props {
   id: string;
   title: string;
@@ -16,12 +14,6 @@ export const ShowcaseBlock = ({ id, title, description, children }: Props) => (
     className="guide-anchor w-full min-w-0"
   >
     <header className="mb-8 flex items-start justify-center text-center gap-5">
-      <span
-        className="pt-1 text-sm tabular-nums text-muted-foreground"
-        aria-hidden="true"
-      >
-        {GUIDE_SECTIONS.find((section) => section.id === id)?.number}
-      </span>
       <div className="min-w-0 space-y-2">
         <h2
           id={id + "-title"}

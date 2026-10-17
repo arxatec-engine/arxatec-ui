@@ -6,14 +6,11 @@ import { TooltipProvider } from "@/components/tooltip";
 import {
   ActionsSection,
   BrandingFeedbackSection,
-  DataListsSection,
   FormsSection,
   GuideHeader,
   HeroSection,
-  MediaGeoSection,
   NavigationSection,
   StyleGuideFooter,
-  TablesPaginationSection,
 } from "./components";
 import { useGuideAppearance } from "./hooks/use_guide_appearance";
 import "./styles.css";
@@ -53,15 +50,6 @@ export const StyleGuide = ({ initialTheme }: Props) => {
             </div>
             <div className="flex flex-col items-center justify-center px-6 py-4">
               <NavigationSection />
-            </div>
-            <div className="flex flex-col items-center justify-center px-6 py-4">
-              <DataListsSection />
-            </div>
-            <div className="flex flex-col items-center justify-center px-6 py-4">
-              <MediaGeoSection />
-            </div>
-            <div className="flex flex-col items-center justify-center px-6 py-4">
-              <TablesPaginationSection />
             </div>
             <div className="flex flex-col items-center justify-center px-6 py-4">
               <StyleGuideFooter />
