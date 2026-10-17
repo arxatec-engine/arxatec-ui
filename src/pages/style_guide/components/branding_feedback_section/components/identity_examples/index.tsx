@@ -42,6 +42,16 @@ export const IdentityExamples = () => (
       </div>
     </ComponentPreview>
     <ComponentPreview
+      title="Logo · Design"
+      description="Identifica Arxatec Design con su propia firma. Selecciona esta variante cuando el contexto de la interfaz pertenece a esta marca."
+    >
+      <div className="flex justify-center py-5">
+        <span role="img" aria-label="Arxatec Design">
+          <Logo variant="design" className="h-10 w-auto max-w-full" />
+        </span>
+      </div>
+    </ComponentPreview>
+    <ComponentPreview
       title="ProviderIcons"
       description="Los símbolos originales de cada servicio ayudan a reconocer integraciones y reducen la ambigüedad al conectar una cuenta."
     >

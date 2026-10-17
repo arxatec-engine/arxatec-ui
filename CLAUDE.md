@@ -75,10 +75,12 @@ removing the setup exception silently restores the default worker in consumers.
 ## Version and publication
 
 Every publishable change bumps `package.json#version` in the same commit. Keep the
-existing exports and default behavior compatible. Reverified on 2026-10-14 with
-`npm view arxatec-ui version`: the registry reports **0.1.72**. General shared controls prepare **0.1.73**, pending publication. Contact, calendar
-and document product compositions are maintained in the platform. Validate a candidate tarball before a registry
-consumer update.
+existing exports and default behavior compatible. Reverified on 2026-10-17 with
+`npm view arxatec-ui version`: the registry reports **0.1.72**. The source
+candidate is **0.1.74**, including the unpublished **0.1.73** general shared
+controls and the new `Logo` design variant. Contact, calendar and document
+product compositions are maintained in the platform. Validate a candidate
+tarball before a registry consumer update.
 
 1. Open a PR on an own branch. **The owner merges; never push directly to main.**
 2. Publish only from a clean, merged `main`, after comparing `npm view arxatec-ui

@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 
 import { Logo, type LogoVariant } from "./index";
 
-const variants: LogoVariant[] = ["arxatec", "academy", "management"];
+const variants: LogoVariant[] = ["arxatec", "academy", "management", "design"];
 
 const meta = {
   title: "Components/Logo",
@@ -17,7 +17,8 @@ const meta = {
     variant: {
       control: "select",
       options: variants,
-      description: "Logo de Arxatec, Arxatec Academy o Arxatec Management.",
+      description:
+        "Logo de Arxatec, Arxatec Academy, Arxatec Management o Arxatec Design.",
       table: { defaultValue: { summary: "arxatec" } },
     },
   },
@@ -35,6 +36,10 @@ export const Academy: Story = {
 
 export const Management: Story = {
   args: { variant: "management" },
+};
+
+export const Design: Story = {
+  args: { variant: "design" },
 };
 
 export const EnTemas: Story = {
