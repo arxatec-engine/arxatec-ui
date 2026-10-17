@@ -1,6 +1,7 @@
 import { ShowcaseBlock } from "../showcase_block";
 
 import { ChoiceExamples } from "./components/choice_examples";
+import { DateControlExamples } from "./components/date_control_examples";
 import { TextFieldExamples } from "./components/text_field_examples";
 
 export const FormsSection = () => (
@@ -11,5 +12,6 @@ export const FormsSection = () => (
   >
     <TextFieldExamples />
     <ChoiceExamples />
+    <DateControlExamples />
   </ShowcaseBlock>
 );

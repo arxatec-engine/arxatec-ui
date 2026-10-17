@@ -2,6 +2,7 @@ import { Bold, Italic, Plus } from "lucide-react";
 import { toast } from "sonner";
 
 import { Button } from "@/components/button";
+import { ButtonGroup, ButtonGroupSeparator } from "@/components/button_group";
 import { Toggle } from "@/components/toggle";
 
 import { ComponentPreview } from "../component_preview";
@@ -40,8 +41,32 @@ export const ActionsSection = () => (
       </div>
     </ComponentPreview>
     <ComponentPreview
+      title="ButtonGroup"
+      description="Agrupa acciones relacionadas para que se perciban como una sola herramienta. Útil en barras de edición."
+    >
+      <div className="flex justify-center">
+        <ButtonGroup aria-label="Acciones del documento">
+          <Button
+            size="sm"
+            variant="outline"
+            onClick={() => toast.success("Borrador guardado")}
+          >
+            Guardar
+          </Button>
+          <ButtonGroupSeparator />
+          <Button
+            size="sm"
+            variant="outline"
+            onClick={() => toast.success("Documento publicado")}
+          >
+            Publicar
+          </Button>
+        </ButtonGroup>
+      </div>
+    </ComponentPreview>
+    <ComponentPreview
       title="Toggle"
-      description="Activa o desactiva una opción. Su estado visual muestra si está aplicada."
+      description="Activa o desactiva una opción sin salir del contexto. Su estado visual muestra si la opción está aplicada."
     >
       <div className="flex items-center justify-center gap-3">
         <Toggle size="sm" variant="outline" aria-label="Activar negrita">
@@ -50,6 +75,9 @@ export const ActionsSection = () => (
         <Toggle size="sm" variant="outline" aria-label="Activar cursiva">
           <Italic aria-hidden="true" />
         </Toggle>
+        <span className="ml-2 text-sm text-muted-foreground">
+          Prueba a activarlos
+        </span>
       </div>
     </ComponentPreview>
   </ShowcaseBlock>

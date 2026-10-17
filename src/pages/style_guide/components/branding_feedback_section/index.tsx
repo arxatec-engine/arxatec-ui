@@ -2,6 +2,7 @@ import { ShowcaseBlock } from "../showcase_block";
 
 import { FeedbackExamples } from "./components/feedback_examples";
 import { IdentityExamples } from "./components/identity_examples";
+import { LoadingExamples } from "./components/loading_examples";
 
 export const BrandingFeedbackSection = () => (
   <ShowcaseBlock
@@ -11,5 +12,6 @@ export const BrandingFeedbackSection = () => (
   >
     <IdentityExamples />
     <FeedbackExamples />
+    <LoadingExamples />
   </ShowcaseBlock>
 );
