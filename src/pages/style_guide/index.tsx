@@ -36,34 +36,34 @@ export const StyleGuide = ({ initialTheme }: Props) => {
           <GuideHeader isDark={isDark} onDarkChange={setIsDark} />
           <main
             id="contenido"
-            className="mx-auto w-full min-w-0 max-w-6xl space-y-20 pb-16 pt-8 lg:pt-12"
+            className="mx-auto w-full min-w-0 max-w-6xl divide-y"
             tabIndex={-1}
           >
-            <div className="px-6">
+            <div className="px-6 py-4">
               <HeroSection />
             </div>
-            <div className="px-6">
+            <div className="px-6 py-4">
               <ActionsSection />
             </div>
-            <div className="px-6">
+            <div className="px-6 py-4">
               <FormsSection />
             </div>
-            <div className="px-6">
+            <div className="px-6 py-4">
               <BrandingFeedbackSection />
             </div>
-            <div className="px-6">
+            <div className="px-6 py-4">
               <NavigationSection />
             </div>
-            <div className="px-6">
+            <div className="px-6 py-4">
               <DataListsSection />
             </div>
-            <div className="px-6">
+            <div className="px-6 py-4">
               <MediaGeoSection />
             </div>
-            <div className="px-6">
+            <div className="px-6 py-4">
               <TablesPaginationSection />
             </div>
-            <div className="px-6">
+            <div className="px-6 py-4">
               <StyleGuideFooter />
             </div>
           </main>
