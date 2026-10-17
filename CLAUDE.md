@@ -75,10 +75,11 @@ removing the setup exception silently restores the default worker in consumers.
 ## Version and publication
 
 Every publishable change bumps `package.json#version` in the same commit. Keep the
-existing exports and default behavior compatible. Reverified on 2026-10-14 with
-`npm view arxatec-ui version`: the registry reports **0.1.72**. General shared controls prepare **0.1.73**, pending publication. Contact, calendar
-and document product compositions are maintained in the platform. Validate a candidate tarball before a registry
-consumer update.
+existing exports and default behavior compatible. Reverified on 2026-10-16 with
+`npm view arxatec-ui version`: the registry reports **0.1.72**. The security fix
+prepares **0.1.74**, including the unpublished **0.1.73** general shared controls.
+Contact, calendar and document product compositions are maintained in the
+platform. Validate a candidate tarball before a registry consumer update.
 
 1. Open a PR on an own branch. **The owner merges; never push directly to main.**
 2. Publish only from a clean, merged `main`, after comparing `npm view arxatec-ui
@@ -93,10 +94,10 @@ and publication. A tarball `file:` dependency is a validation fixture and must
 not reach the production consumer. State exactly which publication steps ran in
 `docs/shipped/YYYY_Wnn.md`.
 
-The sibling-platform migration is connected locally with
-`file:../../arxatec-ui` in the platform, as requested for sibling-repository work.
-Build the library, then refresh it with `pnpm update arxatec-ui --ignore-scripts`.
-Switch the consumer manifest to the registry release before production delivery.
+Reverified on 2026-10-16: the sibling platform declares `arxatec-ui: ^0.1.71`
+and locks registry version **0.1.71**. Earlier local migration links are historical.
+Validate changes with a candidate tarball in an isolated consumer copy, then
+update the real consumer from the registry after the owner merges and publishes.
 
 ## Working conventions
 

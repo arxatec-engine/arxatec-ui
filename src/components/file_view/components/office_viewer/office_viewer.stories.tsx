@@ -4,7 +4,7 @@ import { FileOfficeViewer } from "./index";
 import { FilePreviewPlayground } from "../file_preview_playground";
 
 const SAMPLE_DOC =
-  "https://file-examples.com/storage/fe52cb0c5964eab1971/2017/10/file_example_DOCX_10.docx";
+  "https://calibre-ebook.com/downloads/demos/demo.docx";
 
 const meta = {
   title: "FileView/OfficeViewer",

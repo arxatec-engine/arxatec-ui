@@ -486,6 +486,8 @@ const PdfViewer = lazyFileViewer<FilePdfViewerProps>(() =>
 Engine entries under `/file-view/` are `pdf`, `image`, `office`, `code`, `template`,
 `docx`, `xlsx`, `audio`, `video`, `summary` and `transcription`. The core does not
 import PDF or another engine. HEIC conversion loads `heic2any` only for HEIC.
+The Office engine embeds Microsoft Office Online directly and requires a publicly
+accessible document URL. Its loading and download callbacks use the same API.
 The wrapper loads without adding loading, error or retry controls. Loading
 callbacks reach the existing parent sheet; a failed load ends its pending state.
 Closing and reopening the sheet allows another load attempt.
