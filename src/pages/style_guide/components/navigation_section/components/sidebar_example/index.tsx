@@ -25,7 +25,7 @@ export const SidebarExample = () => {
       title="Sidebar"
       description="Da acceso estable a las áreas de una aplicación. Se puede contraer cuando el contenido necesita más espacio."
     >
-      <div className="isolate h-60 overflow-hidden rounded-lg border bg-background">
+      <div className="isolate h-60 overflow-hidden rounded-md border bg-background">
         <SidebarProvider
           open={open}
           onOpenChange={setOpen}

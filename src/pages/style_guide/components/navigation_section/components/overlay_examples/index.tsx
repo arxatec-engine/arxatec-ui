@@ -70,7 +70,7 @@ export const OverlayExamples = () => (
             Abrir panel lateral
           </Button>
         </SheetTrigger>
-        <SheetContent>
+        <SheetContent className="rounded-md">
           <SheetHeader>
             <SheetTitle>Detalles del proyecto</SheetTitle>
             <SheetDescription>
@@ -96,7 +96,7 @@ export const OverlayExamples = () => (
             Abrir panel inferior
           </Button>
         </DrawerTrigger>
-        <DrawerContent>
+        <DrawerContent className="rounded-md">
           <div className="mx-auto w-full max-w-md p-6">
             <DrawerHeader>
               <DrawerTitle>Todo a mano</DrawerTitle>

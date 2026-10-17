@@ -43,13 +43,13 @@ export const NavigationExamples = () => (
         </TabsList>
         <TabsContent
           value="overview"
-          className="rounded-lg border bg-background p-5 text-sm text-muted-foreground"
+          className="rounded-md border bg-background p-5 text-sm text-muted-foreground"
         >
           Todo lo esencial de tu proyecto, en una vista.
         </TabsContent>
         <TabsContent
           value="activity"
-          className="rounded-lg border bg-background p-5 text-sm text-muted-foreground"
+          className="rounded-md border bg-background p-5 text-sm text-muted-foreground"
         >
           María actualizó el proyecto hace 5 minutos.
         </TabsContent>

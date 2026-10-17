@@ -17,11 +17,11 @@ export const LoadingExamples = () => {
         description="Anticipa la estructura mientras llega el contenido. Mantener el espacio reservado reduce saltos y hace la espera más predecible."
       >
         <div
-          className="flex items-center gap-4 rounded-lg border bg-background p-5"
+          className="flex items-center gap-4 rounded-md border bg-background p-5"
           role="status"
           aria-label="Ejemplo de contenido cargando"
         >
-          <Skeleton className="size-12 shrink-0 rounded-full" />
+          <Skeleton className="size-12 shrink-0 rounded-md" />
           <div className="w-full space-y-3">
             <Skeleton className="h-3 w-3/4" />
             <Skeleton className="h-3 w-1/2" />
@@ -41,7 +41,7 @@ export const LoadingExamples = () => {
         description="Da a una vista un lugar consistente para carga, error y contenido. Prueba a alternar entre los estados de esta demostración."
       >
         <div className="space-y-5">
-          <div className="min-h-12 rounded-lg border bg-background p-4">
+          <div className="min-h-12 rounded-md border bg-background p-4">
             <AsyncBoundary
               isLoading={loading}
               isError={false}

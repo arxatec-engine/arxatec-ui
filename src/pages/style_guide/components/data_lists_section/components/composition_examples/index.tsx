@@ -29,7 +29,7 @@ export const CompositionExamples = () => (
       description="Permite recorrer contenido extenso dentro de un espacio acotado. La página mantiene su estructura mientras la lista se desplaza."
     >
       <ScrollArea
-        className="h-44 rounded-lg border bg-background"
+        className="h-44 rounded-md border bg-background"
         aria-label="Actividad reciente"
         tabIndex={0}
       >
@@ -52,7 +52,7 @@ export const CompositionExamples = () => (
       title="Collapsible"
       description="Oculta detalles que no hacen falta de entrada. El usuario decide cuándo ampliar la información sin cambiar de vista."
     >
-      <Collapsible className="rounded-lg border bg-background">
+      <Collapsible className="rounded-md border bg-background">
         <CollapsibleTrigger asChild>
           <Button variant="ghost" className="w-full justify-between px-5">
             Detalles del proyecto <ChevronDown aria-hidden="true" />
@@ -70,7 +70,7 @@ export const CompositionExamples = () => (
     >
       <ResizablePanelGroup
         direction="horizontal"
-        className="min-h-36 rounded-lg border bg-background"
+        className="min-h-36 rounded-md border bg-background"
       >
         <ResizablePanel defaultSize={40} minSize={25}>
           <div className="flex h-full min-h-36 items-center justify-center text-sm text-muted-foreground">
@@ -97,7 +97,7 @@ export const CompositionExamples = () => (
           <CarouselContent>
             {["Boceto", "Propuesta", "Resultado"].map((item) => (
               <CarouselItem key={item}>
-                <div className="flex min-h-36 flex-col items-center justify-center gap-3 rounded-lg border bg-background">
+                <div className="flex min-h-36 flex-col items-center justify-center gap-3 rounded-md border bg-background">
                   <Layers
                     className="size-6 text-muted-foreground"
                     aria-hidden="true"

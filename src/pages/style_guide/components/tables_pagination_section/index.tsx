@@ -35,7 +35,7 @@ export const TablesPaginationSection = () => {
         title="Table"
         description="Alinea información comparable en columnas estables. Los encabezados y los estados ayudan a recorrer los registros con rapidez."
       >
-        <div className="overflow-hidden rounded-lg border bg-background">
+        <div className="overflow-hidden rounded-md border bg-background">
           <Table>
             <caption className="sr-only">
               Proyectos de ejemplo, página {page} de 3

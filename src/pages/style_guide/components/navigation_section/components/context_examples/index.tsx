@@ -94,7 +94,7 @@ export const ContextExamples = () => (
         <ContextMenuTrigger asChild>
           <button
             type="button"
-            className="flex min-h-20 w-full items-center justify-center rounded-lg border border-dashed bg-background px-4 text-sm text-muted-foreground"
+            className="flex min-h-20 w-full items-center justify-center rounded-md border border-dashed bg-background px-4 text-sm text-muted-foreground"
           >
             Clic derecho o Shift + F10
           </button>

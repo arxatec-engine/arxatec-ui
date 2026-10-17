@@ -11,7 +11,7 @@ export const HeroSection = () => (
     <div className="max-w-2xl pb-12 pt-3 lg:pt-5">
       <p className="mb-6 flex items-center gap-2 text-sm font-medium text-muted-foreground">
         <span
-          className="size-1.5 rounded-full bg-foreground"
+          className="size-1.5 rounded-md bg-foreground"
           aria-hidden="true"
         />
         Guía de estilos
@@ -36,10 +36,10 @@ export const HeroSection = () => (
       </Button>
     </div>
     <div className="flex min-w-0 flex-col gap-5">
-      <article className="w-full min-w-0 rounded-xl border p-6">
+      <article className="w-full min-w-0 rounded-md border p-6">
         <div className="mb-8 flex items-start justify-between gap-4">
           <h2 className="text-sm font-medium">Tipografía</h2>
-          <span className="rounded-full border px-3 py-1 text-xs text-muted-foreground">
+          <span className="rounded-md border px-3 py-1 text-xs text-muted-foreground">
             Sans · 1.1×
           </span>
         </div>
@@ -66,10 +66,10 @@ export const HeroSection = () => (
           añadir ruido.
         </p>
       </article>
-      <article className="w-full min-w-0 rounded-xl border p-6">
+      <article className="w-full min-w-0 rounded-md border p-6">
         <div className="mb-8 flex items-start justify-between gap-4">
           <h2 className="text-sm font-medium">Color con intención</h2>
-          <span className="rounded-full border px-3 py-1 text-xs text-muted-foreground">
+          <span className="rounded-md border px-3 py-1 text-xs text-muted-foreground">
             Claro y oscuro
           </span>
         </div>
@@ -81,7 +81,7 @@ export const HeroSection = () => (
             { label: "Principal", color: "bg-primary" },
           ].map(({ label, color }) => (
             <div key={label} className="min-w-0 space-y-3">
-              <div className={"h-20 rounded-lg border " + color} />
+              <div className={"h-20 rounded-md border " + color} />
               <p className="text-xs text-muted-foreground">{label}</p>
             </div>
           ))}

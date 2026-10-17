@@ -44,7 +44,7 @@ export const DateControlExamples = () => {
             mode="single"
             selected={day}
             onSelect={setDay}
-            className="rounded-lg border bg-background"
+            className="rounded-md border bg-background"
           />
         </div>
       </ComponentPreview>

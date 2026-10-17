@@ -21,7 +21,7 @@ export const ComponentPreview = ({
     <article
       aria-labelledby={titleId}
       className={cn(
-        "flex w-full min-w-0 flex-col overflow-hidden rounded-xl border bg-background",
+        "flex w-full min-w-0 flex-col overflow-hidden rounded-md border bg-background",
         className,
       )}
     >

@@ -77,7 +77,7 @@ export const ProfileExamples = () => {
           </p>
           <EmojiPicker
             onEmojiSelect={({ emoji: nextEmoji }) => setEmoji(nextEmoji)}
-            className="h-60 w-full rounded-lg border bg-background"
+            className="h-60 w-full rounded-md border bg-background"
           >
             <EmojiPickerSearch
               placeholder="Buscar un emoji…"

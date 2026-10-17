@@ -15,7 +15,7 @@ export const GuideHeader = ({ isDark, onDarkChange }: Props) => (
       <a
         href="#fundamentos"
         aria-label="Arxatec, inicio de la guía"
-        className="flex items-center gap-3 rounded-sm"
+        className="flex items-center gap-3 rounded-md"
       >
         <Isotype className="size-7" aria-hidden="true" />
         <Logo className="h-5 w-auto" aria-hidden="true" />

@@ -31,7 +31,7 @@ export const MediaExamples = () => {
         <Image
           src={DEMO_IMAGE}
           alt="Lago entre montañas reflejadas en el agua"
-          className="aspect-video overflow-hidden rounded-lg border"
+          className="aspect-video overflow-hidden rounded-md border"
         />
       </ComponentPreview>
       <ComponentPreview
@@ -42,7 +42,7 @@ export const MediaExamples = () => {
           <Image
             src={croppedImage ?? DEMO_IMAGE}
             alt="Vista previa del encuadre seleccionado"
-            className="size-24 overflow-hidden rounded-lg border"
+            className="size-24 overflow-hidden rounded-md border"
           />
           <Button variant="outline" onClick={() => setCropOpen(true)}>
             <Crop aria-hidden="true" />

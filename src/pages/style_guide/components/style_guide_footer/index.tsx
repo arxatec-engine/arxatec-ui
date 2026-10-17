@@ -11,7 +11,7 @@ export const StyleGuideFooter = () => (
     </p>
     <a
       href="#fundamentos"
-      className="inline-flex min-h-9 items-center gap-2 rounded-sm hover:text-foreground"
+      className="inline-flex min-h-9 items-center gap-2 rounded-md hover:text-foreground"
     >
       Volver al inicio <ArrowUp className="size-4" aria-hidden="true" />
     </a>

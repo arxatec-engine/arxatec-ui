@@ -71,7 +71,7 @@ export const LocationExamples = () => {
         title="MapView"
         description="Da contexto geográfico a una ubicación confirmada. La vista se actualiza al elegir otro punto en los ejemplos de arriba."
       >
-        <div className="isolate overflow-hidden rounded-lg border bg-background">
+        <div className="isolate overflow-hidden rounded-md border bg-background">
           <MapView
             key={location ? location.lat + "," + location.lng : "default"}
             lat={location?.lat ?? -12.1211}
