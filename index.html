@@ -2,9 +2,29 @@
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link
+      id="app-favicon"
+      rel="icon"
+      type="image/svg+xml"
+      href="%BASE_URL%favicon.svg"
+    />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light dark" />
     <title>Guía de estilos · Arxatec UI</title>
+    <script>
+      (function () {
+        var dark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+        var root = document.documentElement;
+        root.classList.toggle("dark", dark);
+        root.style.colorScheme = dark ? "dark" : "light";
+        var favicon = document.getElementById("app-favicon");
+        if (favicon)
+          favicon.href = new URL(
+            dark ? "favicon_dark.svg" : "favicon_light.svg",
+            favicon.href,
+          ).href;
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>
