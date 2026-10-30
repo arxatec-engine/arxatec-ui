@@ -459,7 +459,7 @@ tarball in an isolated copy of `arxatec-lawyer-platform`. React, React Hook Form
 and Tiptap continue to resolve through the consumer's peer dependencies.
 
 This source prepares `0.1.77`; the registry check on 2026-10-30 reported `0.1.75`.
-After the owner merges and publishes, update consumers with
+After publication from clean `main`, update consumers with
 `pnpm update arxatec-ui@0.1.77`. A temporary tarball dependency must stay in the isolated
 validation copy.
 
@@ -567,7 +567,7 @@ only when matching content uses them; omit fonts from PWA precache and cache
 requested faces at runtime. Consumers share `react-hook-form`, `@tiptap/core` and
 `@tiptap/react` as peers alongside React and React Query.
 
-Publication requires owner PR merge and clean-main publish. The platform applies
+Publication requires a clean-main publish. The platform applies
 a seven-day minimum release age to external dependencies and explicitly exempts
 all versions of `arxatec-ui`; validate a tarball in isolation before a registry
 consumer update.

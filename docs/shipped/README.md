@@ -1,72 +1,46 @@
 # Shipped
 
-What **was delivered**. One file per ISO week, one `##` section per task.
+What was delivered. One file per ISO week, one `##` section per task.
 
 ```text
-docs/shipped/2026_W37.md
+docs/shipped/2026_W44.md
 ```
 
-This folder exists so that nobody has to remember to record anything. The agent
-writes it **when closing each feature, inside the same PR** that delivers it: if
-the PR lands, the record lands with it; if the PR does not land, there was no
-delivery and there is nothing to record. That is why it lives next to the code and
-not on a separate board — a record filled in by hand stops being filled in the
-first day someone is in a hurry.
+The owner requests direct work on `main`. Do not create a feature branch or a PR
+unless explicitly asked. The delivery entry travels with the implementation on
+`main`, so its intent is recorded with the change.
 
-The daily summary comes from here. Not the other way around.
+## Delivery
 
-## The whole flow
+1. Implement on `main` and verify the change.
+2. Add the week's delivery entry before closing the feature.
+3. Commit the change and deliver to `main` when the owner requests a remote push.
+4. Publish only from clean `main` after reviewing the candidate tarball.
+5. Update consumers from npm after publication.
 
-1. Pick the task (from `../BACKLOG.md`, or from the priority in `../focus/`).
-2. Own branch: `feat/…`, `fix/…`, `chore/…`.
-3. Implement.
-4. **Before opening the PR**, add this week's section in
-   `docs/shipped/YYYY_W<week>.md`.
-5. PR. On merge, fill in the PR number in the section.
-
-If the week's file does not exist, create it. `date +%G_W%V` gives you the week.
+`date +%G_W%V` gives the ISO week. Do not create a session, investigation or
+status snapshot document.
 
 ## Entry template
 
 ```markdown
 ## Title of what was delivered
 
-> **Branch:** `fix/static-icon-no-longer-kills-the-consumer` · **PR:** #17 · **Merged:** 2026-09-01 · **Published:** `0.1.64`
+> **Branch:** `main` · **PR:** none (direct main) · **Candidate:** `0.1.77` · **Published:** pending
 
-**Intent.** Why it was done, in a sentence or two. The problem the user had, not
-the technical change. If it came from the backlog or from the week's focus, link it.
+**Intent.** The user problem and why the change was made.
 
-**What changed.**
+**What changed.** The resulting behavior and the relevant implementation.
 
-- `src/components/<component>/index.tsx` — what changed and why
-- `src/styles/…` — same
+**How it was verified.** Actual stories, tests, type checks, lint and builds.
+Declare the published version checked when describing a consumer.
 
-**How it was verified.** Say which stories were looked at in Storybook and which
-lint, type, build or unit-test commands ran. Editable-field unit tests run with
-`pnpm test:components`. If the change is publishable, state the new `version` and
-whether it was published.
+**Publication steps.** State which ran: delivery on main, npm publication,
+and registry consumer update. A temporary tarball is only a validation fixture.
 
-**What is still open.** What the PR does not close. If it is a live bug it also
-goes to `../known_issues/`; if it is future work, to `../BACKLOG.md`. Only the
-pointer goes here.
+**What is still open.** Required activation or remaining limitations. Live bugs
+also belong in their detection week's known_issues file.
 ```
 
-**Intent** is the only field that cannot be recovered from `git log`. It is the
-one that matters: in three months the diff will still be there, but why it was
-decided will not.
-
-## What does NOT go here
-
-| Yes                              | No                                     |
-| -------------------------------- | -------------------------------------- |
-| A feature delivered and merged   | Work in progress → not shipped yet     |
-| A bug fixed, with its cause      | A live bug → `../known_issues/`        |
-| A refactor with a visible effect | The line-by-line changelog → `git log` |
-| A decision made while executing  | Ideas → `../BACKLOG.md`                |
-
-## And here, one field more: the version
-
-This package reaches its consumers through npm, not through git. A delivery that
-changes what gets published is not delivered until there is a new `version`, an
-`npm publish` and a `pnpm update arxatec-ui` in the consumer — the three steps in
-[`../../CLAUDE.md`](../../CLAUDE.md). Say in the entry which of the three you did.
+Intent cannot be reconstructed from `git log`. Keep it concrete. Do not report a
+publication or consumer update until it has actually happened.

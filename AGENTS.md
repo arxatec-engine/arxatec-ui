@@ -45,11 +45,11 @@ week from `date +%G_W%V`.
 | -------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------- |
 | [`docs/BACKLOG.md`](./docs/BACKLOG.md)       | Ideas from the whole team and everything missing. One line, no formatting, no priority.                                     | Anyone, whenever                                          |
 | [`docs/focus/`](./docs/focus/)               | **One** priority per week, its actions (one per day) and the action that unblocks each dependency.                          | The CEO, on Monday                                        |
-| [`docs/shipped/`](./docs/shipped/)           | What was delivered: intent, branch, PR, what changed, how it was verified, **and which of the three publishing steps ran**. | **The agent, on closing the feature, inside the same PR** |
+| [`docs/shipped/`](./docs/shipped/)           | What was delivered: intent, branch, PR, what changed, how it was verified, **and which of the three publishing steps ran**. | **The agent, on closing the feature, with the same change on `main`** |
 | [`docs/known_issues/`](./docs/known_issues/) | Live bugs and traps no gate catches. One `##` section per problem.                                                          | Whoever detects it                                        |
 
 The cycle runs one way: idea → `BACKLOG.md` → the week's priority in `focus/` →
-`shipped/` when the PR lands. Whatever breaks along the way falls into
+`shipped/` when the change is delivered. Whatever breaks along the way falls into
 `known_issues/`, and goes back to `BACKLOG.md` if fixing it is work.
 
 In `known_issues/`, the file's week is the week of **detection** and does not
@@ -59,7 +59,7 @@ the whole file is deleted: only true things live there.
 
 **The rule that still stands:** do not create a `.md` to leave a record of a
 session, an investigation or a status snapshot. The `shipped/` entry is not that —
-it is the record of a **delivery**, it travels inside the PR that delivers it, and
+it is the record of a **delivery**, it travels with the change on `main` that delivers it, and
 it exists because **intent is the only thing that cannot be reconstructed from
 `git log`**.
 
@@ -73,4 +73,6 @@ is still in history and is cited, never restored:
 
 ## Git
 
-Branch per unit of work + PR; the owner merges. **Never push straight to main.**
+Work directly on `main`. Do not create branches or pull requests unless the
+owner explicitly asks for them. Deliver requested remote changes directly to
+`main`.

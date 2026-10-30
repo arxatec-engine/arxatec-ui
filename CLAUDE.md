@@ -82,23 +82,23 @@ conversion. Contact, calendar and document
 product compositions are maintained in the platform. Validate a candidate
 tarball before a registry consumer update.
 
-1. Open a PR on an own branch. **The owner merges; never push directly to main.**
-2. Publish only from a clean, merged `main`, after comparing `npm view arxatec-ui
+1. Work directly on `main`, as requested by the owner. Do not create branches
+   or PRs unless explicitly requested; deliver remote changes directly to `main`.
+2. Publish only from a clean `main`, after comparing `npm view arxatec-ui
 version` with source and reviewing the tarball.
 3. Update consumers after publication. Platform uses `pnpm update arxatec-ui@<published-version>` and
    **seven days** of release age (`minimumReleaseAge: 10080`) for external
    dependencies. Its `minimumReleaseAgeExclude` explicitly exempts all versions
    of `arxatec-ui`. Preserve other root dependency pins.
 
-Use an isolated temporary tarball checkout to validate a consumer before merge
-and publication. A tarball `file:` dependency is a validation fixture and must
+Use an isolated temporary tarball checkout to validate a consumer before publication. A tarball `file:` dependency is a validation fixture and must
 not reach the production consumer. State exactly which publication steps ran in
 `docs/shipped/YYYY_Wnn.md`.
 
 Reverified on 2026-10-30: Lawyer Platform declares and locks registry version
 **0.1.75**. Earlier local migration links are historical.
 Validate changes with a candidate tarball in an isolated consumer copy, then
-update the real consumer from the registry after the owner merges and publishes.
+update the real consumer from the registry after publication from clean `main`.
 
 ## Working conventions
 
