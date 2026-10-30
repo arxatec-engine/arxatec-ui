@@ -75,17 +75,17 @@ removing the setup exception silently restores the default worker in consumers.
 ## Version and publication
 
 Every publishable change bumps `package.json#version` in the same commit. Keep the
-existing exports and default behavior compatible. Reverified on 2026-10-17 with
-`npm view arxatec-ui version`: the registry reports **0.1.74**. Source candidate
-**0.1.75** includes the dependency security fix in PR #22, the published Logo
-design variant and shared controls. Contact, calendar and document
+existing exports and default behavior compatible. Reverified on 2026-10-30 with
+`npm view arxatec-ui version`: the registry reports **0.1.75**. Source candidate
+**0.1.77** unifies local and remote Word preview with consumer-owned DOC/ODT
+conversion. Contact, calendar and document
 product compositions are maintained in the platform. Validate a candidate
 tarball before a registry consumer update.
 
 1. Open a PR on an own branch. **The owner merges; never push directly to main.**
 2. Publish only from a clean, merged `main`, after comparing `npm view arxatec-ui
 version` with source and reviewing the tarball.
-3. Update consumers after publication. Platform uses `pnpm update arxatec-ui` and
+3. Update consumers after publication. Platform uses `pnpm update arxatec-ui@<published-version>` and
    **seven days** of release age (`minimumReleaseAge: 10080`) for external
    dependencies. Its `minimumReleaseAgeExclude` explicitly exempts all versions
    of `arxatec-ui`. Preserve other root dependency pins.
@@ -95,9 +95,8 @@ and publication. A tarball `file:` dependency is a validation fixture and must
 not reach the production consumer. State exactly which publication steps ran in
 `docs/shipped/YYYY_Wnn.md`.
 
-Reverified on 2026-10-17: Lawyer Platform declares `arxatec-ui: ^0.1.71`
-and locks registry version **0.1.71**; Admin Platform declares `^0.1.74` and
-locks published **0.1.74**. Earlier local migration links are historical.
+Reverified on 2026-10-30: Lawyer Platform declares and locks registry version
+**0.1.75**. Earlier local migration links are historical.
 Validate changes with a candidate tarball in an isolated consumer copy, then
 update the real consumer from the registry after the owner merges and publishes.
 

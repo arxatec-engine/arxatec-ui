@@ -1,19 +1,42 @@
-import { act, fireEvent, render, screen } from "@testing-library/react";
+import {
+  act,
+  fireEvent,
+  render,
+  screen,
+  waitFor,
+} from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { FileOfficeViewer } from "./index";
 
 const DOCUMENT_URL =
-  "https://files.example.com/Informe final.docx?token=a+b&expires=123#page=2";
+  "https://files.example.com/Informe final.xlsx?token=a+b&expires=123#page=2";
+
+vi.mock("../docx_preview_viewer", () => ({
+  FileDocxPreviewViewer: ({
+    url,
+    fileName,
+  }: {
+    url: string;
+    fileName?: string;
+  }) => (
+    <div data-testid="word-preview" data-url={url}>
+      {fileName}
+    </div>
+  ),
+}));
 
 describe("FileOfficeViewer", () => {
   beforeEach(() => vi.useFakeTimers());
   afterEach(() => vi.useRealTimers());
 
-  it.each(["doc", "docx", "xls", "xlsx", "ppt", "pptx", "odt"])(
+  it.each(["doc", "odt", "xls", "xlsx", "ppt", "pptx"])(
     "keeps the Office Online embed for %s files and preserves signed URL parameters",
     (extension) => {
       render(
-        <FileOfficeViewer url={DOCUMENT_URL} fileName={`Informe.${extension}`} />,
+        <FileOfficeViewer
+          url={DOCUMENT_URL}
+          fileName={`Informe.${extension}`}
+        />,
       );
 
       const iframe = screen.getByTitle(`Informe.${extension}`);
@@ -22,6 +45,30 @@ describe("FileOfficeViewer", () => {
         "https://view.officeapps.live.com/op/embed.aspx",
       );
       expect(embed.searchParams.get("src")).toBe(DOCUMENT_URL);
+    },
+  );
+
+  it.each(["docx", "doc", "odt"])(
+    "uses the own Word viewer for %s without an Office iframe",
+    async (extension) => {
+      vi.useRealTimers();
+      const { container } = render(
+        <FileOfficeViewer
+          url={DOCUMENT_URL}
+          fileName={`Contrato.${extension}`}
+          convertToDocx={extension === "docx" ? undefined : vi.fn()}
+        />,
+      );
+      await waitFor(() =>
+        expect(screen.getByTestId("word-preview")).toHaveTextContent(
+          `Contrato.${extension}`,
+        ),
+      );
+      expect(screen.getByTestId("word-preview")).toHaveAttribute(
+        "data-url",
+        DOCUMENT_URL,
+      );
+      expect(container.querySelector("iframe")).toBeNull();
     },
   );
 
@@ -76,9 +123,9 @@ describe("FileOfficeViewer", () => {
     );
     const nextFrame = screen.getByTitle("Documento Office");
     expect(nextFrame).not.toBe(oldFrame);
-    expect(new URL(nextFrame.getAttribute("src")!).searchParams.get("src")).toBe(
-      nextUrl,
-    );
+    expect(
+      new URL(nextFrame.getAttribute("src")!).searchParams.get("src"),
+    ).toBe(nextUrl);
     expect(onLoadingChange).toHaveBeenLastCalledWith(true);
     fireEvent.load(nextFrame);
     act(() => vi.advanceTimersByTime(2000));

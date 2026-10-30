@@ -7,12 +7,13 @@ import { effectiveMimeFromFile } from "../../utilities/effective_mime_from_file"
 import {
   CODE_FILE_EXTENSIONS,
   CODE_MIME_PREFIXES,
-  DOCX_MIME,
   OFFICE_MIME_TYPES,
   XLSX_MIME,
   XLS_MIME,
 } from "./constants";
 import type { FileViewLoadingChangeHandler } from "../../types";
+import { resolveWordDocumentFormat } from "../../utilities/word_document_format";
+import type { FileWordDocumentConverter } from "../docx_preview_viewer/types";
 
 const FileAudioPlayer = lazyFileViewer<
   ComponentProps<typeof import("../audio_player").FileAudioPlayer>
@@ -68,12 +69,14 @@ export interface FileSimplePreviewRenderProps {
   file: File;
   url: string;
   onLoadingChange?: FileViewLoadingChangeHandler;
+  convertToDocx?: FileWordDocumentConverter;
 }
 
 export const FileSimplePreviewRender = ({
   file,
   url,
   onLoadingChange,
+  convertToDocx,
 }: FileSimplePreviewRenderProps) => {
   const mimeType = effectiveMimeFromFile(file);
   const download = () => downloadFromUrl(url, file.name);
@@ -134,9 +137,13 @@ export const FileSimplePreviewRender = ({
     );
   }
 
-  if (mimeType === DOCX_MIME) {
+  if (resolveWordDocumentFormat(file.name, mimeType)) {
     return (
-      <FileDocxPreviewViewer file={file} onLoadingChange={onLoadingChange} />
+      <FileDocxPreviewViewer
+        file={file}
+        convertToDocx={convertToDocx}
+        onLoadingChange={onLoadingChange}
+      />
     );
   }
 

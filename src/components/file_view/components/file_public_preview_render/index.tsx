@@ -1,4 +1,5 @@
 import type { ComponentProps } from "react";
+import type { FileWordDocumentConverter } from "../docx_preview_viewer/types";
 import { FileMimeRouter } from "../mime_router";
 import { FileUnknownViewer } from "../unknown_viewer";
 import { lazyFileViewer } from "../lazy_viewer";
@@ -22,6 +23,7 @@ const FilePdfViewer = lazyFileViewer<
   import("../pdf_viewer").then((module) => ({ default: module.FilePdfViewer })),
 );
 import { getFilePreviewMimeType } from "../../utilities/preview_mime_type";
+import { resolveWordDocumentFormat } from "../../utilities/word_document_format";
 
 export interface FilePublicPreviewRenderProps {
   fileName: string;
@@ -30,6 +32,7 @@ export interface FilePublicPreviewRenderProps {
   objectUrl: string | null;
   signedUrl: string | null;
   onDownload?: () => void;
+  convertToDocx?: FileWordDocumentConverter;
 }
 
 export const FilePublicPreviewRender = ({
@@ -39,9 +42,15 @@ export const FilePublicPreviewRender = ({
   objectUrl,
   signedUrl,
   onDownload,
+  convertToDocx,
 }: FilePublicPreviewRenderProps) => {
   const resolvedMimeType = getFilePreviewMimeType(fileName, mimeType);
   const previewUrl = objectUrl ?? signedUrl;
+  const wordFormat = resolveWordDocumentFormat(fileName, resolvedMimeType);
+  const officeUrl =
+    wordFormat === "docx" || (wordFormat && convertToDocx)
+      ? previewUrl
+      : signedUrl;
   const hasPreviewUrl = Boolean(previewUrl);
   const publicFileKey = `${fileName}-${previewUrl ?? "preview"}`;
 
@@ -85,14 +94,15 @@ export const FilePublicPreviewRender = ({
         />
       }
       renderOffice={
-        signedUrl ? (
+        officeUrl ? (
           <FileOfficeViewer
-            url={signedUrl}
+            url={officeUrl}
             fileName={fileName}
             mimeType={resolvedMimeType}
             isPending={false}
             isError={false}
             onDownload={onDownload}
+            convertToDocx={convertToDocx}
           />
         ) : (
           <FileUnknownViewer

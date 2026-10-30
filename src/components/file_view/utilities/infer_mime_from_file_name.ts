@@ -1,6 +1,7 @@
 const EXTENSION_TO_MIME: Readonly<Record<string, string>> = {
   pdf: "application/pdf",
   doc: "application/msword",
+  odt: "application/vnd.oasis.opendocument.text",
   docx: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
   png: "image/png",
   jpg: "image/jpeg",

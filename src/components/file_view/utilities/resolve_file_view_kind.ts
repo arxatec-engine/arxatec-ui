@@ -13,6 +13,7 @@ export type FileViewKind = (typeof FILE_VIEW_KIND)[keyof typeof FILE_VIEW_KIND];
 
 export const OFFICE_MIME_TYPES = [
   "application/msword",
+  "application/vnd.oasis.opendocument.text",
   "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
   "application/vnd.ms-powerpoint",
   "application/vnd.openxmlformats-officedocument.presentationml.presentation",
@@ -68,6 +69,7 @@ export function resolveOfficeFileExtension(fileName?: string, mimeType?: string)
   if (mimeType) {
     const mimeToExt: Record<string, string> = {
       "application/msword": "doc",
+      "application/vnd.oasis.opendocument.text": "odt",
       "application/vnd.openxmlformats-officedocument.wordprocessingml.document": "docx",
       "application/vnd.ms-powerpoint": "ppt",
       "application/vnd.openxmlformats-officedocument.presentationml.presentation": "pptx",

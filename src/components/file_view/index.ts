@@ -38,6 +38,8 @@ export * from "./components/file_simple_preview_render";
 export * from "./components/file_url_preview_sheet";
 export * from "./components/file_url_preview_render";
 export * from "./components/docx_preview_viewer";
+export { resolveWordDocumentFormat } from "./utilities/word_document_format";
+export type { WordDocumentFormat } from "./utilities/word_document_format";
 export * from "./components/xlsx_preview_viewer";
 export * from "./components/blob_office_unavailable";
 export * from "./components/file_source_file_viewer";

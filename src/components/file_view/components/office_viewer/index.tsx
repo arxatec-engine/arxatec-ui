@@ -1,10 +1,32 @@
 import { FileViewErrorState } from "../error_state";
 import { useState } from "react";
+import type { ComponentProps } from "react";
 import { useFileViewLoadingChange } from "../../hooks";
+import { getFileNameFromUrl } from "../../utilities/get_extension_from_url";
+import { resolveWordDocumentFormat } from "../../utilities/word_document_format";
+import { lazyFileViewer } from "../lazy_viewer";
 import { FileOfficeViewerContent } from "./components/file_office_viewer_content";
 import type { FileOfficeViewerProps } from "./types";
 
-export const FileOfficeViewer = ({
+const FileDocxPreviewViewer = lazyFileViewer<
+  ComponentProps<typeof import("../docx_preview_viewer").FileDocxPreviewViewer>
+>(() =>
+  import("../docx_preview_viewer").then((module) => ({
+    default: module.FileDocxPreviewViewer,
+  })),
+);
+
+export const FileOfficeViewer = (props: FileOfficeViewerProps) => {
+  const name =
+    props.fileName || (props.url ? getFileNameFromUrl(props.url) : undefined);
+  const format = resolveWordDocumentFormat(name, props.mimeType);
+  if (format === "docx" || (format && props.convertToDocx)) {
+    return <FileDocxPreviewViewer {...props} fileName={name} />;
+  }
+  return <FileOfficeEmbedViewer key={props.url} {...props} />;
+};
+
+const FileOfficeEmbedViewer = ({
   url,
   fileName,
   mimeType,

@@ -4,8 +4,7 @@ import { useEffect, useState } from "react";
 import { FileDocxPreviewViewer } from "./index";
 import { FilePreviewPlayground } from "../file_preview_playground";
 
-const SAMPLE_DOCX =
-  "https://file-examples.com/storage/fe52cb0c5964eab1971/2017/10/file_example_DOCX_10.docx";
+const SAMPLE_DOCX = new URL("./fixtures/contract.docx", import.meta.url).href;
 
 const DEFAULT_FILE = new File([], "ejemplo.docx", {
   type: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
@@ -18,7 +17,8 @@ const meta = {
     layout: "fullscreen",
     docs: {
       description: {
-        component: "Previsualización local de archivos .docx con docx-preview.",
+        component:
+          "Visor Word propio para archivos locales y URL. DOC/ODT requieren convertToDocx del consumidor.",
       },
     },
   },
@@ -28,7 +28,7 @@ const meta = {
   },
   decorators: [
     (Story) => (
-      <div className="h-[600px] w-full overflow-auto">
+      <div className="h-screen w-full overflow-hidden">
         <Story />
       </div>
     ),
@@ -76,6 +76,18 @@ export const Default: Story = {
   render: () => <WithDocxFile />,
 };
 
+export const Url: Story = {
+  args: { file: undefined, url: SAMPLE_DOCX, fileName: "Contrato.docx" },
+};
+
+export const Loading: Story = {
+  args: { file: DEFAULT_FILE, isPending: true },
+};
+
+export const InvalidDocument: Story = {
+  args: { file: new File(["invalid zip"], "Documento.docx") },
+};
+
 export const Playground: Story = {
   parameters: { controls: { disable: true } },
   args: {
@@ -84,10 +96,15 @@ export const Playground: Story = {
   render: () => (
     <FilePreviewPlayground
       accept=".docx"
-      requireFile
-      hint="Sube un .docx local o pega la URL de un .docx accesible (CORS)."
+      hint="Abre un DOCX local o una URL accesible desde el navegador (CORS)."
     >
-      {({ file }) => (file ? <FileDocxPreviewViewer file={file} /> : null)}
+      {({ file, url, fileName }) =>
+        file ? (
+          <FileDocxPreviewViewer file={file} />
+        ) : (
+          <FileDocxPreviewViewer url={url} fileName={fileName} />
+        )
+      }
     </FilePreviewPlayground>
   ),
 };

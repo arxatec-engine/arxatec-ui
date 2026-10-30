@@ -6,6 +6,8 @@ import { getExtensionFromUrl } from "../../utilities/get_extension_from_url";
 import { inferMimeFromFileName } from "../../utilities/infer_mime_from_file_name";
 import { IMAGE_EXTENSIONS, OFFICE_EXTENSIONS } from "./constants";
 import type { FileViewLoadingChangeHandler } from "../../types";
+import { resolveWordDocumentFormat } from "../../utilities/word_document_format";
+import type { FileWordDocumentConverter } from "../docx_preview_viewer/types";
 
 const FileImageViewer = lazyFileViewer<
   ComponentProps<typeof import("../image_viewer").FileImageViewer>
@@ -31,12 +33,14 @@ export interface FileUrlPreviewRenderProps {
   url: string;
   fileName: string;
   onLoadingChange?: FileViewLoadingChangeHandler;
+  convertToDocx?: FileWordDocumentConverter;
 }
 
 export const FileUrlPreviewRender = ({
   url,
   fileName,
   onLoadingChange,
+  convertToDocx,
 }: FileUrlPreviewRenderProps) => {
   const ext = getExtensionFromUrl(url);
   const download = () => downloadFromUrl(url, fileName);
@@ -66,7 +70,7 @@ export const FileUrlPreviewRender = ({
     );
   }
 
-  if (OFFICE_EXTENSIONS.includes(ext)) {
+  if (OFFICE_EXTENSIONS.includes(ext) || resolveWordDocumentFormat(fileName)) {
     return (
       <FileOfficeViewer
         url={url}
@@ -74,6 +78,7 @@ export const FileUrlPreviewRender = ({
         mimeType={inferMimeFromFileName(fileName) ?? undefined}
         onDownload={download}
         onLoadingChange={onLoadingChange}
+        convertToDocx={convertToDocx}
       />
     );
   }

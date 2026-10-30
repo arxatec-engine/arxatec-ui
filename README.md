@@ -458,9 +458,9 @@ For local integration checks, build and pack this library, then install the
 tarball in an isolated copy of `arxatec-lawyer-platform`. React, React Hook Form
 and Tiptap continue to resolve through the consumer's peer dependencies.
 
-This source prepares `0.1.75`; the registry check on 2026-10-17 reported `0.1.74`.
+This source prepares `0.1.77`; the registry check on 2026-10-30 reported `0.1.75`.
 After the owner merges and publishes, update consumers with
-`pnpm update arxatec-ui`. A temporary tarball dependency must stay in the isolated
+`pnpm update arxatec-ui@0.1.77`. A temporary tarball dependency must stay in the isolated
 validation copy.
 
 Publishing to npm requires **2FA**; use `npm publish --otp=...` when prompted.
@@ -493,11 +493,58 @@ const PdfViewer = lazyFileViewer<FilePdfViewerProps>(() =>
 Engine entries under `/file-view/` are `pdf`, `image`, `office`, `code`, `template`,
 `docx`, `xlsx`, `audio`, `video`, `summary` and `transcription`. The core does not
 import PDF or another engine. HEIC conversion loads `heic2any` only for HEIC.
-The Office engine embeds Microsoft Office Online directly and requires a publicly
-accessible document URL. Its loading and download callbacks use the same API.
+The Office engine routes DOCX to the local Word renderer. DOC and ODT use that
+renderer when a `convertToDocx` callback is supplied. Other Office formats and
+legacy DOC/ODT consumers without a converter retain the Office Online embed,
+which requires a publicly accessible URL. Loading and download callbacks retain
+their API.
 The wrapper loads without adding loading, error or retry controls. Loading
 callbacks reach the existing parent sheet; a failed load ends its pending state.
 Closing and reopening the sheet allows another load attempt.
+
+### Word preview from a file or URL (0.1.77)
+
+```tsx
+import { FileDocxPreviewViewer } from "arxatec-ui/file-view/docx";
+import type { FileWordDocumentConverter } from "arxatec-ui/file-view/core";
+
+// Supply your authenticated application service for DOC and ODT conversion.
+const convertToDocx: FileWordDocumentConverter = convertWordFile;
+
+<FileDocxPreviewViewer
+  url={signedUrl}
+  fileName="Contrato.odt"
+  convertToDocx={convertToDocx}
+  onDownload={downloadOriginal}
+  onLoadingChange={setLoading}
+/>;
+
+<FileDocxPreviewViewer file={localFile} convertToDocx={convertToDocx} />;
+```
+
+Pass either `file` or `url`. Remote sources must permit browser fetching (CORS);
+the URL, including signed parameters, is passed intact. DOCX renders directly.
+For DOC/ODT the converter receives the original `File` and `{ signal }`, and must
+return a real DOCX `Blob`. The kit owns no business API or persistence. A stable
+application callback should forward cancellation to its upload/conversion request.
+The original source remains the default download; `onDownload` can renew its URL.
+
+`convertToDocx` is also accepted by `FileOfficeViewer`, `FileSimplePreviewRender`,
+`FileSimplePreviewSheet`, `FileUrlPreviewRender`, `FileUrlPreviewSheet` and
+`FilePublicPreviewRender`. The direct Word viewer reports an error when a DOC/ODT
+converter is missing; it does not pretend to render legacy bytes as DOCX.
+
+Loading covers download, conversion, document rendering, fonts and image decode.
+`loadingOverlay` replaces the default loader, and `isPending`, `isError`, `onError`
+and `onLoadingChange` integrate with application state. Errors offer retry and
+original download. A source change or close aborts network/conversion work and
+discards late renders. Pages fit the available width and retain zoom and scrolling.
+
+Document styles are isolated in a Shadow DOM. Embedded HTML altChunks are disabled
+and active hyperlink schemes are removed. This is a preview engine, not an editor
+or a Word pagination guarantee: test tables, fonts, headers and long documents
+against your own files. Storybook includes a bundled two-page fixture, local-file
+and URL paths, loading, invalid-document and upload playground stories.
 
 `FileViewSheet` accepts `lazyPanels?: boolean`, default `false`. Set it to `true`
 to mount only the initial panel and mount each other panel on its first visit.

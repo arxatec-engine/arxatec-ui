@@ -10,6 +10,7 @@ import { StatusMessage } from "@/components/status_message";
 import { FileUrlPreviewRender } from "../file_url_preview_render";
 import { getFileNameFromUrl } from "../../utilities/get_extension_from_url";
 import type { FileViewLoadingChangeHandler } from "../../types";
+import type { FileWordDocumentConverter } from "../docx_preview_viewer/types";
 
 export interface FileUrlPreviewSheetProps {
   open: boolean;
@@ -21,6 +22,7 @@ export interface FileUrlPreviewSheetProps {
   isError?: boolean;
   loadingOverlay?: React.ReactNode;
   onLoadingChange?: FileViewLoadingChangeHandler;
+  convertToDocx?: FileWordDocumentConverter;
 }
 
 export const FileUrlPreviewSheet = ({
@@ -33,6 +35,7 @@ export const FileUrlPreviewSheet = ({
   isError = false,
   loadingOverlay,
   onLoadingChange,
+  convertToDocx,
 }: FileUrlPreviewSheetProps) => {
   const displayName =
     fileName ?? (url ? getFileNameFromUrl(url) : "Vista previa");
@@ -71,6 +74,7 @@ export const FileUrlPreviewSheet = ({
               url={url}
               fileName={displayName}
               onLoadingChange={onLoadingChange}
+              convertToDocx={convertToDocx}
             />
           )}
         </div>

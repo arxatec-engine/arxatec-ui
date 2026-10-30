@@ -7,6 +7,7 @@ import {
 } from "@/components/sheet";
 import { FileSimplePreviewRender } from "../file_simple_preview_render";
 import type { FileViewLoadingChangeHandler } from "../../types";
+import type { FileWordDocumentConverter } from "../docx_preview_viewer/types";
 
 export interface FileSimplePreviewSheetProps {
   open: boolean;
@@ -15,6 +16,7 @@ export interface FileSimplePreviewSheetProps {
   isLoading?: boolean;
   loadingOverlay?: React.ReactNode;
   onLoadingChange?: FileViewLoadingChangeHandler;
+  convertToDocx?: FileWordDocumentConverter;
 }
 
 export const FileSimplePreviewSheet = ({
@@ -24,6 +26,7 @@ export const FileSimplePreviewSheet = ({
   isLoading = false,
   loadingOverlay,
   onLoadingChange,
+  convertToDocx,
 }: FileSimplePreviewSheetProps) => {
   const url = useMemo(() => {
     if (!open || !file) return null;
@@ -52,6 +55,7 @@ export const FileSimplePreviewSheet = ({
                 file={file}
                 url={url}
                 onLoadingChange={onLoadingChange}
+                convertToDocx={convertToDocx}
               />
             </div>
           )}

@@ -23,3 +23,6 @@ export { resolveTemplateFileKind } from "../components/file_view/components/temp
 
 export * from "../components/file_view/components/file_public_preview_render";
 export * from "../components/file_view/utilities/preview_mime_type";
+export { resolveWordDocumentFormat } from "../components/file_view/utilities/word_document_format";
+export type { WordDocumentFormat } from "../components/file_view/utilities/word_document_format";
+export type { FileWordDocumentConverter } from "../components/file_view/components/docx_preview_viewer/types";
