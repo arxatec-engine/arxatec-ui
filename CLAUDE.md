@@ -64,7 +64,9 @@ and AI panels, public-file layouts, account/quota bars and transfers/toasts.
 Keep FileTypeIcon, FolderIcon, FileThumbnail, shared explorer primitives and
 generic file viewers in this kit. Promote further behavior only with independent
 consumers and a stable shared contract. Routine screen changes should be
-delivered from the application alone.
+delivered from the application alone. Brand and generic feedback tokens stay in this
+kit; workspace-tinted product palettes, business statuses and chart mappings
+belong to Lawyer Platform.
 
 `react`, `react-dom`, React Query, `react-hook-form`, `@tiptap/core` and
 `@tiptap/react` are shared peers. Consumers must resolve one coherent Tiptap core
@@ -75,18 +77,19 @@ removing the setup exception silently restores the default worker in consumers.
 ## Version and publication
 
 Every publishable change bumps `package.json#version` in the same commit. Keep the
-existing exports and default behavior compatible. Reverified on 2026-10-30 with
-`npm view arxatec-ui version`: the registry reports **0.1.75**. Source candidate
-**0.1.77** unifies local and remote Word preview with consumer-owned DOC/ODT
-conversion. Contact, calendar and document
-product compositions are maintained in the platform. Validate a candidate
-tarball before a registry consumer update.
+existing exports and default behavior compatible. Reverified on 2026-10-31 with
+`npm view arxatec-ui version`: the registry reports **0.1.78**. Source candidate
+**0.1.79** includes the unified local and remote Word preview with consumer-owned DOC/ODT
+conversion and the background and page-shadow adjustments for Word and PDF. The current color work keeps brand and generic feedback colors in
+the kit and moves Lawyer product tokens and workspace-tinted palettes into the platform. Contact,
+calendar and document product compositions are maintained in the platform.
+Validate a candidate tarball before a registry consumer update.
 
 1. Work directly on `main`, as requested by the owner. Do not create branches
    or PRs unless explicitly requested; deliver remote changes directly to `main`.
 2. Publish only from a clean `main`, after comparing `npm view arxatec-ui
 version` with source and reviewing the tarball.
-3. Update consumers after publication. Platform uses `pnpm update arxatec-ui@<published-version>` and
+3. Update consumers after publication. Platform uses `pnpm update arxatec-ui` and
    **seven days** of release age (`minimumReleaseAge: 10080`) for external
    dependencies. Its `minimumReleaseAgeExclude` explicitly exempts all versions
    of `arxatec-ui`. Preserve other root dependency pins.
@@ -95,8 +98,9 @@ Use an isolated temporary tarball checkout to validate a consumer before publica
 not reach the production consumer. State exactly which publication steps ran in
 `docs/shipped/YYYY_Wnn.md`.
 
-Reverified on 2026-10-30: Lawyer Platform declares and locks registry version
-**0.1.75**. Earlier local migration links are historical.
+Reverified on 2026-10-31: Lawyer Platform's working tree declares
+`arxatec-ui: 0.1.78` and locks registry version **0.1.78**.
+Earlier local migration links are historical.
 Validate changes with a candidate tarball in an isolated consumer copy, then
 update the real consumer from the registry after publication from clean `main`.
 

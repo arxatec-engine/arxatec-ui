@@ -65,6 +65,31 @@ The same stylesheet **also appends** CSS extracted from the library build (TipTa
 
 The theme expects a **`.dark`** ancestor (e.g. `className="dark"` on `<html>`).
 
+### Color ownership
+
+`arxatec-ui` owns brand and generic interface tokens: primary/accent, surfaces,
+text, borders, focus, selection, editor colors, file icons and generic charts.
+Shared feedback uses the existing `status-*` tokens in both themes: error red,
+success green, warning amber and information blue. `--theme-hue` remains
+available for brand accents and loading/selection tints. Inspect
+`Foundations/WorkspacePalette` in Storybook for generic messages and real toasts.
+
+Lawyer Platform owns product color families, their workspace tint, case states
+and urgency, task priorities, calendar swatches, licenses, finance/billing
+badges and chart series. Source candidate `0.1.78` removes those product tokens
+and their `--color-*` Tailwind mappings from this library. The platform defines
+them in `src/styles/themes/product-colors.css` and imports them after this
+stylesheet, in the same CSS entry, so Tailwind can generate product utilities.
+Migrate those application styles before updating the library.
+
+Task tags use the application's persisted HEX or HEX presets and contrasting
+text; their obsolete `--task-tag-*` tokens are also removed. User-selected,
+provider and export colors stay with the consuming product.
+
+The registry version is `0.1.75` (verified 2026-10-30). The `0.1.78` candidate
+is validated as a tarball in an isolated consumer before publication; production
+consumers update from the registry after publication.
+
 ## Basic usage
 
 ```tsx
@@ -458,9 +483,9 @@ For local integration checks, build and pack this library, then install the
 tarball in an isolated copy of `arxatec-lawyer-platform`. React, React Hook Form
 and Tiptap continue to resolve through the consumer's peer dependencies.
 
-This source prepares `0.1.77`; the registry check on 2026-10-30 reported `0.1.75`.
+Source candidate `0.1.78` includes the Word preview added in `0.1.77`; the registry check on 2026-10-30 reported `0.1.75`.
 After publication from clean `main`, update consumers with
-`pnpm update arxatec-ui@0.1.77`. A temporary tarball dependency must stay in the isolated
+`pnpm update arxatec-ui@0.1.78`. A temporary tarball dependency must stay in the isolated
 validation copy.
 
 Publishing to npm requires **2FA**; use `npm publish --otp=...` when prompted.

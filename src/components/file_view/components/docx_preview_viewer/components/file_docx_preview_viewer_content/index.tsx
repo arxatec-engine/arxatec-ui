@@ -14,7 +14,7 @@ import type { FileDocxPreviewViewerProps } from "../../types";
 const DOCUMENT_STYLES = `
   :host { display: block; width: max-content; color: #111827; font-family: Arial, sans-serif; line-height: normal; text-align: left; }
   .docx-preview-container-wrapper { background: transparent; padding: 16px; }
-  section.docx-preview-container { box-shadow: 0 1px 6px #0002; }
+  .docx-preview-container-wrapper > section.docx-preview-container { box-shadow: var(--shadow-xs, 0 1px 2px 0 rgb(0 0 0 / 0.05)); }
 `;
 
 export const FileDocxPreviewViewerContent = ({
@@ -201,7 +201,7 @@ export const FileDocxPreviewViewerContent = ({
 
   return (
     <div
-      className="relative h-full min-h-0 w-full bg-accent"
+      className="relative h-full min-h-0 w-full bg-background"
       aria-busy={loading}
     >
       <div

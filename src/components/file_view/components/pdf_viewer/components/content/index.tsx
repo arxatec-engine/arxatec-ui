@@ -153,7 +153,7 @@ export const Content = forwardRef<ContentHandle, Props>(
     return (
       <div
         ref={containerRef}
-        className="flex-1 overflow-auto p-6 muted h-full w-full bg-accent"
+        className="flex-1 overflow-auto p-6 muted h-full w-full bg-background"
       >
         <Document
           file={url}
@@ -170,7 +170,7 @@ export const Content = forwardRef<ContentHandle, Props>(
                 key={page}
                 ref={registerPageElement(page)}
                 data-page={page}
-                className="bg-background shadow-sm"
+                className="bg-background shadow-xs"
               >
                 {renderedPages.has(page) ? (
                   <Page

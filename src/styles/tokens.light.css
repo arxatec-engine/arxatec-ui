@@ -1,10 +1,10 @@
 /**
  * Light theme tokens (default).
  * These variables are consumed by `theme.css` to feed the Tailwind namespace.
- * Only raw design system values live here.
+ * Surface values and semantic aliases live here; palette.css supplies colors.
  */
 :root {
-  /* Hue base de la paleta de estados/badges; `data-theme-color` lo sobreescribe. */
+  /* Workspace accent hue; semantic colors retain their own identity. */
   --theme-hue: 260;
   --radius: 0.5rem;
 
@@ -79,86 +79,32 @@
   --sidebar-ring: oklch(0.708 0 0);
 
   /* Status — toast and messages */
-  --status-background-error: oklch(94% 0.03 calc(var(--theme-hue) - 10));
-  --status-foreground-error: oklch(28% 0.035 calc(var(--theme-hue) - 10));
-  --status-background-success: oklch(92% 0.028 calc(var(--theme-hue) - 50));
-  --status-foreground-success: oklch(26% 0.032 calc(var(--theme-hue) - 50));
-  --status-background-warning: oklch(90% 0.03 calc(var(--theme-hue) + 15));
-  --status-foreground-warning: oklch(30% 0.033 calc(var(--theme-hue) + 15));
-  --status-background-info: oklch(88% 0.032 calc(var(--theme-hue) - 30));
-  --status-foreground-info: oklch(28% 0.035 calc(var(--theme-hue) - 30));
-  --status-background-loading: oklch(90% 0.018 var(--theme-hue));
-  --status-foreground-loading: oklch(32% 0.018 var(--theme-hue));
+  --status-background-error: oklch(95% 0.035 25);
+  --status-foreground-error: oklch(40% 0.13 25);
+  --status-background-success: oklch(95% 0.035 150);
+  --status-foreground-success: oklch(40% 0.1 150);
+  --status-background-warning: oklch(95% 0.035 85);
+  --status-foreground-warning: oklch(42% 0.1 85);
+  --status-background-info: oklch(95% 0.035 255);
+  --status-foreground-info: oklch(40% 0.13 255);
+  --status-background-loading: oklch(95% 0.025 var(--theme-hue));
+  --status-foreground-loading: oklch(40% 0.08 var(--theme-hue));
 
   /* Status — card */
-  --status-card-background-error: oklch(94% 0.035 27.325);
-  --status-card-border-error: oklch(90% 0.055 27.325);
-  --status-card-foreground-error: var(--destructive);
-  --status-card-background-icon-error: oklch(90% 0.07 27.325);
+  --status-card-background-error: var(--status-background-error);
+  --status-card-border-error: oklch(88% 0.06 25);
+  --status-card-foreground-error: var(--status-foreground-error);
+  --status-card-background-icon-error: oklch(91% 0.055 25);
 
   --status-card-background-empty: oklch(98.5% 0 0);
   --status-card-border-empty: oklch(0.922 0 0);
   --status-card-foreground-empty: oklch(0.205 0 0);
   --status-card-background-icon-empty: oklch(0.955 0 0);
 
-  /* Calendar */
-  --calendar-color-gray: oklch(50% 0.02 var(--theme-hue));
-  --calendar-color-red: oklch(34% 0.035 calc(var(--theme-hue) - 10));
-  --calendar-color-yellow: oklch(52% 0.03 calc(var(--theme-hue) + 18));
-  --calendar-color-orange: oklch(38% 0.032 calc(var(--theme-hue) - 2));
-  --calendar-color-purple: oklch(30% 0.038 calc(var(--theme-hue) + 25));
-  --calendar-color-blue: oklch(44% 0.035 calc(var(--theme-hue) - 20));
-  --calendar-color-indigo: oklch(36% 0.033 calc(var(--theme-hue) + 8));
-  --calendar-color-sky: oklch(48% 0.034 calc(var(--theme-hue) - 35));
-  --calendar-color-green: oklch(42% 0.028 calc(var(--theme-hue) - 50));
-  --calendar-color-lime: oklch(56% 0.03 calc(var(--theme-hue) - 55));
-
-  /* Case urgency */
-  --case-urgency-critical-background: oklch(95% 0.01 var(--theme-hue));
-  --case-urgency-critical-foreground: oklch(25% 0.01 var(--theme-hue));
-  --case-urgency-high-background: oklch(90% 0.01 var(--theme-hue));
-  --case-urgency-high-foreground: oklch(30% 0.01 var(--theme-hue));
-  --case-urgency-medium-background: oklch(85% 0.01 var(--theme-hue));
-  --case-urgency-medium-foreground: oklch(35% 0.01 var(--theme-hue));
-  --case-urgency-low-background: oklch(80% 0.01 var(--theme-hue));
-  --case-urgency-low-foreground: oklch(40% 0.01 var(--theme-hue));
-
-  /* Case status */
-  --case-status-open-background: oklch(88% 0.01 var(--theme-hue));
-  --case-status-open-foreground: oklch(32% 0.01 var(--theme-hue));
-  --case-status-in-progress-background: oklch(92% 0.01 var(--theme-hue));
-  --case-status-in-progress-foreground: oklch(28% 0.01 var(--theme-hue));
-  --case-status-closed-background: oklch(85% 0.01 var(--theme-hue));
-  --case-status-closed-foreground: oklch(38% 0.01 var(--theme-hue));
-  --case-status-archived-background: oklch(75% 0.01 var(--theme-hue));
-  --case-status-archived-foreground: oklch(25% 0.01 var(--theme-hue));
-  --case-status-under-negotiation-background: oklch(87% 0.01 var(--theme-hue));
-  --case-status-under-negotiation-foreground: oklch(34% 0.01 var(--theme-hue));
-  --case-status-waiting-for-customer-background: oklch(89% 0.01 var(--theme-hue));
-  --case-status-waiting-for-customer-foreground: oklch(31% 0.01 var(--theme-hue));
-  --case-status-awaiting-trial-background: oklch(91% 0.01 var(--theme-hue));
-  --case-status-awaiting-trial-foreground: oklch(29% 0.01 var(--theme-hue));
-  --case-status-waiting-background: oklch(86% 0.01 var(--theme-hue));
-  --case-status-waiting-foreground: oklch(33% 0.01 var(--theme-hue));
-
   /* Documents selector */
   --selector-rectangle: oklch(94% 0.022 calc(var(--theme-hue) - 22));
   --selector-background: oklch(97% 0.014 calc(var(--theme-hue) - 20));
   --selector-foreground: oklch(38% 0.032 calc(var(--theme-hue) - 22));
-
-  /* License status */
-  --license-valid-foreground: oklch(26% 0.032 calc(var(--theme-hue) - 50));
-  --license-valid-background: oklch(92% 0.028 calc(var(--theme-hue) - 50));
-  --license-invalid-foreground: oklch(28% 0.035 calc(var(--theme-hue) - 10));
-  --license-invalid-background: oklch(94% 0.03 calc(var(--theme-hue) - 10));
-  --license-no-config-foreground: oklch(28% 0.035 calc(var(--theme-hue) - 30));
-  --license-no-config-background: oklch(86% 0.032 calc(var(--theme-hue) - 30));
-
-  /* Finances type */
-  --finance-type-income-background: oklch(92% 0.028 calc(var(--theme-hue) - 50));
-  --finance-type-income-foreground: oklch(26% 0.032 calc(var(--theme-hue) - 50));
-  --finance-type-expense-background: oklch(94% 0.03 calc(var(--theme-hue) - 5));
-  --finance-type-expense-foreground: oklch(28% 0.035 calc(var(--theme-hue) - 5));
 
   /* TipTap / RichTextEditor */
   --editor-text-default: hsl(240 10% 3.9%);
@@ -194,93 +140,18 @@
   --editor-spacing-8: 2rem;
   --editor-spacing-12: 3rem;
   --editor-spacing-16: 4rem;
-  --editor-font-sans: "ArxatecSans", ui-sans-serif, system-ui, -apple-system,
-    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  --editor-font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
-    monospace;
+  --editor-font-sans:
+    "ArxatecSans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  --editor-font-mono:
+    ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
   --editor-font-serif: Georgia, Cambria, "Times New Roman", Times, serif;
   --editor-transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
   --editor-transition-normal: 200ms cubic-bezier(0.4, 0, 0.2, 1);
   --editor-transition-slow: 300ms cubic-bezier(0.4, 0, 0.2, 1);
   --editor-shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-  --editor-shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1),
-    0 2px 4px -2px rgb(0 0 0 / 0.1);
-  --editor-shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1),
-    0 4px 6px -4px rgb(0 0 0 / 0.1);
-
-  /* Task tag colors */
-  --task-tag-foreground-gray: oklch(32% 0.02 var(--theme-hue));
-  --task-tag-background-gray: oklch(92% 0.02 var(--theme-hue));
-
-  --task-tag-foreground-red: oklch(26% 0.035 calc(var(--theme-hue) - 10));
-  --task-tag-background-red: oklch(86% 0.03 calc(var(--theme-hue) - 10));
-
-  --task-tag-foreground-yellow: oklch(34% 0.032 calc(var(--theme-hue) + 18));
-  --task-tag-background-yellow: oklch(94% 0.028 calc(var(--theme-hue) + 18));
-
-  --task-tag-foreground-orange: oklch(30% 0.033 calc(var(--theme-hue) - 2));
-  --task-tag-background-orange: oklch(82% 0.03 calc(var(--theme-hue) - 2));
-
-  --task-tag-foreground-purple: oklch(28% 0.038 calc(var(--theme-hue) + 25));
-  --task-tag-background-purple: oklch(90% 0.035 calc(var(--theme-hue) + 25));
-
-  --task-tag-foreground-blue: oklch(32% 0.035 calc(var(--theme-hue) - 20));
-  --task-tag-background-blue: oklch(88% 0.032 calc(var(--theme-hue) - 20));
-
-  --task-tag-foreground-indigo: oklch(29% 0.033 calc(var(--theme-hue) + 10));
-  --task-tag-background-indigo: oklch(93% 0.03 calc(var(--theme-hue) + 10));
-
-  --task-tag-foreground-sky: oklch(33% 0.034 calc(var(--theme-hue) - 35));
-  --task-tag-background-sky: oklch(84% 0.032 calc(var(--theme-hue) - 35));
-
-  --task-tag-foreground-green: oklch(28% 0.028 calc(var(--theme-hue) - 50));
-  --task-tag-background-green: oklch(91% 0.025 calc(var(--theme-hue) - 50));
-
-  --task-tag-foreground-lime: oklch(36% 0.03 calc(var(--theme-hue) - 55));
-  --task-tag-background-lime: oklch(89% 0.028 calc(var(--theme-hue) - 55));
-
-  /* Task priority colors */
-  --task-priority-foreground-low: oklch(28% 0.028 calc(var(--theme-hue) - 50));
-  --task-priority-background-low: oklch(91% 0.025 calc(var(--theme-hue) - 50));
-
-  --task-priority-foreground-medium: oklch(30% 0.03 calc(var(--theme-hue) - 20));
-  --task-priority-background-medium: oklch(88% 0.028 calc(var(--theme-hue) - 20));
-
-  --task-priority-foreground-high: oklch(32% 0.033 var(--theme-hue));
-  --task-priority-background-high: oklch(85% 0.03 var(--theme-hue));
-
-  --task-priority-foreground-critical: oklch(26% 0.035 calc(var(--theme-hue) - 10));
-  --task-priority-background-critical: oklch(94% 0.032 calc(var(--theme-hue) - 10));
-
-  /* Billing type */
-  --billing-type-invoice-background: oklch(88% 0.032 calc(var(--theme-hue) - 20));
-  --billing-type-invoice-foreground: oklch(32% 0.035 calc(var(--theme-hue) - 20));
-
-  --billing-type-proforma-background: oklch(90% 0.03 calc(var(--theme-hue) + 8));
-  --billing-type-proforma-foreground: oklch(29% 0.033 calc(var(--theme-hue) + 8));
-
-  --billing-type-receipt-background: oklch(92% 0.028 calc(var(--theme-hue) - 50));
-  --billing-type-receipt-foreground: oklch(26% 0.032 calc(var(--theme-hue) - 50));
-
-  --billing-type-credit-note-background: oklch(94% 0.035 calc(var(--theme-hue) + 25));
-  --billing-type-credit-note-foreground: oklch(28% 0.038 calc(var(--theme-hue) + 25));
-
-  /* Billing status */
-  --billing-status-draft-background: oklch(96% 0.018 var(--theme-hue));
-  --billing-status-draft-foreground: oklch(55% 0.02 var(--theme-hue));
-
-  --billing-status-issued-background: oklch(88% 0.032 calc(var(--theme-hue) - 20));
-  --billing-status-issued-foreground: oklch(32% 0.035 calc(var(--theme-hue) - 20));
-
-  --billing-status-partially-paid-background: oklch(94% 0.028 calc(var(--theme-hue) + 18));
-  --billing-status-partially-paid-foreground: oklch(34% 0.032 calc(var(--theme-hue) + 18));
-
-  --billing-status-paid-background: oklch(92% 0.028 calc(var(--theme-hue) - 50));
-  --billing-status-paid-foreground: oklch(26% 0.032 calc(var(--theme-hue) - 50));
-
-  --billing-status-overdue-background: oklch(94% 0.03 calc(var(--theme-hue) - 10));
-  --billing-status-overdue-foreground: oklch(28% 0.035 calc(var(--theme-hue) - 10));
-
-  --billing-status-cancelled-background: oklch(96% 0.02 var(--theme-hue));
-  --billing-status-cancelled-foreground: oklch(55% 0.02 var(--theme-hue));
+  --editor-shadow-md:
+    0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --editor-shadow-lg:
+    0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
 }
