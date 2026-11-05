@@ -164,7 +164,7 @@ export const AnnotationsSidePanel = ({
                 aria-labelledby={`ann-page-${page}`}
                 className="flex flex-col gap-1.5"
               >
-                <div className="sticky top-0 z-10 flex items-center justify-between gap-2 bg-card/95 p-1 backdrop-blur-sm">
+                <div className="sticky top-0 z-10 flex items-center justify-between gap-2 bg-card p-1">
                   <h3
                     id={`ann-page-${page}`}
                     className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground"

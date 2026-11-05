@@ -77,7 +77,7 @@ export const ImageCropDialog = ({
             alt="Imagen a recortar"
             className="absolute top-0 left-0 w-full h-full object-cover"
           />
-          <div className="absolute top-0 left-0 w-full h-full bg-black/50 backdrop-blur-lg"></div>
+          <div className="absolute top-0 left-0 w-full h-full bg-black/50"></div>
           <div className="flex justify-center">
             <ReactCrop
               crop={crop}

@@ -488,7 +488,6 @@
   gap: var(--editor-spacing-1);
   align-items: center;
   animation: fadeIn var(--editor-transition-normal);
-  backdrop-filter: blur(8px);
 }
 
 .toolbar-button {

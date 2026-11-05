@@ -90,7 +90,7 @@ const FileViewSheetPanelContent = ({
         {floatingTabs && (
           <div className="pointer-events-none absolute inset-x-0 top-5 z-30 flex justify-center px-4">
             <Tabs value={activeTab} className="pointer-events-auto max-w-full">
-              <TabsList className="border-border bg-card/95 h-auto max-w-full flex-wrap border shadow-lg backdrop-blur-sm">
+              <TabsList className="border-border bg-card h-auto max-w-full flex-wrap border shadow-lg">
                 {tabs.map((tab) => (
                   <TabsTrigger
                     key={tab.id}

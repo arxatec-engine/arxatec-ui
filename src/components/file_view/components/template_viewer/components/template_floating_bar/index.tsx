@@ -45,7 +45,7 @@ export const TemplateFloatingBar = ({
       role="toolbar"
       aria-label="Controles del visor de plantilla"
     >
-      <div className="pointer-events-auto flex max-w-full flex-wrap items-center justify-center gap-1 rounded-md border border-border bg-card/95 px-2 py-1.5 shadow-lg backdrop-blur-sm">
+      <div className="pointer-events-auto flex max-w-full flex-wrap items-center justify-center gap-1 rounded-md border border-border bg-card px-2 py-1.5 shadow-lg">
         {showPagination ? (
           <>
             <div className="flex items-center gap-0.5">

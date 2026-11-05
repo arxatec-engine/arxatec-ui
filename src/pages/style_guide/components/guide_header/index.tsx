@@ -8,7 +8,7 @@ interface Props {
 }
 
 export const GuideHeader = ({ isDark, onDarkChange }: Props) => (
-  <header className="sticky top-0 z-40 border-b max-w-3xl mx-auto border-r border-l bg-background/95 backdrop-blur-md">
+  <header className="sticky top-0 z-40 border-b max-w-3xl mx-auto border-r border-l bg-background">
     <div className="mx-auto flex max-w-3xl items-center justify-between gap-4 px-6 py-1">
       <a
         href="#fundamentos"

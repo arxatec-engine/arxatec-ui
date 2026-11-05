@@ -35,7 +35,7 @@ export function BlockDragHandle({
         className
       )}
     >
-      <div className="flex items-center gap-px rounded-md border border-border/70 bg-background/95 p-px shadow-sm backdrop-blur-sm">
+      <div className="flex items-center gap-px rounded-md border border-border/70 bg-background p-px shadow-sm">
         <Tooltip>
           <TooltipTrigger asChild>
             <Button

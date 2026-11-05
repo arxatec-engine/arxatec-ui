@@ -31,7 +31,7 @@ export const AvatarPreview = ({
             type="button"
             onClick={onRemove}
             aria-label={removeLabel}
-            className="absolute -top-1 -right-1 bg-primary/20 backdrop-blur-lg text-foreground rounded-full p-1 hover:bg-primary/40 transition-colors"
+            className="absolute -top-1 -right-1 bg-background text-foreground rounded-full p-1 hover:bg-accent transition-colors"
           >
             <X className="size-3" />
           </button>

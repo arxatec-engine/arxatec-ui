@@ -21,7 +21,7 @@ export const ViewerFloatingBar = ({
   >
     <div
       className={cn(
-        "pointer-events-auto flex max-w-full flex-wrap items-center justify-center gap-1 rounded-md border border-border bg-card/95 px-2 py-1.5 shadow-lg backdrop-blur-sm",
+        "pointer-events-auto flex max-w-full flex-wrap items-center justify-center gap-1 rounded-md border border-border bg-card px-2 py-1.5 shadow-lg",
         className,
       )}
     >

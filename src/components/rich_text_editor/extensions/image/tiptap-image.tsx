@@ -312,7 +312,7 @@ export function TiptapImage(props: NodeViewProps) {
         {editor?.isEditable && (
           <div
             className={cn(
-              "absolute right-4 top-4 flex items-center gap-1 rounded-md border bg-background/80 p-1 opacity-0 backdrop-blur transition-opacity",
+              "absolute right-4 top-4 flex items-center gap-1 rounded-md border bg-background p-1 opacity-0 transition-opacity",
               !resizing && "group-hover:opacity-100",
               openedMore && "opacity-100"
             )}
