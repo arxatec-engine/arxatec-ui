@@ -79,12 +79,13 @@ removing the setup exception silently restores the default worker in consumers.
 Every publishable change bumps `package.json#version` in the same commit. Keep the
 existing exports and default behavior compatible. Reverified on 2026-10-31 with
 `npm view arxatec-ui version`: the registry reports **0.1.78**. Source candidate
-**0.1.80** includes the unified local and remote Word preview with consumer-owned DOC/ODT
+**0.1.81** includes the unified local and remote Word preview with consumer-owned DOC/ODT
 conversion and the background and page-shadow adjustments for Word and PDF. The current color work keeps brand and generic feedback colors in
 the kit and moves Lawyer product tokens and workspace-tinted palettes into the platform. Contact,
 calendar and document product compositions are maintained in the platform.
 Menus, select lists, command lists and floating controls use solid surfaces without
-backdrop blur.
+backdrop blur. Sheets float with an 8 px viewport inset, `rounded-md` corners and
+a border on all four edges.
 Validate a candidate tarball before a registry consumer update.
 
 1. Work directly on `main`, as requested by the owner. Do not create branches

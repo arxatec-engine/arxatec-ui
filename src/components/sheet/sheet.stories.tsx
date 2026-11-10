@@ -15,6 +15,8 @@ type SheetStoryArgs = ComponentProps<typeof Sheet> & {
   textoDisparador?: string
   titulo?: string
   descripcion?: string
+  side?: ComponentProps<typeof SheetContent>['side']
+  claseContenido?: string
 }
 
 const meta = {
@@ -26,25 +28,25 @@ const meta = {
     textoDisparador: { control: 'text', name: 'Texto del botón' },
     titulo: { control: 'text' },
     descripcion: { control: 'text' },
+    side: {
+      control: 'select',
+      options: ['right', 'left', 'top', 'bottom'],
+      name: 'Lado',
+    },
+    claseContenido: { control: 'text', name: 'Clases del contenido' },
   },
-} satisfies Meta<SheetStoryArgs>
-
-export default meta
-
-type Story = StoryObj<SheetStoryArgs>
-
-export const Derecha: Story = {
   args: {
     textoDisparador: 'Abrir hoja',
     titulo: 'Título',
-    descripcion: 'Panel lateral con formulario o detalle.',
+    descripcion: 'Panel flotante con espacio exterior y esquinas redondeadas.',
+    side: 'right',
   },
-  render: ({ textoDisparador, titulo, descripcion, ...root }) => (
+  render: ({ textoDisparador, titulo, descripcion, side, claseContenido, ...root }) => (
     <Sheet {...root}>
       <SheetTrigger asChild>
         <Button variant="outline">{textoDisparador}</Button>
       </SheetTrigger>
-      <SheetContent>
+      <SheetContent side={side} className={claseContenido}>
         <SheetHeader>
           <SheetTitle>{titulo}</SheetTitle>
           <SheetDescription>{descripcion}</SheetDescription>
@@ -52,4 +54,26 @@ export const Derecha: Story = {
       </SheetContent>
     </Sheet>
   ),
+} satisfies Meta<SheetStoryArgs>
+
+export default meta
+
+type Story = StoryObj<typeof meta>
+
+export const Derecha: Story = {}
+
+export const Izquierda: Story = {
+  args: { side: 'left' },
+}
+
+export const Arriba: Story = {
+  args: { side: 'top' },
+}
+
+export const Abajo: Story = {
+  args: { side: 'bottom' },
+}
+
+export const AnchoCompleto: Story = {
+  args: { claseContenido: 'w-full sm:max-w-[95vw]' },
 }

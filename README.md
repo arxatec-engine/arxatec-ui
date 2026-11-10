@@ -126,6 +126,11 @@ unused exports in production builds.
 - **Maps:** `MapView`, `MapPicker`.
 - **Extras:** `Toaster` (Sonner), `Logo`, `IconPicker`, `EmojiPicker`, brand icons, animated icons, etc.
 
+`SheetContent` in source candidate `0.1.81` floats 8 px from the viewport edges
+with `rounded-md` corners and a border on all sides. This applies to
+`side="right" | "left" | "top" | "bottom"`;
+full-width content also keeps the outer spacing on small screens.
+
 `Logo` in source candidate `0.1.74` accepts
 `variant="arxatec" | "academy" | "management" | "design"`. The `design` variant
 is pending publication; the npm registry reports `0.1.72`, reverified on
