@@ -3,8 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { FileOfficeViewer } from "./index";
 import { FilePreviewPlayground } from "../file_preview_playground";
 
-const SAMPLE_DOC =
-  "https://calibre-ebook.com/downloads/demos/demo.docx";
+const SAMPLE_DOC = "https://calibre-ebook.com/downloads/demos/demo.docx";
 
 const meta = {
   title: "FileView/OfficeViewer",
@@ -14,7 +13,7 @@ const meta = {
     docs: {
       description: {
         component:
-          "Visor de documentos Office (Word, Excel, PowerPoint) vía servicio externo. Requiere URL pública accesible.",
+          "Word, Excel y PowerPoint usan sus visores propios. Word antiguo sin conversor usa el servicio externo con una URL pública.",
       },
     },
   },
@@ -45,6 +44,26 @@ export const Docx: Story = {
   },
 };
 
+export const Pptx: Story = {
+  args: {
+    url: new URL(
+      "../pptx_preview_viewer/fixtures/presentation.pptx",
+      import.meta.url,
+    ).href,
+    fileName: "Presentación.pptx",
+  },
+};
+
+export const Ppt: Story = {
+  args: {
+    url: new URL(
+      "../pptx_preview_viewer/fixtures/presentation.ppt",
+      import.meta.url,
+    ).href,
+    fileName: "Presentación.ppt",
+  },
+};
+
 export const Cargando: Story = {
   args: {
     url: SAMPLE_DOC,
@@ -67,7 +86,7 @@ export const Playground: Story = {
     <FilePreviewPlayground
       accept=".doc,.docx,.ppt,.pptx,.xls,.xlsx"
       defaultUrl={SAMPLE_DOC}
-      hint="El visor de Office usa un servicio externo: usa una URL PÚBLICA (los archivos locales/blob no se renderizan)."
+      hint="DOCX, Excel y PowerPoint se leen en el navegador. Las URL deben permitir CORS; Word antiguo sin conversor requiere una URL pública."
     >
       {({ url, fileName, mimeType }) => (
         <FileOfficeViewer

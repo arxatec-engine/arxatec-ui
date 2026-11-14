@@ -3,8 +3,10 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { FileUrlPreviewRender } from "./index";
 import { FilePreviewPlayground } from "../file_preview_playground";
 
-const SAMPLE_PDF =
-  "https://www.w3.org/WAI/WCAG21/Techniques/pdf/img/table-word.pdf";
+const SAMPLE_PDF = new URL(
+  "../pdf_viewer/fixtures/example.pdf",
+  import.meta.url,
+).href;
 const SAMPLE_IMAGE = "https://picsum.photos/seed/arxatec-url-preview/800/600";
 
 const meta = {
@@ -30,10 +32,44 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
+export const Pptx: Story = {
+  args: {
+    url: new URL(
+      "../pptx_preview_viewer/fixtures/presentation.pptx",
+      import.meta.url,
+    ).href,
+    fileName: "Presentación.pptx",
+  },
+  decorators: [
+    (Story) => (
+      <div className="h-screen w-full">
+        <Story />
+      </div>
+    ),
+  ],
+};
+
+export const Ppt: Story = {
+  args: {
+    url: new URL(
+      "../pptx_preview_viewer/fixtures/presentation.ppt",
+      import.meta.url,
+    ).href,
+    fileName: "Presentación.ppt",
+  },
+  decorators: [
+    (Story) => (
+      <div className="h-screen w-full">
+        <Story />
+      </div>
+    ),
+  ],
+};
+
 export const Pdf: Story = {
   args: {
     url: SAMPLE_PDF,
-    fileName: "tabla-ejemplo.pdf",
+    fileName: "ejemplo.pdf",
   },
   decorators: [
     (Story) => (

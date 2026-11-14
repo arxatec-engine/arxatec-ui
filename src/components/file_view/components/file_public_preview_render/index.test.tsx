@@ -1,5 +1,6 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
+
 import { FilePublicPreviewRender } from "./index";
 
 vi.mock("../office_viewer", () => ({
@@ -9,7 +10,7 @@ vi.mock("../office_viewer", () => ({
 }));
 
 describe("public Office preview sources", () => {
-  it.each(["docx", "doc", "odt"])(
+  it.each(["docx", "doc", "odt", "pptx", "ppt"])(
     "accepts the authorized local bytes for %s",
     async (extension) => {
       render(
@@ -29,7 +30,7 @@ describe("public Office preview sources", () => {
     },
   );
 
-  it("keeps the public signed URL for the Excel embed even when an object URL exists", async () => {
+  it("uses the authorized object URL for Excel when it is available", async () => {
     render(
       <FilePublicPreviewRender
         fileName="Libro.xlsx"
@@ -39,7 +40,7 @@ describe("public Office preview sources", () => {
     );
     await waitFor(() =>
       expect(screen.getByTestId("office-source")).toHaveTextContent(
-        "https://example.com/Libro.xlsx",
+        "blob:local-document",
       ),
     );
   });

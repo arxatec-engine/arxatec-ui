@@ -13,6 +13,7 @@ export * from "./file_view_sheet";
 export * from "./image_viewer";
 export * from "./mime_router";
 export * from "./office_viewer";
+export * from "./pptx_preview_viewer";
 export * from "./pdf_viewer";
 export * from "./source_viewer";
 export * from "./summary_viewer";

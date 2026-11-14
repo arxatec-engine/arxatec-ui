@@ -4,8 +4,10 @@ import { useState } from "react";
 import { FileViewLoadingState } from "../loading_state";
 import { FileUrlPreviewSheet } from "./index";
 
-const SAMPLE_PDF =
-  "https://www.w3.org/WAI/WCAG21/Techniques/pdf/img/table-word.pdf";
+const SAMPLE_PDF = new URL(
+  "../pdf_viewer/fixtures/example.pdf",
+  import.meta.url,
+).href;
 
 const meta = {
   title: "FileView/UrlPreviewSheet",
@@ -65,19 +67,15 @@ function SheetDemo(
 }
 
 export const Pdf: Story = {
-  render: () => <SheetDemo url={SAMPLE_PDF} fileName="tabla-ejemplo.pdf" />,
+  render: () => <SheetDemo url={SAMPLE_PDF} fileName="ejemplo.pdf" />,
 };
 
 export const Cargando: Story = {
-  render: () => (
-    <SheetDemo url={SAMPLE_PDF} fileName="tabla-ejemplo.pdf" isPending />
-  ),
+  render: () => <SheetDemo url={SAMPLE_PDF} fileName="ejemplo.pdf" isPending />,
 };
 
 export const Error: Story = {
-  render: () => (
-    <SheetDemo url={SAMPLE_PDF} fileName="tabla-ejemplo.pdf" isError />
-  ),
+  render: () => <SheetDemo url={SAMPLE_PDF} fileName="ejemplo.pdf" isError />,
 };
 
 function PlaygroundDemo() {

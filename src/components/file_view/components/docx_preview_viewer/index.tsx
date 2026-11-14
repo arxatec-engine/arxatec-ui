@@ -8,4 +8,5 @@ export const FileDocxPreviewViewer = (props: FileDocxPreviewViewerProps) => (
 export type {
   FileDocxPreviewViewerProps,
   FileWordDocumentConverter,
+  FileDocxPreviewViewerLabels,
 } from "./types";

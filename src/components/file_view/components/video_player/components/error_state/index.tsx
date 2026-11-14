@@ -1,13 +1,28 @@
-import { StatusMessage } from "@/components/status_message";
 import { FileX } from "lucide-react";
 
-export const ErrorState = () => {
+import { cn } from "@/utilities/class";
+import { StatusMessage } from "@/components/status_message";
+
+import { useFileViewLoadingChange } from "../../../../hooks";
+import { VIDEO_PLAYER_LABELS } from "../../constants";
+import type { FileVideoPlayerProps } from "../../types";
+
+export const ErrorState = ({
+  labels: customLabels,
+  onLoadingChange,
+  className,
+}: Pick<FileVideoPlayerProps, "labels" | "onLoadingChange" | "className">) => {
+  const labels = { ...VIDEO_PLAYER_LABELS, ...customLabels };
+  useFileViewLoadingChange(false, onLoadingChange);
   return (
-    <div className="p-4 h-full w-full">
+    <div
+      data-slot="video-error-state"
+      className={cn("p-4 h-full w-full", className)}
+    >
       <StatusMessage
-        title="Sucedio un error inesperado"
+        title={labels.errorTitle}
         icon={FileX}
-        description="Sucedio un error al cargar el video, vuelve a intentarlo dentro de un momento, si el error persiste, contacta con soporte."
+        description={labels.errorDescription}
         classNameCard="w-full h-full flex-col items-center justify-center"
         classNameIconCard="mx-auto"
         classNameDescription="text-center w-full max-w-sm"

@@ -6,10 +6,11 @@ import {
   waitFor,
 } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+
 import { FileOfficeViewer } from "./index";
 
 const DOCUMENT_URL =
-  "https://files.example.com/Informe final.xlsx?token=a+b&expires=123#page=2";
+  "https://files.example.com/Informe final.doc?token=a+b&expires=123#page=2";
 
 vi.mock("../docx_preview_viewer", () => ({
   FileDocxPreviewViewer: ({
@@ -25,11 +26,28 @@ vi.mock("../docx_preview_viewer", () => ({
   ),
 }));
 
+vi.mock("../xlsx_preview_viewer", () => ({
+  FileXlsxPreviewViewer: () => <div data-testid="excel-preview" />,
+}));
+vi.mock("../pptx_preview_viewer", () => ({
+  FilePptxPreviewViewer: ({
+    url,
+    fileName,
+  }: {
+    url: string;
+    fileName?: string;
+  }) => (
+    <div data-testid="presentation-preview" data-url={url}>
+      {fileName}
+    </div>
+  ),
+}));
+
 describe("FileOfficeViewer", () => {
   beforeEach(() => vi.useFakeTimers());
   afterEach(() => vi.useRealTimers());
 
-  it.each(["doc", "odt", "xls", "xlsx", "ppt", "pptx"])(
+  it.each(["doc", "odt"])(
     "keeps the Office Online embed for %s files and preserves signed URL parameters",
     (extension) => {
       render(
@@ -47,6 +65,42 @@ describe("FileOfficeViewer", () => {
       expect(embed.searchParams.get("src")).toBe(DOCUMENT_URL);
     },
   );
+
+  it.each(["ppt", "pptx"])(
+    "uses the own presentation viewer for %s and preserves signed URLs",
+    async (extension) => {
+      vi.useRealTimers();
+      const { container } = render(
+        <FileOfficeViewer
+          url={DOCUMENT_URL}
+          fileName={`Informe.${extension}`}
+        />,
+      );
+      await waitFor(() =>
+        expect(screen.getByTestId("presentation-preview")).toHaveTextContent(
+          `Informe.${extension}`,
+        ),
+      );
+      expect(screen.getByTestId("presentation-preview")).toHaveAttribute(
+        "data-url",
+        DOCUMENT_URL,
+      );
+      expect(container.querySelector("iframe")).toBeNull();
+    },
+  );
+
+  it("supports MIME-only PPT callers", async () => {
+    vi.useRealTimers();
+    render(
+      <FileOfficeViewer
+        url="https://files.example.com/download?id=1"
+        mimeType="application/vnd.ms-powerpoint"
+      />,
+    );
+    await waitFor(() =>
+      expect(screen.getByTestId("presentation-preview")).toBeInTheDocument(),
+    );
+  });
 
   it.each(["docx", "doc", "odt"])(
     "uses the own Word viewer for %s without an Office iframe",
@@ -72,14 +126,31 @@ describe("FileOfficeViewer", () => {
     },
   );
 
-  it("supports MIME-only callers with a default frame title", () => {
+  it.each(["xls", "xlsx"])(
+    "uses the own Excel viewer for %s",
+    async (extension) => {
+      vi.useRealTimers();
+      const { container } = render(
+        <FileOfficeViewer url={DOCUMENT_URL} fileName={`Libro.${extension}`} />,
+      );
+      await waitFor(() =>
+        expect(screen.getByTestId("excel-preview")).toBeInTheDocument(),
+      );
+      expect(container.querySelector("iframe")).toBeNull();
+    },
+  );
+
+  it("supports MIME-only Excel callers", async () => {
+    vi.useRealTimers();
     render(
       <FileOfficeViewer
-        url={DOCUMENT_URL}
+        url="https://files.example.com/download?id=1"
         mimeType="application/vnd.ms-excel"
       />,
     );
-    expect(screen.getByTitle("Documento Office")).toBeInTheDocument();
+    await waitFor(() =>
+      expect(screen.getByTestId("excel-preview")).toBeInTheDocument(),
+    );
   });
 
   it("reports loading until Office has had two seconds to settle after load", () => {
@@ -117,7 +188,7 @@ describe("FileOfficeViewer", () => {
     act(() => vi.advanceTimersByTime(2000));
     expect(onLoadingChange).toHaveBeenLastCalledWith(false);
 
-    const nextUrl = "https://files.example.com/presentation.pptx";
+    const nextUrl = "https://files.example.com/document.doc";
     rerender(
       <FileOfficeViewer url={nextUrl} onLoadingChange={onLoadingChange} />,
     );

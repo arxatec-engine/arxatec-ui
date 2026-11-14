@@ -1,39 +1,18 @@
-import type { ComponentProps } from "react";
-import type { FileWordDocumentConverter } from "../docx_preview_viewer/types";
+import { cn } from "@/utilities/class";
+
+import type { FilePublicPreviewRenderProps } from "./types";
+import { PublicPreviewMedia } from "./components/media";
+import {
+  FileImageViewer,
+  FileOfficeViewer,
+  FilePdfViewer,
+} from "./constants/lazy_viewers";
 import { FileMimeRouter } from "../mime_router";
 import { FileUnknownViewer } from "../unknown_viewer";
-import { lazyFileViewer } from "../lazy_viewer";
-const FileImageViewer = lazyFileViewer<
-  ComponentProps<typeof import("../image_viewer").FileImageViewer>
->(() =>
-  import("../image_viewer").then((module) => ({
-    default: module.FileImageViewer,
-  })),
-);
-const FileOfficeViewer = lazyFileViewer<
-  ComponentProps<typeof import("../office_viewer").FileOfficeViewer>
->(() =>
-  import("../office_viewer").then((module) => ({
-    default: module.FileOfficeViewer,
-  })),
-);
-const FilePdfViewer = lazyFileViewer<
-  ComponentProps<typeof import("../pdf_viewer").FilePdfViewer>
->(() =>
-  import("../pdf_viewer").then((module) => ({ default: module.FilePdfViewer })),
-);
 import { getFilePreviewMimeType } from "../../utilities/preview_mime_type";
 import { resolveWordDocumentFormat } from "../../utilities/word_document_format";
-
-export interface FilePublicPreviewRenderProps {
-  fileName: string;
-  nativeDocumentMimeType?: string;
-  mimeType?: string | null;
-  objectUrl: string | null;
-  signedUrl: string | null;
-  onDownload?: () => void;
-  convertToDocx?: FileWordDocumentConverter;
-}
+import { resolveSpreadsheetFormat } from "../../utilities/spreadsheet_format";
+import { resolvePresentationFormat } from "../../utilities/presentation_format";
 
 export const FilePublicPreviewRender = ({
   fileName,
@@ -43,130 +22,134 @@ export const FilePublicPreviewRender = ({
   signedUrl,
   onDownload,
   convertToDocx,
+  convertToXlsx,
+  className,
 }: FilePublicPreviewRenderProps) => {
   const resolvedMimeType = getFilePreviewMimeType(fileName, mimeType);
   const previewUrl = objectUrl ?? signedUrl;
   const wordFormat = resolveWordDocumentFormat(fileName, resolvedMimeType);
   const officeUrl =
-    wordFormat === "docx" || (wordFormat && convertToDocx)
+    resolvePresentationFormat(fileName, resolvedMimeType) ||
+    resolveSpreadsheetFormat(fileName, resolvedMimeType) ||
+    wordFormat === "docx" ||
+    (wordFormat && convertToDocx)
       ? previewUrl
       : signedUrl;
   const hasPreviewUrl = Boolean(previewUrl);
   const publicFileKey = `${fileName}-${previewUrl ?? "preview"}`;
-
   return (
-    <FileMimeRouter
-      mimeType={resolvedMimeType}
-      fileName={fileName}
-      nativeDocumentMimeType={nativeDocumentMimeType}
-      renderNativeDocument={
-        <FileUnknownViewer
-          fileName={fileName}
-          isPending={false}
-          isError={!hasPreviewUrl}
-          onDownload={onDownload}
-        />
-      }
-      renderPdf={
-        previewUrl ? (
-          <FilePdfViewer
-            url={previewUrl}
-            fileName={fileName}
-            onDownload={onDownload}
-          />
-        ) : (
+    <div
+      data-slot="file-public-preview-render"
+      className={cn("relative h-full min-h-0 w-full", className)}
+    >
+      <FileMimeRouter
+        mimeType={resolvedMimeType}
+        fileName={fileName}
+        nativeDocumentMimeType={nativeDocumentMimeType}
+        renderNativeDocument={
           <FileUnknownViewer
             fileName={fileName}
             isPending={false}
-            isError
+            isError={!hasPreviewUrl}
             onDownload={onDownload}
           />
-        )
-      }
-      renderImage={
-        <FileImageViewer
-          url={previewUrl ?? undefined}
-          mimeType={resolvedMimeType}
-          fileId={publicFileKey}
-          isPending={false}
-          isError={!hasPreviewUrl}
-          onDownload={onDownload}
-        />
-      }
-      renderOffice={
-        officeUrl ? (
-          <FileOfficeViewer
-            url={officeUrl}
-            fileName={fileName}
-            mimeType={resolvedMimeType}
-            isPending={false}
-            isError={false}
-            onDownload={onDownload}
-            convertToDocx={convertToDocx}
-          />
-        ) : (
-          <FileUnknownViewer
-            fileName={fileName}
-            isPending={false}
-            isError
-            onDownload={onDownload}
-          />
-        )
-      }
-      renderVideo={
-        previewUrl ? (
-          <div className="flex h-full w-full items-center justify-center bg-background p-6">
-            <video
-              src={previewUrl}
-              controls
-              className="max-h-full max-w-full rounded-md"
+        }
+        renderPdf={
+          previewUrl ? (
+            <FilePdfViewer
+              url={previewUrl}
+              fileName={fileName}
+              onDownload={onDownload}
             />
-          </div>
-        ) : (
+          ) : (
+            <FileUnknownViewer
+              fileName={fileName}
+              isPending={false}
+              isError
+              onDownload={onDownload}
+            />
+          )
+        }
+        renderImage={
+          <FileImageViewer
+            url={previewUrl ?? undefined}
+            mimeType={resolvedMimeType}
+            fileId={publicFileKey}
+            isPending={false}
+            isError={!hasPreviewUrl}
+            onDownload={onDownload}
+          />
+        }
+        renderOffice={
+          officeUrl ? (
+            <FileOfficeViewer
+              url={officeUrl}
+              fileName={fileName}
+              mimeType={resolvedMimeType}
+              isPending={false}
+              isError={false}
+              onDownload={onDownload}
+              convertToDocx={convertToDocx}
+              convertToXlsx={convertToXlsx}
+            />
+          ) : (
+            <FileUnknownViewer
+              fileName={fileName}
+              isPending={false}
+              isError
+              onDownload={onDownload}
+            />
+          )
+        }
+        renderVideo={
+          previewUrl ? (
+            <PublicPreviewMedia
+              kind="video"
+              url={previewUrl}
+              fileName={fileName}
+            />
+          ) : (
+            <FileUnknownViewer
+              fileName={fileName}
+              isError
+              onDownload={onDownload}
+            />
+          )
+        }
+        renderAudio={
+          previewUrl ? (
+            <PublicPreviewMedia
+              kind="audio"
+              url={previewUrl}
+              fileName={fileName}
+            />
+          ) : (
+            <FileUnknownViewer
+              fileName={fileName}
+              isError
+              onDownload={onDownload}
+            />
+          )
+        }
+        renderSource={
           <FileUnknownViewer
             fileName={fileName}
             isPending={false}
-            isError
+            isError={!hasPreviewUrl}
             onDownload={onDownload}
           />
-        )
-      }
-      renderAudio={
-        previewUrl ? (
-          <div className="flex h-full w-full items-center justify-center bg-background p-6">
-            <div className="w-full max-w-xl rounded-xl border border-border bg-card p-6">
-              <p className="mb-4 truncate text-sm font-normal text-foreground">
-                {fileName}
-              </p>
-
-              <audio src={previewUrl} controls className="w-full" />
-            </div>
-          </div>
-        ) : (
+        }
+        renderUnknown={
           <FileUnknownViewer
             fileName={fileName}
             isPending={false}
-            isError
+            isError={!hasPreviewUrl}
             onDownload={onDownload}
           />
-        )
-      }
-      renderSource={
-        <FileUnknownViewer
-          fileName={fileName}
-          isPending={false}
-          isError={!hasPreviewUrl}
-          onDownload={onDownload}
-        />
-      }
-      renderUnknown={
-        <FileUnknownViewer
-          fileName={fileName}
-          isPending={false}
-          isError={!hasPreviewUrl}
-          onDownload={onDownload}
-        />
-      }
-    />
+        }
+      />
+    </div>
   );
 };
+
+export type { FilePublicPreviewRenderProps } from "./types";

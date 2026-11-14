@@ -45,9 +45,11 @@ JSX ni imports: estado, efectos, handlers, derivaciones, condiciones).
 El único `.tsx` directo de una carpeta de componente es su entrypoint (`index.tsx`). En
 cuanto aparece un segundo componente, baja a `components/`.
 
-**Excepción única: `*.stories.tsx`.** Storybook exige la story al lado del componente, y
+**Excepciones: `*.stories.tsx` y `*.test.tsx`.** Las pruebas viven junto al componente;
+las reglas de composición y tamaño de componentes no se aplican a los archivos de pruebas.
+Storybook exige la story al lado del componente, y
 es el patrón en los 93 archivos de stories del repo. Un `.tsx` hermano que **no** sea una
-story sí incumple la regla — hoy hay 12, como `mention_list/mention_list.tsx`.
+story ni una prueba sí incumple la regla — hoy hay 12, como `mention_list/mention_list.tsx`.
 
 **Mal:**
 
@@ -413,7 +415,7 @@ La familia se sigue exportando como familia y el consumidor no nota nada: el bar
 mantiene los mismos nombres. Esto **retira la excepción de compound de R1** para este
 repo.
 
-**Única excepción: `*.stories.tsx`**, igual que en R3. Storybook exige el `meta`, los
+**Excepciones: `*.stories.tsx` y `*.test.tsx`**, igual que en R3. Storybook exige el `meta`, los
 `argTypes` y los componentes de demo en el mismo archivo; separarlos rompe la story.
 
 **Deuda conocida:** de los 191 `.tsx` del repo, 158 ya cumplen la parte de tipos (74 sin

@@ -1,4 +1,6 @@
 import { FileX } from "lucide-react";
+
+import { cn } from "@/utilities/class";
 import {
   Sheet,
   SheetContent,
@@ -7,14 +9,20 @@ import {
   SheetTitle,
 } from "@/components/sheet";
 import { StatusMessage } from "@/components/status_message";
+
 import { FileUrlPreviewRender } from "../file_url_preview_render";
 import { getFileNameFromUrl } from "../../utilities/get_extension_from_url";
 import type { FileViewLoadingChangeHandler } from "../../types";
 import type { FileWordDocumentConverter } from "../docx_preview_viewer/types";
+import type { FileSpreadsheetConverter } from "../xlsx_preview_viewer/types";
 
 export interface FileUrlPreviewSheetProps {
+  className?: string;
+  previewLabel?: string;
   open: boolean;
   onOpenChange: (open: boolean) => void;
+  errorTitle?: string;
+  errorDescription?: string;
   url: string | null;
   fileName?: string;
   isPending?: boolean;
@@ -23,9 +31,14 @@ export interface FileUrlPreviewSheetProps {
   loadingOverlay?: React.ReactNode;
   onLoadingChange?: FileViewLoadingChangeHandler;
   convertToDocx?: FileWordDocumentConverter;
+  convertToXlsx?: FileSpreadsheetConverter;
 }
 
 export const FileUrlPreviewSheet = ({
+  errorTitle = "Error al cargar el documento",
+  errorDescription = "Vuelve a intentarlo en unos minutos. Si el error persiste, contacta con soporte.",
+  className,
+  previewLabel = "Vista previa del archivo",
   open,
   onOpenChange,
   url,
@@ -36,19 +49,26 @@ export const FileUrlPreviewSheet = ({
   loadingOverlay,
   onLoadingChange,
   convertToDocx,
+  convertToXlsx,
 }: FileUrlPreviewSheetProps) => {
   const displayName =
-    fileName ?? (url ? getFileNameFromUrl(url) : "Vista previa");
+    fileName ?? (url ? getFileNameFromUrl(url) : previewLabel);
 
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
-      <SheetContent className="sm:max-w-[95vw] w-full p-0 flex flex-col gap-0 overflow-hidden">
+      <SheetContent
+        data-slot="file-url-preview-sheet"
+        className={cn(
+          "sm:max-w-[95vw] w-full p-0 flex flex-col gap-0 overflow-hidden",
+          className,
+        )}
+      >
         <SheetHeader className="px-6 flex flex-row items-center justify-between space-y-0 border-b bg-background relative z-10">
           <SheetTitle className="line-clamp-1 flex-1 mr-4">
             {displayName}
           </SheetTitle>
           <SheetDescription className="sr-only">
-            Vista previa del archivo.
+            {previewLabel}
           </SheetDescription>
         </SheetHeader>
 
@@ -62,8 +82,8 @@ export const FileUrlPreviewSheet = ({
           {isError && (
             <div className="p-4">
               <StatusMessage
-                title="Error al cargar el documento"
-                description="Vuelve a intentarlo en unos minutos. Si el error persiste, contacta con soporte."
+                title={errorTitle}
+                description={errorDescription}
                 icon={FileX}
               />
             </div>
@@ -75,6 +95,7 @@ export const FileUrlPreviewSheet = ({
               fileName={displayName}
               onLoadingChange={onLoadingChange}
               convertToDocx={convertToDocx}
+              convertToXlsx={convertToXlsx}
             />
           )}
         </div>

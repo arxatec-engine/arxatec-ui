@@ -14,7 +14,7 @@ const meta = {
     docs: {
       description: {
         component:
-          "Reproductor de video con controles personalizados y pantalla completa.",
+          "Video sin recortes y barra flotante que se oculta tras 2,5 segundos sin actividad, también en pausa. Ratón, toque y teclado vuelven a mostrar los controles.",
       },
     },
   },
@@ -22,14 +22,13 @@ const meta = {
   args: {
     url: SAMPLE_VIDEO,
     fileName: "video-ejemplo.mp4",
-    onDownload: () => {},
   },
   argTypes: {
     onDownload: { table: { disable: true } },
   },
   decorators: [
     (Story) => (
-      <div className="h-[480px] w-full bg-black">
+      <div className="h-[min(640px,100svh)] w-full">
         <Story />
       </div>
     ),
@@ -44,7 +43,21 @@ export const Default: Story = {
   args: {
     url: SAMPLE_VIDEO,
     fileName: "video-ejemplo.mp4",
-    onDownload: () => {},
+  },
+};
+
+export const PanelEstrecho: Story = {
+  render: (args) => (
+    <div className="mx-auto h-full w-full max-w-[360px] border-x border-border">
+      <FileVideoPlayer {...args} />
+    </div>
+  ),
+};
+
+export const Error: Story = {
+  args: {
+    url: "data:video/mp4;base64,AAAA",
+    fileName: "video-no-disponible.mp4",
   },
 };
 

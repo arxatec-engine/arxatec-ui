@@ -1,3 +1,6 @@
+import { resolveSpreadsheetFormat } from "./spreadsheet_format";
+import { resolvePresentationFormat } from "./presentation_format";
+
 export const FILE_VIEW_KIND = {
   NATIVE_DOCUMENT: "native_document",
   PDF: "pdf",
@@ -43,6 +46,9 @@ export function resolveFileViewKind(
     return FILE_VIEW_KIND.NATIVE_DOCUMENT;
   }
 
+  if (resolveSpreadsheetFormat(fileName, mime)) return FILE_VIEW_KIND.OFFICE;
+  if (resolvePresentationFormat(fileName, mime)) return FILE_VIEW_KIND.OFFICE;
+
   if (mime === "application/pdf") return FILE_VIEW_KIND.PDF;
   if (mime.startsWith("image/")) return FILE_VIEW_KIND.IMAGE;
   if (mime.startsWith("video/")) return FILE_VIEW_KIND.VIDEO;
@@ -61,7 +67,10 @@ export function resolveFileViewKind(
   return FILE_VIEW_KIND.UNKNOWN;
 }
 
-export function resolveOfficeFileExtension(fileName?: string, mimeType?: string): string {
+export function resolveOfficeFileExtension(
+  fileName?: string,
+  mimeType?: string,
+): string {
   if (fileName) {
     const ext = fileName.split(".").pop()?.toLowerCase();
     if (ext) return ext;
@@ -70,11 +79,14 @@ export function resolveOfficeFileExtension(fileName?: string, mimeType?: string)
     const mimeToExt: Record<string, string> = {
       "application/msword": "doc",
       "application/vnd.oasis.opendocument.text": "odt",
-      "application/vnd.openxmlformats-officedocument.wordprocessingml.document": "docx",
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document":
+        "docx",
       "application/vnd.ms-powerpoint": "ppt",
-      "application/vnd.openxmlformats-officedocument.presentationml.presentation": "pptx",
+      "application/vnd.openxmlformats-officedocument.presentationml.presentation":
+        "pptx",
       "application/vnd.ms-excel": "xls",
-      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet": "xlsx",
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet":
+        "xlsx",
     };
     return mimeToExt[mimeType.toLowerCase()] || "";
   }

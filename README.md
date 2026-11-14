@@ -521,16 +521,51 @@ const PdfViewer = lazyFileViewer<FilePdfViewerProps>(() =>
 ```
 
 Engine entries under `/file-view/` are `pdf`, `image`, `office`, `code`, `template`,
-`docx`, `xlsx`, `audio`, `video`, `summary` and `transcription`. The core does not
+`docx`, `xlsx`, `pptx`, `audio`, `video`, `summary` and `transcription`. The core does not
 import PDF or another engine. HEIC conversion loads `heic2any` only for HEIC.
-The Office engine routes DOCX to the local Word renderer. DOC and ODT use that
-renderer when a `convertToDocx` callback is supplied. Other Office formats and
-legacy DOC/ODT consumers without a converter retain the Office Online embed,
+The Office engine routes Excel to `FileXlsxPreviewViewer` and DOCX to the local
+Word renderer. DOC and ODT use that renderer when a `convertToDocx` callback is
+supplied. Legacy DOC/ODT consumers without a converter retain the Office Online embed,
 which requires a publicly accessible URL. Loading and download callbacks retain
 their API.
 The wrapper loads without adding loading, error or retry controls. Loading
 callbacks reach the existing parent sheet; a failed load ends its pending state.
 Closing and reopening the sheet allows another load attempt.
+
+### Floating video and source controls (candidate 0.1.96)
+
+`FileVideoPlayer` (`/file-view/video`) and `FileSourceViewer` /
+`FileSourceFileViewer` (`/file-view/code`) use the same solid floating toolbar as
+PDF and image previews. Existing props remain compatible; optional `labels` and
+`className` customize copy and the outer surface.
+
+Video preserves the complete frame at every width, without a floating file-name
+badge. Its toolbar groups play/pause,
+seeking, current/total time, volume, original download and fullscreen. Controls
+fade after 2.5 seconds without input, during playback and while paused. Pointer
+motion, touch, clicks, wheel, focus and keys reveal them; held pointer gestures
+keep them visible until release. The central play button and tooltips follow
+the same visibility. Focus
+the viewer to use Space/K, left/right arrows (five seconds), M and F. Sliders and
+buttons keep their own keyboard behavior.
+
+Source preview follows light/dark theme changes and shows only the code, line
+numbers and floating toolbar, with regular text weight and no header or gutter
+divider. Numbering continues through at least 100 lines, including empty files,
+and reserves at least 20 empty lines after the file. The count also follows the
+visible viewer height and current text size. These visual rows
+are excluded from copying, downloading, text selection and screen readers.
+It scrolls with the kit's `ScrollArea`. Its toolbar adjusts text
+size and line wrapping, copies the original text and downloads the file. Both
+source components accept an optional async `onDownload` callback. By default,
+`FileSourceFileViewer` downloads the original File bytes; `FileSourceViewer`
+downloads its text content as UTF-8. Loading callbacks continue to reach the
+parent sheet.
+
+In candidate `0.1.96`, the Word, Excel and PowerPoint engines also accept
+optional `labels` and `className`. Labels override the existing defaults;
+format-specific label types are exported from each engine entry. Preview adapters
+and sheets accept `className` for their outer surface.
 
 ### Word preview from a file or URL (0.1.77)
 
@@ -569,12 +604,169 @@ Loading covers download, conversion, document rendering, fonts and image decode.
 and `onLoadingChange` integrate with application state. Errors offer retry and
 original download. A source change or close aborts network/conversion work and
 discards late renders. Pages fit the available width and retain zoom and scrolling.
+In source candidate `0.1.83`, Word and PDF pages use `border border-border` and
+`rounded-md` corners without a page shadow. Both viewers use the kit's `ScrollArea`
+with vertical and horizontal scrollbars, including when zooming into a document.
 
 Document styles are isolated in a Shadow DOM. Embedded HTML altChunks are disabled
 and active hyperlink schemes are removed. This is a preview engine, not an editor
 or a Word pagination guarantee: test tables, fonts, headers and long documents
 against your own files. Storybook includes a bundled two-page fixture, local-file
 and URL paths, loading, invalid-document and upload playground stories.
+
+### Excel preview from a file or URL
+
+```tsx
+import { FileXlsxPreviewViewer } from "arxatec-ui/file-view/xlsx";
+import type { FileSpreadsheetConverter } from "arxatec-ui/file-view/core";
+
+const convertToXlsx: FileSpreadsheetConverter = convertSpreadsheetFile;
+
+<FileXlsxPreviewViewer file={localFile} convertToXlsx={convertToXlsx} />;
+<FileXlsxPreviewViewer
+  url={signedUrl}
+  fileName="Presupuesto.xls"
+  convertToXlsx={convertToXlsx}
+  onDownload={downloadOriginal}
+  onLoadingChange={setLoading}
+/>;
+```
+
+Pass either `file` or `url`. Both paths use the same worker, document model and
+virtualized grid; neither uses Microsoft Office Online. Remote URLs must allow
+browser fetching (CORS), and signed parameters are preserved. Filenames and MIME
+types both identify XLS/XLSX, including sources with a generic MIME type.
+
+XLSX renders directly. For XLS, `convertToXlsx` receives the original `File` and
+`{ signal }` and returns an XLSX `Blob` from the application's conversion service.
+The kit contains no workspace, authentication or service URL. Existing consumers
+without a converter get a labeled basic XLS preview in the same grid. A failed
+conversion offers retry and download of the original.
+
+The read-only preview retains sheet names, cell coordinates, saved formula
+results, number/date/currency formats, fonts, colors, borders, alignment, row and
+column dimensions, hidden rows/columns and merged cells. Hidden sheets are omitted.
+Formulas are not recalculated; those without saved results display the formula
+with a notice. Charts, drawings, conditional formatting and exact Excel layout
+are outside this preview contract. Rich text is displayed as plain cell text.
+
+The grid includes empty rows and columns beyond the document's populated range,
+including completely empty worksheets. It starts with at least 100 rows and
+26 columns and expands near the scroll edges while keeping cells virtualized;
+these extra cells do not alter the workbook or its download.
+Default cell backgrounds, text, grid lines and headers follow the application's
+light/dark theme. Neutral black/white formatting on plain cells follows the same
+tokens; explicit colored fills and their font colors remain those of the file.
+Theme changes apply immediately without parsing the workbook again.
+
+Select a cell, drag a rectangular range, or extend it with Shift+click or
+Shift+arrow keys. Arrow keys navigate visible cells; Ctrl/Cmd+A selects the used
+range, Ctrl/Cmd+Home/End navigates its bounds, and Escape clears selection.
+Copy with Ctrl/Cmd+C or the viewer's copy button, then paste into Excel, Sheets
+or another application. Touch users can extend a range with its corner handle.
+
+The clipboard includes tab-separated display values and an HTML table, preserving
+line breaks, empty positions and merged cells. Hidden axes are omitted, and values
+come from the workbook model even when their cells are outside the virtual viewport.
+Copying is limited to 500,000 visible cells per range. The grid remains read-only;
+selection and copying do not modify the original file. Storybook's `CopiarYPegar`
+story includes a text field for trying native copy/paste.
+
+`convertToXlsx` also passes through `FileOfficeViewer`, `FileSimplePreviewRender`,
+`FileSimplePreviewSheet`, `FileUrlPreviewRender`, `FileUrlPreviewSheet` and
+`FilePublicPreviewRender`. Public Excel previews can use their authorized blob URL.
+The application supplies a share-specific converter for legacy XLS; it must
+validate the share independently of any private workspace session.
+
+Loading, retry, zoom, sheet selection and original download are shared between
+sources. Closing or changing the source aborts requests and terminates the worker.
+The conservative preview budget is 20 MiB input, 40 MiB converted output,
+500,000 populated cells and 30 seconds of parsing. Parser engines are bundled
+in a deferred, self-contained worker, with notices in
+`dist/assets/spreadsheet-licenses.txt`. Storybook includes local/URL parity,
+styled fixtures, converted/basic XLS, a large sheet and an upload/URL playground.
+
+### PowerPoint preview from a file or URL (0.1.85)
+
+```tsx
+import { FilePptxPreviewViewer } from "arxatec-ui/file-view/pptx";
+
+<FilePptxPreviewViewer
+  url={signedUrl}
+  fileName="Presentación.pptx"
+  onDownload={downloadOriginal}
+  onLoadingChange={setLoading}
+  onError={reportPreviewError}
+/>;
+
+<FilePptxPreviewViewer file={localPptOrPptx} />;
+```
+
+Pass either `file` or `url`. Both sources use the same `FilePptxPreviewViewer`,
+parser, slide surface, controls and loading/error lifecycle. Only byte acquisition
+differs: reading the local File or fetching the URL. PPTX and legacy binary PPT are read locally;
+no Office service or conversion server receives the presentation. URLs must allow
+browser fetching (CORS); signed parameters are preserved. Office, simple, URL and
+public previews route presentations to this engine, and public previews prefer
+authorized object URLs. `resolvePresentationFormat` and the viewer's prop type
+are also available from `/file-view/core` without importing the engine.
+
+The viewer shows one slide, with a thumbnail rail on desktop and a bottom strip on
+mobile. Changing slides uses a short directional
+fade/slide transition and keeps the previous slide visible until the incoming
+images are decoded. It respects
+`prefers-reduced-motion`; navigation does not reopen the file loading overlay.
+It provides previous/next, a slide counter, fit, zoom, original download,
+internal slide links and arrow/Page Up/Page Down/Home/End navigation. Hidden slides
+remain accessible and are marked in the strip. Main content and thumbnails use
+isolated styles and distinct SVG IDs. The kit theme affects controls and borders;
+the presentation retains its own backgrounds, colors, fonts and geometry.
+
+Thumbnails start collapsed. The toolbar shows or hides them with a short
+fade and size transition, horizontal on desktop and vertical on mobile, without
+losing the current slide or zoom. It respects `prefers-reduced-motion`. Closed
+thumbnails are hidden from keyboard navigation and assistive technology; their
+content mounts on first opening and retains its scroll position on later toggles.
+Presentation mode fits the current slide to the entire viewer area and hides
+thumbnails. Previous/next, the counter and exit controls float over the top of
+the slide area. The slide has no surrounding padding, border or corner rounding
+in this mode; differing aspect ratios use centered letterboxing on a black canvas.
+The controls fade away after 2.5 seconds of inactivity. Pointer movement, touch
+or keyboard activity reveals them; hovering or focusing their buttons keeps them
+visible. Keyboard focus can reach the controls while they are faded out. This
+fade respects reduced motion and does not change the slide's size or position.
+It requests browser fullscreen; when fullscreen is unavailable or denied, the
+same presentation layout remains usable within the viewer. Escape or the exit
+button restores the previous zoom and thumbnail preference. Arrow keys and
+Page Up/Page Down/Home/End still work; Space advances and Shift+Space goes back
+while the slide surface has focus. Native fullscreen exits and source changes
+also release presentation mode.
+
+`ViewerFloatingBar` accepts `placement="top"` for upper overlays; its default
+placement is at the bottom.
+
+`isPending`, `isError`, `loadingOverlay`, `onError` and `onLoadingChange` follow the
+Word viewer's contract. Initial loading includes reading, embedded fonts and slide
+images; thumbnails load as they enter the viewport. Source changes and close abort
+fetches, discard late work and release image URLs and registered font faces. Errors
+offer retry and original download; no external viewer is opened automatically.
+
+Presentation content remains static: playback of the file's authored transitions
+and animations, media playback and editing are outside
+this version. Media use their saved posters, and legacy
+charts/OLE use saved previews when present. Unavailable objects show a placeholder.
+Compressed embedded fonts are decoded with `mtx-decompressor`; missing or damaged
+fonts use browser fallbacks, which can change wrapping. SmartArt, 3D and proprietary
+effects have format-specific limits; compare important decks with their originals.
+Protected presentations report an error; no password form is included.
+
+The engine uses `@web-ppt/core` behind an internal adapter. SVG/HTML is sanitized
+with DOMPurify; active content and external resources are blocked. External links
+allow HTTP(S), mail and telephone schemes and use `noopener noreferrer`.
+Dependency notices are included in `dist/assets/presentation-licenses.txt`.
+Storybook includes original PPTX/PPT fixtures, a 4:3 variant, local and remote
+sources, an embedded preview to exercise fullscreen, loading, invalid input,
+public authorized bytes and an upload playground.
 
 `FileViewSheet` accepts `lazyPanels?: boolean`, default `false`. Set it to `true`
 to mount only the initial panel and mount each other panel on its first visit.

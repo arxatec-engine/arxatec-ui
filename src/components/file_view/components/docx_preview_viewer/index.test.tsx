@@ -8,6 +8,7 @@ import {
 } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { renderAsync } from "docx-preview";
+
 import { FileDocxPreviewViewer } from "./index";
 import type { FileWordDocumentConverter } from "./types";
 import { resolveWordDocumentFormat } from "../../utilities/word_document_format";
@@ -238,12 +239,15 @@ describe("FileDocxPreviewViewer", () => {
   it("isolates document styles and strips active hyperlink schemes", async () => {
     vi.mocked(renderAsync).mockImplementationOnce(async (_blob, target) => {
       target.innerHTML =
-        '<style>body { display: none; }</style><a href="javascript:alert(1)">Unsafe</a><a href="https://example.com">Safe</a>';
+        '<style data-document-style>body { display: none; }</style><a href="javascript:alert(1)">Unsafe</a><a href="https://example.com">Safe</a>';
     });
     const { container } = render(<FileDocxPreviewViewer file={localFile()} />);
     await waitFor(() => expect(screen.queryByRole("status")).toBeNull());
     const root = container.querySelector("[data-document-preview]")?.shadowRoot;
-    expect(container.querySelector("style")).toBeNull();
+    expect(container.querySelector("[data-document-style]")).toBeNull();
+    expect(root?.querySelector("[data-document-style]")).toHaveTextContent(
+      "body { display: none; }",
+    );
     expect(root?.querySelector("a")?.hasAttribute("href")).toBe(false);
     expect(root?.querySelectorAll("a")[1].getAttribute("rel")).toContain(
       "noopener",

@@ -1,19 +1,13 @@
 import { FileCode } from "lucide-react";
-import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
-import { oneDark } from "react-syntax-highlighter/dist/esm/styles/prism";
+
 import { StatusMessage } from "@/components/status_message";
+import { cn } from "@/utilities/class";
+
 import { getSourceLanguageFromFile } from "../../utilities/get_source_language_from_file";
 import { useFileViewLoadingChange } from "../../hooks";
-import type { FileViewLoadingChangeHandler } from "../../types";
-
-export interface FileSourceViewerProps {
-  content?: string | null;
-  mimeType: string;
-  fileName: string;
-  isPending?: boolean;
-  isError?: boolean;
-  onLoadingChange?: FileViewLoadingChangeHandler;
-}
+import { SourceContent } from "./components/content";
+import { SOURCE_VIEWER_LABELS } from "./constants";
+import type { FileSourceViewerProps } from "./types";
 
 export const FileSourceViewer = ({
   content,
@@ -22,20 +16,27 @@ export const FileSourceViewer = ({
   isPending = false,
   isError = false,
   onLoadingChange,
+  onDownload,
+  labels: customLabels,
+  className,
 }: FileSourceViewerProps) => {
   const language = getSourceLanguageFromFile(mimeType, fileName);
+  const labels = { ...SOURCE_VIEWER_LABELS, ...customLabels };
   useFileViewLoadingChange(isPending && !isError, onLoadingChange);
 
-  if (isPending) {
+  if (isPending && !isError) {
     return null;
   }
 
   if (isError || content == null) {
     return (
-      <div className="p-6 h-full">
+      <div
+        data-slot="file-source-viewer"
+        className={cn("h-full p-6", className)}
+      >
         <StatusMessage
-          title="No se pudo cargar el código"
-          description="Comprueba que el archivo sea accesible. Si usas URLs externas (p. ej. S3), puede ser necesario un endpoint en el backend que devuelva el contenido como texto."
+          title={labels.errorTitle}
+          description={labels.errorDescription}
           icon={FileCode}
           classNameCard="w-full h-full flex-col items-center justify-center"
           classNameIconCard="mx-auto"
@@ -48,25 +49,16 @@ export const FileSourceViewer = ({
   }
 
   return (
-    <div className="h-full overflow-auto bg-[#282c34] rounded-md">
-      <SyntaxHighlighter
-        language={language}
-        style={oneDark}
-        showLineNumbers
-        wrapLongLines
-        customStyle={{
-          margin: 0,
-          padding: "1rem",
-          fontSize: "0.875rem",
-          lineHeight: 1.6,
-          minHeight: "100%",
-        }}
-        codeTagProps={{
-          style: { fontFamily: "ui-monospace, monospace" },
-        }}
-      >
-        {content}
-      </SyntaxHighlighter>
-    </div>
+    <SourceContent
+      key={`${mimeType}:${fileName}`}
+      content={content}
+      language={language}
+      fileName={fileName}
+      onDownload={onDownload}
+      labels={labels}
+      className={className}
+    />
   );
 };
+
+export type { FileSourceViewerProps, FileSourceViewerLabels } from "./types";

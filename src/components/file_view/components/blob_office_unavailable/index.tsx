@@ -1,24 +1,39 @@
 import { Download, FileSpreadsheet } from "lucide-react";
 
+import { cn } from "@/utilities/class";
+
 export interface FileBlobOfficeUnavailableProps {
+  className?: string;
+  title?: string;
+  description?: string;
+  downloadLabel?: string;
   url: string;
   fileName?: string;
 }
 
-export const FileBlobOfficeUnavailable = ({ url, fileName }: FileBlobOfficeUnavailableProps) => (
-  <div className="flex flex-col items-center justify-center h-full p-4 mx-auto max-w-md text-center">
+export const FileBlobOfficeUnavailable = ({
+  url,
+  fileName,
+  className,
+  title = "Vista previa de Office no disponible para archivos locales",
+  description = "Este formato utiliza un servicio externo que requiere una URL pública. Descarga el archivo para abrirlo en tu dispositivo.",
+  downloadLabel = "Descargar",
+}: FileBlobOfficeUnavailableProps) => (
+  <div
+    data-slot="file-blob-office-unavailable"
+    className={cn(
+      "flex flex-col items-center justify-center h-full p-4 mx-auto max-w-md text-center",
+      className,
+    )}
+  >
     <div className="p-4 rounded-md bg-status-card-background-icon-empty text-foreground">
       <FileSpreadsheet className="size-6" />
     </div>
     <div className="mt-6">
       <h2 className="text-base font-normal text-foreground text-center">
-        Vista previa de Office no disponible para archivos locales
+        {title}
       </h2>
-      <p className="text-sm text-secondary-foreground mt-2">
-        Los documentos Word, Excel y PowerPoint se previsualizan con un servicio
-        externo que requiere una URL pública. Descarga el archivo para abrirlo
-        en tu dispositivo.
-      </p>
+      <p className="text-sm text-secondary-foreground mt-2">{description}</p>
       {fileName && (
         <a
           href={url}
@@ -26,7 +41,7 @@ export const FileBlobOfficeUnavailable = ({ url, fileName }: FileBlobOfficeUnava
           className="mt-4 inline-flex items-center gap-2 rounded-md bg-primary px-2 py-1.5 text-sm font-medium text-primary-foreground hover:bg-primary/90"
         >
           <Download className="size-4" />
-          Descargar &quot;{fileName}&quot;
+          {downloadLabel} &quot;{fileName}&quot;
         </a>
       )}
     </div>

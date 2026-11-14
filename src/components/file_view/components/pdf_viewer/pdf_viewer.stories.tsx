@@ -3,8 +3,8 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { FilePdfViewer } from "./index";
 import { FilePreviewPlayground } from "../file_preview_playground";
 
-const SAMPLE_PDF =
-  "https://www.w3.org/WAI/WCAG21/Techniques/pdf/img/table-word.pdf";
+// W3C test fixture: https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf
+const SAMPLE_PDF = new URL("./fixtures/example.pdf", import.meta.url).href;
 
 const meta = {
   title: "FileView/PdfViewer",
@@ -21,7 +21,7 @@ const meta = {
   tags: ["autodocs"],
   args: {
     url: SAMPLE_PDF,
-    fileName: "tabla-ejemplo.pdf",
+    fileName: "ejemplo.pdf",
     onDownload: () => {},
   },
   argTypes: {
@@ -43,7 +43,7 @@ type Story = StoryObj<typeof FilePdfViewer>;
 export const Default: Story = {
   args: {
     url: SAMPLE_PDF,
-    fileName: "tabla-ejemplo.pdf",
+    fileName: "ejemplo.pdf",
     onDownload: () => {},
   },
 };
@@ -52,7 +52,7 @@ export const Playground: Story = {
   parameters: { controls: { disable: true } },
   args: {
     url: SAMPLE_PDF,
-    fileName: "tabla-ejemplo.pdf",
+    fileName: "ejemplo.pdf",
     onDownload: () => {},
   },
   render: () => (

@@ -26,3 +26,8 @@ export * from "../components/file_view/utilities/preview_mime_type";
 export { resolveWordDocumentFormat } from "../components/file_view/utilities/word_document_format";
 export type { WordDocumentFormat } from "../components/file_view/utilities/word_document_format";
 export type { FileWordDocumentConverter } from "../components/file_view/components/docx_preview_viewer/types";
+export type { FileSpreadsheetConverter } from "../components/file_view/components/xlsx_preview_viewer/types";
+export { resolveSpreadsheetFormat } from "../components/file_view/utilities/spreadsheet_format";
+export { resolvePresentationFormat } from "../components/file_view/utilities/presentation_format";
+export type { PresentationFormat } from "../components/file_view/utilities/presentation_format";
+export type { FilePptxPreviewViewerProps } from "../components/file_view/components/pptx_preview_viewer/types";

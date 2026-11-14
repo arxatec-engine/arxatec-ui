@@ -25,6 +25,10 @@ function isDependencyModule(id: string) {
 }
 
 export default defineConfig({
+  worker: {
+    format: "iife",
+    rollupOptions: { output: { inlineDynamicImports: true } },
+  },
   plugins: [
     react(),
     tailwindcss(),
@@ -94,6 +98,10 @@ export default defineConfig({
         "file-view-docx": path.resolve(
           dirname,
           "src/exports/file-view-docx.ts",
+        ),
+        "file-view-pptx": path.resolve(
+          dirname,
+          "src/exports/file-view-pptx.ts",
         ),
         "file-view-xlsx": path.resolve(
           dirname,
