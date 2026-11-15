@@ -77,7 +77,7 @@ removing the setup exception silently restores the default worker in consumers.
 ## Version and publication
 
 Every publishable change bumps `package.json#version` in the same commit. Keep the
-existing exports and default behavior compatible. Reverified on 2026-11-14 with
+existing exports and default behavior compatible. Reverified on 2026-11-15 with
 `npm view arxatec-ui version`: the registry reports **0.1.81**. Source includes
 unified local and remote Word and Excel previews, with consumer-owned DOC/ODT
 and XLS conversion. XLSX is parsed in a deferred, self-contained worker; XLS
@@ -103,7 +103,11 @@ uses the same layout in the viewer.
 Office, local, URL and public adapters select it without an Office iframe. Word and PDF pages
 use the theme border and `rounded-md` corners
 without page shadows. Both viewers use the kit's `ScrollArea` for vertical and
-horizontal scrolling. The current color work keeps brand and generic feedback colors in
+horizontal scrolling. Candidate **0.1.97** adds a floating document outline:
+Word uses heading styles and PDF uses bookmark nesting. The current section is
+emphasized as the viewer scrolls, nested entries are indented, and the outline
+list uses `ScrollArea`. Files without recognized headings or bookmarks omit it.
+The current color work keeps brand and generic feedback colors in
 the kit and moves Lawyer product tokens and workspace-tinted palettes into the platform. Contact,
 calendar and document product compositions are maintained in the platform.
 Menus, select lists, command lists and floating controls use solid surfaces without

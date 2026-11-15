@@ -2,9 +2,12 @@ import "react-pdf/dist/Page/AnnotationLayer.css";
 import "react-pdf/dist/Page/TextLayer.css";
 import { useRef, useState } from "react";
 import { toast } from "sonner";
+
 import { downloadFileFromUrl } from "@/utilities/download";
+
 import { ErrorState, Toolbar, Content, ErrorBoundary } from "..";
 import { useFileViewLoadingChange } from "../../../../hooks";
+import { DocumentOutline, type DocumentOutlineItem } from "../../../document_outline";
 import type { ContentHandle } from "../content";
 import type { FilePdfViewerProps } from "../../types";
 
@@ -14,6 +17,7 @@ const FilePdfViewerContent = ({
   onDownload,
   onLoadingChange,
 }: FilePdfViewerProps) => {
+  const [outline, setOutline] = useState<DocumentOutlineItem[]>([]);
   const [numPages, setNumPages] = useState(0);
   const [pageNumber, setPageNumber] = useState(1);
   const [scale, setScale] = useState(1.0);
@@ -65,6 +69,7 @@ const FilePdfViewerContent = ({
       <div className="relative flex flex-col h-full w-full bg-background">
         <Content
           ref={contentRef}
+          onOutline={setOutline}
           url={url}
           scale={scale}
           onLoadSuccess={onDocumentLoadSuccess}
@@ -72,6 +77,7 @@ const FilePdfViewerContent = ({
           numPages={numPages}
           onVisiblePageChange={setPageNumber}
         />
+        <DocumentOutline items={outline} />
         <Toolbar
           scale={scale}
           pageNumber={pageNumber}

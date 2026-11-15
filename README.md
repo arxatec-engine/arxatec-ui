@@ -607,6 +607,9 @@ discards late renders. Pages fit the available width and retain zoom and scrolli
 In source candidate `0.1.83`, Word and PDF pages use `border border-border` and
 `rounded-md` corners without a page shadow. Both viewers use the kit's `ScrollArea`
 with vertical and horizontal scrollbars, including when zooming into a document.
+In source candidate `0.1.97`, a floating outline appears when Word heading styles
+or PDF bookmarks are available. It preserves title/subtitle levels, marks the
+current section during scrolling and opens a scrollable list on hover.
 
 Document styles are isolated in a Shadow DOM. Embedded HTML altChunks are disabled
 and active hyperlink schemes are removed. This is a preview engine, not an editor

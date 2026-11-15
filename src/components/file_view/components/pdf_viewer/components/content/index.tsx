@@ -4,8 +4,10 @@ import { Document, Page } from "react-pdf";
 import { ScrollArea, ScrollBar } from "@/components/scroll_area";
 import { cn } from "@/utilities/class";
 
+import type { DocumentOutlineItem } from "../../../document_outline";
 import "../../../../utilities/setup_pdf_worker";
 import { DEFAULT_PAGE_DIMENSIONS } from "./constants";
+import { usePdfOutline } from "./hooks/use_pdf_outline";
 import { usePdfPageVisibility } from "./hooks/use_pdf_page_visibility";
 import type { ContentHandle } from "./types";
 
@@ -17,6 +19,7 @@ interface Props {
   onLoadError: (error: Error) => void;
   onVisiblePageChange: (page: number) => void;
   className?: string;
+  onOutline?: (items: DocumentOutlineItem[]) => void;
 }
 
 export const Content = forwardRef<ContentHandle, Props>(
@@ -29,6 +32,7 @@ export const Content = forwardRef<ContentHandle, Props>(
       onLoadError,
       onVisiblePageChange,
       className,
+      onOutline,
     },
     ref,
   ) => {
@@ -40,6 +44,7 @@ export const Content = forwardRef<ContentHandle, Props>(
       registerPageElement,
       options,
     } = usePdfPageVisibility(ref, onVisiblePageChange);
+    const loadOutline = usePdfOutline(containerRef, onOutline);
     const { width, height } = pageDimensions ?? DEFAULT_PAGE_DIMENSIONS;
     const placeholderStyle = {
       width: width * scale,
@@ -57,7 +62,10 @@ export const Content = forwardRef<ContentHandle, Props>(
       >
         <Document
           file={url}
-          onLoadSuccess={onLoadSuccess}
+          onLoadSuccess={(pdf) => {
+            onLoadSuccess(pdf);
+            loadOutline(pdf);
+          }}
           onLoadError={onLoadError}
           loading={null}
           options={options}
