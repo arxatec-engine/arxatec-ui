@@ -70,10 +70,10 @@ export const DocumentOutline = ({ items }: Props) => {
           className="origin-top-left motion-safe:animate-in motion-safe:fade-in-0 motion-safe:zoom-in-95 motion-safe:duration-200"
         >
           <ScrollArea
-            className="w-72 max-w-[calc(100vw-2rem)] rounded-xl border bg-popover text-popover-foreground shadow-lg"
+            className="@container w-72 max-w-[calc(100vw-2rem)] rounded-xl border bg-popover text-popover-foreground shadow-lg"
             style={{ height: `min(70vh, 32rem, ${items.length * 40 + 16}px)` }}
           >
-            <div className="p-2">
+            <div className="w-[100cqw] p-2">
               {items.map((item, index) => (
                 <button
                   key={index}
