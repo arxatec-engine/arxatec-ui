@@ -118,18 +118,14 @@ export const FileDocxPreviewViewerContent = (
           title={labels.errorTitle}
           description={labels.errorDescription}
           actions={
-            <>
-              <Button
-                variant="outline"
-                onClick={retry}
-                disabled={props.isPending || props.isError || !source}
-              >
-                {labels.retry}
-              </Button>
-              <Button variant="outline" onClick={download} disabled={!source}>
-                {labels.downloadOriginal}
-              </Button>
-            </>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={retry}
+              disabled={props.isPending || props.isError || !source}
+            >
+              {labels.retry}
+            </Button>
           }
         />
       )}

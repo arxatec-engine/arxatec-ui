@@ -98,7 +98,7 @@ describe("floating video controls", () => {
     expect(video.volume).toBeGreaterThan(0);
   });
 
-  it("reports loading, buffering and terminal failures while preserving download", () => {
+  it("reports loading, buffering and terminal failures without error controls", () => {
     const onLoadingChange = vi.fn();
     const onDownload = vi.fn();
     const { container, unmount } = render(
@@ -116,10 +116,8 @@ describe("floating video controls", () => {
     fireEvent.error(video);
     expect(onLoadingChange).toHaveBeenLastCalledWith(false);
     expect(screen.getByText("No se pudo cargar el video")).toBeInTheDocument();
-    const toolbar = within(screen.getByRole("toolbar"));
-    expect(toolbar.getByRole("button", { name: "Reproducir" })).toBeDisabled();
-    fireEvent.click(toolbar.getByRole("button", { name: "Descargar video" }));
-    expect(onDownload).toHaveBeenCalledOnce();
+    expect(screen.queryByRole("toolbar")).toBeNull();
+    expect(onDownload).not.toHaveBeenCalled();
     unmount();
     expect(onLoadingChange).toHaveBeenLastCalledWith(false);
   });

@@ -8,5 +8,5 @@ export const WORD_DOCUMENT_LABELS: FileDocxPreviewViewerLabels = {
   retry: "Reintentar",
   downloadOriginal: "Descargar original",
   errorTitle: "No se pudo abrir el documento",
-  errorDescription: "Vuelve a intentarlo o descarga el archivo original.",
+  errorDescription: "Vuelve a intentarlo en unos momentos.",
 };

@@ -41,22 +41,14 @@ export const FileXlsxPreviewViewerContent = (
             (error instanceof Error ? error.message : labels.errorDescription)
           }
           actions={
-            <>
-              <Button
-                variant="outline"
-                onClick={retry}
-                disabled={props.isPending || props.isError || !source}
-              >
-                {labels.retry}
-              </Button>
-              <Button
-                variant="outline"
-                onClick={() => void download()}
-                disabled={!source}
-              >
-                {labels.download}
-              </Button>
-            </>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={retry}
+              disabled={props.isPending || props.isError || !source}
+            >
+              {labels.retry}
+            </Button>
           }
         />
       )}

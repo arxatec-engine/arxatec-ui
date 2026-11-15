@@ -31,6 +31,8 @@ export const FileViewErrorState = ({
       title={title}
       description={description}
       icon={icon}
+      color="white"
+      appearance="plain"
       classNameCard="w-full max-w-md flex-col items-center text-center"
     />
     {actions && (

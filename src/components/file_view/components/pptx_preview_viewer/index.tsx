@@ -46,20 +46,16 @@ export const FilePptxPreviewViewer = (props: FilePptxPreviewViewerProps) => {
           title={labels.errorTitle}
           description={labels.errorDescription}
           actions={
-            <>
-              <Button
-                variant="outline"
-                disabled={
-                  props.isPending || props.isError || (!props.file && !props.url)
-                }
-                onClick={retry}
-              >
-                {labels.retry}
-              </Button>
-              <Button variant="outline" onClick={download}>
-                {labels.downloadOriginal}
-              </Button>
-            </>
+            <Button
+              variant="outline"
+              size="sm"
+              disabled={
+                props.isPending || props.isError || (!props.file && !props.url)
+              }
+              onClick={retry}
+            >
+              {labels.retry}
+            </Button>
           }
         />
       )}

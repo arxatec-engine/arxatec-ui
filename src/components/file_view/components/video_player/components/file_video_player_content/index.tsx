@@ -106,9 +106,11 @@ export const FileVideoPlayerContent = ({
         </div>
       )}
       {player.hasError && (
-        <VideoErrorOverlay onDownload={download} labels={labels} />
+        <VideoErrorOverlay labels={labels} />
       )}
-      <VideoOverlay player={player} onDownload={download} labels={labels} />
+      {!player.hasError && (
+        <VideoOverlay player={player} onDownload={download} labels={labels} />
+      )}
     </div>
   );
 };

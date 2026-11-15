@@ -15,5 +15,5 @@ export const VIDEO_PLAYER_LABELS: FileVideoPlayerLabels = {
   downloadError: "No se pudo descargar el video",
   fullscreenError: "No se pudo abrir la pantalla completa",
   errorTitle: "No se pudo cargar el video",
-  errorDescription: "Descarga el archivo para abrirlo en tu equipo.",
+  errorDescription: "Vuelve a intentarlo en unos momentos.",
 };

@@ -18,7 +18,7 @@ export const PRESENTATION_LABELS: FilePptxPreviewViewerLabels = {
   startPresentation: "Iniciar presentación",
   exitPresentation: "Salir de presentación",
   errorTitle: "No se pudo abrir la presentación",
-  errorDescription: "Vuelve a intentarlo o descarga el archivo original.",
+  errorDescription: "Vuelve a intentarlo en unos momentos.",
   retry: "Reintentar",
   downloadOriginal: "Descargar original",
 };

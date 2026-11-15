@@ -40,7 +40,7 @@ export const FileEditViewer = ({
             : "Vuelve a intentarlo. Si el error persiste, contacta con soporte."
         }
         actions={onRetry ? (
-          <Button variant="outline" onClick={onRetry}>
+          <Button variant="outline" size="sm" onClick={onRetry}>
             <RefreshCw className="size-4 mr-2" />
             Reintentar
           </Button>

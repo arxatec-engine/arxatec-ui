@@ -102,9 +102,8 @@ describe("FileDocxPreviewViewer", () => {
       "No se pudo abrir el documento",
     );
     expect(renderAsync).not.toHaveBeenCalled();
-    expect(
-      screen.getByRole("button", { name: "Descargar original" }),
-    ).toBeEnabled();
+    expect(screen.getByRole("button", { name: "Reintentar" })).toBeEnabled();
+    expect(screen.queryByRole("button", { name: "Descargar original" })).toBeNull();
   });
 
   it("supplies an extension to the converter for a MIME-only remote document", async () => {

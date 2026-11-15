@@ -4,6 +4,7 @@ interface Props {
   title: string;
   description: string;
   color?: "rose" | "white";
+  appearance?: "card" | "plain";
   icon?: React.ElementType;
   size?: "sm" | "md";
   classNameCard?: string;
@@ -24,7 +25,7 @@ const colorVariants = {
     background: "bg-status-card-background-empty",
     backgroundCardIcon: "bg-status-card-background-icon-empty",
     textPrimary: "text-status-card-foreground-empty",
-    textSecondary: "text-status-card-foreground-emtpy opacity-60",
+    textSecondary: "text-status-card-foreground-empty opacity-60",
   },
 };
 
@@ -32,6 +33,7 @@ export const StatusMessage: React.FC<Props> = ({
   title,
   description,
   color = "rose",
+  appearance = "card",
   icon: Icon,
   size = "md",
   classNameCard,
@@ -42,17 +44,19 @@ export const StatusMessage: React.FC<Props> = ({
   return (
     <div
       className={cn(
-        " rounded-md flex items-center flex-wrap border",
-        size === "sm" ? "p-4 gap-2" : "p-6 gap-4",
+        "flex items-center flex-wrap",
+        size === "sm" ? "gap-2" : "gap-4",
+        appearance === "card" && "rounded-md border",
+        appearance === "card" && (size === "sm" ? "p-4" : "p-6"),
         classNameCard,
-        colorVariants[color].background,
-        colorVariants[color].border
+        appearance === "card" && colorVariants[color].background,
+        appearance === "card" && colorVariants[color].border
       )}
     >
       {Icon && (
         <div
           className={cn(
-            "rounded-md flex items-center justify-center ",
+            "flex items-center justify-center rounded-md",
             size === "sm" ? "size-8" : "size-12",
             classNameIconCard,
             colorVariants[color].backgroundCardIcon

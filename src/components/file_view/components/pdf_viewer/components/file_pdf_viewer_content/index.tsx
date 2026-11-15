@@ -62,7 +62,7 @@ const FilePdfViewerContent = ({
     }
   };
 
-  if (error) return <ErrorState onDownload={handleDownloadFile} />;
+  if (error) return <ErrorState />;
 
   return (
     <ErrorBoundary>

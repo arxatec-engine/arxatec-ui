@@ -3,7 +3,7 @@ import type { FileXlsxPreviewViewerLabels } from "../types";
 export const SPREADSHEET_LABELS: FileXlsxPreviewViewerLabels = {
   toolbar: "Controles del visor de Excel",
   errorTitle: "No se pudo abrir el libro",
-  errorDescription: "Vuelve a intentarlo o descarga el archivo original.",
+  errorDescription: "Vuelve a intentarlo en unos momentos.",
   retry: "Reintentar",
   download: "Descargar original",
   basicView:
