@@ -1,12 +1,11 @@
-import { StatusMessage } from "@/components/status_message";
 import { ImageOff } from "lucide-react";
 
-export const ErrorState = () => {
-  return (
-    <StatusMessage
-      title="Sucedio un error al cargar la imgen"
-      description="Vuelve a intentarlo dentro de unos minutos si el error persiste, contacta con soporte"
-      icon={ImageOff}
-    />
-  );
-};
+import { FileViewErrorState } from "../../../error_state";
+
+export const ErrorState = () => (
+  <FileViewErrorState
+    title="No se pudo cargar la imagen"
+    description="Vuelve a intentarlo en unos momentos."
+    icon={ImageOff}
+  />
+);

@@ -107,6 +107,8 @@ horizontal scrolling. Candidate **0.1.97** adds a floating document outline:
 Word uses heading styles and PDF uses bookmark nesting. The current section is
 emphasized as the viewer scrolls, nested entries are indented, and the outline
 list uses `ScrollArea`. Files without recognized headings or bookmarks omit it.
+Candidate **0.1.100** centers preview errors in one `FileViewErrorState` across
+engines and sheets, retaining format-specific copy and available actions.
 The current color work keeps brand and generic feedback colors in
 the kit and moves Lawyer product tokens and workspace-tinted palettes into the platform. Contact,
 calendar and document product compositions are maintained in the platform.

@@ -1,7 +1,7 @@
 import { Download, FileX } from "lucide-react";
 import { Button } from "@/components/button";
-import { StatusMessage } from "@/components/status_message";
 import { useFileViewLoadingChange } from "../../hooks";
+import { FileViewErrorState } from "../error_state";
 import type { FileViewLoadingChangeHandler } from "../../types";
 
 export interface FileUnknownViewerProps {
@@ -26,15 +26,7 @@ export const FileUnknownViewer = ({
   }
 
   if (isError) {
-    return (
-      <div className="p-6">
-        <StatusMessage
-          title="Sucedio un error inesperado"
-          description="Vuelve a intentarlo dentro de unos minutos, si el error persiste, contacta con soporte."
-          icon={FileX}
-        />
-      </div>
-    );
+    return <FileViewErrorState />;
   }
 
   return (

@@ -1,10 +1,10 @@
 import { FileCode } from "lucide-react";
 
-import { StatusMessage } from "@/components/status_message";
 import { cn } from "@/utilities/class";
 
 import { getSourceLanguageFromFile } from "../../utilities/get_source_language_from_file";
 import { useFileViewLoadingChange } from "../../hooks";
+import { FileViewErrorState } from "../error_state";
 import { SourceContent } from "./components/content";
 import { SOURCE_VIEWER_LABELS } from "./constants";
 import type { FileSourceViewerProps } from "./types";
@@ -32,17 +32,12 @@ export const FileSourceViewer = ({
     return (
       <div
         data-slot="file-source-viewer"
-        className={cn("h-full p-6", className)}
+        className={cn("h-full", className)}
       >
-        <StatusMessage
+        <FileViewErrorState
           title={labels.errorTitle}
           description={labels.errorDescription}
           icon={FileCode}
-          classNameCard="w-full h-full flex-col items-center justify-center"
-          classNameIconCard="mx-auto"
-          classNameDescription="text-center w-full max-w-sm"
-          classNameTitle="text-center w-full"
-          color="white"
         />
       </div>
     );

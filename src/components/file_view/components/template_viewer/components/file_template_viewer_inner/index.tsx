@@ -21,6 +21,7 @@ import { Label } from "@/components/label";
 import { StatusMessage } from "@/components/status_message";
 import { FileQuestion, Trash2 } from "lucide-react";
 import { toast } from "sonner";
+import { FileViewErrorState } from "../../../error_state";
 import type {
   FileAnnotation,
   FileAnnotationsRow,
@@ -701,22 +702,19 @@ const FileTemplateViewerInner = forwardRef<
       <div className="flex min-h-0 flex-1">
         <div className="relative flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden">
           {previewFailed ? (
-            <div className="flex h-full items-center justify-center p-6">
-              <StatusMessage
-                color="white"
-                title={
-                  isDocx
-                    ? "No se pudo cargar la vista desde Word"
-                    : "No se pudo cargar el PDF"
-                }
-                description={
-                  isDocx
-                    ? "Vuelve a intentarlo. Si el documento es muy complejo, prueba desde la pestaña Documento."
-                    : "Vuelve a intentarlo o descarga el archivo desde la pestaña Documento."
-                }
-                icon={FileQuestion}
-              />
-            </div>
+            <FileViewErrorState
+              title={
+                isDocx
+                  ? "No se pudo cargar la vista desde Word"
+                  : "No se pudo cargar el PDF"
+              }
+              description={
+                isDocx
+                  ? "Vuelve a intentarlo. Si el documento es muy complejo, prueba desde la pestaña Documento."
+                  : "Vuelve a intentarlo o descarga el archivo desde la pestaña Documento."
+              }
+              icon={FileQuestion}
+            />
           ) : canShowViewer && viewerPdfSrc ? (
             <>
               <div className="flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden">

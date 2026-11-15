@@ -1,16 +1,26 @@
-import { StatusMessage } from "@/components/status_message";
 import { FileText } from "lucide-react";
 
-export const ErrorState = () => (
-  <div className="p-6 h-full">
-    <StatusMessage
-      title="Sucedio un error inesperado"
-      icon={FileText}
-      description="Sucedio un error, vuelve a intentarlo dentro de un momento, si el error persiste, contacta con soporte."
-      classNameCard="w-full h-full flex-col items-center justify-center"
-      classNameIconCard="mx-auto"
-      classNameDescription="text-center w-full max-w-sm"
-      classNameTitle="text-center w-full"
-    />
-  </div>
+import { Button } from "@/components/button";
+
+import { FileViewErrorState } from "../../../error_state";
+
+interface Props {
+  onDownload?: () => void | Promise<void>;
+}
+
+export const ErrorState = ({ onDownload }: Props) => (
+  <FileViewErrorState
+    title="No se pudo abrir el PDF"
+    description={
+      onDownload
+        ? "Vuelve a intentarlo o descarga el archivo original."
+        : "Vuelve a intentarlo en unos momentos."
+    }
+    icon={FileText}
+    actions={onDownload && (
+      <Button variant="outline" onClick={() => void onDownload()}>
+        Descargar original
+      </Button>
+    )}
+  />
 );

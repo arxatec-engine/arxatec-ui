@@ -172,3 +172,18 @@ export const Cargando: Story = {
     />
   ),
 };
+
+export const Error: Story = {
+  render: () => (
+    <FileViewSheet
+      open
+      onOpenChange={() => {}}
+      fileKey="error-demo"
+      title="contrato-servicios.pdf"
+      isError
+      showTabs
+      tabs={[{ id: FILE_VIEW_SHEET_TAB.ORIGINAL, label: "Original" }]}
+      renderOriginal={null}
+    />
+  ),
+};

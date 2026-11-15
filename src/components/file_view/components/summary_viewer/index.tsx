@@ -2,6 +2,7 @@ import { useMemo } from "react";
 import { Copy, FileText } from "lucide-react";
 import { Button } from "@/components/button";
 import { StatusMessage } from "@/components/status_message";
+import { FileViewErrorState } from "../error_state";
 import { summaryMarkdownToHtml } from "../../utilities/summary_markdown";
 import { useFileViewLoadingChange } from "../../hooks";
 import type { FileViewLoadingChangeHandler } from "../../types";
@@ -58,23 +59,16 @@ export const FileSummaryViewer = ({
 
   if (isError) {
     return (
-      <div className="p-4 h-full flex flex-col items-center justify-center gap-4">
-        <StatusMessage
-          title="No se pudo generar el resumen"
-          description="Vuelve a intentarlo. Si el error persiste, verifica que el archivo tenga contenido legible."
-          icon={FileText}
-          classNameCard="w-full flex-col items-center justify-center"
-          classNameIconCard="mx-auto"
-          classNameDescription="text-center w-full max-w-sm"
-          classNameTitle="text-center w-full"
-          color="white"
-        />
-        {onRetry ? (
+      <FileViewErrorState
+        title="No se pudo generar el resumen"
+        description="Vuelve a intentarlo. Si el error persiste, verifica que el archivo tenga contenido legible."
+        icon={FileText}
+        actions={onRetry ? (
           <Button variant="outline" size="sm" onClick={onRetry}>
             Reintentar
           </Button>
         ) : null}
-      </div>
+      />
     );
   }
 

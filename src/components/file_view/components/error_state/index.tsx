@@ -1,16 +1,40 @@
-import { FileText } from "lucide-react";
-import { StatusMessage } from "@/components/status_message";
+import { FileX } from "lucide-react";
+import type { ElementType, ReactNode } from "react";
 
-export const FileViewErrorState = () => (
-  <div className="p-6 h-full">
+import { StatusMessage } from "@/components/status_message";
+import { cn } from "@/utilities/class";
+
+export interface FileViewErrorStateProps {
+  title?: string;
+  description?: string;
+  icon?: ElementType;
+  actions?: ReactNode;
+  className?: string;
+}
+
+export const FileViewErrorState = ({
+  title = "No se pudo abrir la vista previa",
+  description = "Vuelve a intentarlo en unos momentos.",
+  icon = FileX,
+  actions,
+  className,
+}: FileViewErrorStateProps) => (
+  <div
+    data-slot="file-view-error-state"
+    role="alert"
+    className={cn(
+      "flex h-full min-h-0 w-full flex-col items-center justify-center gap-4 bg-background p-6",
+      className,
+    )}
+  >
     <StatusMessage
-      title="Sucedio un error inesperado"
-      icon={FileText}
-      description="Sucedio un error, vuelve a intentarlo dentro de un momento, si el error persiste, contacta con soporte."
-      classNameCard="w-full h-full flex-col items-center justify-center"
-      classNameIconCard="mx-auto"
-      classNameDescription="text-center w-full max-w-sm"
-      classNameTitle="text-center w-full"
+      title={title}
+      description={description}
+      icon={icon}
+      classNameCard="w-full max-w-md flex-col items-center text-center"
     />
+    {actions && (
+      <div className="flex flex-wrap justify-center gap-2">{actions}</div>
+    )}
   </div>
 );

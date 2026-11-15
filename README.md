@@ -532,6 +532,12 @@ The wrapper loads without adding loading, error or retry controls. Loading
 callbacks reach the existing parent sheet; a failed load ends its pending state.
 Closing and reopening the sheet allows another load attempt.
 
+In source candidate `0.1.100`, preview errors share a centered
+`FileViewErrorState` with an icon, title and description. Viewers keep
+format-specific copy and their available retry or download actions. The
+component accepts optional `title`, `description`, `icon`, `actions` and
+`className`; loading, empty and unsupported states remain separate.
+
 ### Floating video and source controls (candidate 0.1.96)
 
 `FileVideoPlayer` (`/file-view/video`) and `FileSourceViewer` /

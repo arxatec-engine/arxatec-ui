@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { Copy, FileText } from "lucide-react";
 import { Button } from "@/components/button";
-import { StatusMessage } from "@/components/status_message";
+import { FileViewErrorState } from "../error_state";
 import { splitTranscriptionPages } from "../../utilities/transcription_pages";
 import { useFileViewLoadingChange } from "../../hooks";
 import type { FileViewLoadingChangeHandler } from "../../types";
@@ -40,18 +40,11 @@ export const FileTranscriptionViewer = ({
 
   if (isError) {
     return (
-      <div className="p-4 h-full">
-        <StatusMessage
-          title="Transcripción no disponible"
-          description="Este archivo aún no tiene una transcripción o sucedió un error al cargarla."
-          icon={FileText}
-          classNameCard="w-full h-full flex-col items-center justify-center"
-          classNameIconCard="mx-auto"
-          classNameDescription="text-center w-full max-w-sm"
-          classNameTitle="text-center w-full"
-          color="white"
-        />
-      </div>
+      <FileViewErrorState
+        title="Transcripción no disponible"
+        description="Este archivo aún no tiene una transcripción o sucedió un error al cargarla."
+        icon={FileText}
+      />
     );
   }
 

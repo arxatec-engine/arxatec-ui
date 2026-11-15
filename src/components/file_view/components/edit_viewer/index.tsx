@@ -2,6 +2,7 @@ import { RefreshCw, FileX } from "lucide-react";
 import { Button } from "@/components/button";
 import { StatusMessage } from "@/components/status_message";
 import { useFileViewLoadingChange } from "../../hooks";
+import { FileViewErrorState } from "../error_state";
 import type { FileViewLoadingChangeHandler } from "../../types";
 
 export interface FileEditViewerProps {
@@ -31,23 +32,20 @@ export const FileEditViewer = ({
 
   if (isError) {
     return (
-      <div className="p-6 flex flex-col items-center gap-4">
-        <StatusMessage
-          title="No se pudo importar el documento"
-          description={
-            isUnsupported
-              ? "Este tipo de archivo aún no está soportado para edición (p. ej. .doc clásico)."
-              : "Vuelve a intentarlo. Si el error persiste, contacta con soporte."
-          }
-          icon={FileX}
-        />
-        {onRetry ? (
+      <FileViewErrorState
+        title="No se pudo importar el documento"
+        description={
+          isUnsupported
+            ? "Este tipo de archivo aún no está soportado para edición (p. ej. .doc clásico)."
+            : "Vuelve a intentarlo. Si el error persiste, contacta con soporte."
+        }
+        actions={onRetry ? (
           <Button variant="outline" onClick={onRetry}>
             <RefreshCw className="size-4 mr-2" />
             Reintentar
           </Button>
         ) : null}
-      </div>
+      />
     );
   }
 

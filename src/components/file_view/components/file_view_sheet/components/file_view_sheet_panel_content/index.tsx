@@ -1,6 +1,5 @@
 import { renderPanelContent } from "../../utilities";
 import { useEffect, useState } from "react";
-import { FileX } from "lucide-react";
 import { cn } from "@/utilities/class";
 import {
   SheetContent,
@@ -8,8 +7,8 @@ import {
   SheetHeader,
   SheetTitle,
 } from "@/components/sheet";
-import { StatusMessage } from "@/components/status_message";
 import { Tabs, TabsList, TabsTrigger } from "@/components/tabs";
+import { FileViewErrorState } from "../../../error_state";
 import {
   FILE_VIEW_SHEET_TAB,
   type FileViewSheetTab,
@@ -70,24 +69,16 @@ const FileViewSheetPanelContent = ({
         </SheetDescription>
       </SheetHeader>
 
-      {isError && (
-        <div className="p-4">
-          <StatusMessage
-            title="Sucedio un error inesperado"
-            description="Vuelve a intentarlo dentro de unos minutos, si el error persiste, contacta con soporte."
-            icon={FileX}
-          />
-        </div>
-      )}
-
       <div className="flex-1 relative min-h-0 bg-background">
-        {(isPending || isLoading) && loadingOverlay ? (
+        {!isError && (isPending || isLoading) && loadingOverlay ? (
           <div className="absolute inset-0 z-50 bg-background">
             {loadingOverlay}
           </div>
         ) : null}
 
-        {floatingTabs && (
+        {isError && <FileViewErrorState />}
+
+        {!isError && floatingTabs && (
           <div className="pointer-events-none absolute inset-x-0 top-5 z-30 flex justify-center px-4">
             <Tabs value={activeTab} className="pointer-events-auto max-w-full">
               <TabsList className="border-border bg-card h-auto max-w-full flex-wrap border shadow-lg">

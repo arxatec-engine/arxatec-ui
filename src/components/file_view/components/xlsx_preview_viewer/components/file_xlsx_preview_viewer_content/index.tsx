@@ -1,12 +1,10 @@
-import { FileX } from "lucide-react";
-
 import { Button } from "@/components/button";
-import { StatusMessage } from "@/components/status_message";
 import { cn } from "@/utilities/class";
 
 import { useFileViewLoadingChange } from "../../../../hooks";
 import { useFilePreviewDownload } from "../../../../hooks/use_file_preview_download";
 import { FileViewLoadingState } from "../../../loading_state";
+import { FileViewErrorState } from "../../../error_state";
 import { SPREADSHEET_LABELS } from "../../constants/labels";
 import { useSpreadsheetWorkbook } from "../../hooks/use_spreadsheet_workbook";
 import type { FileXlsxPreviewViewerProps } from "../../types";
@@ -36,36 +34,31 @@ export const FileXlsxPreviewViewerContent = (
         </div>
       )}
       {error && (
-        <div
-          role="alert"
-          className="flex h-full flex-col items-center justify-center gap-4 p-6"
-        >
-          <StatusMessage
-            title={labels.errorTitle}
-            description={
-              props.labels?.errorDescription ??
-              (error instanceof Error ? error.message : labels.errorDescription)
-            }
-            icon={FileX}
-            classNameCard="flex-col items-center text-center"
-          />
-          <div className="flex gap-2">
-            <Button
-              variant="outline"
-              onClick={retry}
-              disabled={props.isPending || props.isError || !source}
-            >
-              {labels.retry}
-            </Button>
-            <Button
-              variant="outline"
-              onClick={() => void download()}
-              disabled={!source}
-            >
-              {labels.download}
-            </Button>
-          </div>
-        </div>
+        <FileViewErrorState
+          title={labels.errorTitle}
+          description={
+            props.labels?.errorDescription ??
+            (error instanceof Error ? error.message : labels.errorDescription)
+          }
+          actions={
+            <>
+              <Button
+                variant="outline"
+                onClick={retry}
+                disabled={props.isPending || props.isError || !source}
+              >
+                {labels.retry}
+              </Button>
+              <Button
+                variant="outline"
+                onClick={() => void download()}
+                disabled={!source}
+              >
+                {labels.download}
+              </Button>
+            </>
+          }
+        />
       )}
       {!loading && !error && workbook && (
         <SpreadsheetWorkspace

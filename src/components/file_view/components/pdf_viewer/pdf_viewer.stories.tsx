@@ -48,6 +48,14 @@ export const Default: Story = {
   },
 };
 
+export const Error: Story = {
+  args: {
+    url: "/archivo-inexistente.pdf",
+    fileName: "archivo-inexistente.pdf",
+    onDownload: () => {},
+  },
+};
+
 export const Playground: Story = {
   parameters: { controls: { disable: true } },
   args: {

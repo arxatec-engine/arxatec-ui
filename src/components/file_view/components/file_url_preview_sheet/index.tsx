@@ -1,5 +1,3 @@
-import { FileX } from "lucide-react";
-
 import { cn } from "@/utilities/class";
 import {
   Sheet,
@@ -8,8 +6,8 @@ import {
   SheetHeader,
   SheetTitle,
 } from "@/components/sheet";
-import { StatusMessage } from "@/components/status_message";
 
+import { FileViewErrorState } from "../error_state";
 import { FileUrlPreviewRender } from "../file_url_preview_render";
 import { getFileNameFromUrl } from "../../utilities/get_extension_from_url";
 import type { FileViewLoadingChangeHandler } from "../../types";
@@ -73,20 +71,17 @@ export const FileUrlPreviewSheet = ({
         </SheetHeader>
 
         <div className="flex-1 relative min-h-0 bg-background overflow-hidden">
-          {(isPending || isLoading) && loadingOverlay ? (
+          {!isError && (isPending || isLoading) && loadingOverlay ? (
             <div className="absolute inset-0 z-50 bg-background">
               {loadingOverlay}
             </div>
           ) : null}
 
           {isError && (
-            <div className="p-4">
-              <StatusMessage
-                title={errorTitle}
-                description={errorDescription}
-                icon={FileX}
-              />
-            </div>
+            <FileViewErrorState
+              title={errorTitle}
+              description={errorDescription}
+            />
           )}
 
           {open && !isPending && !isError && url && (
