@@ -56,10 +56,10 @@ export const DocumentOutline = ({ items }: Props) => {
             aria-label={item.title}
             onFocus={() => setOpen(true)}
             onClick={() => navigate(item)}
-            className="flex h-2 w-9 items-center focus-visible:outline-none"
+            className="flex h-2 w-9 items-center justify-end focus-visible:outline-none"
           >
             <span
-              className={`h-1 rounded-full transition-all duration-200 ${active === index ? "w-8 bg-foreground/80" : "w-5 bg-foreground/30"}`}
+              className={`h-[2.5px] rounded-md transition-all duration-200 ${active === index ? "w-[18px] bg-foreground/80" : "w-[11px] bg-muted-foreground/40"}`}
             />
           </button>
         ))}
