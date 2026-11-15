@@ -532,7 +532,7 @@ The wrapper loads without adding loading, error or retry controls. Loading
 callbacks reach the existing parent sheet; a failed load ends its pending state.
 Closing and reopening the sheet allows another load attempt.
 
-In source candidate `0.1.101`, preview errors share a centered
+In source candidate `1.0.0`, preview errors share a centered
 `FileViewErrorState` with an icon, title and description. Its `StatusMessage`
 uses the white color variant and a plain appearance without a card, border or
 background. Available retry actions remain; error states no longer show a
