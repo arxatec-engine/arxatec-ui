@@ -652,7 +652,7 @@ XLSX renders directly. For XLS, `convertToXlsx` receives the original `File` and
 `{ signal }` and returns an XLSX `Blob` from the application's conversion service.
 The kit contains no workspace, authentication or service URL. Existing consumers
 without a converter get a labeled basic XLS preview in the same grid. A failed
-conversion offers retry and download of the original.
+conversion offers retry; original download remains available in a successfully opened viewer.
 
 The read-only preview retains sheet names, cell coordinates, saved formula
 results, number/date/currency formats, fonts, colors, borders, alignment, row and
@@ -692,10 +692,80 @@ validate the share independently of any private workspace session.
 Loading, retry, zoom, sheet selection and original download are shared between
 sources. Closing or changing the source aborts requests and terminates the worker.
 The conservative preview budget is 20 MiB input, 40 MiB converted output,
-500,000 populated cells and 30 seconds of parsing. Parser engines are bundled
+500,000 normalized cells (including styled empty cells) and 30 seconds of parsing. Parser engines are bundled
 in a deferred, self-contained worker, with notices in
 `dist/assets/spreadsheet-licenses.txt`. Storybook includes local/URL parity,
 styled fixtures, converted/basic XLS, a large sheet and an upload/URL playground.
+
+### Editable Excel workbook (1.1.0 candidate)
+
+```tsx
+import {
+  FileXlsxDocumentEditor,
+  type SpreadsheetEditorHandle,
+} from "arxatec-ui/file-view/xlsx";
+
+const editorRef = useRef<SpreadsheetEditorHandle>(null);
+
+<FileXlsxDocumentEditor
+  ref={editorRef}
+  file={file}
+  labels={labels}
+  currencyFormat={'"S/ "#,##0.00'}
+  onReady={setReady}
+  onChange={setRevision}
+/>;
+
+const bytes = await editorRef.current!.save();
+```
+
+The application supplies the pencil, permissions, Save/Cancel actions and
+persistence. `save()` exports an XLSX snapshot without uploading it. Platform
+replaces the same authorized file using its opening revision. The input `File`
+identifies an immutable editing session; changing it resets the draft. Workbook
+internals stay private so consumers cannot accidentally replace a workbook with
+the lossy preview projection. `onChange` reports pending revisions, including
+uncommitted cell input; `getRevision()` commits that input before returning a
+snapshot revision. `focus()` returns focus to the grid. Opening and exporting
+are deferred separately, and closing a session cancels its workers.
+
+All existing visible sheets share one draft. Double-click, Enter, F2 or typing
+starts cell editing. Enter/Tab commits, Escape cancels the cell input, and
+Delete/Backspace clears selected values while keeping formats. Plain-text TSV
+paste supports quoted multiline fields. The compact formatting popover changes
+font, size, bold/italic/underline/strike, text/fill colors, alignment, wrapping,
+number/date/percentage/currency formats and simple borders. Row/column dimensions
+and safe merge/unmerge apply to the selection. Currency format is consumer-owned;
+the default uses dollars. Existing workbook number formats stay intact unless
+explicitly changed. The original full workbook is loaded for export; hidden
+sheets, unrelated styles and values are retained. An unchanged export returns
+the original bytes exactly.
+
+Existing data connections and query-table parts are retained as opaque package
+data, without refreshing or editing their sources. Known workbook location and
+chart-reference metadata is also retained. Save remaps worksheet relationships,
+preserves these parts byte-for-byte and updates the workbook calculation flag;
+it does not reconstruct those features from the grid model.
+
+Formula expressions can be edited. There is no browser calculation engine.
+Value/formula changes invalidate cached formula results across the workbook,
+including hidden sheets, and request recalculation when opened in a compatible
+spreadsheet application. The grid displays pending expressions instead of stale
+results. Format-only changes retain cached results and request recalculation.
+
+Editing is limited to XLSX, 20 MiB, 50 sheets, 20,000 rows, 512 columns,
+100,000 cells across the workbook (including initialized styled empty cells),
+5,000 editing operations and 30 seconds per worker. ZIP expansion is bounded
+before parsing by streaming actual entry contents. Editing requires native
+`ReadableStream` and `DecompressionStream` with `deflate-raw` support. Workbook
+and sheet protection, manual calculation mode, array formulas, conditional formatting and
+unrecognized package parts such as drawings, charts, tables, comments or macros
+reject editing rather than silently losing them. Unrecognized inline workbook,
+worksheet and style extensions are also rejected. The existing preview stays
+available in the consumer. XLS remains a basic read-only preview. Sheet
+creation/removal/reordering, advanced tools and automatic calculation are future
+work. Stories include `XlsxDocumentEditor/BasicWorkbook` with save and reopen in
+memory and an unsupported-file state.
 
 ### PowerPoint preview from a file or URL (0.1.85)
 

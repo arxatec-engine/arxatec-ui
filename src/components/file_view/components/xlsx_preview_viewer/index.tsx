@@ -13,3 +13,10 @@ export type {
   FileSpreadsheetConverter,
   FileXlsxPreviewViewerLabels,
 } from "./types";
+
+export { FileXlsxDocumentEditor } from "./components/document_editor";
+export type {
+  FileXlsxDocumentEditorProps,
+  SpreadsheetEditorHandle,
+  SpreadsheetEditorLabels,
+} from "./types/editing";

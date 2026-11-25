@@ -13,12 +13,17 @@ import {
   visibleGridLayout,
 } from "../../utilities/grid_layout";
 import type { SpreadsheetSheet } from "../../types";
+import { useSpreadsheetEditing } from "../../contexts/editing";
+import { SPREADSHEET_EDITOR_LIMITS } from "../../constants/editor";
 
 export const useSpreadsheetViewport = (
   sheet: SpreadsheetSheet,
   scale: number,
 ) => {
   const viewportRef = useRef<HTMLDivElement>(null);
+  const editing = useSpreadsheetEditing();
+  const maxRows = editing ? SPREADSHEET_EDITOR_LIMITS.rows : MAX_ROWS;
+  const maxColumns = editing ? SPREADSHEET_EDITOR_LIMITS.columns : MAX_COLUMNS;
   const [rowExtent, setRowExtent] = useState(100);
   const [columnExtent, setColumnExtent] = useState(26);
   const defined = useMemo(
@@ -28,9 +33,9 @@ export const useSpreadsheetViewport = (
     }),
     [sheet],
   );
-  const rowCount = Math.min(MAX_ROWS, Math.max(rowExtent, defined.rows + 50));
+  const rowCount = Math.min(maxRows, Math.max(rowExtent, defined.rows + 50));
   const columnCount = Math.min(
-    MAX_COLUMNS,
+    maxColumns,
     Math.max(columnExtent, defined.columns + 10),
   );
   const rows = useMemo(
@@ -55,7 +60,7 @@ export const useSpreadsheetViewport = (
         instance.range.endIndex >= instance.options.count - 20
       )
         setRowExtent((current) =>
-          current === rowExtent ? Math.min(MAX_ROWS, rowCount + 100) : current,
+          current === rowExtent ? Math.min(maxRows, rowCount + 100) : current,
         );
     },
   });
@@ -75,7 +80,7 @@ export const useSpreadsheetViewport = (
       )
         setColumnExtent((current) =>
           current === columnExtent
-            ? Math.min(MAX_COLUMNS, columnCount + 26)
+            ? Math.min(maxColumns, columnCount + 26)
             : current,
         );
     },

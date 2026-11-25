@@ -77,8 +77,8 @@ removing the setup exception silently restores the default worker in consumers.
 ## Version and publication
 
 Every publishable change bumps `package.json#version` in the same commit. Keep the
-existing exports and default behavior compatible. Reverified on 2026-11-15 with
-`npm view arxatec-ui version`: the registry reports **0.1.81**. Source includes
+existing exports and default behavior compatible. Reverified on 2026-11-25 with
+`npm view arxatec-ui version`: the registry reports **1.0.0**. Source includes
 unified local and remote Word and Excel previews, with consumer-owned DOC/ODT
 and XLS conversion. XLSX is parsed in a deferred, self-contained worker; XLS
 without a converter retains a basic view in the same grid. Excel includes empty
@@ -131,7 +131,15 @@ also accepts a download callback.
 Source numbering extends to at least 100 lines and 20 empty lines after the file,
 and fills taller viewports at the current text size. Extra rows are visual only;
 copy and download use the original content.
-Validate a candidate tarball before a registry consumer update.
+Candidate **1.1.0** adds `FileXlsxDocumentEditor` to `/file-view/xlsx`: one draft
+across visible sheets, typed values and formula expressions, compact formatting,
+bounded worker export and an imperative save/revision/focus contract. Applications
+own the pencil, persistence and discard flow. XLS remains read-only. Unsupported
+workbook parts reject editing, except data connections, query tables and known
+workbook metadata, which are preserved without refresh. Automatic formula
+calculation is future work.
+See the current scope and limits in README. Validate a candidate tarball before
+a registry consumer update.
 
 1. Work directly on `main`, as requested by the owner. Do not create branches
    or PRs unless explicitly requested; deliver remote changes directly to `main`.
@@ -146,8 +154,8 @@ Use an isolated temporary tarball checkout to validate a consumer before publica
 not reach the production consumer. State exactly which publication steps ran in
 `docs/shipped/YYYY_Wnn.md`.
 
-Reverified on 2026-11-14: Lawyer Platform's working tree declares and locks
-registry **0.1.81**. Candidate tarballs are validated in isolated copies; the
+Reverified on 2026-11-25: Lawyer Platform's working tree declares and locks
+registry **1.0.0**. Candidate tarballs are validated in isolated copies; the
 weekly delivery entries identify each validation baseline. A tarball fixture
 does not update a registry consumer.
 Earlier local migration links are historical.

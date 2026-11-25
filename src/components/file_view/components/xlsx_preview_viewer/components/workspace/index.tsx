@@ -12,6 +12,7 @@ import type {
 import { SpreadsheetGrid } from "../spreadsheet_grid";
 import { SpreadsheetSheetTabs } from "../sheet_tabs";
 import { SpreadsheetToolbar } from "../toolbar";
+import { SpreadsheetFormatToolbar } from "../format_toolbar";
 
 interface Props {
   workbook: SpreadsheetWorkbook;
@@ -39,6 +40,12 @@ export const SpreadsheetWorkspace = ({
         <p className="shrink-0 border-b border-border px-3 py-2 text-xs text-muted-foreground">
           {labels.basicView}
         </p>
+      )}
+      {sheet && (
+        <SpreadsheetFormatToolbar
+          sheet={sheet}
+          selection={clipboard.selection}
+        />
       )}
       <div className="relative min-h-0 flex-1 p-3">
         {sheet ? (

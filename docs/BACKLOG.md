@@ -89,3 +89,5 @@ Work already identified, with its origin. It moves to `focus/` when its turn com
   down anywhere. It matters here more than elsewhere because the artefact is
   published: a different Node produces a different `dist/`.
 - Resolver los avisos adicionales de dependencias detectados el 2026-10-16 (XLSX, Tiptap y herramientas de desarrollo); evidencia en docs/known_issues/2026_W42.md — Codex · 2026-10-16
+
+- Extend Excel editing with formula calculation, safe XLS writing and workbook features currently rejected by the basic editor; retain the existing file replacement flow — Jhonny / Codex · 2026-11-25
