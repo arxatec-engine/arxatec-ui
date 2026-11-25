@@ -1,8 +1,6 @@
 import type { CSSProperties, ReactNode } from "react";
 
 import type { FileViewLoadingChangeHandler } from "../../../types";
-import type { SpreadsheetCellFormat } from "./editing";
-import type { SpreadsheetCellEditing } from "./interaction";
 
 export type FileSpreadsheetConverter = (
   file: File,
@@ -28,9 +26,6 @@ export interface SpreadsheetCell {
   style: CSSProperties;
   formula?: string;
   missingResult?: boolean;
-  value?: string | number | boolean | null;
-  valueKind?: "date" | "error";
-  format?: SpreadsheetCellFormat;
 }
 
 export interface SpreadsheetAxis {
@@ -60,7 +55,6 @@ export interface SpreadsheetSheet {
 export interface SpreadsheetWorkbook {
   sheets: SpreadsheetSheet[];
   basic: boolean;
-  calculationPending?: boolean;
 }
 
 export interface SpreadsheetPosition {
@@ -83,7 +77,6 @@ export interface SpreadsheetGridAxis {
 export type SpreadsheetWorkerRequest = {
   buffer: ArrayBuffer;
   format: "xls" | "xlsx";
-  editable?: boolean;
 };
 
 export type SpreadsheetWorkerResult =
@@ -146,5 +139,4 @@ export interface SpreadsheetGridView {
   activeRow?: number;
   activeColumn?: number;
   labels: FileXlsxPreviewViewerLabels;
-  editing?: SpreadsheetCellEditing;
 }

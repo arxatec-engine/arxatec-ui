@@ -5,7 +5,6 @@ export async function readWorkbook(
   buffer: ArrayBuffer,
   format: "xls" | "xlsx",
   signal: AbortSignal,
-  editable = false,
 ): Promise<SpreadsheetWorkbook> {
   if (signal.aborted)
     return Promise.reject(new DOMException("Aborted", "AbortError"));
@@ -47,10 +46,7 @@ export async function readWorkbook(
     worker.onmessageerror = () =>
       fail(new Error("No se pudo recibir el contenido del libro."));
     try {
-      worker.postMessage(
-        { buffer, format, ...(editable ? { editable: true } : {}) },
-        [buffer],
-      );
+      worker.postMessage({ buffer, format }, [buffer]);
     } catch (cause) {
       fail(
         cause instanceof Error

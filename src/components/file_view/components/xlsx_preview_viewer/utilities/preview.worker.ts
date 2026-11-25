@@ -8,11 +8,7 @@ self.onmessage = async (event: MessageEvent<SpreadsheetWorkerRequest>) => {
   let result: SpreadsheetWorkerResult;
   try {
     result = {
-      workbook: await parseSpreadsheet(
-        event.data.buffer,
-        event.data.format,
-        event.data.editable,
-      ),
+      workbook: await parseSpreadsheet(event.data.buffer, event.data.format),
     };
   } catch (cause) {
     result = {

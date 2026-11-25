@@ -9,9 +9,6 @@ import type {
   SpreadsheetWorkbook,
 } from "../types";
 import { SPREADSHEET_LIMITS } from "./constants";
-import { spreadsheetDocumentFormat } from "./editing/read_format";
-import { assertEditableSpreadsheetXml } from "./editing/validate_xml";
-import { assertEditableSpreadsheetWorkbook } from "./editing/package";
 
 const OFFICE_THEME = [
   "FFFFFF",
@@ -223,37 +220,13 @@ function normalizeSheet(
       const missingResult = Boolean(
         formula && (cell.result === undefined || cell.result === null),
       );
-      const style = cellStyle(cell, theme);
       const data: SpreadsheetCell = {
         text: missingResult
           ? `=${formula}`
           : cellText(formula ? cell.result : cell.value, cell.numFmt, date1904),
-        style,
+        style: cellStyle(cell, theme),
         formula,
         missingResult,
-        value:
-          cell.value instanceof Date
-            ? cell.value.toISOString()
-            : typeof cell.value === "number" ||
-                typeof cell.value === "string" ||
-                typeof cell.value === "boolean"
-              ? cell.value
-              : formula
-                ? typeof cell.result === "number" ||
-                  typeof cell.result === "string" ||
-                  typeof cell.result === "boolean"
-                  ? cell.result
-                  : null
-                : cellText(cell.value, undefined, date1904),
-        valueKind:
-          cell.value instanceof Date
-            ? "date"
-            : cell.value &&
-                typeof cell.value === "object" &&
-                "error" in cell.value
-              ? "error"
-              : undefined,
-        format: spreadsheetDocumentFormat(cell, style),
       };
       if (
         !data.style.textAlign &&
@@ -275,7 +248,6 @@ function normalizeSheet(
 export async function parseSpreadsheet(
   buffer: ArrayBuffer,
   format: "xls" | "xlsx",
-  editable = false,
 ): Promise<SpreadsheetWorkbook> {
   if (
     !buffer.byteLength ||
@@ -285,7 +257,6 @@ export async function parseSpreadsheet(
       "El archivo está vacío o supera el tamaño permitido para la vista previa.",
     );
   let count = 0;
-  if (editable) await assertEditableSpreadsheetXml(buffer);
   const consume = () => {
     if (++count > SPREADSHEET_LIMITS.cells)
       throw new Error(
@@ -360,7 +331,6 @@ export async function parseSpreadsheet(
   const { default: ExcelJS } = await import("exceljs");
   const workbook = new ExcelJS.Workbook();
   await workbook.xlsx.load(buffer);
-  if (editable) assertEditableSpreadsheetWorkbook(workbook);
   const theme = [...OFFICE_THEME];
   const themes: unknown = workbook.model.themes;
   const themeXml =

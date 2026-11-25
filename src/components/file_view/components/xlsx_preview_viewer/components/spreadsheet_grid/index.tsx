@@ -1,13 +1,17 @@
+import { useId } from "react";
+
 import { ScrollArea, ScrollBar } from "@/components/scroll_area";
 import { cn } from "@/utilities/class";
 
 import { HEADER_HEIGHT, ROW_HEADER_WIDTH } from "../../constants/grid";
-import { useSpreadsheetGrid } from "../../hooks/use_spreadsheet_grid";
+import { SPREADSHEET_LABELS } from "../../constants/labels";
+import { useGridSelection } from "../../hooks/use_grid_selection";
+import { useSpreadsheetViewport } from "../../hooks/use_spreadsheet_viewport";
+import { activeGridCell } from "../../utilities/grid_layout";
 import type { SpreadsheetGridProps } from "../../types";
 import { SpreadsheetGridHeader } from "../grid_header";
 import { SpreadsheetGridRow } from "../grid_row";
 import { SpreadsheetGridSelection } from "../grid_selection";
-import { SpreadsheetEditingCell } from "../editing_cell";
 
 export const SpreadsheetGrid = ({
   sheet,
@@ -18,17 +22,16 @@ export const SpreadsheetGrid = ({
   className,
   labels: customLabels,
 }: SpreadsheetGridProps) => {
+  const id = useId();
+  const labels = { ...SPREADSHEET_LABELS, ...customLabels };
+  const { viewportRef, layout, scrollToPosition } = useSpreadsheetViewport(
+    sheet,
+    scale,
+  );
+  const { rows, columns, rowCount, columnCount } = layout;
   const {
-    id,
-    labels,
-    viewportRef,
-    layout,
-    grid,
-    editor,
-    activeRow,
-    activeColumn,
-    activeMounted,
     gridRef,
+    range,
     onFocus,
     onKeyDown,
     onPointerDown,
@@ -37,15 +40,34 @@ export const SpreadsheetGrid = ({
     onPointerCancel,
     onLostPointerCapture,
     onHandlePointerDown,
-  } = useSpreadsheetGrid({
+  } = useGridSelection({
     sheet,
-    scale,
+    rows,
+    columns,
     selection,
     onSelectionChange,
     onCopyResult,
-    labels: customLabels,
+    viewportRef,
+    headerHeight: HEADER_HEIGHT,
+    rowHeaderWidth: ROW_HEADER_WIDTH,
+    scrollToPosition,
+    labels,
   });
-  const { rows, columns, rowCount, columnCount } = layout;
+  const { activeRow, activeColumn, activeMounted } = activeGridCell(
+    selection,
+    sheet,
+    layout,
+  );
+  const grid = {
+    id,
+    sheet,
+    scale,
+    layout,
+    range: range,
+    activeRow,
+    activeColumn,
+    labels,
+  };
   return (
     <ScrollArea
       viewportRef={viewportRef}
@@ -63,7 +85,7 @@ export const SpreadsheetGrid = ({
         data-slot="spreadsheet-grid-content"
         role="grid"
         aria-label={sheet.name}
-        aria-readonly={!editor.enabled}
+        aria-readonly="true"
         aria-multiselectable="true"
         aria-describedby={`${id}-help`}
         aria-activedescendant={
@@ -71,11 +93,7 @@ export const SpreadsheetGrid = ({
         }
         tabIndex={0}
         onFocus={onFocus}
-        onKeyDown={(event) => {
-          if (!editor.onKeyDown(event)) onKeyDown(event);
-        }}
-        onDoubleClick={editor.onDoubleClick}
-        onPaste={editor.onPaste}
+        onKeyDown={onKeyDown}
         onPointerDown={onPointerDown}
         onPointerMove={onPointerMove}
         onPointerUp={onPointerUp}
@@ -102,7 +120,6 @@ export const SpreadsheetGrid = ({
           grid={grid}
           onHandlePointerDown={onHandlePointerDown}
         />
-        <SpreadsheetEditingCell grid={grid} />
       </div>
       <ScrollBar orientation="horizontal" />
     </ScrollArea>
