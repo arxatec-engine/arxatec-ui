@@ -65,7 +65,8 @@ export function useGridSelection(options: Options) {
       if (
         !current.selection ||
         !event.clipboardData ||
-        !gridRef.current?.contains(document.activeElement)
+        !gridRef.current?.contains(document.activeElement) ||
+        document.activeElement?.matches("input,textarea,[contenteditable=true]")
       )
         return;
       event.preventDefault();
@@ -223,6 +224,11 @@ export function useGridSelection(options: Options) {
     if (point) options.onSelectionChange({ anchor: point, focus: point });
   };
   const onKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
+    if (
+      event.target instanceof Element &&
+      event.target.closest("input,textarea,[contenteditable=true]")
+    )
+      return;
     const { rows, columns, sheet, selection, onSelectionChange } = options;
     if (event.altKey || !rows.indices.length || !columns.indices.length) return;
     const modifier = event.ctrlKey || event.metaKey;

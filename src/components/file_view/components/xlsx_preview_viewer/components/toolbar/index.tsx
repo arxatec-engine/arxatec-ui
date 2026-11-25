@@ -11,6 +11,7 @@ import {
 import { selectionLabel } from "../../utilities/selection";
 import type { useSpreadsheetClipboard } from "../../hooks/use_spreadsheet_clipboard";
 import type { FileXlsxPreviewViewerLabels } from "../../types";
+import { useSpreadsheetEditing } from "../../contexts/editing";
 
 interface Props {
   scale: number;
@@ -30,6 +31,7 @@ export const SpreadsheetToolbar = ({
   className,
 }: Props) => {
   const { selection, copyNotice, selectedRange, copySelection } = clipboard;
+  const editing = useSpreadsheetEditing();
   return (
     <ViewerFloatingBar
       ariaLabel={labels.toolbar}
@@ -93,15 +95,17 @@ export const SpreadsheetToolbar = ({
       <span className="sr-only" aria-live="polite">
         {copyNotice?.message}
       </span>
-      <Button
-        variant="ghost"
-        size="icon"
-        className="size-8"
-        aria-label={labels.download}
-        onClick={onDownload}
-      >
-        <Download className="size-4" />
-      </Button>
+      {!editing && (
+        <Button
+          variant="ghost"
+          size="icon"
+          className="size-8"
+          aria-label={labels.download}
+          onClick={onDownload}
+        >
+          <Download className="size-4" />
+        </Button>
+      )}
     </ViewerFloatingBar>
   );
 };
