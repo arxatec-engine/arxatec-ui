@@ -43,6 +43,8 @@ export const SpreadsheetGridCell = ({
       aria-rowspan={rowSpan}
       aria-colspan={columnSpan}
       data-cell={`${columnLabel(column)}${row + 1}`}
+      data-row={row}
+      data-column={column}
       data-active={(row === activeRow && column === activeColumn) || undefined}
       data-slot="spreadsheet-cell"
       className={cn(
